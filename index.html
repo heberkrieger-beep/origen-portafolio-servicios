@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --b:#FFFFFF; --n:#111111; --p:#6B6760; --d:#C9B37A; --o:#484D3A;
+  --b:#FFFFFF; --n:#111111; --p:#6B6760; --d:#C9B37A; --dk:#8A6E3A; --o:#484D3A;
   --l:rgba(17,17,17,0.09); --lf:rgba(17,17,17,0.045); --cream:#FAF8F4;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -34,7 +34,10 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .mainnav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.92);
   backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);
   border-bottom:1px solid var(--l);display:flex;align-items:center;justify-content:space-between;padding:16px 40px}
-.mainnav .brand{font-family:'Cormorant',serif;font-size:22px;letter-spacing:7px;font-weight:400;color:var(--n);text-decoration:none}
+.mainnav .brand{font-family:'Cormorant',serif;font-size:22px;letter-spacing:7px;font-weight:400;color:var(--n);text-decoration:none;display:flex;align-items:center}
+.brand-logo{height:44px;width:auto;display:block}
+.nav-planes{color:var(--dk)!important;font-weight:400}
+.nav-planes:hover{color:var(--d)!important}
 .mainnav .links{display:flex;gap:30px;align-items:center}
 .mainnav .links a{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);
   text-decoration:none;padding:6px 0;position:relative;transition:color .25s}
@@ -175,12 +178,12 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 
 <!-- ══════ NAV ══════ -->
 <nav class="mainnav">
-  <a href="#top" class="brand">ORIGEN</a>
+  <a href="#top" class="brand"><img src="logo-origen.png" alt="ORIGEN" class="brand-logo"></a>
   <input type="checkbox" id="navtoggle" class="navtoggle">
   <label for="navtoggle" class="navburger" aria-label="Menú"><span></span><span></span><span></span></label>
   <div class="links">
     <a href="#areas">Servicios</a>
-    <a href="planes.html">Planes</a>
+    <a href="planes.html" class="nav-planes">Planes ✦</a>
     <a href="#nosotros">Nosotros</a>
     <a href="#proceso">Cómo trabajamos</a>
     <a href="marketing.html">Portafolio</a>
@@ -243,7 +246,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
         </ul>
         <div class="area-for">Para negocios que quieren crecer y verse profesionales.</div>
         <br>
-        <a href="marketing.html" class="area-cta">Ver servicios y portafolio →</a>
+        <a href="marketing.html" class="area-cta">Explorar Marketing →</a>
       </div>
 
       <!-- TECH -->
@@ -262,7 +265,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
         </ul>
         <div class="area-for">Para hogares y comercios que buscan control, seguridad y eficiencia.</div>
         <br>
-        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20soluciones%20de%20tecnolog%C3%ADa%20(dom%C3%B3tica%2C%20c%C3%A1maras%2C%20GPS%2C%20sistemas)." target="_blank" rel="noopener" class="area-cta">Consultar por Tech →</a>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20soluciones%20de%20tecnolog%C3%ADa%20(dom%C3%B3tica%2C%20c%C3%A1maras%2C%20GPS%2C%20sistemas)." target="_blank" rel="noopener" class="area-cta">Explorar Tecnología →</a>
       </div>
     </div>
 
@@ -325,7 +328,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <div class="foot-brand">ORIGEN</div>
+        <div class="foot-brand"><img src="logo-origen-light.png" alt="ORIGEN" style="height:56px;width:auto;display:block"></div>
         <div class="foot-frase">Marcas que conectan.</div>
       </div>
       <div class="foot-cols">

@@ -24,7 +24,8 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
   backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);
   border-bottom:1px solid rgba(17,17,17,0.08);display:flex;align-items:center;
   justify-content:space-between;padding:16px 40px}
-.mainnav .brand{font-family:'Cormorant',serif;font-size:20px;letter-spacing:6px;font-weight:400;color:#111;text-decoration:none}
+.mainnav .brand{font-family:'Cormorant',serif;font-size:20px;letter-spacing:6px;font-weight:400;color:#111;text-decoration:none;display:flex;align-items:center}
+.brand-logo{height:44px;width:auto;display:block}
 .mainnav .links{display:flex;gap:30px}
 .mainnav .links a{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#6B6760;
   text-decoration:none;padding:6px 0;position:relative;transition:color .25s}
@@ -703,7 +704,7 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 </head>
 <body>
 <nav class="mainnav">
-  <a href="index.html" class="brand">ORIGEN</a>
+  <a href="index.html" class="brand"><img src="logo-origen.png" alt="ORIGEN" class="brand-logo"></a>
   <input type="checkbox" id="navtoggle" class="navtoggle">
   <label for="navtoggle" class="navburger" aria-label="Menú"><span></span><span></span><span></span></label>
   <div class="links">
