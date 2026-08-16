@@ -88,7 +88,7 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
   --b: #FFFFFF;
   --n: #111111;
   --p: #6B6760;
-  --d: #C9B37A;
+  --d: #A8894F;
   --o: #484D3A;
   --l: rgba(17,17,17,0.09);
   --lf: rgba(17,17,17,0.05);
@@ -538,7 +538,7 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 #svc, #svc { max-width: 100%; overflow-x: hidden; }
 
 
-#pf {--b:#FFFFFF;--n:#111111;--p:#6B6760;--d:#C9B37A;--o:#484D3A;--l:rgba(17,17,17,0.09);--lf:rgba(17,17,17,0.04);}
+#pf {--b:#FFFFFF;--n:#111111;--p:#6B6760;--d:#A8894F;--o:#484D3A;--l:rgba(17,17,17,0.09);--lf:rgba(17,17,17,0.04);--cream:#FAF6EF;--sand:#F3EDE3;--ink:#1A1712;}
 #pf * {margin:0;padding:0;box-sizing:border-box;}
 #pf {background:var(--b);color:var(--n);font-family:'Jost',sans-serif;font-weight:300;}
 
@@ -581,10 +581,11 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 #pf .proy-grid {display:grid;grid-template-columns:1fr 1fr;}
 #pf .proy-grid.inv {direction:rtl;}
 #pf .proy-grid.inv>* {direction:ltr;}
-#pf .proy-vis {position:relative;overflow:hidden;min-height:500px;}
+#pf .proy-vis {position:relative;overflow:hidden;min-height:360px;}
 #pf .proy-img {width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:block;}
-#pf .proy-img-contain {width:100%;height:100%;object-fit:contain;position:absolute;inset:0;display:block;padding:48px;}
-#pf .proy-info {padding:56px 52px;display:flex;flex-direction:column;justify-content:space-between;border-left:1px solid var(--l);}
+#pf .proy-img-contain {width:100%;height:100%;object-fit:contain;position:absolute;inset:0;display:block;padding:40px;}
+#pf .proy-info {padding:38px 40px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--l);background:var(--cream);}
+#pf .proy:nth-child(even) .proy-info {background:var(--sand);}
 #pf .proy-grid.inv .proy-info {border-left:none;border-right:1px solid var(--l);}
 #pf .proy-num {font-family:'Cormorant',serif;font-size:13px;color:var(--d);margin-bottom:28px;display:flex;align-items:center;gap:12px;}
 #pf .proy-num::after {content:'';flex:1;height:1px;background:var(--l);}
@@ -604,7 +605,7 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 #pf .res-t {font-family:'Cormorant',serif;font-size:16px;font-style:italic;line-height:1.4;}
 
 
-#pf .gal {display:grid;gap:2px;background:#111;}
+#pf .gal {display:grid;gap:2px;background:#111;max-height:280px;overflow:hidden;}
 #pf .gal-2 {grid-template-columns:1fr 1fr;}
 #pf .gal-3 {grid-template-columns:1fr 1fr 1fr;}
 #pf .gal-4 {grid-template-columns:repeat(4,1fr);}
@@ -612,10 +613,10 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 #pf .gal-cel img {width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease;}
 #pf .gal-cel:hover img {transform:scale(1.03);}
 #pf .gal-h {aspect-ratio:16/9;}
-#pf .gal-s {aspect-ratio:1;}
-#pf .gal-v {aspect-ratio:3/4;}
+#pf .gal-s {aspect-ratio:4/3;}
+#pf .gal-v {aspect-ratio:4/3;}
 #pf .gal-wide {grid-column:span 2;}
-#pf .gal-tall {grid-row:span 2;}
+#pf .gal-tall {grid-row:span 1;}
 
 
 #pf .identity-showcase {display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--l);}
@@ -666,7 +667,7 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 #pf .f-copy {font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--p);}
 
 
-#pf .proy-divider {display:flex;align-items:center;gap:24px;padding:0 68px;margin:0;height:120px;border-top:1px solid var(--l);border-bottom:1px solid var(--l);background:#FAFAF8;}
+#pf .proy-divider {display:flex;align-items:center;gap:24px;padding:0 68px;margin:0;height:70px;border-top:1px solid var(--l);border-bottom:1px solid var(--l);background:var(--cream);}
 #pf .proy-divider .pd-line {flex:1;height:1px;background:var(--l);}
 #pf .proy-divider .pd-num {font-family:'Cormorant',serif;font-size:44px;font-weight:300;color:var(--d);line-height:1;font-style:italic;}
 #pf .proy-divider .pd-lbl {font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--p);white-space:nowrap;}
