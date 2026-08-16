@@ -2,472 +2,376 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<title>ACCESO · QR</title>
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#0a0a0f">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="ACCESO QR">
-<link rel="apple-touch-icon" href="./icon-180.png">
-<link rel="icon" type="image/png" href="./icon-192.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORIGEN · Marketing y Tecnología en Puerto Iguazú</title>
+<meta name="description" content="ORIGEN — Marketing, tecnología y soluciones para hacer crecer tu negocio. Redes, publicidad, desarrollo web, domótica, seguridad electrónica y sistemas a medida en Puerto Iguazú.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ORIGEN · Marcas que conectan">
+<meta property="og:description" content="Marketing, tecnología y soluciones para hacer crecer tu negocio. Puerto Iguazú, Misiones.">
+<meta property="og:image" content="https://agencia-origen.online/og-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://agencia-origen.online/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0a0a0f; --bg2:#12121a; --card:#16161f; --line:#2a2a38;
-    --txt:#f0f0f5; --mut:#8a8a9a; --neon:#00e5ff; --neon2:#ff2d95; --gold:#ffcb45;
-    --ok:#00ffa3; --okbg:rgba(0,255,163,.1); --okline:rgba(0,255,163,.4);
-    --dng:#ff3b5c; --dngbg:rgba(255,59,92,.12); --dngline:rgba(255,59,92,.4);
-  }
-  *{box-sizing:border-box}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--txt);background:var(--bg);margin:0;font-size:15px;line-height:1.5}
-  #app{max-width:560px;margin:0 auto;padding:14px 15px calc(88px + env(safe-area-inset-bottom));min-height:100vh}
-  h1{font-size:22px;font-weight:800;margin:0 0 4px;letter-spacing:-.5px;background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  h2{font-size:14px;font-weight:700;margin:0 0 14px;text-transform:uppercase;letter-spacing:.8px;color:var(--txt)}
-  .sub{color:var(--mut);font-size:14px;margin:0 0 20px}
+:root{
+  --b:#FFFFFF; --n:#111111; --p:#6B6760; --d:#C9B37A; --o:#484D3A;
+  --l:rgba(17,17,17,0.09); --lf:rgba(17,17,17,0.045); --cream:#FAF8F4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{max-width:100%;overflow-x:clip;background:var(--b)}
+body{font-family:'Jost',sans-serif;font-weight:300;color:var(--n);line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+em{font-family:'Cormorant',serif;font-style:italic}
+a{color:inherit}
+h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
 
-  /* ---- Barra de navegación inferior estilo app ---- */
-  .navbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;justify-content:space-around;align-items:flex-end;
-    background:rgba(12,12,18,.86);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(255,255,255,.06);
-    padding:10px 8px calc(10px + env(safe-area-inset-bottom));gap:2px}
-  .nav{flex:1;max-width:88px;background:none;border:none;cursor:pointer;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 2px;font-family:inherit;transition:color .18s ease,transform .18s ease}
-  .nav .ic{display:flex;align-items:center;justify-content:center;height:24px}
-  .nav .ic svg{width:23px;height:23px;stroke:currentColor;stroke-width:1.9;fill:none;stroke-linecap:round;stroke-linejoin:round}
-  .nav .lb{font-size:11px;font-weight:600;letter-spacing:.2px}
-  .nav:active{transform:scale(.92)}
-  .nav.on{color:var(--neon)}
-  .nav.on .ic svg{filter:drop-shadow(0 0 6px rgba(0,229,255,.5))}
-  /* Botón central: Escanear, más grande y elevado */
-  .nav.scan{max-width:none;flex:0 0 auto}
-  .nav.scan .ic{width:60px;height:60px;margin-top:-26px;border-radius:20px;
-    background:linear-gradient(135deg,var(--neon),var(--neon2));
-    box-shadow:0 8px 22px rgba(0,229,255,.4),inset 0 1px 0 rgba(255,255,255,.3);border:4px solid var(--bg)}
-  .nav.scan .ic svg{width:28px;height:28px;stroke:#0a0a0f;stroke-width:2.1}
-  .nav.scan .lb{color:var(--txt);margin-top:3px}
-  .nav.scan.on{color:var(--txt)}
-  .nav.scan.on .lb{color:var(--neon)}
-  .nav.scan.on .ic svg{filter:none}
+/* ── NAV ── */
+.mainnav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.92);
+  backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--l);display:flex;align-items:center;justify-content:space-between;padding:16px 40px}
+.mainnav .brand{font-family:'Cormorant',serif;font-size:22px;letter-spacing:7px;font-weight:400;color:var(--n);text-decoration:none}
+.mainnav .links{display:flex;gap:30px;align-items:center}
+.mainnav .links a{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);
+  text-decoration:none;padding:6px 0;position:relative;transition:color .25s}
+.mainnav .links a:hover{color:var(--n)}
+.mainnav .links a:not(.nav-cta)::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--d);transition:width .25s}
+.mainnav .links a:not(.nav-cta):hover::after{width:100%}
+.mainnav .links a.active{color:var(--n)}
+.mainnav .links a.active::after{width:100%}
+.nav-cta{background:var(--n);color:#fff!important;padding:9px 20px!important;letter-spacing:2px;transition:background .25s}
+.nav-cta:hover{background:var(--d);color:var(--n)!important}
+.navtoggle,.navburger{display:none}
+section,.block{scroll-margin-top:74px}
 
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
-  label{display:block;font-size:12px;font-weight:600;margin:0 0 6px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
-  input,select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;font-family:inherit;background:var(--bg2);color:var(--txt)}
-  input:focus,select:focus{outline:none;border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,229,255,.16)}
-  select option{background:var(--bg2)}
-  .row{display:flex;gap:10px;flex-wrap:wrap}.row>div{flex:1;min-width:110px}
-  .fld{margin-bottom:14px}
-  button.act{padding:13px 16px;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#0a0a0f;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;width:100%;text-transform:uppercase;letter-spacing:.5px}
-  button.sec{background:var(--bg2);color:var(--neon);border:1px solid var(--neon)}
-  button.ghost{background:transparent;border:1px solid var(--line);color:var(--mut);padding:8px 12px;border-radius:8px;font-size:12px;cursor:pointer;font-weight:600;text-transform:uppercase}
-  button.mini{background:transparent;border:1px solid var(--neon);color:var(--neon);padding:7px 12px;border-radius:8px;font-size:12px;cursor:pointer;font-weight:600}
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 8px;text-align:center}
-  .stat .n{font-size:24px;font-weight:800;line-height:1}.stat .l{font-size:11px;color:var(--mut);margin-top:6px;text-transform:uppercase;letter-spacing:.3px}
-  .tk{display:flex;align-items:center;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.tk:last-child{border:none}
-  .tk .info{flex:1;min-width:0}.tk .nm{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .tk .id{font-size:11px;color:var(--mut);font-family:monospace}
-  .badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px}
-  .badge.ok{background:var(--okbg);color:var(--ok);border:1px solid var(--okline)}
-  .badge.no{background:var(--bg2);color:var(--mut);border:1px solid var(--line)}
-  .badge.vip{background:rgba(255,203,69,.12);color:var(--gold);border:1px solid rgba(255,203,69,.4)}
-  .tipo{display:flex;gap:10px;margin-bottom:10px}.tipo input:first-child{flex:2}.tipo input:nth-child(2){flex:1}
-  .empty{text-align:center;color:var(--mut);padding:28px 12px;font-size:14px}
-  #reader{width:100%;border-radius:12px;overflow:hidden;margin-bottom:14px;border:1px solid var(--line)}
-  .scanres{padding:24px 18px;border-radius:16px;text-align:center;font-weight:800;border:2px solid;margin-bottom:14px}
-  .scanres.ok{background:var(--okbg);color:var(--ok);border-color:var(--okline)}
-  .scanres.no{background:var(--dngbg);color:var(--dng);border-color:var(--dngline)}
-  .scanres .big{font-size:26px;margin-bottom:6px;text-transform:uppercase;line-height:1.15}.scanres .dt{font-size:15px;font-weight:500;opacity:.95}
-  .qrgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:14px}
-  .qrcard{border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;background:#fff}
-  .qrcard>div:first-child{display:flex;justify-content:center}
-  .qrcard .qnm{font-weight:700;font-size:14px;margin-top:10px;color:#0a0a0f}
-  .qrcard .qtp{font-size:12px;font-weight:700;color:#0a0a0f}
-  .qrcard .qid{font-size:10px;color:#999;font-family:monospace;margin:3px 0 8px}
-  .note{font-size:12px;color:var(--mut);margin-top:8px;line-height:1.45}
-  .flex{display:flex;gap:8px;flex-wrap:wrap}.flex button{flex:1}
-  .filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
-  .chip{padding:7px 13px;border:1px solid var(--line);background:var(--card);border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;color:var(--mut)}
-  .chip.on{background:var(--neon);color:#0a0a0f;border-color:var(--neon)}
-  .who{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;font-size:13px;color:var(--mut)}
-  .who h1{background:linear-gradient(90deg,var(--neon),var(--neon2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
-  .warn{background:var(--dngbg);border:1px solid var(--dngline);color:var(--dng);padding:14px;border-radius:12px;font-size:13px;margin-bottom:16px}
+/* ── HERO ── */
+.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:80px 0}
+.hero::after{content:'O';position:absolute;font-family:'Cormorant',serif;font-size:120vh;color:var(--cream);
+  right:-8vw;top:50%;transform:translateY(-50%);z-index:0;line-height:1;pointer-events:none}
+.hero .wrap{position:relative;z-index:1}
+.hero-eyebrow{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--d);margin-bottom:26px}
+.hero h1{font-size:clamp(40px,6.5vw,82px);margin-bottom:26px;max-width:14ch}
+.hero h1 em{color:var(--d)}
+.hero-sub{font-size:clamp(17px,2.2vw,22px);color:var(--p);max-width:44ch;margin-bottom:40px;font-weight:300}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;padding:17px 40px;background:var(--n);color:#fff;
+  text-decoration:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;transition:background .3s}
+.hero-cta:hover{background:var(--d);color:var(--n)}
+.hero-scroll{margin-top:60px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--p)}
+
+/* ── SECCIONES ── */
+section{padding:100px 0;border-top:1px solid var(--l)}
+.sec-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--d);margin-bottom:18px}
+.sec-h{font-size:clamp(30px,4.5vw,52px);margin-bottom:22px}
+.sec-h em{color:var(--d)}
+.sec-lead{font-size:18px;color:var(--p);max-width:60ch;line-height:1.7}
+.sec-lead strong{color:var(--n);font-weight:400}
+
+/* ── VALOR ── */
+.valor{background:var(--cream)}
+.valor-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
+.valor-txt h2{font-size:clamp(28px,4vw,46px);margin-bottom:22px}
+.valor-txt h2 em{color:var(--d)}
+.valor-txt p{font-size:17px;color:var(--p);line-height:1.75;margin-bottom:16px}
+.valor-stats{display:flex;flex-direction:column;gap:0}
+.vstat{padding:24px 0;border-top:1px solid var(--l)}
+.vstat:last-child{border-bottom:1px solid var(--l)}
+.vstat h3{font-family:'Cormorant',serif;font-size:24px;font-style:italic;color:var(--d);margin-bottom:6px}
+.vstat p{font-size:14.5px;color:var(--p)}
+
+/* ── ÁREAS ── */
+.areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:50px}
+.area{padding:46px 42px;border:1px solid var(--l);margin:-0.5px;position:relative;transition:background .3s}
+.area:hover{background:var(--cream)}
+.area-num{font-family:'Cormorant',serif;font-style:italic;font-size:20px;color:var(--d);margin-bottom:18px}
+.area h3{font-size:32px;margin-bottom:8px}
+.area h3 em{color:var(--d);display:block;font-size:24px}
+.area-desc{font-size:15.5px;color:var(--p);line-height:1.75;margin:18px 0 22px}
+.area-list{list-style:none;margin-bottom:28px}
+.area-list li{font-size:14px;color:var(--p);padding:7px 0 7px 20px;position:relative;line-height:1.5}
+.area-list li::before{content:'';position:absolute;left:0;top:13px;width:5px;height:5px;border:1px solid var(--d);border-radius:50%}
+.area-for{font-size:13px;color:var(--n);font-style:italic;font-family:'Cormorant',serif;margin-bottom:26px;font-size:16px}
+.area-cta{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--n);text-decoration:none;padding-bottom:6px;border-bottom:1px solid var(--n);transition:.25s}
+.area-cta:hover{color:var(--d);border-color:var(--d);gap:16px}
+.area-soon{display:inline-block;margin-top:14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--p);opacity:.7}
+
+/* ── NOSOTROS ── */
+.nos{background:var(--n);color:#fff}
+.nos .sec-eyebrow{color:var(--d)}
+.nos .sec-h{color:#fff}
+.nos .sec-h em{color:var(--d)}
+.nos-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:20px}
+.nos-lead{font-size:19px;color:rgba(255,255,255,0.72);line-height:1.75}
+.nos-lead em{color:var(--d)}
+.nos-points{display:flex;flex-direction:column;gap:0}
+.nos-pt{padding:26px 0;border-top:1px solid rgba(255,255,255,0.14)}
+.nos-pt:last-child{border-bottom:1px solid rgba(255,255,255,0.14)}
+.nos-pt h4{font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:8px}
+.nos-pt p{font-size:14.5px;color:rgba(255,255,255,0.6);line-height:1.7}
+
+/* ── PROCESO ── */
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:50px}
+.step{padding:38px 30px;border:1px solid var(--l);margin:-0.5px}
+.step-n{font-family:'Cormorant',serif;font-size:44px;font-style:italic;color:var(--d);line-height:1;margin-bottom:20px}
+.step h4{font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:10px}
+.step p{font-size:14px;color:var(--p);line-height:1.7}
+
+/* ── CONTACTO ── */
+.cta-final{background:var(--cream);text-align:center}
+.cta-final h2{font-size:clamp(32px,5vw,58px);margin-bottom:20px}
+.cta-final h2 em{color:var(--d)}
+.cta-final p{font-size:18px;color:var(--p);max-width:52ch;margin:0 auto 40px;line-height:1.7}
+.cta-btn{display:inline-flex;align-items:center;gap:12px;padding:18px 44px;background:var(--n);color:#fff;
+  text-decoration:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;transition:background .3s}
+.cta-btn:hover{background:var(--d);color:var(--n)}
+.cta-info{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;margin-top:56px;padding-top:36px;border-top:1px solid var(--l)}
+.ci-l{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--p);margin-bottom:6px}
+.ci-v{font-family:'Cormorant',serif;font-size:18px}
+.ci-v a{text-decoration:none}
+
+/* ── FOOTER ── */
+footer{background:var(--n);color:#fff;padding:60px 0 40px}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;margin-bottom:44px}
+.foot-brand{font-family:'Cormorant',serif;font-size:26px;letter-spacing:8px}
+.foot-frase{font-family:'Cormorant',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,0.5);margin-top:8px}
+.foot-cols{display:flex;gap:70px;flex-wrap:wrap}
+.foot-col h5{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px}
+.foot-col a{display:block;font-size:14px;color:rgba(255,255,255,0.75);text-decoration:none;margin-bottom:10px;transition:color .2s}
+.foot-col a:hover{color:var(--d)}
+.foot-bottom{border-top:1px solid rgba(255,255,255,0.12);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.foot-bottom span{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .valor-grid,.nos-grid{grid-template-columns:1fr;gap:40px}
+  .areas-grid{grid-template-columns:1fr}
+  .proc-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .wrap{padding:0 24px}
+  section{padding:64px 0}
+  .mainnav{padding:14px 22px;flex-wrap:wrap}
+  .mainnav .brand{font-size:18px;letter-spacing:5px}
+  .navburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+  .navburger span{display:block;width:24px;height:2px;background:var(--n);transition:.3s}
+  .mainnav .links{display:none;flex-direction:column;width:100%;gap:0;order:3;margin-top:8px}
+  .navtoggle:checked ~ .links{display:flex}
+  .mainnav .links a{font-size:12px;letter-spacing:2px;padding:14px 0;border-top:1px solid var(--l);width:100%}
+  .mainnav .nav-cta{text-align:center;margin-top:10px;padding:14px!important;border-top:none!important}
+  .navtoggle:checked ~ .navburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .navtoggle:checked ~ .navburger span:nth-child(2){opacity:0}
+  .navtoggle:checked ~ .navburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .proc-grid{grid-template-columns:1fr}
+  .cta-info{gap:28px}
+  .hero::after{font-size:70vh;right:-20vw}
+}
 </style>
 </head>
 <body>
-<div id="app"><div class="card">Cargando…</div></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="./config.js"></script>
-<script>
-// ---- Conexión ----
-let sb=null, user=null;
-if(window.SUPA_URL && window.SUPA_ANON && !SUPA_URL.includes('PONE_')){
-  sb=supabase.createClient(SUPA_URL, SUPA_ANON);
-}
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
-const MONEDAS={ARS:{s:'$',loc:'es-AR'},PYG:{s:'Gs',loc:'es-PY'},USD:{s:'US$',loc:'en-US'},BRL:{s:'R$',loc:'pt-BR'}};
-const money=(n,cur)=>{const m=MONEDAS[cur||monedaActual]||MONEDAS.ARS;return m.s+' '+(Number(n)||0).toLocaleString(m.loc);};
-let monedaActual='ARS'; // se ajusta al evento activo
-const token=()=>crypto.randomUUID();
-// Íconos SVG de línea (estética profesional, sin emojis)
-const ICO={
-  eventos:'<svg viewBox="0 0 24 24"><path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2 2 2 0 0 0 0 4 2 2 0 0 1 0 4 2 2 0 0 1-2 2H6a2 2 0 0 1-2-2 2 2 0 0 0 0-4 2 2 0 0 1 0-4z"/><path d="M14 6v12" stroke-dasharray="1.5 2.5"/></svg>',
-  vender:'<svg viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg>',
-  scan:'<svg viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><path d="M4 12h16"/></svg>',
-  entradas:'<svg viewBox="0 0 24 24"><path d="M8 4h9a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2V6a2 2 0 0 1 2-2z"/><path d="M9 9h6M9 13h4"/></svg>',
-  salir:'<svg viewBox="0 0 24 24"><path d="M15 4h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-2"/><path d="M10 17l-5-5 5-5M5 12h11"/></svg>'
-};
-// Reduce la imagen a un ancho máximo y la pasa a JPEG para no cargar la base.
-function comprimirImg(file,maxLado){return new Promise((res,rej)=>{
-  if(file.size>6*1024*1024)return rej('Imagen muy grande (máx 6MB)');
-  const fr=new FileReader();
-  fr.onload=()=>{const img=new Image();
-    img.onload=()=>{const sc=Math.min(1,maxLado/Math.max(img.width,img.height));
-      const c=document.createElement('canvas');c.width=Math.round(img.width*sc);c.height=Math.round(img.height*sc);
-      c.getContext('2d').drawImage(img,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',0.82));};
-    img.onerror=()=>rej('No se pudo leer la imagen');img.src=fr.result;};
-  fr.onerror=()=>rej('No se pudo leer el archivo');fr.readAsDataURL(file);});}
+<!-- ══════ NAV ══════ -->
+<nav class="mainnav">
+  <a href="#top" class="brand">ORIGEN</a>
+  <input type="checkbox" id="navtoggle" class="navtoggle">
+  <label for="navtoggle" class="navburger" aria-label="Menú"><span></span><span></span><span></span></label>
+  <div class="links">
+    <a href="#areas">Servicios</a>
+    <a href="planes.html">Planes</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#proceso">Cómo trabajamos</a>
+    <a href="marketing.html">Portafolio</a>
+    <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener" class="nav-cta">Pedí una propuesta</a>
+  </div>
+</nav>
+<span id="top"></span>
 
-let tab='eventos', scanner=null, procesando=false;
-let filtEstado='todas', filtTipo='todos', busca='', evActivo=null;
+<!-- ══════ HERO ══════ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow">Puerto Iguazú · Misiones</div>
+    <h1>Marketing, tecnología y <em>soluciones</em> para hacer crecer tu negocio.</h1>
+    <p class="hero-sub">En ORIGEN unimos estrategia, creatividad y tecnología para que tu marca comunique mejor y tu operación funcione mejor.</p>
+    <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener" class="hero-cta">Pedí una propuesta</a>
+    <div class="hero-scroll">Conocé lo que hacemos ↓</div>
+  </div>
+</header>
 
-async function boot(){
-  if(!sb){ $('app').innerHTML='<div class="card"><h2>Falta configurar</h2><p class="note">Editá <b>config.js</b> con la URL y anon key de tu proyecto Supabase.</p></div>'; return; }
-  const { data:{ session } }=await sb.auth.getSession();
-  user=session?.user||null;
-  sb.auth.onAuthStateChange((_e,s)=>{ user=s?.user||null; render(); });
-  render();
-}
-
-function render(){
-  if(!user){ return vLogin(); }
-  $('app').innerHTML=`
-    <div class="who"><h1 style="font-size:18px;margin:0">ACCESO · QR</h1><span style="font-size:12px">${esc(user.email)}</span></div>
-    <div id="view"><div class="card">Cargando…</div></div>
-    <nav class="navbar">
-      <button class="nav ${tab==='eventos'?'on':''}" data-t="eventos"><span class="ic">${ICO.eventos}</span><span class="lb">Eventos</span></button>
-      <button class="nav ${tab==='generar'?'on':''}" data-t="generar"><span class="ic">${ICO.vender}</span><span class="lb">Vender</span></button>
-      <button class="nav scan ${tab==='control'?'on':''}" data-t="control"><span class="ic">${ICO.scan}</span><span class="lb">Escanear</span></button>
-      <button class="nav ${tab==='entradas'?'on':''}" data-t="entradas"><span class="ic">${ICO.entradas}</span><span class="lb">Entradas</span></button>
-      <button class="nav" id="logout2"><span class="ic">${ICO.salir}</span><span class="lb">Salir</span></button>
-    </nav>`;
-  $('logout2').onclick=()=>sb.auth.signOut();
-  document.querySelectorAll('.nav[data-t]').forEach(b=>b.onclick=()=>{tab=b.dataset.t;stopScan();render();});
-  ({eventos:vEventos,generar:vGenerar,control:vControl,entradas:vEntradas}[tab])();
-}
-
-// ---------- LOGIN ----------
-function vLogin(){
-  $('app').innerHTML=`<h1>ACCESO · QR</h1><p class="sub">Ingresá para administrar tus eventos</p>
-    <div class="card">
-      <div class="fld"><label>Email</label><input id="l_mail" type="email" placeholder="vos@correo.com"></div>
-      <div class="fld"><label>Contraseña</label><input id="l_pass" type="password" placeholder="••••••••"></div>
-      <button class="act" id="l_in">Entrar</button>
-      <button class="sec" id="l_up" style="margin-top:8px;width:100%;padding:12px;border-radius:10px;font-weight:700;cursor:pointer">Crear cuenta</button>
-      <p class="note" id="l_msg"></p>
-    </div>`;
-  $('l_in').onclick=async()=>{
-    const { error }=await sb.auth.signInWithPassword({email:$('l_mail').value.trim(),password:$('l_pass').value});
-    if(error)$('l_msg').textContent='No se pudo entrar: '+error.message;
-  };
-  $('l_up').onclick=async()=>{
-    const { error }=await sb.auth.signUp({email:$('l_mail').value.trim(),password:$('l_pass').value});
-    $('l_msg').textContent=error?('Error: '+error.message):'Cuenta creada. Revisá tu email si pide confirmación, o entrá directo.';
-  };
-}
-
-// ---------- EVENTOS ----------
-// ---------- EVENTOS ----------
-let editando=null; // id del evento en edición, o null si es nuevo
-async function vEventos(){
-  const v=$('view');
-  const { data:evs }=await sb.from('eventos').select('*').order('creado',{ascending:false});
-  const ed = editando ? (evs||[]).find(e=>e.id===editando) : null;
-  const val=(k,d='')=>ed?(ed[k]??d):d;
-  const monOpts=cur=>Object.keys(MONEDAS).map(k=>`<option value="${k}" ${cur===k?'selected':''}>${MONEDAS[k].s} ${k}</option>`).join('');
-  v.innerHTML=`<h2>Mis eventos</h2><div class="card" id="e_list">Cargando…</div>
-    <details id="e_form" ${ed?'open':''} style="margin-top:4px">
-      <summary style="cursor:pointer;list-style:none;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;font-weight:700;color:var(--neon);text-align:center;text-transform:uppercase;letter-spacing:.5px;font-size:14px">${ed?'✎ Editando: '+esc(ed.nombre):'+ Crear nuevo evento'}</summary>
-      <div class="card" style="margin-top:10px">
-        <div class="fld"><label>Nombre del evento</label><input id="e_nom" placeholder="Encuentro Fierrero · Iguazú" value="${esc(val('nombre'))}"></div>
-        <div class="row fld"><div><label>Fecha</label><input id="e_fec" type="date" value="${esc(val('fecha'))}"></div><div><label>Hora de inicio</label><input id="e_hora" type="time" value="${esc(val('hora'))}"></div></div>
-        <div class="row fld"><div><label>Lugar</label><input id="e_lug" placeholder="Predio Costanera" value="${esc(val('lugar'))}"></div>
-          <div><label>Moneda</label><select id="e_mon">${monOpts(val('moneda','ARS'))}</select></div></div>
-        <div class="fld"><label>Imagen del evento (logo o flyer)</label>
-          <div style="display:flex;gap:12px;align-items:center">
-            <div id="e_prev" style="width:60px;height:60px;border-radius:12px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:26px;flex:0 0 auto;overflow:hidden">${ed&&ed.logo_url?`<img src="${ed.logo_url}" style="width:100%;height:100%;object-fit:cover">`:'+'}</div>
-            <button class="mini" id="e_img_btn" style="flex:1">${ed&&ed.logo_url?'Cambiar imagen':'Subir imagen'}</button>
-          </div>
-          <input id="e_img" type="file" accept="image/*" style="display:none"></div>
-        <label>Tipos de entrada</label><div id="e_tipos"></div>
-        <button class="mini" id="e_addt" style="margin:4px 0 14px">+ Agregar tipo</button>
-        <button class="act" id="e_add">${ed?'Guardar cambios':'Crear evento'}</button>
-        ${ed?'<button class="ghost" id="e_cancel" style="width:100%;margin-top:8px">Cancelar edición</button>':''}
+<!-- ══════ VALOR ══════ -->
+<section class="valor">
+  <div class="wrap">
+    <div class="valor-grid">
+      <div class="valor-txt">
+        <div class="sec-eyebrow">Qué es ORIGEN</div>
+        <h2>Una sola empresa para <em>toda</em> tu presencia y tu tecnología.</h2>
+        <p>ORIGEN nace para resolver, desde un mismo lugar, lo que antes obligaba a contratar a cinco proveedores distintos: tu marketing, tu contenido, tu presencia digital y la tecnología que hace funcionar tu negocio.</p>
+        <p>Trabajamos con negocios de Puerto Iguazú y de toda la región, combinando la cercanía de quien conoce el lugar con estándares profesionales.</p>
       </div>
-    </details>`;
-  let logoData = ed ? (ed.logo_url||null) : null;
-  $('e_img_btn').onclick=()=>$('e_img').click();
-  $('e_img').onchange=async ev=>{ const f=ev.target.files[0]; if(!f)return;
-    try{ logoData=await comprimirImg(f,600); $('e_prev').innerHTML=`<img src="${logoData}" style="width:100%;height:100%;object-fit:cover">`; }
-    catch(err){ alert(err); } };
-  const tb=$('e_tipos');
-  const addT=(n='',p='')=>{const d=document.createElement('div');d.className='tipo';
-    d.innerHTML=`<input class="tn" placeholder="General" value="${esc(n)}"><input class="tp" type="number" min="0" placeholder="Precio" value="${p}"><button class="ghost td">✕</button>`;
-    d.querySelector('.td').onclick=()=>d.remove();tb.appendChild(d);};
-  if(ed && (ed.tipos||[]).length){ ed.tipos.forEach(t=>addT(t.nom,t.precio)); }
-  else { addT('General','');addT('VIP',''); }
-  $('e_addt').onclick=()=>addT();
-  if($('e_cancel'))$('e_cancel').onclick=()=>{editando=null;vEventos();};
-  $('e_add').onclick=async()=>{
-    const nombre=$('e_nom').value.trim(); if(!nombre)return alert('Poné un nombre');
-    const tipos=[...tb.querySelectorAll('.tipo')].map(r=>({nom:r.querySelector('.tn').value.trim(),precio:Number(r.querySelector('.tp').value)||0})).filter(t=>t.nom);
-    if(!tipos.length)return alert('Agregá al menos un tipo');
-    const btn=$('e_add'); btn.disabled=true; btn.textContent=ed?'Guardando…':'Creando…';
-    const campos={nombre,fecha:$('e_fec').value||null,hora:$('e_hora').value||null,lugar:$('e_lug').value.trim(),moneda:$('e_mon').value,tipos,logo_url:logoData};
-    let error;
-    if(ed){ const r=await sb.from('eventos').update(campos).eq('id',ed.id); error=r.error; }
-    else { const r=await sb.from('eventos').insert({user_id:user.id,...campos}).select().single(); error=r.error; if(!error&&r.data)evActivo=r.data.id; }
-    // Reintento sin columnas nuevas si la base está desactualizada.
-    if(error && /column .* does not exist|logo_url|hora|moneda/i.test(error.message)){
-      const {logo_url,hora,moneda,...min}=campos;
-      if(ed){ const r=await sb.from('eventos').update(min).eq('id',ed.id); error=r.error; }
-      else { const r=await sb.from('eventos').insert({user_id:user.id,...min}).select().single(); error=r.error; if(!error&&r.data)evActivo=r.data.id; }
-      if(!error) alert('Guardado. (Ojo: falta correr el schema.sql en Supabase para guardar hora, imagen y moneda.)');
-    }
-    btn.disabled=false;
-    if(error){btn.textContent=ed?'Guardar cambios':'Crear evento';return alert('Error: '+error.message);}
-    editando=null; vEventos();
-  };
-  const l=$('e_list');
-  if(!evs||!evs.length){l.innerHTML='<div class="empty">Todavía no creaste eventos</div>';return;}
-  const counts={};
-  for(const e of evs){const {count}=await sb.from('entradas').select('*',{count:'exact',head:true}).eq('evento_id',e.id);counts[e.id]=count||0;}
-  l.innerHTML=evs.map(e=>{const tp=(e.tipos||[]).map(t=>`${esc(t.nom)} ${money(t.precio,e.moneda)}`).join(' · ');
-    const fh=[e.fecha,e.hora].filter(Boolean).join(' · ')||'sin fecha';
-    const mini=e.logo_url?`<img src="${e.logo_url}" style="width:44px;height:44px;border-radius:10px;object-fit:cover;flex:0 0 auto">`:'';
-    return `<div class="tk">${mini}<div class="info"><div class="nm">${esc(e.nombre)}</div><div class="id">${fh} · ${counts[e.id]} entradas · ${tp}</div></div>
-      <button class="mini" data-edit="${e.id}">Editar</button><button class="ghost" data-del="${e.id}">✕</button></div>`;}).join('');
-  l.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{editando=b.dataset.edit;vEventos();window.scrollTo(0,document.body.scrollHeight);});
-  l.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{if(!confirm('¿Borrar este evento y TODAS sus entradas? No se puede deshacer.'))return;await sb.from('eventos').delete().eq('id',b.dataset.del);if(editando===b.dataset.del)editando=null;vEventos();});
-}
-
-// ---------- VENDER ----------
-async function vGenerar(){
-  const v=$('view');
-  const { data:evs }=await sb.from('eventos').select('*').order('creado',{ascending:false});
-  if(!evs||!evs.length){v.innerHTML='<div class="empty">Primero creá un evento</div>';return;}
-  if(!evActivo||!evs.find(e=>e.id===evActivo))evActivo=evs[0].id;
-  const ev=evs.find(e=>e.id===evActivo);
-  monedaActual=ev.moneda||'ARS';
-  v.innerHTML=`<div class="card">
-    <div class="fld"><label>Evento</label><select id="g_ev">${evs.map(e=>`<option value="${e.id}" ${e.id===evActivo?'selected':''}>${esc(e.nombre)}</option>`).join('')}</select></div>
-    <div class="row"><div class="fld"><label>Tipo</label><select id="g_tipo">${(ev.tipos||[]).map((t,i)=>`<option value="${i}">${esc(t.nom)} · ${money(t.precio)}</option>`).join('')}</select></div>
-      <div class="fld"><label>Cantidad</label><input id="g_cant" type="number" min="1" value="1"></div></div>
-    <div class="fld"><label>Comprador</label><input id="g_nom" placeholder="Nombre y apellido"></div>
-    <div class="row"><div class="fld"><label>Estado de pago</label><select id="g_pago"><option value="pagado">Pagado</option><option value="sena">Seña</option><option value="debe">Debe</option></select></div>
-      <div class="fld" id="g_senaw" style="display:none"><label>Monto seña $</label><input id="g_sena" type="number" min="0" value="0"></div></div>
-    <button class="act" id="g_go">Generar entradas</button></div><div id="g_out"></div>`;
-  $('g_ev').onchange=e=>{evActivo=e.target.value;vGenerar();};
-  $('g_pago').onchange=e=>{$('g_senaw').style.display=e.target.value==='sena'?'block':'none';};
-  $('g_go').onclick=async()=>{
-    const ev=evs.find(e=>e.id===evActivo); const t=ev.tipos[parseInt($('g_tipo').value)||0];
-    const nom=$('g_nom').value.trim()||'Sin nombre'; const cant=Math.max(1,parseInt($('g_cant').value)||1);
-    const estado_pago=$('g_pago').value; const sena=estado_pago==='sena'?(Number($('g_sena').value)||0):0;
-    const rows=Array.from({length:cant},()=>({evento_id:evActivo,user_id:user.id,comprador:nom,tipo:t.nom,precio:t.precio,token:token(),estado_pago,sena}));
-    const { data, error }=await sb.from('entradas').insert(rows).select();
-    if(error)return alert('Error: '+error.message);
-    renderQRs(data,ev,$('g_out'));
-  };
-}
-function renderQRs(list,ev,cont){
-  cont.innerHTML='<div class="qrgrid" id="qg"></div>';
-  const qg=$('qg');
-  list.forEach(t=>{const d=document.createElement('div');d.className='qrcard';
-    const h=document.createElement('div');d.appendChild(h);
-    d.insertAdjacentHTML('beforeend',`<div class="qnm">${esc(t.comprador)}</div><div class="qtp">${esc(t.tipo)} · ${money(t.precio)}</div><div class="qid">${t.id.slice(0,8)}</div>`);
-    const bShare=document.createElement('button');bShare.className='act';bShare.style.cssText='width:100%;padding:11px;font-size:13px;margin-bottom:6px';bShare.textContent='Compartir / WhatsApp';bShare.onclick=()=>compartirPDF(t,ev);
-    const bPdf=document.createElement('button');bPdf.className='mini';bPdf.textContent='Descargar PDF';bPdf.style.width='100%';bPdf.onclick=()=>makePDF(t,ev);
-    d.appendChild(bShare);d.appendChild(bPdf);qg.appendChild(d);
-    new QRCode(h,{text:t.token,width:130,height:130,correctLevel:QRCode.CorrectLevel.M});});
-}
-
-// ---------- PDF ----------
-function qrURL(text){return new Promise(res=>{const t=document.createElement('div');new QRCode(t,{text,width:400,height:400,correctLevel:QRCode.CorrectLevel.M});setTimeout(()=>{const c=t.querySelector('canvas');const i=t.querySelector('img');res(c?c.toDataURL('image/png'):(i?i.src:''));},60);});}
-async function armarPDF(t,ev){
-  const { jsPDF }=window.jspdf; const doc=new jsPDF({unit:'mm',format:[100,165]});
-  doc.setFillColor(10,10,15);doc.rect(0,0,100,165,'F');doc.setFillColor(0,229,255);doc.rect(0,0,100,4,'F');
-  let y=13;doc.setTextColor(0,229,255);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text('ENTRADA · ACCESO QR',50,y,{align:'center'});y+=6;
-  if(ev.logo_url){try{doc.addImage(ev.logo_url,'JPEG',38,y,24,24);y+=27;}catch(e){}}
-  doc.setTextColor(240,240,245);doc.setFont('helvetica','bold');doc.setFontSize(15);const nl=doc.splitTextToSize((ev.nombre||'').toUpperCase(),88);doc.text(nl,50,y,{align:'center'});y+=nl.length*6+2;
-  doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(138,138,154);
-  const fh=[ev.fecha,ev.hora].filter(Boolean).join(' · ');
-  if(fh||ev.lugar){doc.text([fh,ev.lugar].filter(Boolean).join('  ·  '),50,y,{align:'center'});y+=5;}
-  const qr=await qrURL(t.token);doc.setFillColor(255,255,255);doc.roundedRect(30,y,40,40,2,2,'F');if(qr)doc.addImage(qr,'PNG',32,y+2,36,36);y+=46;
-  const vip=/vip/i.test(t.tipo);doc.setFillColor(vip?255:0,vip?203:229,vip?69:255);doc.roundedRect(32,y,36,8,2,2,'F');
-  doc.setTextColor(10,10,15);doc.setFont('helvetica','bold');doc.setFontSize(10);doc.text(t.tipo.toUpperCase(),50,y+5.5,{align:'center'});y+=13;
-  doc.setTextColor(138,138,154);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.text('COMPRADOR',50,y,{align:'center'});y+=5;
-  doc.setTextColor(240,240,245);doc.setFont('helvetica','bold');doc.setFontSize(12);doc.text(t.comprador,50,y,{align:'center'});y+=7;
-  doc.setTextColor(0,255,163);doc.setFontSize(13);doc.text(money(t.precio),50,y,{align:'center'});
-  const yPie=Math.max(y+10,156);
-  doc.setDrawColor(42,42,56);doc.line(10,yPie,90,yPie);doc.setFont('helvetica','normal');doc.setFontSize(6);doc.setTextColor(120,120,132);
-  doc.text('Entrada personal e intransferible · Válida para un solo ingreso · No se reintegra',50,yPie+5,{align:'center'});
-  return doc;
-}
-async function makePDF(t,ev){ const doc=await armarPDF(t,ev); doc.save(`entrada-${t.comprador.replace(/\s+/g,'_')}.pdf`); }
-
-// Compartir: usa el menú nativo del celular (adjunta el PDF a WhatsApp/Telegram/mail).
-// Si no está disponible, descarga el PDF y abre WhatsApp con un mensaje listo.
-async function compartirPDF(t,ev){
-  const doc=await armarPDF(t,ev);
-  const nombreArch=`entrada-${t.comprador.replace(/\s+/g,'_')}.pdf`;
-  const fecha=[ev.fecha,ev.hora].filter(Boolean).join(' ');
-  const msg=`🎫 Tu entrada para ${ev.nombre}${fecha?' — '+fecha:''}\nTipo: ${t.tipo}\nA nombre de: ${t.comprador}`;
-  const blob=doc.output('blob');
-  const file=new File([blob],nombreArch,{type:'application/pdf'});
-  if(navigator.canShare && navigator.canShare({files:[file]})){
-    try{ await navigator.share({files:[file],text:msg,title:'Entrada'}); return; }catch(e){ if(e.name==='AbortError')return; }
-  }
-  // Fallback: descarga el PDF y abre WhatsApp con el texto.
-  doc.save(nombreArch);
-  setTimeout(()=>{ window.open('https://wa.me/?text='+encodeURIComponent(msg+'\n(Adjuntá el PDF que se acaba de descargar)'),'_blank'); },400);
-}
-
-// ---------- PUERTA (multi-portero, validación en servidor) ----------
-async function vControl(){
-  const v=$('view');
-  const { data:evs }=await sb.from('eventos').select('*').order('creado',{ascending:false});
-  if(!evs||!evs.length){v.innerHTML='<div class="empty">Primero creá un evento</div>';return;}
-  if(!evActivo||!evs.find(e=>e.id===evActivo))evActivo=evs[0].id;
-  monedaActual=(evs.find(e=>e.id===evActivo)||{}).moneda||'ARS';
-  const { data:ent }=await sb.from('entradas').select('precio,usada').eq('evento_id',evActivo);
-  const vend=ent.length, ing=ent.filter(x=>x.usada).length;
-  v.innerHTML=`<h2 style="text-align:center;margin-bottom:12px">Escanear entrada</h2>
-    <div class="fld"><select id="c_ev">${evs.map(e=>`<option value="${e.id}" ${e.id===evActivo?'selected':''}>${esc(e.nombre)}</option>`).join('')}</select></div>
-    <div id="c_res"></div>
-    <div id="reader"></div>
-    <div class="flex" style="margin-bottom:16px"><button class="sec" id="c_stop" style="padding:12px;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px">Pausar cámara</button></div>
-    <div class="stats"><div class="stat"><div class="n">${vend}</div><div class="l">Vendidas</div></div>
-      <div class="stat"><div class="n" style="color:var(--ok)" id="s_ing">${ing}</div><div class="l">Ingresaron</div></div>
-      <div class="stat"><div class="n">${vend-ing}</div><div class="l">Faltan</div></div></div>
-    <p class="note" style="text-align:center">Varios celulares pueden escanear a la vez. El sistema evita el doble ingreso.</p>`;
-  $('c_ev').onchange=e=>{evActivo=e.target.value;stopScan();vControl();};
-  const btn=$('c_stop');
-  btn.onclick=()=>{ if(scanner){stopScan();btn.textContent='Reanudar cámara';} else {startScan();btn.textContent='Pausar cámara';} };
-  startScan(); // la cámara arranca sola al entrar
-}
-function startScan(){ if(scanner)return; scanner=new Html5Qrcode('reader');
-  scanner.start({facingMode:'environment'},{fps:10,qrbox:{width:240,height:240}},onScan,()=>{}).catch(e=>{alert('No se pudo abrir la cámara: '+e);scanner=null;}); }
-function stopScan(){ procesando=false; if(scanner){try{scanner.stop().then(()=>{try{scanner.clear();}catch(e){} scanner=null;}).catch(()=>{scanner=null;});}catch(e){scanner=null;} } }
-async function onScan(txt){
-  if(procesando)return; procesando=true;            // ignora lecturas repetidas de la misma toma
-  try{ if(scanner&&scanner.pause) scanner.pause(true); }catch(e){}  // congela la cámara
-  const res=$('c_res');
-  try{
-    const { data, error }=await sb.functions.invoke('validar-entrada',{body:{token:txt,evento_id:evActivo,portero:user.email}});
-    if(error){show(res,'no','Error de conexión','Reintentá');}
-    else{ const e=data;
-      if(e.estado==='ok'){show(res,'ok','Acceso · '+e.tipo,esc(e.comprador));if(navigator.vibrate)navigator.vibrate(120);const s=$('s_ing');if(s)s.textContent=Number(s.textContent)+1;}
-      else if(e.estado==='ya_usada'){show(res,'no','Ya ingresó',esc(e.comprador)+' · '+new Date(e.usada_en).toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit'}));if(navigator.vibrate)navigator.vibrate([80,60,80]);}
-      else if(e.estado==='otro_evento'){show(res,'no','Otro evento','No corresponde a esta puerta');}
-      else if(e.estado==='desconocida'){show(res,'no','Entrada inválida','No existe en el sistema');}
-      else{show(res,'no','Error',e.msg||'Reintentá');}
-    }
-  }catch(err){show(res,'no','Error de conexión','Reintentá');}
-  // Deja el resultado en pantalla y reanuda la cámara para el próximo.
-  setTimeout(()=>{ try{ if(scanner&&scanner.resume) scanner.resume(); }catch(e){} procesando=false; }, 2200);
-}
-function show(el,cls,big,dt){el.innerHTML=`<div class="scanres ${cls}"><div class="big">${cls==='ok'?'✓ ':'✕ '}${big}</div><div class="dt">${dt}</div></div>`;setTimeout(()=>{if(el.querySelector('.scanres'))el.innerHTML='';},4000);}
-
-// ---------- ENTRADAS (buscador, filtros, CSV) ----------
-async function vEntradas(){
-  const v=$('view');
-  const { data:evs }=await sb.from('eventos').select('*').order('creado',{ascending:false});
-  if(!evs||!evs.length){v.innerHTML='<div class="empty">Primero creá un evento</div>';return;}
-  if(!evActivo||!evs.find(e=>e.id===evActivo))evActivo=evs[0].id;
-  const ev=evs.find(e=>e.id===evActivo);
-  monedaActual=ev.moneda||'ARS';
-  const { data:all }=await sb.from('entradas').select('*').eq('evento_id',evActivo).order('creado',{ascending:false});
-  const tipos=[...new Set(all.map(t=>t.tipo))];
-  // Las anuladas no cuentan en la caja ni en los totales.
-  const vig=all.filter(t=>!t.anulada);
-  const cobrado=vig.reduce((s,t)=>s+(t.estado_pago==='pagado'?Number(t.precio||0):(t.estado_pago==='sena'?Number(t.sena||0):0)),0);
-  const totalVta=vig.reduce((s,t)=>s+Number(t.precio||0),0);
-  const adeudado=totalVta-cobrado;
-  const nPag=vig.filter(t=>t.estado_pago==='pagado').length, nSena=vig.filter(t=>t.estado_pago==='sena').length, nDebe=vig.filter(t=>t.estado_pago==='debe').length;
-  const nAnul=all.filter(t=>t.anulada).length;
-  v.innerHTML=`<div class="fld"><select id="en_ev">${evs.map(e=>`<option value="${e.id}" ${e.id===evActivo?'selected':''}>${esc(e.nombre)}</option>`).join('')}</select></div>
-    <div class="card" style="padding:16px">
-      <h2 style="margin-bottom:12px">Caja · ${esc(ev.nombre)}</h2>
-      <div class="stats" style="margin-bottom:8px">
-        <div class="stat"><div class="n" style="color:var(--ok);font-size:18px">${money(cobrado)}</div><div class="l">Cobrado</div></div>
-        <div class="stat"><div class="n" style="color:var(--dng);font-size:18px">${money(adeudado)}</div><div class="l">Falta cobrar</div></div>
-        <div class="stat"><div class="n" style="color:var(--gold);font-size:18px">${money(totalVta)}</div><div class="l">Total vendido</div></div>
+      <div class="valor-stats">
+        <div class="vstat"><h3>Estrategia primero</h3><p>No hacemos por hacer: cada acción responde a un objetivo de tu negocio.</p></div>
+        <div class="vstat"><h3>Todo en un lugar</h3><p>Marketing y tecnología integrados, sin coordinar entre varios proveedores.</p></div>
+        <div class="vstat"><h3>Cerca tuyo</h3><p>Somos de Iguazú. Nos sentamos con vos y entendemos tu contexto real.</p></div>
       </div>
-      <p class="note" style="margin:4px 0 0">${nPag} pagadas · ${nSena} con seña · ${nDebe} deben · ${all.length} entradas en total</p>
     </div>
-    <div class="fld"><input id="en_b" placeholder="Buscar por nombre..." value="${esc(busca)}"></div>
-    <div class="filters"><button class="chip ${filtEstado==='todas'?'on':''}" data-e="todas">Todas</button>
-      <button class="chip ${filtEstado==='debe'?'on':''}" data-e="debe">Deben</button>
-      <button class="chip ${filtEstado==='ing'?'on':''}" data-e="ing">Ingresaron</button></div>
-    ${tipos.length>1?`<div class="filters"><button class="chip ${filtTipo==='todos'?'on':''}" data-tp="todos">Todos</button>${tipos.map(tp=>`<button class="chip ${filtTipo===tp?'on':''}" data-tp="${esc(tp)}">${esc(tp)}</button>`).join('')}</div>`:''}
-    <div class="flex" style="margin-bottom:14px"><button class="mini" id="en_csv">Exportar CSV (rendición)</button></div>
-    <div class="card" id="en_list"></div>`;
-  $('en_ev').onchange=e=>{evActivo=e.target.value;filtTipo='todos';vEntradas();};
-  $('en_b').oninput=e=>{busca=e.target.value;paint();};
-  v.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{filtEstado=b.dataset.e;vEntradas();});
-  v.querySelectorAll('[data-tp]').forEach(b=>b.onclick=()=>{filtTipo=b.dataset.tp;vEntradas();});
-  $('en_csv').onclick=()=>{
-    const est=t=>({pagado:'Pagado',sena:'Seña',debe:'Debe'}[t.estado_pago]||t.estado_pago);
-    const rows=[['Comprador','Tipo','Precio','Pago','Seña','Cobrado','Ingreso','Codigo']];
-    all.forEach(t=>{const cob=t.estado_pago==='pagado'?t.precio:(t.estado_pago==='sena'?t.sena:0);
-      rows.push([t.comprador,t.tipo,t.precio,est(t),t.sena||0,cob,t.usada?new Date(t.usada_en).toLocaleString('es-AR'):'',t.id]);});
-    rows.push([]);rows.push(['','','','','TOTAL COBRADO',cobrado]);rows.push(['','','','','FALTA COBRAR',adeudado]);rows.push(['','','','','TOTAL VENDIDO',totalVta]);
-    const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\r\n');
-    const bl=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(bl);a.download=`rendicion-${(ev.nombre||'evento').replace(/\s+/g,'_')}.csv`;a.click();};
-  const pagoBadge=t=>({pagado:'<span class="badge ok">Pagado</span>',sena:`<span class="badge vip">Seña ${money(t.sena)}</span>`,debe:'<span class="badge no" style="color:var(--dng);border-color:var(--dngline)">Debe</span>'}[t.estado_pago]||'');
-  async function cambiarPago(id){
-    const t=all.find(x=>x.id===id); if(!t)return;
-    const orden={pagado:'sena',sena:'debe',debe:'pagado'}; const nuevo=orden[t.estado_pago];
-    let sena=0;
-    if(nuevo==='sena'){const m=prompt('Monto de la seña $:',t.sena||0); if(m===null)return; sena=Number(m)||0;}
-    const { error }=await sb.from('entradas').update({estado_pago:nuevo,sena}).eq('id',id);
-    if(error)return alert('Error: '+error.message);
-    vEntradas();
-  }
-  function paint(){
-    let l=all.slice();
-    if(filtEstado==='debe')l=l.filter(t=>t.estado_pago==='debe');
-    if(filtEstado==='ing')l=l.filter(t=>t.usada);
-    if(filtTipo!=='todos')l=l.filter(t=>t.tipo===filtTipo);
-    if(busca.trim())l=l.filter(t=>t.comprador.toLowerCase().includes(busca.toLowerCase()));
-    const box=$('en_list');
-    if(!l.length){box.innerHTML='<div class="empty">Sin resultados</div>';return;}
-    box.innerHTML=`<h2>${l.length} entrada${l.length>1?'s':''}</h2>`+l.map(t=>`<div class="tk"><div class="info"><div class="nm">${esc(t.comprador)}${t.usada?' · <span style="color:var(--ok)">ingresó</span>':''}</div><div class="id">${esc(t.tipo)} · ${money(t.precio)}</div></div>${pagoBadge(t)}<button class="mini" data-pago="${t.id}">Estado</button><button class="mini" data-pdf="${t.id}">PDF</button><button class="ghost" data-del="${t.id}" style="color:var(--dng);border-color:var(--dngline)">✕</button></div>`).join('');
-    box.querySelectorAll('[data-pago]').forEach(b=>b.onclick=()=>cambiarPago(b.dataset.pago));
-    box.querySelectorAll('[data-pdf]').forEach(b=>b.onclick=()=>{const t=all.find(x=>x.id===b.dataset.pdf);if(t)makePDF(t,ev);});
-    box.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>eliminarEntrada(b.dataset.del));
-  }
-  // Borrado seguro: dos confirmaciones. La segunda pide escribir una palabra.
-  async function eliminarEntrada(id){
-    const t=all.find(x=>x.id===id); if(!t)return;
-    const aviso=`Vas a ELIMINAR la entrada de "${t.comprador}" (${t.tipo}, ${money(t.precio)}).\n\n`+
-      (t.usada?'⚠ Esta entrada YA INGRESÓ al evento.\n':'')+
-      'Su QR dejará de funcionar y saldrá de la caja. Esta acción NO se puede deshacer.\n\n¿Continuar?';
-    if(!confirm(aviso))return;
-    const r=prompt('Para confirmar, escribí la palabra ELIMINAR (en mayúsculas):');
-    if(r===null)return;
-    if(r.trim().toUpperCase()!=='ELIMINAR'){alert('No se eliminó (no escribiste ELIMINAR).');return;}
-    const { error }=await sb.from('entradas').delete().eq('id',id);
-    if(error)return alert('Error: '+error.message);
-    vEntradas();
-  }
-  paint();
-}
+  </div>
+</section>
 
-boot();
+<!-- ══════ ÁREAS ══════ -->
+<section id="areas">
+  <div class="wrap">
+    <div class="sec-eyebrow">Nuestras áreas</div>
+    <h2 class="sec-h">Dos frentes, un mismo <em>criterio</em>.</h2>
+    <p class="sec-lead">ORIGEN trabaja hoy en dos grandes áreas. Cada una resuelve un lado de tu negocio — y juntas, lo hacen crecer.</p>
+
+    <div class="areas-grid">
+      <!-- MARKETING -->
+      <div class="area">
+        <div class="area-num">Área 01</div>
+        <h3>Marketing <em>& Contenido</em></h3>
+        <p class="area-desc">Todo lo que tu marca necesita para comunicar con claridad y vender más: presencia en redes, contenido que conecta, publicidad que rinde y una identidad que te representa.</p>
+        <ul class="area-list">
+          <li>Gestión de redes y community management</li>
+          <li>Estrategia y creación de contenido</li>
+          <li>Fotografía y video profesional</li>
+          <li>Branding e identidad de marca</li>
+          <li>Publicidad y campañas (Meta Ads)</li>
+          <li>Diseño de páginas web y landing pages</li>
+          <li>Reportes de rendimiento</li>
+        </ul>
+        <div class="area-for">Para negocios que quieren crecer y verse profesionales.</div>
+        <br>
+        <a href="marketing.html" class="area-cta">Ver servicios y portafolio →</a>
+      </div>
+
+      <!-- TECH -->
+      <div class="area">
+        <div class="area-num">Área 02</div>
+        <h3>Tecnología <em>& Sistemas</em></h3>
+        <p class="area-desc">Soluciones tecnológicas para tu casa o tu negocio: automatización, seguridad, conectividad y software a medida. La tecnología que hace que todo funcione mejor y más seguro.</p>
+        <ul class="area-list">
+          <li>Automatización y domótica (casa/negocio inteligente)</li>
+          <li>Cámaras de seguridad y videovigilancia</li>
+          <li>Alarmas inteligentes</li>
+          <li>Rastreo GPS de vehículos</li>
+          <li>Instalación y optimización de redes</li>
+          <li>Sistemas y aplicaciones a medida</li>
+          <li>Automatizaciones e integraciones</li>
+        </ul>
+        <div class="area-for">Para hogares y comercios que buscan control, seguridad y eficiencia.</div>
+        <br>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20soluciones%20de%20tecnolog%C3%ADa%20(dom%C3%B3tica%2C%20c%C3%A1maras%2C%20GPS%2C%20sistemas)." target="_blank" rel="noopener" class="area-cta">Consultar por Tech →</a>
+      </div>
+    </div>
+
+    <p class="sec-lead" style="margin-top:44px;font-size:15px;font-style:italic;font-family:'Cormorant',serif;">Próximamente sumamos nuevas áreas a ORIGEN.</p>
+  </div>
+</section>
+
+<!-- ══════ NOSOTROS ══════ -->
+<section id="nosotros" class="nos">
+  <div class="wrap">
+    <div class="sec-eyebrow">Nosotros</div>
+    <h2 class="sec-h">Un equipo que <em>resuelve</em>.</h2>
+    <div class="nos-grid">
+      <div>
+        <p class="nos-lead">Somos un equipo de Puerto Iguazú apasionado por el marketing y la tecnología. Nacimos para darle a los negocios de la región un servicio <em>profesional y cercano</em> a la vez — sin la distancia de una agencia grande ni la improvisación de lo amateur.</p>
+      </div>
+      <div class="nos-points">
+        <div class="nos-pt"><h4>Visión integral</h4><p>Vemos tu negocio completo: cómo se comunica y cómo funciona. Por eso unimos marketing y tecnología bajo un mismo techo.</p></div>
+        <div class="nos-pt"><h4>Cerca y con contexto</h4><p>Conocemos Iguazú y la región. Entendemos a tu cliente porque compartimos su mismo lugar.</p></div>
+        <div class="nos-pt"><h4>Trabajo real</h4><p>Nada de plantillas genéricas ni piloto automático. Cada proyecto se piensa desde cero para vos.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PROCESO ══════ -->
+<section id="proceso">
+  <div class="wrap">
+    <div class="sec-eyebrow">Cómo trabajamos</div>
+    <h2 class="sec-h">Simple y <em>transparente</em>.</h2>
+    <p class="sec-lead">Sabés en todo momento qué esperar. Así es trabajar con ORIGEN, de principio a fin.</p>
+
+    <div class="proc-grid">
+      <div class="step"><div class="step-n">01</div><h4>Consulta</h4><p>Nos contás qué necesitás. Escuchamos tu negocio, tu objetivo y tu contexto — sin compromiso.</p></div>
+      <div class="step"><div class="step-n">02</div><h4>Propuesta</h4><p>Armamos una propuesta a tu medida, con alcance y valores claros. Vos decidís con toda la información.</p></div>
+      <div class="step"><div class="step-n">03</div><h4>Ejecución</h4><p>Manos a la obra. Producimos, instalamos o desarrollamos lo acordado con estándar profesional.</p></div>
+      <div class="step"><div class="step-n">04</div><h4>Seguimiento</h4><p>Te mostramos resultados y ajustamos. La relación no termina con la entrega: acompañamos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CTA FINAL / CONTACTO ══════ -->
+<section id="contacto" class="cta-final">
+  <div class="wrap">
+    <div class="sec-eyebrow" style="text-align:center">Empecemos</div>
+    <h2>Hagamos crecer <em>tu negocio</em>.</h2>
+    <p>Contanos qué necesitás y te armamos una propuesta a medida. El primer paso es una conversación — sin compromiso.</p>
+    <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener" class="cta-btn">Escribinos por WhatsApp</a>
+
+    <div class="cta-info">
+      <div><div class="ci-l">WhatsApp</div><div class="ci-v"><a href="https://wa.me/5493757656783" target="_blank" rel="noopener">+54 9 3757 65-6783</a></div></div>
+      <div><div class="ci-l">Instagram</div><div class="ci-v"><a href="https://instagram.com/origen.agenciademarketing" target="_blank" rel="noopener">@origen.agenciademarketing</a></div></div>
+      <div><div class="ci-l">Ubicación</div><div class="ci-v">Jangadero 233 · Puerto Iguazú</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">ORIGEN</div>
+        <div class="foot-frase">Marcas que conectan.</div>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Explorar</h5>
+          <a href="#areas">Servicios</a>
+          <a href="#nosotros">Nosotros</a>
+          <a href="#proceso">Cómo trabajamos</a>
+          <a href="marketing.html">Marketing & Portafolio</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contacto</h5>
+          <a href="https://wa.me/5493757656783" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://instagram.com/origen.agenciademarketing" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener">Pedí una propuesta</a>
+        </div>
+        <div class="foot-col">
+          <h5>ORIGEN</h5>
+          <span style="font-size:14px;color:rgba(255,255,255,0.6);display:block;line-height:1.7">Jangadero 233<br>Puerto Iguazú, Misiones<br>Alcance regional y online</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 ORIGEN · Puerto Iguazú</span>
+      <span>Marketing · Tecnología</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var toggle=document.getElementById('navtoggle');
+  document.querySelectorAll('.mainnav .links a').forEach(function(a){
+    a.addEventListener('click',function(){ if(toggle) toggle.checked=false; });
+  });
+  var map=['areas','nosotros','proceso','contacto'];
+  var links={};
+  map.forEach(function(id){var l=document.querySelector('.mainnav .links a[href="#'+id+'"]');if(l)links[id]=l;});
+  var secs=map.map(function(id){return document.getElementById(id);}).filter(Boolean);
+  function onScroll(){
+    var pos=window.scrollY+100,cur=null;
+    secs.forEach(function(s){if(s.offsetTop<=pos)cur=s.id;});
+    map.forEach(function(id){if(links[id])links[id].classList.toggle('active',id===cur);});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
 </script>
 </body>
 </html>
