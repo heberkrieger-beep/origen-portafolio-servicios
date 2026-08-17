@@ -264,6 +264,29 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
   .phero h1{font-size:32px}
   .pick-card{padding:36px 26px}
 }
+/* ═══ FAQ ═══ */
+.faq-sec{padding:80px 0 90px;background:var(--n);color:#fff}
+.faq-head{text-align:center;margin-bottom:44px}
+.faq-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--d);margin-bottom:14px}
+.faq-head h2{font-size:clamp(28px,4vw,44px);color:#fff}
+.faq-head h2 em{color:var(--d)}
+.faq-list{max-width:760px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(255,255,255,0.14)}
+.faq-item:first-child{border-top:1px solid rgba(255,255,255,0.14)}
+.faq-q{width:100%;background:none;border:none;color:#fff;font-family:'Jost',sans-serif;font-size:17px;font-weight:300;
+  text-align:left;padding:24px 40px 24px 0;cursor:pointer;position:relative;display:flex;justify-content:space-between;align-items:center;gap:20px;transition:color .2s}
+.faq-q:hover{color:var(--d)}
+.faq-ic{font-family:'Cormorant',serif;font-size:26px;color:var(--d);flex-shrink:0;transition:transform .3s;line-height:1}
+.faq-item.open .faq-ic{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a p{font-size:15px;color:rgba(255,255,255,0.66);line-height:1.7;padding:0 40px 24px 0}
+.faq-item.open .faq-a{max-height:300px}
+.faq-cta{text-align:center;margin-top:48px}
+.faq-cta p{font-family:'Cormorant',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,0.6);margin-bottom:14px}
+.faq-cta a{display:inline-block;color:#fff;text-decoration:none;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;
+  border:1px solid rgba(255,255,255,0.3);padding:14px 32px;transition:.25s}
+.faq-cta a:hover{background:var(--d);color:var(--n);border-color:var(--d)}
+
 </style>
 </head>
 <body>
@@ -718,6 +741,46 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
   </div>
 </section>
 
+<!-- PREGUNTAS FRECUENTES -->
+<section class="faq-sec">
+  <div class="wrap">
+    <div class="faq-head">
+      <div class="faq-eyebrow">Preguntas frecuentes</div>
+      <h2>Todo lo que <em>querés saber</em>.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">¿Tengo que firmar un contrato largo?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>No te atamos con contratos complicados. Los planes de suscripción tienen un mínimo de 3 meses para poder mostrar resultados reales, y de ahí en más seguís mes a mes si estás conforme.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Cuánto tardan en arrancar?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Después de la primera charla y de definir tu plan, arrancamos en pocos días. Para redes empezamos a producir contenido enseguida; para web, el diseño inicial suele estar listo en 1 a 2 semanas según la complejidad.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Y si no me gusta el resultado?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Trabajamos con vos, no por tu cuenta. Antes de publicar o entregar, revisás y ajustamos hasta que quede como lo imaginás. Tu marca tiene que representarte, y no paramos hasta lograrlo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Cómo se paga?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Aceptamos Mercado Pago (con tarjeta, débito, efectivo o en cuotas) y transferencia bancaria. Al confirmar tu plan, coordinamos la forma que te quede más cómoda por WhatsApp.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Puedo cambiar de plan o sumar extras después?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Sí, cuando quieras. Podés arrancar con lo básico y sumar extras (más redes, fotografía, cobros online, etc.) a medida que tu negocio crece. El plan se adapta a vos.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Trabajan solo en Puerto Iguazú?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Estamos en Puerto Iguazú, pero trabajamos con negocios de toda la región y también de forma online. La gestión de redes, web y apps la hacemos a distancia sin problema; para instalaciones de seguridad, coordinamos la zona.</p></div>
+      </div>
+    </div>
+    <div class="faq-cta">
+      <p>¿Tenés otra duda?</p>
+      <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20tengo%20una%20consulta." target="_blank" rel="noopener">Escribinos por WhatsApp →</a>
+    </div>
+  </div>
+</section>
+
 <script>
 (function(){
   var WA='https://wa.me/5493757656783?text=';
@@ -862,6 +925,16 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
   setupUnit('#unit-redes','Gestión de redes',200000,'summary-redes','/mes');
   setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes');
   setupUnit('#unit-cam','Seguridad 24h',18000,'summary-cam','/mes');
+
+  // FAQ acordeón
+  document.querySelectorAll('.faq-q').forEach(function(q){
+    q.addEventListener('click',function(){
+      var item=q.parentElement;
+      var wasOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open')});
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
 })();
 </script>
 </body>
