@@ -330,7 +330,6 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
             </div>
             <div class="s-lines"></div>
             <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$200.000<small>/mes</small></div></div>
-            <div class="s-note">Mínimo 3 meses</div>
             <a href="#" class="s-cta" data-cta>Pedir este plan</a>
           </div>
         </div>
@@ -426,7 +425,6 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
               </div>
               <div class="s-lines"></div>
               <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$20.000<small>/mes</small></div></div>
-              <div class="s-note">Diseño inicial sin costo aparte</div>
               <a href="#" class="s-cta" data-cta>Pedir este plan</a>
             </div>
           </div>
@@ -512,7 +510,6 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
             </div>
             <div class="s-lines"></div>
             <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$18.000<small>/mes</small></div></div>
-            <div class="s-note">Instalación incluida</div>
             <a href="#" class="s-cta" data-cta>Pedir este plan</a>
           </div>
         </div>
@@ -600,17 +597,31 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
           lines+='<div class="s-line"><span class="s-name">'+name+'</span><span>'+money(sub)+'</span></div>';
         }
       });
-      var total=monthly*mult;  // total del período elegido
-      var saveHtml='';
-      if(mult>1){
-        var fullPrice=monthly*(mult===5?6:12);
-        var ahorro=fullPrice-total;
-        saveHtml='<div class="s-save">Ahorrás '+money(ahorro)+'</div>';
+      var meses = mult===1?1:(mult===5?6:12);
+      var totalPeriodo = monthly*mult;        // lo que paga junto (5 o 10 meses)
+      var mensualConDesc = Math.round(totalPeriodo/meses); // mensual equivalente con descuento
+      var saveHtml='', noteHtml='', bigNumber, bigPer;
+
+      if(mult===1){
+        bigNumber=money(monthly); bigPer='/mes';
+        noteHtml='<div class="s-note">Mínimo 3 meses</div>';
+      } else {
+        // protagonista: mensual con descuento
+        bigNumber=money(mensualConDesc); bigPer='/mes';
+        var ahorro=(monthly*meses)-totalPeriodo;
+        saveHtml='<div class="s-save">Con descuento · ahorrás '+money(ahorro)+'</div>';
+        noteHtml='<div class="s-note">Pagás '+money(totalPeriodo)+' una vez, por '+meses+' meses</div>';
       }
       var onceHtml = once>0 ? '<div class="s-once"><span>Pago único inicial</span><span>'+money(once)+'</span></div>' : '';
       linesBox.innerHTML=lines;
-      totalEl.innerHTML=money(total)+'<small>'+plazoPer+'</small>'+saveHtml+onceHtml;
-      var msg='Hola ORIGEN, quiero el plan de '+baseName+' ('+money(total)+' '+plazoLabel+')';
+      totalEl.innerHTML=bigNumber+'<small>'+bigPer+'</small>'+saveHtml+noteHtml+onceHtml;
+
+      var msg;
+      if(mult===1){
+        msg='Hola ORIGEN, quiero el plan de '+baseName+' ('+money(monthly)+'/mes)';
+      } else {
+        msg='Hola ORIGEN, quiero el plan de '+baseName+' pago '+plazoLabel+' ('+money(mensualConDesc)+'/mes, total '+money(totalPeriodo)+' por '+meses+' meses)';
+      }
       if(chosen.length) msg+=' con: '+chosen.join(', ');
       if(chosenOnce.length) msg+=' + pago único: '+chosenOnce.join(', ')+' ('+money(once)+')';
       msg+='.';
