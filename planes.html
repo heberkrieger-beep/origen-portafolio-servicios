@@ -69,7 +69,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 
 .subpick{display:none;padding:10px 0 90px}
 .subpick.active{display:block}
-.subpick-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:920px;margin:0 auto}
+.subpick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
 
 .config{padding:34px 0 100px;display:none}
 .config.active{display:block}
@@ -148,6 +148,75 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .completa-card li::before{content:'✓';position:absolute;left:0;color:var(--dk);font-size:12px}
 .cc-cta{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;background:var(--n);color:#fff;text-decoration:none;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;transition:background .3s}
 .cc-cta:hover{background:var(--dk)}
+
+/* ═══ ESTILOS DE WEB ═══ */
+.estilos{margin-top:70px;padding-top:60px;border-top:1px solid var(--l)}
+.estilos-head{text-align:center;max-width:640px;margin:0 auto 44px}
+.estilos-head .u-eyebrow{margin-bottom:14px}
+.estilos-head h2{font-size:clamp(28px,4vw,42px);margin-bottom:14px}
+.estilos-head h2 em{color:var(--dk)}
+.estilos-head p{font-size:16px;color:var(--p);line-height:1.7}
+.estilos-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.estilo{border:1px solid var(--l);background:#fff;overflow:hidden;transition:.3s}
+.estilo:hover{border-color:var(--n);transform:translateY(-3px);box-shadow:0 20px 40px -26px rgba(17,17,17,0.28)}
+.estilo-info{padding:24px 26px}
+.estilo-info h4{font-family:'Cormorant',serif;font-size:24px;font-weight:400;margin-bottom:8px}
+.estilo-info p{font-size:14px;color:var(--p);line-height:1.6}
+
+/* mockup base */
+.mock{height:220px;padding:0;position:relative;overflow:hidden;border-bottom:1px solid var(--l)}
+.mk-nav{height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#fff;border-bottom:1px solid rgba(0,0,0,0.06)}
+.mk-nav.dark{background:#141414}
+.mk-nav.dark2{background:#2A1E16}
+.mk-logo{width:34px;height:9px;background:#222;border-radius:2px}
+.mk-logo.gold{background:var(--d)}
+.mk-logo.grad{background:linear-gradient(90deg,#7C3AED,#EC4899)}
+.mk-logo.cream{background:#E8D9C0}
+.mk-links{width:70px;height:6px;background:rgba(0,0,0,0.14);border-radius:3px}
+.dark .mk-links,.dark2 .mk-links{background:rgba(255,255,255,0.25)}
+
+/* Minimalista */
+.mock-min{background:#fff}
+.mk-hero-min{padding:30px 20px 20px;display:flex;flex-direction:column;gap:9px}
+.mk-hero-min .mk-h1{width:65%;height:16px;background:#1a1a1a;border-radius:2px}
+.mk-hero-min .mk-h2{width:45%;height:8px;background:#bbb;border-radius:2px}
+.mk-hero-min .mk-btn{width:80px;height:20px;background:#1a1a1a;border-radius:2px;margin-top:8px}
+.mk-row3{display:flex;gap:10px;padding:0 20px}
+.mk-row3 span{flex:1;height:44px;background:#f0f0f0;border-radius:3px}
+
+/* Elegante */
+.mock-eleg{background:#faf8f4}
+.mk-hero-eleg{padding:34px 20px 22px;display:flex;flex-direction:column;gap:11px;align-items:center;background:#141414}
+.mk-hero-eleg .mk-h1{width:70%;height:15px;background:var(--d);border-radius:2px}
+.mk-hero-eleg .mk-h2{width:40%;height:7px;background:rgba(255,255,255,0.4);border-radius:2px}
+.mock-eleg .mk-row2{display:flex;gap:12px;padding:16px 20px}
+.mock-eleg .mk-row2 span{flex:1;height:40px;background:#ece4d5;border-radius:3px;border:1px solid var(--d)}
+
+/* Moderna */
+.mock-mod{background:#fff}
+.mk-hero-mod{padding:26px 20px;position:relative;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.mk-blob{position:absolute;width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#EC4899);opacity:.16;right:-30px;top:-20px}
+.mk-hero-mod .mk-h1{width:60%;height:16px;background:#1a1a1a;border-radius:2px;position:relative}
+.mk-hero-mod .mk-btn.grad{width:90px;height:22px;background:linear-gradient(90deg,#7C3AED,#EC4899);border-radius:11px;position:relative}
+.mock-mod .mk-row3{display:flex;gap:8px;padding:0 20px}
+.mock-mod .mk-row3 span{flex:1;height:40px;border-radius:6px}
+.mock-mod .c1{background:#EDE9FE}.mock-mod .c2{background:#FCE7F3}.mock-mod .c3{background:#DBEAFE}
+
+/* Gastronómica */
+.mock-gastro{background:#2A1E16}
+.mk-hero-gastro{padding:28px 20px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(160deg,#3d2c20,#2A1E16)}
+.mk-hero-gastro .mk-h1{width:66%;height:15px;background:#E8D9C0;border-radius:2px}
+.mk-hero-gastro .mk-btn.cream{width:84px;height:20px;background:#C9A576;border-radius:3px}
+.mock-gastro .mk-row2{display:flex;gap:10px;padding:14px 20px}
+.mock-gastro .mk-row2 span{flex:1;height:46px;border-radius:4px}
+.mock-gastro .food1{background:linear-gradient(135deg,#C4703A,#8B4A2B)}
+.mock-gastro .food2{background:linear-gradient(135deg,#A56A3A,#6B4226)}
+
+.estilos-note{text-align:center;margin-top:36px;font-size:16px;color:var(--p);font-family:'Cormorant',serif;font-style:italic;font-size:19px}
+.estilos-note a{color:var(--dk);text-decoration:none;border-bottom:1px solid var(--dk);padding-bottom:2px;font-style:normal;font-family:'Jost';font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-left:8px}
+.estilos-note a:hover{color:var(--n);border-color:var(--n)}
+
+@media(max-width:700px){.estilos-grid{grid-template-columns:1fr}}
 
 .unit-panel{display:none}
 .unit-panel.active{display:block}
@@ -239,9 +308,17 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
         <div class="pick-icon"><svg viewBox="0 0 48 48"><rect x="6" y="9" width="36" height="26" rx="2"/><path d="M6 16h36"/><circle cx="10" cy="12.5" r="0.8" fill="currentColor"/><circle cx="13" cy="12.5" r="0.8" fill="currentColor"/><path d="M18 42h12M24 35v7"/></svg></div>
         <div class="pick-unit">Presencia digital</div>
         <h2>Página <em>Web</em></h2>
-        <p>Tu sitio profesional. Elegí suscripción mensual (sin gran inversión inicial) o tu web completa en pago único.</p>
+        <p>Tu sitio profesional. Suscripción mensual o pago único.</p>
         <div class="pick-tags"><span>Suscripción</span><span>o Pago único</span></div>
-        <span class="pick-go">Ver opciones de web →</span>
+        <span class="pick-go">Ver opciones →</span>
+      </div>
+      <div class="pick-card" data-go="app">
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><rect x="14" y="4" width="20" height="40" rx="3"/><path d="M14 10h20M14 38h20"/><circle cx="24" cy="41" r="0.8" fill="currentColor"/></svg></div>
+        <div class="pick-unit">Desarrollo a medida</div>
+        <h2>Aplicación <em>Móvil</em></h2>
+        <p>Tu app a medida para Android e iOS. Pensada para tu negocio.</p>
+        <div class="pick-tags"><span>A medida</span><span>Android · iOS</span></div>
+        <span class="pick-go">Ver más →</span>
       </div>
     </div>
   </div>
@@ -450,6 +527,81 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
           <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20una%20propuesta%20para%20una%20web%20completa%20(pago%20%C3%BAnico)." target="_blank" rel="noopener" class="cc-cta">Pedir presupuesto →</a>
         </div>
       </div>
+
+      <!-- ESTILOS DE WEB -->
+      <div class="estilos">
+        <div class="estilos-head">
+          <div class="u-eyebrow">Estilos que trabajamos</div>
+          <h2>Elegí la <em>estética</em> de tu web.</h2>
+          <p>Cada negocio tiene su personalidad. Adaptamos el diseño a la tuya — estos son algunos estilos con los que trabajamos.</p>
+        </div>
+        <div class="estilos-grid">
+
+          <div class="estilo">
+            <div class="mock mock-min">
+              <div class="mk-nav"><span class="mk-logo"></span><span class="mk-links"></span></div>
+              <div class="mk-hero-min"><span class="mk-h1"></span><span class="mk-h2"></span><span class="mk-btn"></span></div>
+              <div class="mk-row3"><span></span><span></span><span></span></div>
+            </div>
+            <div class="estilo-info"><h4>Minimalista</h4><p>Limpio, mucho espacio en blanco, tipografía protagonista. Ideal para marcas modernas y profesionales.</p></div>
+          </div>
+
+          <div class="estilo">
+            <div class="mock mock-eleg">
+              <div class="mk-nav dark"><span class="mk-logo gold"></span><span class="mk-links"></span></div>
+              <div class="mk-hero-eleg"><span class="mk-h1"></span><span class="mk-h2"></span></div>
+              <div class="mk-row2"><span></span><span></span></div>
+            </div>
+            <div class="estilo-info"><h4>Elegante</h4><p>Negro, dorado y serif. Transmite exclusividad y calidad. Perfecto para estética, joyería, vinos.</p></div>
+          </div>
+
+          <div class="estilo">
+            <div class="mock mock-mod">
+              <div class="mk-nav"><span class="mk-logo grad"></span><span class="mk-links"></span></div>
+              <div class="mk-hero-mod"><span class="mk-blob"></span><span class="mk-h1"></span><span class="mk-btn grad"></span></div>
+              <div class="mk-row3"><span class="c1"></span><span class="c2"></span><span class="c3"></span></div>
+            </div>
+            <div class="estilo-info"><h4>Moderna / Vibrante</h4><p>Colores llamativos, formas dinámicas, mucha energía. Para marcas jóvenes que quieren destacar.</p></div>
+          </div>
+
+          <div class="estilo">
+            <div class="mock mock-gastro">
+              <div class="mk-nav dark2"><span class="mk-logo cream"></span><span class="mk-links"></span></div>
+              <div class="mk-hero-gastro"><span class="mk-h1"></span><span class="mk-btn cream"></span></div>
+              <div class="mk-row2"><span class="food1"></span><span class="food2"></span></div>
+            </div>
+            <div class="estilo-info"><h4>Gastronómica</h4><p>Fotos grandes, tonos cálidos, menú a la vista. Pensada para restós, cafés y delivery.</p></div>
+          </div>
+
+        </div>
+        <p class="estilos-note">¿Viste uno que te gusta? <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20me%20interesa%20una%20web%20y%20vi%20los%20estilos.%20Quiero%20consultar." target="_blank" rel="noopener">Contanos tu idea →</a></p>
+      </div>
+    </div>
+
+    <!-- APPS -->
+    <div class="unit-panel" id="unit-app">
+      <div class="unit-intro">
+        <div class="u-eyebrow">Aplicaciones móviles · Desarrollo a medida</div>
+        <h2>Tu app, <em>hecha para vos</em>.</h2>
+        <p>Desarrollamos aplicaciones móviles a medida para Android e iOS, pensadas para las necesidades de tu negocio.</p>
+      </div>
+      <div class="completa-card">
+        <div class="cc-tag">Pago único · Desarrollo a medida</div>
+        <h3>Aplicación <em>móvil a medida</em></h3>
+        <div class="cc-price">$400.000 <small>a $1.500.000 según complejidad</small></div>
+        <p>Cada app es un proyecto único. El valor depende de las funciones que necesites: desde una app sencilla hasta una con usuarios, pagos, pedidos o integraciones. Te armamos un presupuesto a medida después de entender tu idea.</p>
+        <ul>
+          <li>Diseño 100% personalizado</li>
+          <li>Para Android e iOS</li>
+          <li>Pensada para tu negocio</li>
+          <li>Panel de administración</li>
+          <li>Publicación en las tiendas</li>
+          <li>Capacitación de uso</li>
+          <li>Soporte post-lanzamiento</li>
+          <li>Actualizaciones según plan</li>
+        </ul>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20una%20propuesta%20para%20una%20aplicaci%C3%B3n%20m%C3%B3vil%20a%20medida." target="_blank" rel="noopener" class="cc-cta">Pedir presupuesto →</a>
+      </div>
     </div>
 
     <!-- CÁMARAS -->
@@ -551,6 +703,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
       else if(g==='cam'){ openUnit('cam'); }
       else if(g==='redes'){ openUnit('redes'); }
       else if(g==='web'){ openUnit('web'); }
+      else if(g==='app'){ openUnit('app'); }
     });
   });
 
