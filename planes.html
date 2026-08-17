@@ -122,6 +122,14 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .s-total .t-v{font-family:'Cormorant',serif;font-size:36px;color:var(--n);line-height:1}
 .s-total .t-v small{font-size:13px;color:var(--p);font-family:'Jost';letter-spacing:1px}
 .s-note{font-size:11px;color:var(--p);margin-top:6px;text-align:right}
+.plazo{display:flex;gap:0;margin-bottom:18px;border:1px solid var(--l)}
+.plazo button{flex:1;padding:9px 4px;background:#fff;border:none;cursor:pointer;font-family:'Jost';font-size:10px;
+  letter-spacing:1px;text-transform:uppercase;color:var(--p);transition:.2s;position:relative}
+.plazo button+button{border-left:1px solid var(--l)}
+.plazo button.on{background:var(--n);color:#fff}
+.plazo button small{display:block;font-size:8px;letter-spacing:0;color:var(--d);margin-top:2px;text-transform:none}
+.plazo button.on small{color:var(--d)}
+.s-save{font-size:10px;color:var(--o);text-align:right;margin-top:-2px;margin-bottom:2px;font-style:italic;font-family:'Cormorant',serif;font-size:14px}
 .s-once{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:12px;border-top:1px dashed var(--l);font-size:12px;color:var(--dk);letter-spacing:.5px;gap:14px}
 .s-once span:first-child{text-transform:uppercase;font-size:9px;letter-spacing:2px;color:var(--p)}
 .s-once span:last-child{font-family:'Cormorant',serif;font-size:20px;color:var(--n)}
@@ -315,9 +323,14 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
         <div class="summary" id="summary-redes">
           <div class="summary-top"><div class="s-eyebrow">Tu plan</div><h3>Gestión de redes</h3></div>
           <div class="summary-body">
+            <div class="plazo">
+              <button class="plazo-btn on" data-mult="1" data-per="/mes">Mensual</button>
+              <button class="plazo-btn" data-mult="5" data-per="/6 meses">6 meses<small>1 mes gratis</small></button>
+              <button class="plazo-btn" data-mult="10" data-per="/año">Anual<small>2 meses gratis</small></button>
+            </div>
             <div class="s-lines"></div>
             <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$200.000<small>/mes</small></div></div>
-            <div class="s-note">Sin permanencia forzada</div>
+            <div class="s-note">Mínimo 3 meses</div>
             <a href="#" class="s-cta" data-cta>Pedir este plan</a>
           </div>
         </div>
@@ -406,6 +419,11 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
           <div class="summary" id="summary-web">
             <div class="summary-top"><div class="s-eyebrow">Tu plan</div><h3>Web por suscripción</h3></div>
             <div class="summary-body">
+              <div class="plazo">
+                <button class="plazo-btn on" data-mult="1" data-per="/mes">Mensual</button>
+                <button class="plazo-btn" data-mult="5" data-per="/6 meses">6 meses<small>1 mes gratis</small></button>
+                <button class="plazo-btn" data-mult="10" data-per="/año">Anual<small>2 meses gratis</small></button>
+              </div>
               <div class="s-lines"></div>
               <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$20.000<small>/mes</small></div></div>
               <div class="s-note">Diseño inicial sin costo aparte</div>
@@ -487,6 +505,11 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
         <div class="summary" id="summary-cam">
           <div class="summary-top"><div class="s-eyebrow">Tu plan</div><h3>Seguridad 24h</h3></div>
           <div class="summary-body">
+            <div class="plazo">
+              <button class="plazo-btn on" data-mult="1" data-per="/mes">Mensual</button>
+              <button class="plazo-btn" data-mult="5" data-per="/6 meses">6 meses<small>1 mes gratis</small></button>
+              <button class="plazo-btn" data-mult="10" data-per="/año">Anual<small>2 meses gratis</small></button>
+            </div>
             <div class="s-lines"></div>
             <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$18.000<small>/mes</small></div></div>
             <div class="s-note">Instalación incluida</div>
@@ -560,35 +583,49 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
     var linesBox=summary.querySelector('.s-lines');
     var totalEl=summary.querySelector('[data-total]');
     var cta=summary.querySelector('[data-cta]');
+    var plazoBtns=summary.querySelectorAll('.plazo-btn');
+    var mult=1, plazoPer='/mes', plazoLabel='mensual';
     function recalc(){
-      var total=basePrice, once=0;
-      var lines='<div class="s-line base"><span class="s-name">'+baseName+'</span><span>'+money(basePrice)+'</span></div>';
+      var monthly=basePrice, once=0;
       var chosen=[], chosenOnce=[];
+      var lines='<div class="s-line base"><span class="s-name">'+baseName+'</span><span>'+money(basePrice)+'</span></div>';
       panel.querySelectorAll('.extra.on').forEach(function(ex){
         var price=parseInt(ex.dataset.price,10),qty=1;
         if(ex.dataset.qty){qty=parseInt(ex.querySelector('.qty-val').textContent,10)||1;}
         var sub=price*qty;
         var name=ex.querySelector('h4').textContent+(qty>1?' ×'+qty:'');
-        if(ex.dataset.once){
-          once+=sub;
+        if(ex.dataset.once){ once+=sub; chosenOnce.push(name);
           lines+='<div class="s-line"><span class="s-name">'+name+'</span><span>'+money(sub)+'</span></div>';
-          chosenOnce.push(name);
-        } else {
-          total+=sub;
+        } else { monthly+=sub; chosen.push(name);
           lines+='<div class="s-line"><span class="s-name">'+name+'</span><span>'+money(sub)+'</span></div>';
-          chosen.push(name);
         }
       });
-      // línea de pago único si corresponde
+      var total=monthly*mult;  // total del período elegido
+      var saveHtml='';
+      if(mult>1){
+        var fullPrice=monthly*(mult===5?6:12);
+        var ahorro=fullPrice-total;
+        saveHtml='<div class="s-save">Ahorrás '+money(ahorro)+'</div>';
+      }
       var onceHtml = once>0 ? '<div class="s-once"><span>Pago único inicial</span><span>'+money(once)+'</span></div>' : '';
       linesBox.innerHTML=lines;
-      totalEl.innerHTML=money(total)+'<small>'+per+'</small>'+onceHtml;
-      var msg='Hola ORIGEN, quiero el plan de '+baseName+' ('+money(total)+per+')';
+      totalEl.innerHTML=money(total)+'<small>'+plazoPer+'</small>'+saveHtml+onceHtml;
+      var msg='Hola ORIGEN, quiero el plan de '+baseName+' ('+money(total)+' '+plazoLabel+')';
       if(chosen.length) msg+=' con: '+chosen.join(', ');
       if(chosenOnce.length) msg+=' + pago único: '+chosenOnce.join(', ')+' ('+money(once)+')';
       msg+='.';
       cta.setAttribute('href',WA+encodeURIComponent(msg));
     }
+    plazoBtns.forEach(function(btn){
+      btn.addEventListener('click',function(){
+        plazoBtns.forEach(function(x){x.classList.remove('on')});
+        btn.classList.add('on');
+        mult=parseFloat(btn.dataset.mult);
+        plazoPer=btn.dataset.per;
+        plazoLabel = mult===1?'mensual':(mult===5?'por 6 meses':'anual');
+        recalc();
+      });
+    });
     panel.querySelectorAll('.extra').forEach(function(ex){
       var qtyBox=ex.querySelector('.extra-qty');
       ex.addEventListener('click',function(e){
