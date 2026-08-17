@@ -122,6 +122,9 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .s-total .t-v{font-family:'Cormorant',serif;font-size:36px;color:var(--n);line-height:1}
 .s-total .t-v small{font-size:13px;color:var(--p);font-family:'Jost';letter-spacing:1px}
 .s-note{font-size:11px;color:var(--p);margin-top:6px;text-align:right}
+.s-once{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:12px;border-top:1px dashed var(--l);font-size:12px;color:var(--dk);letter-spacing:.5px;gap:14px}
+.s-once span:first-child{text-transform:uppercase;font-size:9px;letter-spacing:2px;color:var(--p)}
+.s-once span:last-child{font-family:'Cormorant',serif;font-size:20px;color:var(--n)}
 .s-cta{display:block;width:100%;text-align:center;padding:16px;background:var(--n);color:#fff;text-decoration:none;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;margin-top:18px;transition:background .3s;font-family:'Jost'}
 .s-cta:hover{background:var(--d);color:var(--n)}
 
@@ -278,15 +281,15 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
             <div class="extra-body"><h4>Producción de contenido</h4><p>Creamos el contenido desde cero, no solo lo publicamos.</p></div>
             <div class="extra-price">+$80.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="70000">
+          <div class="extra" data-price="200000" data-once="true">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Fotografía profesional</h4><p>Sesión mensual de fotos de tu negocio o productos.</p></div>
-            <div class="extra-price">+$70.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Sesión de fotografía profesional</h4><p>Sesión de 1½ h para generar contenido que usás durante varios meses. Podés sumarla una sola vez.</p></div>
+            <div class="extra-price">+$200.000<small>única vez</small></div>
           </div>
-          <div class="extra" data-price="90000">
+          <div class="extra" data-price="250000" data-once="true">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Video y Reels</h4><p>Producción de videos y reels para más alcance.</p></div>
-            <div class="extra-price">+$90.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Sesión de fotografía y video</h4><p>Sesión de 1½ h de fotos y video profesional. Contenido para varios meses. Podés sumarla una sola vez.</p></div>
+            <div class="extra-price">+$250.000<small>única vez</small></div>
           </div>
           <div class="extra" data-price="50000">
             <div class="extra-check">✓</div>
@@ -558,21 +561,31 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
     var totalEl=summary.querySelector('[data-total]');
     var cta=summary.querySelector('[data-cta]');
     function recalc(){
-      var total=basePrice;
+      var total=basePrice, once=0;
       var lines='<div class="s-line base"><span class="s-name">'+baseName+'</span><span>'+money(basePrice)+'</span></div>';
-      var chosen=[];
+      var chosen=[], chosenOnce=[];
       panel.querySelectorAll('.extra.on').forEach(function(ex){
         var price=parseInt(ex.dataset.price,10),qty=1;
         if(ex.dataset.qty){qty=parseInt(ex.querySelector('.qty-val').textContent,10)||1;}
-        var sub=price*qty;total+=sub;
+        var sub=price*qty;
         var name=ex.querySelector('h4').textContent+(qty>1?' ×'+qty:'');
-        lines+='<div class="s-line"><span class="s-name">'+name+'</span><span>'+money(sub)+'</span></div>';
-        chosen.push(name);
+        if(ex.dataset.once){
+          once+=sub;
+          lines+='<div class="s-line"><span class="s-name">'+name+'</span><span>'+money(sub)+'</span></div>';
+          chosenOnce.push(name);
+        } else {
+          total+=sub;
+          lines+='<div class="s-line"><span class="s-name">'+name+'</span><span>'+money(sub)+'</span></div>';
+          chosen.push(name);
+        }
       });
+      // línea de pago único si corresponde
+      var onceHtml = once>0 ? '<div class="s-once"><span>Pago único inicial</span><span>'+money(once)+'</span></div>' : '';
       linesBox.innerHTML=lines;
-      totalEl.innerHTML=money(total)+'<small>'+per+'</small>';
+      totalEl.innerHTML=money(total)+'<small>'+per+'</small>'+onceHtml;
       var msg='Hola ORIGEN, quiero el plan de '+baseName+' ('+money(total)+per+')';
       if(chosen.length) msg+=' con: '+chosen.join(', ');
+      if(chosenOnce.length) msg+=' + pago único: '+chosenOnce.join(', ')+' ('+money(once)+')';
       msg+='.';
       cta.setAttribute('href',WA+encodeURIComponent(msg));
     }
