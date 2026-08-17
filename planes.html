@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ORIGEN · Armá tu plan</title>
-<meta name="description" content="Armá tu plan a medida con ORIGEN. Página web o seguridad por suscripción, con extras que sumás según lo que necesites. Puerto Iguazú.">
+<meta name="description" content="Armá tu plan a medida con ORIGEN. Redes sociales, páginas web y seguridad. Elegí lo que necesitás y el precio se arma solo. Puerto Iguazú.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ORIGEN · Armá tu plan">
-<meta property="og:description" content="Elegí una base y sumá solo lo que necesitás. El precio se arma frente a tus ojos.">
+<meta property="og:description" content="Redes sociales, páginas web y seguridad. Elegí lo que necesitás y el precio se arma frente a tus ojos.">
 <meta property="og:image" content="https://agencia-origen.online/og-preview.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -18,7 +18,7 @@
 <style>
 :root{
   --b:#FFFFFF;--n:#111111;--p:#6B6760;--d:#C9B37A;--dk:#8A6E3A;--o:#484D3A;
-  --l:rgba(17,17,17,0.09);--lf:rgba(17,17,17,0.045);--cream:#FAF8F4;
+  --l:rgba(17,17,17,0.09);--lf:rgba(17,17,17,0.045);--cream:#FAF6EF;--sand:#F3EDE3;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -29,7 +29,6 @@ em{font-family:'Cormorant',serif;font-style:italic}
 h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
 
-/* NAV */
 .mainnav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.94);
   backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);
   border-bottom:1px solid var(--l);display:flex;align-items:center;justify-content:space-between;padding:14px 40px}
@@ -41,66 +40,64 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .nav-cta{background:var(--n);color:#fff!important;padding:9px 20px;letter-spacing:2px}
 .nav-cta:hover{background:var(--d);color:var(--n)!important}
 
-/* HERO */
-.phero{padding:70px 0 30px;text-align:center}
+.phero{padding:66px 0 26px;text-align:center}
 .phero .eyebrow{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--dk);margin-bottom:20px}
 .phero h1{font-size:clamp(34px,5.5vw,64px);margin-bottom:18px}
 .phero h1 em{color:var(--dk)}
 .phero p{font-size:18px;color:var(--p);max-width:56ch;margin:0 auto}
+.steps{display:flex;justify-content:center;gap:10px;align-items:center;margin-top:26px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--p)}
+.steps b{color:var(--dk);font-weight:400}
+.steps span{opacity:.4}
 
-/* ── PASO 1: elección de categoría ── */
-.picker{padding:20px 0 90px}
+.picker{padding:24px 0 90px}
 .picker-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:920px;margin:0 auto}
-.pick-card{border:1px solid var(--l);padding:50px 44px;cursor:pointer;text-align:left;position:relative;
-  transition:.3s;background:#fff;overflow:hidden}
+.pick-card{border:1px solid var(--l);padding:48px 42px;cursor:pointer;text-align:left;position:relative;transition:.3s;background:#fff;overflow:hidden}
 .pick-card::after{content:'';position:absolute;inset:0;background:var(--cream);opacity:0;transition:opacity .3s;z-index:0}
 .pick-card:hover{border-color:var(--n);transform:translateY(-3px);box-shadow:0 20px 40px -24px rgba(17,17,17,0.25)}
 .pick-card:hover::after{opacity:1}
 .pick-card>*{position:relative;z-index:1}
-.pick-icon{width:56px;height:56px;margin-bottom:26px;color:var(--dk)}
+.pick-icon{width:54px;height:54px;margin-bottom:24px;color:var(--dk)}
 .pick-icon svg{width:100%;height:100%;stroke:currentColor;stroke-width:1.2;fill:none}
 .pick-unit{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--p);margin-bottom:12px}
-.pick-card h2{font-size:34px;margin-bottom:12px}
+.pick-card h2{font-size:32px;margin-bottom:12px}
 .pick-card h2 em{color:var(--dk)}
-.pick-card p{font-size:15px;color:var(--p);line-height:1.7;margin-bottom:24px}
-.pick-from{font-size:12px;letter-spacing:1px;color:var(--p);margin-bottom:6px}
-.pick-price{font-family:'Cormorant',serif;font-size:32px;color:var(--n);margin-bottom:28px}
-.pick-price small{font-size:14px;color:var(--p);font-family:'Jost'}
-.pick-go{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
-  color:var(--n);padding-bottom:6px;border-bottom:1px solid var(--n);transition:.25s}
+.pick-card p{font-size:15px;color:var(--p);line-height:1.7;margin-bottom:20px}
+.pick-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.pick-tags span{font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--sand);color:var(--o)}
+.pick-go{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--n);padding-bottom:6px;border-bottom:1px solid var(--n);transition:.25s}
 .pick-card:hover .pick-go{gap:16px;color:var(--dk);border-color:var(--dk)}
 
-/* ── PASO 2: configurador ── */
-.config{padding:40px 0 100px;display:none}
+.subpick{display:none;padding:10px 0 90px}
+.subpick.active{display:block}
+.subpick-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:920px;margin:0 auto}
+
+.config{padding:34px 0 100px;display:none}
 .config.active{display:block}
-.back-link{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;
-  color:var(--p);text-decoration:none;margin-bottom:30px;transition:color .2s;cursor:pointer;background:none;border:none;font-family:'Jost'}
+.back-link{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--p);text-decoration:none;margin-bottom:28px;transition:color .2s;cursor:pointer;background:none;border:none;font-family:'Jost'}
 .back-link:hover{color:var(--n)}
 .config-grid{display:grid;grid-template-columns:1fr 380px;gap:50px;align-items:start}
-
-.unit-intro{margin-bottom:34px}
+.unit-intro{margin-bottom:32px}
 .unit-intro .u-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--dk);margin-bottom:12px}
 .unit-intro h2{font-size:36px;margin-bottom:12px}
 .unit-intro h2 em{color:var(--dk)}
 .unit-intro p{font-size:16px;color:var(--p);max-width:52ch}
 
-.base-card{border:1px solid var(--n);padding:30px 32px;margin-bottom:36px;background:var(--cream)}
+.base-card{border:1px solid var(--n);padding:28px 32px;margin-bottom:34px;background:var(--cream)}
 .base-card .b-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--dk);margin-bottom:10px}
 .base-card h3{font-size:26px;margin-bottom:6px}
-.base-card .b-price{font-family:'Cormorant',serif;font-size:40px;color:var(--n);line-height:1;margin:14px 0 4px}
+.base-card .b-price{font-family:'Cormorant',serif;font-size:38px;color:var(--n);line-height:1;margin:12px 0 4px}
 .base-card .b-price small{font-size:15px;color:var(--p);font-family:'Jost';letter-spacing:1px}
-.base-card .b-inc{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--p);margin:20px 0 12px}
+.base-card .b-inc{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--p);margin:18px 0 12px}
 .base-card ul{list-style:none}
 .base-card li{font-size:14px;color:var(--n);padding:6px 0 6px 22px;position:relative}
 .base-card li::before{content:'✓';position:absolute;left:0;color:var(--dk);font-size:13px}
 
 .extras-h{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:6px}
-.extras-sub{font-family:'Cormorant',serif;font-size:17px;color:var(--p);margin-bottom:22px;font-style:italic}
-.extra{display:flex;align-items:center;gap:16px;padding:18px 0;border-top:1px solid var(--l);cursor:pointer;transition:padding .2s}
+.extras-sub{font-family:'Cormorant',serif;font-size:17px;color:var(--p);margin-bottom:20px;font-style:italic}
+.extra{display:flex;align-items:center;gap:16px;padding:17px 0;border-top:1px solid var(--l);cursor:pointer;transition:padding .2s}
 .extra:last-child{border-bottom:1px solid var(--l)}
 .extra:hover{padding-left:6px}
-.extra-check{width:22px;height:22px;border:1.5px solid var(--l);border-radius:4px;flex-shrink:0;display:flex;
-  align-items:center;justify-content:center;transition:.2s;font-size:13px;color:#fff}
+.extra-check{width:22px;height:22px;border:1.5px solid var(--l);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.2s;font-size:13px;color:#fff}
 .extra.on .extra-check{background:var(--n);border-color:var(--n)}
 .extra-body{flex:1}
 .extra-body h4{font-family:'Jost';font-size:15px;font-weight:400;color:var(--n);margin-bottom:2px}
@@ -108,35 +105,59 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .extra-price{font-family:'Cormorant',serif;font-size:20px;color:var(--dk);white-space:nowrap}
 .extra-price small{font-size:11px;color:var(--p);font-family:'Jost'}
 .extra-qty{display:flex;align-items:center;gap:10px}
-.qty-btn{width:28px;height:28px;border:1px solid var(--l);background:#fff;cursor:pointer;font-size:16px;color:var(--n);
-  display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+.qty-btn{width:28px;height:28px;border:1px solid var(--l);background:#fff;cursor:pointer;font-size:16px;color:var(--n);display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
 .qty-btn:hover{border-color:var(--n)}
 .qty-val{font-family:'Cormorant',serif;font-size:20px;min-width:22px;text-align:center}
 
 .summary{position:sticky;top:88px;border:1px solid var(--n);background:#fff}
-.summary-top{background:var(--n);color:#fff;padding:24px 28px}
+.summary-top{background:var(--n);color:#fff;padding:22px 28px}
 .summary-top .s-eyebrow{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--d);margin-bottom:6px}
-.summary-top h3{font-family:'Cormorant',serif;font-size:24px;font-weight:400}
-.summary-body{padding:24px 28px}
+.summary-top h3{font-family:'Cormorant',serif;font-size:23px;font-weight:400}
+.summary-body{padding:22px 28px}
 .s-line{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;font-size:13.5px;color:var(--p);border-bottom:1px solid var(--lf);gap:14px}
 .s-line .s-name{color:var(--n)}
 .s-line.base .s-name{font-weight:400}
-.s-total{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0 6px;margin-top:8px;border-top:2px solid var(--n)}
+.s-total{display:flex;justify-content:space-between;align-items:baseline;padding:20px 0 6px;margin-top:8px;border-top:2px solid var(--n)}
 .s-total .t-l{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--p)}
-.s-total .t-v{font-family:'Cormorant',serif;font-size:38px;color:var(--n);line-height:1}
-.s-total .t-v small{font-size:14px;color:var(--p);font-family:'Jost';letter-spacing:1px}
+.s-total .t-v{font-family:'Cormorant',serif;font-size:36px;color:var(--n);line-height:1}
+.s-total .t-v small{font-size:13px;color:var(--p);font-family:'Jost';letter-spacing:1px}
 .s-note{font-size:11px;color:var(--p);margin-top:6px;text-align:right}
-.s-cta{display:block;width:100%;text-align:center;padding:16px;background:var(--n);color:#fff;text-decoration:none;
-  font-size:12px;letter-spacing:2.5px;text-transform:uppercase;margin-top:20px;transition:background .3s;font-family:'Jost'}
+.s-cta{display:block;width:100%;text-align:center;padding:16px;background:var(--n);color:#fff;text-decoration:none;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;margin-top:18px;transition:background .3s;font-family:'Jost'}
 .s-cta:hover{background:var(--d);color:var(--n)}
+
+.completa-card{border:1px solid var(--l);background:var(--sand);padding:34px 36px;margin-top:34px}
+.completa-card .cc-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--dk);margin-bottom:12px}
+.completa-card h3{font-size:28px;margin-bottom:10px}
+.completa-card h3 em{color:var(--dk)}
+.completa-card p{font-size:14.5px;color:var(--p);line-height:1.7;margin-bottom:18px;max-width:56ch}
+.completa-card .cc-price{font-family:'Cormorant',serif;font-size:30px;color:var(--n);margin-bottom:20px}
+.completa-card .cc-price small{font-size:14px;color:var(--p);font-family:'Jost'}
+.completa-card ul{list-style:none;margin-bottom:24px;columns:2;column-gap:30px}
+.completa-card li{font-size:13.5px;color:var(--n);padding:5px 0 5px 20px;position:relative;break-inside:avoid}
+.completa-card li::before{content:'✓';position:absolute;left:0;color:var(--dk);font-size:12px}
+.cc-cta{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;background:var(--n);color:#fff;text-decoration:none;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;transition:background .3s}
+.cc-cta:hover{background:var(--dk)}
 
 .unit-panel{display:none}
 .unit-panel.active{display:block}
 
+.web-choice{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:10px}
+.wc-card{border:1px solid var(--l);padding:32px 30px;cursor:pointer;transition:.25s;background:#fff;position:relative}
+.wc-card:hover{border-color:var(--n);background:var(--cream)}
+.wc-card.sel{border-color:var(--n);border-width:2px;background:var(--cream)}
+.wc-badge{position:absolute;top:-11px;left:30px;background:var(--dk);color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px}
+.wc-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--p);margin-bottom:10px}
+.wc-card h3{font-size:24px;margin-bottom:8px}
+.wc-card h3 em{color:var(--dk)}
+.wc-price{font-family:'Cormorant',serif;font-size:32px;color:var(--n);line-height:1;margin:12px 0 4px}
+.wc-price small{font-size:13px;color:var(--p);font-family:'Jost';letter-spacing:1px}
+.wc-desc{font-size:13.5px;color:var(--p);line-height:1.6;margin-top:14px}
+
 @media(max-width:900px){
-  .picker-grid{grid-template-columns:1fr}
+  .picker-grid,.subpick-grid,.web-choice{grid-template-columns:1fr}
   .config-grid{grid-template-columns:1fr}
   .summary{position:static;margin-top:10px}
+  .completa-card ul{columns:1}
 }
 @media(max-width:600px){
   .wrap{padding:0 22px}
@@ -144,7 +165,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
   .mainnav .links{gap:14px}
   .mainnav .links a:not(.nav-cta){display:none}
   .phero h1{font-size:32px}
-  .pick-card{padding:38px 28px}
+  .pick-card{padding:36px 26px}
 }
 </style>
 </head>
@@ -154,129 +175,260 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
   <a href="index.html" class="brand"><img src="logo-origen.png" alt="ORIGEN" class="brand-logo"></a>
   <div class="links">
     <a href="index.html">Inicio</a>
-    <a href="marketing.html">Marketing</a>
+    <a href="marketing.html">Portafolio</a>
     <a href="https://wa.me/5493757656783" target="_blank" rel="noopener" class="nav-cta">Contactar</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <header class="phero">
   <div class="wrap">
-    <div class="eyebrow">Planes por suscripción</div>
+    <div class="eyebrow">Nuestros planes</div>
     <h1>Armá tu plan <em>a medida</em>.</h1>
-    <p>Elegí qué necesitás, sumá solo lo que quieras y mirá el precio armarse al instante. Sin costos ocultos.</p>
+    <p>Elegí qué necesitás y sumá solo lo que quieras. El precio se arma al instante, sin costos ocultos.</p>
+    <div class="steps" id="steps"><b>1 · Qué necesitás</b> <span>›</span> 2 · Tu plan</div>
   </div>
 </header>
 
-<!-- ══════ PASO 1 · ELEGIR CATEGORÍA ══════ -->
 <section class="picker" id="picker">
   <div class="wrap">
     <div class="picker-grid">
-
-      <div class="pick-card" data-go="web">
-        <div class="pick-icon">
-          <svg viewBox="0 0 48 48"><rect x="6" y="9" width="36" height="26" rx="2"/><path d="M6 16h36"/><circle cx="10" cy="12.5" r="0.8" fill="currentColor"/><circle cx="13" cy="12.5" r="0.8" fill="currentColor"/><path d="M18 42h12M24 35v7"/></svg>
-        </div>
-        <div class="pick-unit">ORIGEN Studio · Digital</div>
-        <h2>Página <em>web</em></h2>
-        <p>Tu sitio diseñado y mantenido mes a mes. Vos te ocupás de tu negocio; nosotros de que esté online, rápido y actualizado.</p>
-        <div class="pick-from">Desde</div>
-        <div class="pick-price">$15.000 <small>/ mes</small></div>
-        <span class="pick-go">Armar mi web →</span>
+      <div class="pick-card" data-go="marketing">
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><path d="M6 24c0-9 8-16 18-16s18 7 18 16-8 16-18 16c-3 0-6-.6-8-1.6L8 42l2-8c-2-3-4-6-4-10z"/><circle cx="17" cy="24" r="1.5" fill="currentColor"/><circle cx="24" cy="24" r="1.5" fill="currentColor"/><circle cx="31" cy="24" r="1.5" fill="currentColor"/></svg></div>
+        <div class="pick-unit">ORIGEN Studio · Marketing</div>
+        <h2>Marketing <em>Digital</em></h2>
+        <p>Tu presencia online, profesional y consistente. Redes sociales, contenido y páginas web para que tu marca crezca.</p>
+        <div class="pick-tags"><span>Redes sociales</span><span>Contenido</span><span>Páginas web</span></div>
+        <span class="pick-go">Ver opciones →</span>
       </div>
-
       <div class="pick-card" data-go="cam">
-        <div class="pick-icon">
-          <svg viewBox="0 0 48 48"><path d="M6 18l30-8v18l-30-4z"/><circle cx="19" cy="20" r="5"/><path d="M11 32v6M11 38h8"/><path d="M36 15l6-2v14l-6-2"/></svg>
-        </div>
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><path d="M6 18l30-8v18l-30-4z"/><circle cx="19" cy="20" r="5"/><path d="M11 32v6M11 38h8"/><path d="M36 15l6-2v14l-6-2"/></svg></div>
         <div class="pick-unit">ORIGEN Tech · Seguridad</div>
         <h2>Seguridad <em>24h</em></h2>
         <p>Cámaras instaladas y monitoreadas día y noche. Mirá tu casa o tu negocio desde el celular, cuando quieras.</p>
-        <div class="pick-from">Desde</div>
-        <div class="pick-price">$18.000 <small>/ mes</small></div>
+        <div class="pick-tags"><span>Cámaras</span><span>Monitoreo</span><span>Alarmas</span></div>
         <span class="pick-go">Armar mi seguridad →</span>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ══════ PASO 2 · CONFIGURADOR ══════ -->
+<section class="subpick" id="subpick">
+  <div class="wrap">
+    <button class="back-link" data-back="picker">← Volver</button>
+    <div class="subpick-grid">
+      <div class="pick-card" data-go="redes">
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="14" r="6"/><circle cx="12" cy="32" r="6"/><circle cx="36" cy="32" r="6"/><path d="M20 18l-4 9M28 18l4 9M18 32h12"/></svg></div>
+        <div class="pick-unit">Lo más pedido</div>
+        <h2>Redes <em>Sociales</em></h2>
+        <p>Gestionamos tus redes con contenido profesional para que tu marca comunique y venda. Suscripción mensual.</p>
+        <div class="pick-tags"><span>Instagram</span><span>Contenido</span><span>Fotografía</span></div>
+        <span class="pick-go">Armar mi plan de redes →</span>
+      </div>
+      <div class="pick-card" data-go="web">
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><rect x="6" y="9" width="36" height="26" rx="2"/><path d="M6 16h36"/><circle cx="10" cy="12.5" r="0.8" fill="currentColor"/><circle cx="13" cy="12.5" r="0.8" fill="currentColor"/><path d="M18 42h12M24 35v7"/></svg></div>
+        <div class="pick-unit">Presencia digital</div>
+        <h2>Página <em>Web</em></h2>
+        <p>Tu sitio profesional. Elegí suscripción mensual (sin gran inversión inicial) o tu web completa en pago único.</p>
+        <div class="pick-tags"><span>Suscripción</span><span>o Pago único</span></div>
+        <span class="pick-go">Ver opciones de web →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="config" id="config">
   <div class="wrap">
-    <button class="back-link" id="back">← Volver a elegir</button>
+    <button class="back-link" id="back">← Volver</button>
 
-    <!-- WEB -->
-    <div class="unit-panel" id="unit-web">
+    <!-- REDES -->
+    <div class="unit-panel" id="unit-redes">
       <div class="config-grid">
         <div>
           <div class="unit-intro">
-            <div class="u-eyebrow">ORIGEN Studio · Digital</div>
-            <h2>Tu página web, <em>siempre al día</em>.</h2>
-            <p>Diseñamos tu sitio y lo mantenemos funcionando mes a mes, con todo incluido.</p>
+            <div class="u-eyebrow">Redes sociales · Suscripción mensual</div>
+            <h2>Tu marca, <em>siempre activa</em>.</h2>
+            <p>Nos ocupamos de tus redes para que vos te ocupes de tu negocio. Empezá con la base y sumá lo que necesites.</p>
           </div>
           <div class="base-card">
             <div class="b-tag">Plan base · incluido</div>
-            <h3>Página web</h3>
-            <div class="b-price">$15.000 <small>/ mes</small></div>
+            <h3>Gestión de redes</h3>
+            <div class="b-price">$200.000 <small>/ mes</small></div>
             <div class="b-inc">Incluye</div>
             <ul>
-              <li>Diseño inicial de tu sitio (sin costo aparte)</li>
-              <li>Hosting y dominio gestionados</li>
-              <li>Optimizada para celular</li>
-              <li>Hasta 5 secciones</li>
-              <li>Mantenimiento y actualizaciones</li>
-              <li>Soporte por WhatsApp</li>
+              <li>Gestión de 1 red social (Instagram o Facebook)</li>
+              <li>8 a 12 publicaciones mensuales</li>
+              <li>Diseño profesional de cada pieza</li>
+              <li>Redacción de textos y hashtags</li>
+              <li>Historias semanales</li>
+              <li>Programación y publicación</li>
+              <li>Reporte mensual de métricas</li>
             </ul>
           </div>
           <div class="extras-h">Sumá extras</div>
-          <div class="extras-sub">Potenciá tu web con lo que tu negocio necesite.</div>
+          <div class="extras-sub">Potenciá tu presencia con lo que tu marca necesite.</div>
 
-          <div class="extra" data-price="5000">
+          <div class="extra" data-price="60000" data-qty="true">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Dominio personalizado</h4><p>Tu propia dirección web (tunegocio.com) en vez de una genérica.</p></div>
-            <div class="extra-price">+$5.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Red social adicional</h4><p>Sumá Facebook, TikTok u otra red a tu gestión.</p></div>
+            <div class="extra-qty" style="display:none"><button class="qty-btn" data-dir="-1">−</button><span class="qty-val">1</span><button class="qty-btn" data-dir="1">+</button></div>
+            <div class="extra-price">+$60.000<small>/mes c/u</small></div>
           </div>
-          <div class="extra" data-price="5000">
+          <div class="extra" data-price="80000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Botón de WhatsApp integrado</h4><p>Que tus clientes te escriban con un clic desde la web.</p></div>
-            <div class="extra-price">+$5.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Producción de contenido</h4><p>Creamos el contenido desde cero, no solo lo publicamos.</p></div>
+            <div class="extra-price">+$80.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="15000">
+          <div class="extra" data-price="70000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Tienda / catálogo online</h4><p>Mostrá tus productos con precios y fotos, listos para vender.</p></div>
-            <div class="extra-price">+$15.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Fotografía profesional</h4><p>Sesión mensual de fotos de tu negocio o productos.</p></div>
+            <div class="extra-price">+$70.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="10000">
+          <div class="extra" data-price="90000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Turnos y reservas online</h4><p>Que reserven o pidan turno directo desde el sitio.</p></div>
-            <div class="extra-price">+$10.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Video y Reels</h4><p>Producción de videos y reels para más alcance.</p></div>
+            <div class="extra-price">+$90.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="5000">
+          <div class="extra" data-price="50000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Campañas publicitarias</h4><p>Cuota mensual de pauta en redes y Google para que te encuentren. El presupuesto se destina a la publicidad.</p></div>
-            <div class="extra-price">+$5.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Campañas publicitarias (Meta Ads)</h4><p>Gestión de pauta paga. El presupuesto de publicidad va aparte.</p></div>
+            <div class="extra-price">+$50.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="5000">
+          <div class="extra" data-price="40000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Google Maps y ficha de negocio</h4><p>Que aparezcas en el mapa y en las búsquedas de Google de tu zona.</p></div>
-            <div class="extra-price">+$5.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Community management</h4><p>Respondemos comentarios y mensajes por vos.</p></div>
+            <div class="extra-price">+$40.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="5000">
+          <div class="extra" data-price="20000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Secciones adicionales</h4><p>Blog, galería, más páginas según lo que necesites.</p></div>
-            <div class="extra-price">+$5.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Google Maps y ficha de negocio</h4><p>Que aparezcas en el mapa y en las búsquedas de Google.</p></div>
+            <div class="extra-price">+$20.000<small>/mes</small></div>
+          </div>
+          <div class="extra" data-price="35000">
+            <div class="extra-check">✓</div>
+            <div class="extra-body"><h4>Automatizaciones y respuestas</h4><p>Respuestas automáticas y chatbot en WhatsApp e Instagram.</p></div>
+            <div class="extra-price">+$35.000<small>/mes</small></div>
           </div>
         </div>
-
-        <div class="summary" id="summary-web">
-          <div class="summary-top"><div class="s-eyebrow">Tu plan</div><h3>Página web</h3></div>
+        <div class="summary" id="summary-redes">
+          <div class="summary-top"><div class="s-eyebrow">Tu plan</div><h3>Gestión de redes</h3></div>
           <div class="summary-body">
             <div class="s-lines"></div>
-            <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$15.000<small>/mes</small></div></div>
-            <div class="s-note">Diseño inicial sin costo aparte</div>
+            <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$200.000<small>/mes</small></div></div>
+            <div class="s-note">Sin permanencia forzada</div>
             <a href="#" class="s-cta" data-cta>Pedir este plan</a>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEB -->
+    <div class="unit-panel" id="unit-web">
+      <div class="unit-intro">
+        <div class="u-eyebrow">Página web · Elegí cómo</div>
+        <h2>Dos formas de tener <em>tu web</em>.</h2>
+        <p>Elegí la que mejor se adapte a tu negocio. Las dos incluyen diseño profesional.</p>
+      </div>
+      <div class="web-choice">
+        <div class="wc-card sel" data-web="susc">
+          <div class="wc-badge">Más elegido</div>
+          <div class="wc-tag">Suscripción mensual</div>
+          <h3>Web por <em>suscripción</em></h3>
+          <div class="wc-price">$20.000<small>/mes</small></div>
+          <div class="wc-desc">Empezá ya, sin gran inversión inicial. Nosotros diseñamos y mantenemos todo. Ideal para arrancar tu presencia online.</div>
+        </div>
+        <div class="wc-card" data-web="full">
+          <div class="wc-tag">Pago único</div>
+          <h3>Web <em>completa</em></h3>
+          <div class="wc-price">$250K<small>a $600K</small></div>
+          <div class="wc-desc">Tu web a medida, es tuya para siempre. Ideal si querés una solución completa y ser dueño de tu sitio.</div>
+        </div>
+      </div>
+
+      <div id="web-susc">
+        <div class="config-grid" style="margin-top:36px">
+          <div>
+            <div class="base-card">
+              <div class="b-tag">Plan base · incluido</div>
+              <h3>Web por suscripción</h3>
+              <div class="b-price">$20.000 <small>/ mes</small></div>
+              <div class="b-inc">Incluye</div>
+              <ul>
+                <li>Diseño inicial de tu sitio (sin costo aparte)</li>
+                <li>Hosting y dominio gestionados</li>
+                <li>Optimizada para celular</li>
+                <li>Hasta 5 secciones</li>
+                <li>Mantenimiento y actualizaciones</li>
+                <li>Soporte por WhatsApp</li>
+              </ul>
+            </div>
+            <div class="extras-h">Sumá extras</div>
+            <div class="extras-sub">Potenciá tu web con lo que tu negocio necesite.</div>
+
+            <div class="extra" data-price="5000">
+              <div class="extra-check">✓</div>
+              <div class="extra-body"><h4>Dominio personalizado</h4><p>Tu propia dirección web (tunegocio.com).</p></div>
+              <div class="extra-price">+$5.000<small>/mes</small></div>
+            </div>
+            <div class="extra" data-price="5000">
+              <div class="extra-check">✓</div>
+              <div class="extra-body"><h4>Botón de WhatsApp integrado</h4><p>Que te escriban con un clic desde la web.</p></div>
+              <div class="extra-price">+$5.000<small>/mes</small></div>
+            </div>
+            <div class="extra" data-price="15000">
+              <div class="extra-check">✓</div>
+              <div class="extra-body"><h4>Tienda / catálogo online</h4><p>Mostrá tus productos con precios y fotos.</p></div>
+              <div class="extra-price">+$15.000<small>/mes</small></div>
+            </div>
+            <div class="extra" data-price="10000">
+              <div class="extra-check">✓</div>
+              <div class="extra-body"><h4>Turnos y reservas online</h4><p>Que reserven o pidan turno desde el sitio.</p></div>
+              <div class="extra-price">+$10.000<small>/mes</small></div>
+            </div>
+            <div class="extra" data-price="5000">
+              <div class="extra-check">✓</div>
+              <div class="extra-body"><h4>Campañas publicitarias</h4><p>Cuota mensual de pauta en redes y Google. El presupuesto se destina a la publicidad.</p></div>
+              <div class="extra-price">+$5.000<small>/mes</small></div>
+            </div>
+            <div class="extra" data-price="5000">
+              <div class="extra-check">✓</div>
+              <div class="extra-body"><h4>Google Maps y ficha de negocio</h4><p>Que aparezcas en el mapa y las búsquedas de Google.</p></div>
+              <div class="extra-price">+$5.000<small>/mes</small></div>
+            </div>
+            <div class="extra" data-price="5000">
+              <div class="extra-check">✓</div>
+              <div class="extra-body"><h4>Secciones adicionales</h4><p>Blog, galería, más páginas según lo que necesites.</p></div>
+              <div class="extra-price">+$5.000<small>/mes</small></div>
+            </div>
+          </div>
+          <div class="summary" id="summary-web">
+            <div class="summary-top"><div class="s-eyebrow">Tu plan</div><h3>Web por suscripción</h3></div>
+            <div class="summary-body">
+              <div class="s-lines"></div>
+              <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$20.000<small>/mes</small></div></div>
+              <div class="s-note">Diseño inicial sin costo aparte</div>
+              <a href="#" class="s-cta" data-cta>Pedir este plan</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="web-full" style="display:none">
+        <div class="completa-card">
+          <div class="cc-tag">Pago único · Es tuya para siempre</div>
+          <h3>Web <em>completa</em></h3>
+          <div class="cc-price">$250.000 <small>a $600.000 según complejidad</small></div>
+          <p>Desarrollamos tu sitio web a medida, pensado para tu negocio. Vos sos dueño de la web, sin cuotas mensuales. El valor final depende de la cantidad de secciones y funciones que necesites.</p>
+          <ul>
+            <li>Diseño 100% personalizado</li>
+            <li>Sitio completo (varias secciones)</li>
+            <li>Optimizada para celular</li>
+            <li>Formulario de contacto</li>
+            <li>Integración con redes y WhatsApp</li>
+            <li>Google Maps y ficha</li>
+            <li>Optimización básica (SEO)</li>
+            <li>Capacitación de uso</li>
+          </ul>
+          <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20una%20propuesta%20para%20una%20web%20completa%20(pago%20%C3%BAnico)." target="_blank" rel="noopener" class="cc-cta">Pedir presupuesto →</a>
         </div>
       </div>
     </div>
@@ -286,7 +438,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
       <div class="config-grid">
         <div>
           <div class="unit-intro">
-            <div class="u-eyebrow">ORIGEN Tech · Seguridad</div>
+            <div class="u-eyebrow">Seguridad · Suscripción mensual</div>
             <h2>Cuidá tu lugar, <em>día y noche</em>.</h2>
             <p>Instalamos tus cámaras y las mantenemos con monitoreo permanente.</p>
           </div>
@@ -310,9 +462,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
           <div class="extra" data-price="6000" data-qty="true">
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Cámara adicional</h4><p>Sumá más cobertura donde la necesites.</p></div>
-            <div class="extra-qty" style="display:none">
-              <button class="qty-btn" data-dir="-1">−</button><span class="qty-val">1</span><button class="qty-btn" data-dir="1">+</button>
-            </div>
+            <div class="extra-qty" style="display:none"><button class="qty-btn" data-dir="-1">−</button><span class="qty-val">1</span><button class="qty-btn" data-dir="1">+</button></div>
             <div class="extra-price">+$6.000<small>/mes c/u</small></div>
           </div>
           <div class="extra" data-price="5000">
@@ -331,7 +481,6 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
             <div class="extra-price">+$7.000<small>/mes</small></div>
           </div>
         </div>
-
         <div class="summary" id="summary-cam">
           <div class="summary-top"><div class="s-eyebrow">Tu plan</div><h3>Seguridad 24h</h3></div>
           <div class="summary-body">
@@ -351,36 +500,63 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 (function(){
   var WA='https://wa.me/5493757656783?text=';
   function money(n){return '$'+n.toLocaleString('es-AR');}
-
   var picker=document.getElementById('picker');
+  var subpick=document.getElementById('subpick');
   var config=document.getElementById('config');
-  var back=document.getElementById('back');
+  var steps=document.getElementById('steps');
+  var S1='<b>1 · Qué necesitás</b> <span>›</span> 2 · Tu plan';
+  var S2='1 · Qué necesitás <span>›</span> <b>2 · Tu plan</b>';
 
-  // Paso 1 -> Paso 2
-  document.querySelectorAll('.pick-card').forEach(function(card){
+  function show(el){
+    [picker,subpick,config].forEach(function(s){s.classList.remove('active');s.style.display='none';});
+    if(el===picker){picker.style.display='block';} else {el.classList.add('active');el.style.display='block';}
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  picker.style.display='block';
+
+  function openUnit(u){
+    show(config);
+    document.querySelectorAll('.unit-panel').forEach(function(p){p.classList.remove('active')});
+    document.getElementById('unit-'+u).classList.add('active');
+    steps.innerHTML=S2;
+  }
+
+  document.querySelectorAll('[data-go]').forEach(function(card){
     card.addEventListener('click',function(){
-      var u=card.dataset.go;
-      picker.style.display='none';
-      config.classList.add('active');
-      document.querySelectorAll('.unit-panel').forEach(function(p){p.classList.remove('active')});
-      document.getElementById('unit-'+u).classList.add('active');
-      window.scrollTo({top:0,behavior:'smooth'});
+      var g=card.dataset.go;
+      if(g==='marketing'){ show(subpick); steps.innerHTML=S1; }
+      else if(g==='cam'){ openUnit('cam'); }
+      else if(g==='redes'){ openUnit('redes'); }
+      else if(g==='web'){ openUnit('web'); }
     });
   });
-  // volver
-  back.addEventListener('click',function(){
-    config.classList.remove('active');
-    picker.style.display='block';
-    window.scrollTo({top:0,behavior:'smooth'});
+
+  document.getElementById('back').addEventListener('click',function(){
+    var active=document.querySelector('.unit-panel.active');
+    if(active && active.id==='unit-cam'){ show(picker); }
+    else { show(subpick); }
+    steps.innerHTML=S1;
+  });
+  document.querySelectorAll('[data-back]').forEach(function(btn){
+    btn.addEventListener('click',function(){ show(picker); steps.innerHTML=S1; });
   });
 
-  function setupUnit(panelId, baseName, basePrice, summaryId){
-    var panel=document.getElementById(panelId);
+  document.querySelectorAll('.wc-card').forEach(function(card){
+    card.addEventListener('click',function(){
+      document.querySelectorAll('.wc-card').forEach(function(c){c.classList.remove('sel')});
+      card.classList.add('sel');
+      var t=card.dataset.web;
+      document.getElementById('web-susc').style.display=(t==='susc')?'block':'none';
+      document.getElementById('web-full').style.display=(t==='full')?'block':'none';
+    });
+  });
+
+  function setupUnit(panelSel, baseName, basePrice, summaryId, per){
+    var panel=document.querySelector(panelSel);
     var summary=document.getElementById(summaryId);
     var linesBox=summary.querySelector('.s-lines');
     var totalEl=summary.querySelector('[data-total]');
     var cta=summary.querySelector('[data-cta]');
-
     function recalc(){
       var total=basePrice;
       var lines='<div class="s-line base"><span class="s-name">'+baseName+'</span><span>'+money(basePrice)+'</span></div>';
@@ -394,13 +570,12 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
         chosen.push(name);
       });
       linesBox.innerHTML=lines;
-      totalEl.innerHTML=money(total)+'<small>/mes</small>';
-      var msg='Hola ORIGEN, quiero el plan de '+baseName+' ('+money(total)+'/mes)';
+      totalEl.innerHTML=money(total)+'<small>'+per+'</small>';
+      var msg='Hola ORIGEN, quiero el plan de '+baseName+' ('+money(total)+per+')';
       if(chosen.length) msg+=' con: '+chosen.join(', ');
       msg+='.';
       cta.setAttribute('href',WA+encodeURIComponent(msg));
     }
-
     panel.querySelectorAll('.extra').forEach(function(ex){
       var qtyBox=ex.querySelector('.extra-qty');
       ex.addEventListener('click',function(e){
@@ -423,8 +598,9 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
     recalc();
   }
 
-  setupUnit('unit-web','Página web',15000,'summary-web');
-  setupUnit('unit-cam','Seguridad 24h',18000,'summary-cam');
+  setupUnit('#unit-redes','Gestión de redes',200000,'summary-redes','/mes');
+  setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes');
+  setupUnit('#unit-cam','Seguridad 24h',18000,'summary-cam','/mes');
 })();
 </script>
 </body>
