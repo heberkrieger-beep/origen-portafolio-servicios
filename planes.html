@@ -297,8 +297,11 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .ctr-head p{font-size:16px;color:var(--p);line-height:1.7}
 .ctr-grid{display:grid;grid-template-columns:370px 1fr;gap:44px;align-items:start}
 
-.ctr-form{position:sticky;top:88px;border:1px solid var(--n);background:#fff}
-.ctr-form-top{background:var(--n);color:#fff;padding:20px 26px}
+.ctr-form{position:sticky;top:84px;border:1px solid var(--n);background:#fff;
+  max-height:calc(100vh - 104px);overflow-y:auto;overscroll-behavior:contain}
+.ctr-form::-webkit-scrollbar{width:6px}
+.ctr-form::-webkit-scrollbar-thumb{background:var(--l)}
+.ctr-form-top{background:var(--n);color:#fff;padding:20px 26px;position:sticky;top:0;z-index:2}
 .ctr-form-top .s-eyebrow{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--d);margin-bottom:6px}
 .ctr-form-top h3{font-family:'Cormorant',serif;font-size:22px;font-weight:400}
 .ctr-form-body{padding:22px 26px 26px}
@@ -377,7 +380,8 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
 
 @media(max-width:1000px){
   .ctr-grid{grid-template-columns:1fr}
-  .ctr-form{position:static}
+  .ctr-form{position:static;max-height:none;overflow:visible}
+  .ctr-form-top{position:static}
   .ctr-doc{padding:34px 26px;font-size:12.5px}
   .doc-parts,.doc-firmas{grid-template-columns:1fr}
   .doc-head{flex-direction:column;align-items:flex-start}
