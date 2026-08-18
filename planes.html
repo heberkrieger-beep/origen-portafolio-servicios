@@ -287,6 +287,118 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
   border:1px solid rgba(255,255,255,0.3);padding:14px 32px;transition:.25s}
 .faq-cta a:hover{background:var(--d);color:var(--n);border-color:var(--d)}
 
+/* ═══ CONTRATO ═══ */
+.contrato{display:none;padding:34px 0 100px}
+.contrato.active{display:block}
+.ctr-head{max-width:660px;margin:0 auto 44px;text-align:center}
+.ctr-head .u-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--dk);margin-bottom:14px}
+.ctr-head h2{font-size:clamp(28px,4vw,44px);margin-bottom:14px}
+.ctr-head h2 em{color:var(--dk)}
+.ctr-head p{font-size:16px;color:var(--p);line-height:1.7}
+.ctr-grid{display:grid;grid-template-columns:370px 1fr;gap:44px;align-items:start}
+
+.ctr-form{position:sticky;top:88px;border:1px solid var(--n);background:#fff}
+.ctr-form-top{background:var(--n);color:#fff;padding:20px 26px}
+.ctr-form-top .s-eyebrow{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--d);margin-bottom:6px}
+.ctr-form-top h3{font-family:'Cormorant',serif;font-size:22px;font-weight:400}
+.ctr-form-body{padding:22px 26px 26px}
+.ctr-form fieldset{border:none;margin-bottom:6px}
+.ctr-form legend{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--p);margin-bottom:12px}
+.f-row{margin-bottom:14px}
+.f-row label{display:block;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--p);margin-bottom:5px}
+.f-row label .req{color:var(--dk)}
+.f-row input,.f-row textarea,.f-row select{width:100%;font-family:'Jost',sans-serif;font-size:14px;font-weight:300;color:var(--n);
+  border:1px solid var(--l);background:#fff;padding:10px 12px;border-radius:0;transition:border-color .2s}
+.f-row input:focus,.f-row textarea:focus,.f-row select:focus{outline:none;border-color:var(--n)}
+.f-row input:user-invalid{border-color:#B4402F}
+.f-row .hint{font-size:11px;color:var(--p);margin-top:4px}
+.f-half{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ctr-accept{display:flex;gap:12px;align-items:flex-start;padding:16px;background:var(--cream);border:1px solid var(--l);margin:18px 0 4px}
+.ctr-accept input{width:18px;height:18px;flex-shrink:0;margin-top:2px;accent-color:#111}
+.ctr-accept label{font-size:12.5px;color:var(--n);line-height:1.55;cursor:pointer}
+.ctr-submit{display:block;width:100%;text-align:center;padding:16px;background:var(--n);color:#fff;border:none;cursor:pointer;
+  font-family:'Jost',sans-serif;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;margin-top:16px;transition:background .3s}
+.ctr-submit:hover{background:var(--d);color:var(--n)}
+.ctr-submit:disabled{background:#DAD7D2;color:#8C8880;cursor:not-allowed}
+.ctr-actions{display:none;gap:10px;margin-top:16px;flex-direction:column}
+.ctr-actions.on{display:flex}
+.ctr-btn{display:block;width:100%;text-align:center;padding:15px;text-decoration:none;border:1px solid var(--n);background:#fff;color:var(--n);
+  cursor:pointer;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;transition:.25s}
+.ctr-btn:hover{background:var(--n);color:#fff}
+.ctr-btn.primary{background:var(--n);color:#fff}
+.ctr-btn.primary:hover{background:var(--d);color:var(--n)}
+.ctr-done{display:none;font-family:'Cormorant',serif;font-style:italic;font-size:16px;color:var(--o);margin-top:14px;text-align:center}
+.ctr-done.on{display:block}
+
+/* documento */
+.ctr-doc{border:1px solid var(--l);background:#fff;padding:52px 56px;box-shadow:0 24px 60px -40px rgba(17,17,17,.4);font-size:13px;line-height:1.72;color:var(--n)}
+.doc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;border-bottom:2px solid var(--n);padding-bottom:20px;margin-bottom:26px}
+.doc-head img{height:46px;width:auto}
+.doc-meta{text-align:right;font-size:11px;color:var(--p);line-height:1.6;letter-spacing:.4px}
+.doc-meta b{color:var(--n);font-weight:400}
+.doc-title{text-align:center;margin-bottom:28px}
+.doc-title h3{font-size:27px;line-height:1.2}
+.doc-title h3 em{color:var(--dk)}
+.doc-title .doc-sub{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--p);margin-top:8px}
+.doc-parts{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:28px}
+.doc-part{border:1px solid var(--l);padding:16px 18px;background:var(--cream)}
+.doc-part h4{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--dk);font-weight:400;margin-bottom:10px}
+.doc-part dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;font-size:12px}
+.doc-part dt{color:var(--p)}
+.doc-part dd{color:var(--n);word-break:break-word}
+.doc-cl{margin-bottom:18px;break-inside:avoid}
+.doc-cl h5{font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:1.6px;text-transform:uppercase;color:var(--n);margin-bottom:6px}
+.doc-cl p{font-size:12.5px;color:#33312E;margin-bottom:7px;text-align:justify}
+.doc-cl ul{list-style:none;margin:4px 0 8px}
+.doc-cl li{font-size:12.5px;color:#33312E;padding:3px 0 3px 18px;position:relative;text-align:justify}
+.doc-cl li::before{content:'—';position:absolute;left:0;color:var(--dk)}
+.doc-sec-title{font-size:10px;letter-spacing:3.5px;text-transform:uppercase;color:var(--dk);border-bottom:1px solid var(--l);padding-bottom:8px;margin:30px 0 18px}
+table.doc-tbl{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:12.5px}
+table.doc-tbl th{text-align:left;font-family:'Jost',sans-serif;font-weight:400;font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--p);border-bottom:1px solid var(--n);padding:7px 8px}
+table.doc-tbl th:last-child,table.doc-tbl td:last-child{text-align:right;white-space:nowrap}
+table.doc-tbl td{padding:8px;border-bottom:1px solid var(--lf);vertical-align:top}
+table.doc-tbl tr.tot td{border-bottom:none;border-top:2px solid var(--n);font-size:15px;padding-top:12px}
+table.doc-tbl tr.tot td:last-child{font-family:'Cormorant',serif;font-size:24px;line-height:1}
+table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--dk);padding-bottom:6px}
+.doc-note{font-size:11.5px;color:var(--p);font-style:italic;font-family:'Cormorant',serif;font-size:14px;margin-top:-4px;margin-bottom:14px}
+.doc-firmas{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:40px;padding-top:26px;border-top:1px solid var(--l);break-inside:avoid}
+.doc-firma{text-align:center}
+.doc-firma .fline{border-bottom:1px solid var(--n);height:52px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px}
+.doc-firma .fname{font-family:'Cormorant',serif;font-style:italic;font-size:22px;color:var(--n)}
+.doc-firma .frole{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);margin-top:9px}
+.doc-firma .fdet{font-size:11px;color:var(--p);margin-top:3px}
+.doc-stamp{margin-top:26px;padding:14px 16px;border:1px dashed var(--l);background:var(--cream);font-size:11px;color:var(--p);line-height:1.6}
+.doc-stamp b{color:var(--n);font-weight:400}
+.doc-foot{margin-top:24px;padding-top:14px;border-top:1px solid var(--l);font-size:10px;letter-spacing:.6px;color:var(--p);text-align:center;line-height:1.7}
+.anexo{display:none}
+.anexo.on{display:block}
+.ctr-pending{padding:16px 18px;background:var(--sand);border-left:2px solid var(--dk);font-size:12.5px;color:var(--o);margin-bottom:24px}
+
+@media(max-width:1000px){
+  .ctr-grid{grid-template-columns:1fr}
+  .ctr-form{position:static}
+  .ctr-doc{padding:34px 26px;font-size:12.5px}
+  .doc-parts,.doc-firmas{grid-template-columns:1fr}
+  .doc-head{flex-direction:column;align-items:flex-start}
+  .doc-meta{text-align:left}
+}
+
+@media print{
+  @page{size:A4;margin:14mm}
+  .mainnav,.phero,.picker,.subpick,.config,.faq-sec,.ctr-head,.ctr-form,.ctr-pending,.back-link{display:none!important}
+  .contrato{display:block!important;padding:0}
+  .wrap{padding:0;max-width:none}
+  .ctr-grid{display:block}
+  .ctr-doc{border:none;box-shadow:none;padding:0;font-size:10.5pt;line-height:1.55}
+  .doc-cl p,.doc-cl li,table.doc-tbl{font-size:9.5pt}
+  .doc-part{background:none;border:1px solid #999}
+  .doc-title h3{font-size:22pt}
+  .doc-sec-title{page-break-after:avoid}
+  .doc-cl,.doc-firmas,table.doc-tbl{page-break-inside:avoid}
+  a{text-decoration:none;color:inherit}
+}
+
 </style>
 </head>
 <body>
@@ -305,7 +417,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
     <div class="eyebrow">Nuestros planes</div>
     <h1>Armá tu plan <em>a medida</em>.</h1>
     <p>Elegí qué necesitás y sumá solo lo que quieras. El precio se arma al instante, sin costos ocultos.</p>
-    <div class="steps" id="steps"><b>1 · Qué necesitás</b> <span>›</span> 2 · Tu plan</div>
+    <div class="steps" id="steps"><b>1 · Qué necesitás</b> <span>›</span> 2 · Tu plan <span>›</span> 3 · Contrato</div>
   </div>
 </header>
 
@@ -447,7 +559,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
             </div>
             <div class="s-lines"></div>
             <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$200.000<small>/mes</small></div></div>
-            <a href="#" class="s-cta" data-cta>Pedir este plan</a>
+            <a href="#contrato" class="s-cta" data-cta>Continuar · Ver contrato</a>
           </div>
         </div>
       </div>
@@ -547,7 +659,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
               </div>
               <div class="s-lines"></div>
               <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$20.000<small>/mes</small></div></div>
-              <a href="#" class="s-cta" data-cta>Pedir este plan</a>
+              <a href="#contrato" class="s-cta" data-cta>Continuar · Ver contrato</a>
             </div>
           </div>
         </div>
@@ -707,7 +819,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
             </div>
             <div class="s-lines"></div>
             <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$18.000<small>/mes</small></div></div>
-            <a href="#" class="s-cta" data-cta>Pedir este plan</a>
+            <a href="#contrato" class="s-cta" data-cta>Continuar · Ver contrato</a>
           </div>
         </div>
       </div>
@@ -738,6 +850,328 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
       </div>
     </div>
 
+  </div>
+</section>
+
+<!-- CONTRATO / ORDEN DE SERVICIO -->
+<section class="contrato" id="contrato">
+  <div class="wrap">
+    <button class="back-link" id="ctr-back" type="button">← Volver a mi plan</button>
+
+    <div class="ctr-head">
+      <div class="u-eyebrow">Paso final</div>
+      <h2>Confirmá tu <em>contrato</em>.</h2>
+      <p>Completá tus datos, leé las condiciones y aceptalas. Vas a poder imprimir o guardar el contrato en PDF, y nos llega una copia del resumen.</p>
+    </div>
+
+    <div class="ctr-grid">
+
+      <form class="ctr-form" id="ctr-form" novalidate>
+        <div class="ctr-form-top">
+          <div class="s-eyebrow">Datos del contratante</div>
+          <h3>Completá para firmar</h3>
+        </div>
+        <div class="ctr-form-body">
+          <fieldset>
+            <legend>Persona que contrata</legend>
+            <div class="f-row">
+              <label for="i-nombre">Nombre y apellido <span class="req" aria-hidden="true">*</span></label>
+              <input id="i-nombre" name="nombre" type="text" required minlength="5" autocomplete="name" placeholder="Juan Pérez">
+            </div>
+            <div class="f-half">
+              <div class="f-row">
+                <label for="i-doc">DNI o CUIT <span class="req" aria-hidden="true">*</span></label>
+                <input id="i-doc" name="doc" type="text" required inputmode="numeric" minlength="7" maxlength="13" pattern="[0-9.\-]{7,13}" placeholder="30.123.456">
+              </div>
+              <div class="f-row">
+                <label for="i-tel">Teléfono <span class="req" aria-hidden="true">*</span></label>
+                <input id="i-tel" name="tel" type="tel" required minlength="8" autocomplete="tel" placeholder="3757 65-6783">
+              </div>
+            </div>
+            <div class="f-row">
+              <label for="i-mail">Correo electrónico <span class="req" aria-hidden="true">*</span></label>
+              <input id="i-mail" name="mail" type="email" required autocomplete="email" placeholder="juan@correo.com">
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Negocio y domicilio</legend>
+            <div class="f-row">
+              <label for="i-negocio">Nombre del negocio o marca</label>
+              <input id="i-negocio" name="negocio" type="text" placeholder="Opcional">
+            </div>
+            <div class="f-row">
+              <label for="i-dom">Domicilio <span class="req" aria-hidden="true">*</span></label>
+              <input id="i-dom" name="dom" type="text" required minlength="5" autocomplete="street-address" placeholder="Av. Victoria Aguirre 123">
+            </div>
+            <div class="f-row">
+              <label for="i-loc">Localidad y provincia <span class="req" aria-hidden="true">*</span></label>
+              <input id="i-loc" name="loc" type="text" required minlength="4" value="Puerto Iguazú, Misiones">
+            </div>
+            <div class="f-row">
+              <label for="i-inicio">Fecha de inicio del servicio <span class="req" aria-hidden="true">*</span></label>
+              <input id="i-inicio" name="inicio" type="date" required>
+              <div class="hint">Si no estás seguro, poné una fecha estimada. La confirmamos juntos.</div>
+            </div>
+            <div class="f-row">
+              <label for="i-obs">Observaciones o pedidos especiales</label>
+              <textarea id="i-obs" name="obs" rows="3" maxlength="400" placeholder="Opcional — quedan asentadas en el contrato."></textarea>
+            </div>
+          </fieldset>
+
+          <div class="ctr-accept">
+            <input id="i-acepta" name="acepta" type="checkbox" required>
+            <label for="i-acepta">Declaro haber leído y aceptar las condiciones del contrato que figuran a la derecha, y que los datos consignados son verdaderos.</label>
+          </div>
+
+          <button class="ctr-submit" id="ctr-submit" type="submit">Aceptar y generar contrato</button>
+
+          <div class="ctr-actions" id="ctr-actions">
+            <button class="ctr-btn primary" id="ctr-print" type="button">Imprimir / Guardar PDF</button>
+            <a class="ctr-btn" id="ctr-wa" href="#" target="_blank" rel="noopener">Enviarnos el resumen por WhatsApp</a>
+          </div>
+          <p class="ctr-done" id="ctr-done">Contrato generado. Guardá una copia y mandanos el resumen.</p>
+        </div>
+      </form>
+
+      <article class="ctr-doc" id="ctr-doc" aria-live="polite">
+        <div class="ctr-pending" id="ctr-pending">Vista previa — se completa a medida que cargás tus datos. Todavía no está aceptado.</div>
+
+        <header class="doc-head">
+          <img src="logo-origen.png" alt="ORIGEN">
+          <div class="doc-meta">
+            Contrato N° <b data-f="nro">—</b><br>
+            Puerto Iguazú, Misiones<br>
+            <b data-f="fecha">—</b>
+          </div>
+        </header>
+
+        <div class="doc-title">
+          <h3>Contrato de <em>prestación de servicios</em></h3>
+          <div class="doc-sub" data-f="servicio-sub">—</div>
+        </div>
+
+        <div class="doc-parts">
+          <div class="doc-part">
+            <h4>El Prestador</h4>
+            <dl>
+              <dt>Denominación</dt><dd>ORIGEN — Agencia de Marketing</dd>
+              <dt>Domicilio</dt><dd>Jangadero 233, Puerto Iguazú, Misiones</dd>
+              <dt>Contacto</dt><dd>+54 9 3757 65-6783</dd>
+              <dt>Instagram</dt><dd>@origen.agenciademarketing</dd>
+            </dl>
+          </div>
+          <div class="doc-part">
+            <h4>El Cliente</h4>
+            <dl>
+              <dt>Nombre</dt><dd data-f="cli-nombre">—</dd>
+              <dt>DNI/CUIT</dt><dd data-f="cli-doc">—</dd>
+              <dt>Negocio</dt><dd data-f="cli-negocio">—</dd>
+              <dt>Domicilio</dt><dd data-f="cli-dom">—</dd>
+              <dt>Teléfono</dt><dd data-f="cli-tel">—</dd>
+              <dt>Correo</dt><dd data-f="cli-mail">—</dd>
+            </dl>
+          </div>
+        </div>
+
+        <p style="font-size:12.5px;color:#33312E;margin-bottom:22px;text-align:justify">En la ciudad de Puerto Iguazú, Provincia de Misiones, República Argentina, a la fecha indicada, entre las partes individualizadas precedentemente —en adelante «EL PRESTADOR» y «EL CLIENTE», y conjuntamente «las Partes»— se conviene celebrar el presente Contrato de Prestación de Servicios, que se regirá por las siguientes cláusulas:</p>
+
+        <div class="doc-sec-title">Detalle del servicio contratado</div>
+        <table class="doc-tbl">
+          <caption>Servicios de abono mensual</caption>
+          <thead><tr><th scope="col">Concepto</th><th scope="col">Importe</th></tr></thead>
+          <tbody id="doc-items"></tbody>
+        </table>
+        <table class="doc-tbl" id="doc-once-tbl" style="display:none">
+          <caption>Servicios de pago único</caption>
+          <thead><tr><th scope="col">Concepto</th><th scope="col">Importe</th></tr></thead>
+          <tbody id="doc-once-items"></tbody>
+        </table>
+        <p class="doc-note" data-f="nota-plazo">—</p>
+
+        <div class="doc-sec-title">Cláusulas</div>
+
+        <div class="doc-cl">
+          <h5>Primera — Objeto</h5>
+          <p>EL PRESTADOR se obliga a ejecutar en favor de EL CLIENTE los servicios individualizados en el «Detalle del servicio contratado», con el alcance, límites y condiciones específicas descriptos en el Anexo I, que forma parte inseparable del presente. Todo servicio, entregable o funcionalidad no enumerado expresamente en dicho detalle se considera excluido y, de requerirse, será objeto de presupuesto y acuerdo por escrito por separado.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Segunda — Precio y forma de pago</h5>
+          <p>EL CLIENTE abonará el importe consignado en el detalle, expresado en pesos argentinos, conforme la modalidad de plazo elegida: <b data-f="plazo-detalle">—</b>. Los pagos podrán efectuarse mediante Mercado Pago (tarjeta de crédito o débito, dinero en cuenta o efectivo) o transferencia bancaria a la cuenta que EL PRESTADOR informe.</p>
+          <ul>
+            <li>El abono mensual se factura por adelantado y vence el día <b data-f="dia-venc">—</b> de cada mes.</li>
+            <li>Los servicios de pago único se abonan al inicio, previo a su ejecución.</li>
+            <li>La mora se produce de pleno derecho por el mero vencimiento del plazo, sin necesidad de interpelación previa.</li>
+            <li>Transcurridos diez (10) días corridos de mora, EL PRESTADOR podrá suspender la prestación hasta la regularización, sin que ello genere derecho a reclamo ni prórroga del plazo contratado.</li>
+            <li>Las inversiones en pauta publicitaria (Meta Ads, Google Ads u otras plataformas) no están incluidas y son abonadas por EL CLIENTE de forma directa a la plataforma.</li>
+          </ul>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Tercera — Plazo, renovación y actualización</h5>
+          <p>El presente rige a partir del <b data-f="inicio">—</b> por un plazo mínimo de <b data-f="min-plazo">—</b>, vencido el cual se renovará automáticamente por períodos mensuales sucesivos, salvo notificación en contrario de cualquiera de las Partes con al menos treinta (30) días corridos de anticipación al vencimiento del período en curso.</p>
+          <p>Dado el contexto económico, EL PRESTADOR podrá actualizar los valores del abono al vencimiento de cada período, notificando a EL CLIENTE con no menos de treinta (30) días de anticipación. La actualización no será aplicable a los períodos ya abonados por adelantado. Si EL CLIENTE no aceptara la actualización, podrá rescindir sin penalidad al finalizar el período vigente.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Cuarta — Obligaciones de EL PRESTADOR</h5>
+          <ul>
+            <li>Ejecutar los servicios con la diligencia, calidad profesional y periodicidad comprometidas.</li>
+            <li>Asignar personal idóneo y responder por su desempeño.</li>
+            <li>Someter los entregables a aprobación de EL CLIENTE antes de su publicación o puesta en producción, conforme la cláusula Sexta.</li>
+            <li>Mantener un canal de contacto por WhatsApp en días hábiles, de lunes a viernes de 9 a 18 h, con respuesta dentro de las veinticuatro (24) horas hábiles.</li>
+            <li>Informar mensualmente el estado del servicio y las métricas correspondientes, cuando el plan lo prevea.</li>
+          </ul>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Quinta — Obligaciones de EL CLIENTE</h5>
+          <ul>
+            <li>Abonar en tiempo y forma los importes convenidos.</li>
+            <li>Proveer en tiempo oportuno la información, materiales, accesos, credenciales y autorizaciones necesarios para la prestación.</li>
+            <li>Designar una única persona referente con facultades para aprobar entregables y tomar decisiones.</li>
+            <li>Garantizar que los materiales que entregue (imágenes, textos, marcas, logotipos, música) son de su propiedad o cuenta con licencia suficiente para su uso, manteniendo indemne a EL PRESTADOR frente a reclamos de terceros por dicho concepto.</li>
+            <li>Abstenerse de solicitar contenidos falsos, engañosos, discriminatorios o contrarios a la ley y a las políticas de las plataformas.</li>
+          </ul>
+          <p>La demora de EL CLIENTE en el cumplimiento de estas obligaciones no suspende ni prorroga sus obligaciones de pago, y podrá desplazar los plazos de entrega en igual medida.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Sexta — Revisiones y aprobación</h5>
+          <p>Cada entregable admite hasta dos (2) rondas de correcciones sin cargo, siempre que las modificaciones se mantengan dentro del alcance originalmente acordado. Los pedidos que impliquen un cambio de concepto, rediseño integral o ampliación del alcance serán presupuestados por separado.</p>
+          <p>EL CLIENTE dispondrá de setenta y dos (72) horas hábiles para observar cada entregable. Vencido dicho plazo sin observaciones, el entregable se tendrá por aprobado y EL PRESTADOR quedará habilitado a publicarlo o implementarlo.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Séptima — Propiedad intelectual</h5>
+          <p>Las cuentas, perfiles, dominios y datos preexistentes de EL CLIENTE son y permanecen de su exclusiva titularidad. Cancelado el contrato y abonadas la totalidad de las sumas devengadas, las piezas creativas finales producidas y aprobadas durante la vigencia quedan cedidas a EL CLIENTE para su uso comercial.</p>
+          <p>No se transfieren: archivos editables de trabajo, metodologías, plantillas, código base propio ni licencias de terceros (fuentes tipográficas, bancos de imágenes, plugins), que permanecen en cabeza de EL PRESTADOR o de sus respectivos licenciantes. EL PRESTADOR se reserva el derecho de exhibir los trabajos realizados en su portafolio y redes, salvo pedido escrito en contrario de EL CLIENTE.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Octava — Confidencialidad y datos personales</h5>
+          <p>Las Partes se obligan a mantener en reserva toda información no pública a la que accedan con motivo del presente, obligación que subsistirá por dos (2) años posteriores a su finalización. EL PRESTADOR tratará los datos personales a los que acceda conforme la Ley N° 25.326 de Protección de Datos Personales, limitándose a las finalidades del presente contrato y adoptando medidas razonables de seguridad. Las credenciales de acceso serán utilizadas exclusivamente para la prestación y devueltas o revocadas a la finalización.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Novena — Rescisión</h5>
+          <ul>
+            <li>Cumplido el plazo mínimo, cualquiera de las Partes podrá rescindir sin expresión de causa, notificando por escrito con treinta (30) días corridos de anticipación. Los importes ya abonados no se reintegran; el servicio se presta hasta el fin del período abonado.</li>
+            <li>La rescisión anticipada por parte de EL CLIENTE dentro del plazo mínimo no dará derecho a reintegro de las sumas abonadas ni eximirá del pago de las cuotas pendientes hasta completarlo.</li>
+            <li>EL PRESTADOR podrá rescindir de pleno derecho, sin indemnización alguna, ante mora superior a treinta (30) días, uso indebido de los servicios, o incumplimiento grave de las obligaciones de EL CLIENTE.</li>
+            <li>Los descuentos por pago adelantado (6 o 12 meses) se otorgan en función del compromiso de permanencia; en caso de baja anticipada, se recalculará el servicio efectivamente prestado a valor mensual de lista, compensándose contra lo abonado.</li>
+          </ul>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Décima — Responsabilidad</h5>
+          <p>EL PRESTADOR asume una obligación de medios y no de resultado. No garantiza volúmenes determinados de ventas, seguidores, alcance, posicionamiento ni conversiones, por depender de factores ajenos a su control, incluidos los algoritmos y políticas de plataformas de terceros. En ningún caso la responsabilidad total de EL PRESTADOR excederá el importe efectivamente percibido en los tres (3) meses anteriores al hecho que la origine, quedando excluidos los daños indirectos y el lucro cesante.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Undécima — Caso fortuito y fuerza mayor</h5>
+          <p>Ninguna de las Partes será responsable por el incumplimiento derivado de caso fortuito o fuerza mayor, incluyendo cortes prolongados de energía o conectividad, fallas o cambios unilaterales de plataformas de terceros, restricciones de autoridad pública o eventos climáticos extraordinarios. La Parte afectada deberá notificar la situación dentro de las setenta y dos (72) horas.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Duodécima — Notificaciones y domicilios</h5>
+          <p>Las Partes constituyen domicilio en los indicados en el encabezado y aceptan como medios fehacientes de notificación el correo electrónico y la mensajería de WhatsApp declarados, siendo cada Parte responsable de informar cualquier modificación.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Decimotercera — Naturaleza del vínculo</h5>
+          <p>El presente no genera relación laboral, societaria ni de dependencia entre las Partes ni respecto del personal que cada una afecte a su cumplimiento. EL PRESTADOR actúa con total autonomía técnica y organizativa.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Decimocuarta — Ley aplicable y jurisdicción</h5>
+          <p>El presente se rige por las leyes de la República Argentina. Para toda controversia derivada de su interpretación o cumplimiento, las Partes se someten a la jurisdicción de los Tribunales Ordinarios de la ciudad de Puerto Iguazú, Provincia de Misiones, renunciando a cualquier otro fuero o jurisdicción. Con carácter previo, las Partes procurarán de buena fe una solución amistosa dentro de los treinta (30) días de notificado el conflicto.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Decimoquinta — Integridad del acuerdo</h5>
+          <p>Este documento, junto con su Anexo I, constituye la totalidad de lo acordado y reemplaza toda propuesta o comunicación previa. Sus modificaciones requieren acuerdo escrito de ambas Partes. La nulidad de alguna cláusula no afectará la validez de las restantes.</p>
+        </div>
+
+        <div class="doc-sec-title">Anexo I — Alcance específico del servicio</div>
+
+        <div class="anexo" id="anexo-redes">
+          <div class="doc-cl">
+            <h5>Gestión de redes sociales</h5>
+            <ul>
+              <li>El plan base comprende la gestión de una (1) red social, con ocho (8) a doce (12) publicaciones mensuales, historias semanales, redacción de textos y hashtags, programación, publicación y reporte mensual de métricas.</li>
+              <li>La grilla de contenidos del mes se presenta para aprobación con no menos de cinco (5) días hábiles de anticipación al inicio del período.</li>
+              <li>Las publicaciones no ejecutadas por falta de aprobación, materiales o información de EL CLIENTE no se acumulan ni se trasladan al mes siguiente.</li>
+              <li>La titularidad de las cuentas y perfiles es y permanece de EL CLIENTE, quien otorga accesos por rol de colaborador. A la finalización, EL PRESTADOR revoca sus accesos dentro de las cuarenta y ocho (48) horas.</li>
+              <li>La gestión de campañas publicitarias, de contratarse, comprende únicamente la creación, segmentación, monitoreo y optimización de la pauta; el presupuesto publicitario se abona directamente a la plataforma y no integra el abono.</li>
+              <li>Las sesiones de fotografía y video se realizan en Puerto Iguazú y alrededores, con una duración aproximada de una hora y media, en fecha coordinada con no menos de siete (7) días de anticipación. Las postergaciones avisadas con menos de veinticuatro (24) horas podrán generar un nuevo cargo. La entrega del material editado se realiza dentro de los diez (10) días hábiles.</li>
+              <li>EL PRESTADOR no responde por sanciones, restricciones, bloqueos o cierres de cuentas dispuestos por las plataformas.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="anexo" id="anexo-web">
+          <div class="doc-cl">
+            <h5>Página web por suscripción</h5>
+            <ul>
+              <li>El plan comprende el diseño inicial del sitio sin cargo adicional, hosting y dominio gestionados, adaptación a dispositivos móviles, hasta cinco (5) secciones, mantenimiento, actualizaciones de contenido y soporte por WhatsApp.</li>
+              <li>El diseño inicial se entrega dentro de los quince (15) días hábiles contados desde la recepción completa de textos, imágenes y logotipo por parte de EL CLIENTE.</li>
+              <li>Se incluyen hasta dos (2) actualizaciones de contenido por mes; las adicionales se presupuestan aparte.</li>
+              <li>Durante la vigencia, el hosting y —salvo contratación del dominio propio— la infraestructura permanecen a cargo y bajo administración de EL PRESTADOR. Finalizado el contrato, el sitio se da de baja; EL CLIENTE podrá solicitar dentro de los treinta (30) días una copia de sus contenidos (textos e imágenes) sin cargo. La migración del sitio a un servidor propio de EL CLIENTE se cotiza por separado.</li>
+              <li>De contratarse dominio personalizado, este se registra a nombre de EL CLIENTE, quien conserva su titularidad.</li>
+              <li>EL PRESTADOR realiza copias de seguridad periódicas y procura una disponibilidad mensual del noventa y nueve por ciento (99 %), excluidas las ventanas de mantenimiento programado y las interrupciones imputables a proveedores de infraestructura.</li>
+              <li>De contratarse cobros online, los fondos se acreditan directamente en la cuenta de EL CLIENTE; las comisiones de la pasarela de pago son a su exclusivo cargo y EL PRESTADOR no interviene en la relación de consumo con los compradores.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="anexo" id="anexo-cam">
+          <div class="doc-cl">
+            <h5>Seguridad y videovigilancia 24 h</h5>
+            <ul>
+              <li>El plan base comprende la provisión e instalación de dos (2) cámaras HD, grabación continua, acceso en vivo desde dispositivo móvil, almacenamiento en la nube por siete (7) días y mantenimiento correctivo.</li>
+              <li>Los equipos se entregan en comodato: son propiedad de EL PRESTADOR mientras dure la suscripción. Finalizado el contrato, EL CLIENTE deberá permitir su retiro dentro de los quince (15) días corridos, respondiendo por su pérdida o deterioro no derivado del uso normal.</li>
+              <li>EL CLIENTE debe proveer suministro eléctrico estable y conexión a internet en el domicilio de instalación; las interrupciones de dichos servicios suspenden la grabación y el monitoreo sin responsabilidad para EL PRESTADOR.</li>
+              <li>El servicio consiste en monitoreo técnico y registro de imágenes. <b>No constituye servicio de vigilancia física, custodia armada ni respuesta ante emergencias</b>, ni sustituye la intervención de las fuerzas de seguridad, a las que EL CLIENTE deberá dar aviso por sí.</li>
+              <li>La instalación se coordina dentro de los diez (10) días hábiles de confirmado el plan, y requiere que EL CLIENTE facilite el acceso al inmueble. EL CLIENTE declara ser titular o contar con autorización del titular del inmueble para la instalación.</li>
+              <li>EL CLIENTE es responsable de que las cámaras no capten espacios de terceros ni ámbitos de intimidad, de exhibir cartelería visible de videovigilancia y de cumplir la Ley N° 25.326. Las imágenes se entregan únicamente a EL CLIENTE o a requerimiento de autoridad competente.</li>
+              <li>El mantenimiento incluido cubre fallas del equipo por uso normal. Los daños por vandalismo, robo, siniestros, sobretensiones o manipulación por terceros se presupuestan aparte.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="doc-cl" id="doc-obs-box" style="display:none">
+          <h5>Observaciones particulares</h5>
+          <p data-f="obs">—</p>
+        </div>
+
+        <div class="doc-sec-title">Aceptación</div>
+        <p style="font-size:12.5px;color:#33312E;text-align:justify">En prueba de conformidad, las Partes suscriben el presente en dos ejemplares de un mismo tenor y a un solo efecto, declarando haber leído y comprendido la totalidad de sus cláusulas y el Anexo I.</p>
+
+        <div class="doc-firmas">
+          <div class="doc-firma">
+            <div class="fline"><span class="fname">ORIGEN</span></div>
+            <div class="frole">Por EL PRESTADOR</div>
+            <div class="fdet">Heber Krieger · Jangadero 233, Puerto Iguazú</div>
+          </div>
+          <div class="doc-firma">
+            <div class="fline"><span class="fname" data-f="firma-cli">&nbsp;</span></div>
+            <div class="frole">Por EL CLIENTE</div>
+            <div class="fdet" data-f="firma-doc">&nbsp;</div>
+          </div>
+        </div>
+
+        <div class="doc-stamp" id="doc-stamp" style="display:none">
+          <b>Constancia de aceptación electrónica.</b> <span data-f="stamp">—</span> La aceptación fue prestada mediante la marcación del casillero de conformidad y la consignación de los datos identificatorios de EL CLIENTE en el formulario del sitio agencia-origen.online, con el valor probatorio previsto en los artículos 286, 287 y 288 del Código Civil y Comercial de la Nación.
+        </div>
+
+        <div class="doc-foot">
+          ORIGEN — Agencia de Marketing · Jangadero 233, Puerto Iguazú, Misiones · +54 9 3757 65-6783 · agencia-origen.online<br>
+          Contrato N° <span data-f="nro-foot">—</span> · Documento generado electrónicamente.
+        </div>
+      </article>
+
+    </div>
   </div>
 </section>
 
@@ -788,12 +1222,14 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
   var picker=document.getElementById('picker');
   var subpick=document.getElementById('subpick');
   var config=document.getElementById('config');
+  var contrato=document.getElementById('contrato');
   var steps=document.getElementById('steps');
-  var S1='<b>1 · Qué necesitás</b> <span>›</span> 2 · Tu plan';
-  var S2='1 · Qué necesitás <span>›</span> <b>2 · Tu plan</b>';
+  var S1='<b>1 · Qué necesitás</b> <span>›</span> 2 · Tu plan <span>›</span> 3 · Contrato';
+  var S2='1 · Qué necesitás <span>›</span> <b>2 · Tu plan</b> <span>›</span> 3 · Contrato';
+  var S3='1 · Qué necesitás <span>›</span> 2 · Tu plan <span>›</span> <b>3 · Contrato</b>';
 
   function show(el){
-    [picker,subpick,config].forEach(function(s){s.classList.remove('active');s.style.display='none';});
+    [picker,subpick,config,contrato].forEach(function(s){s.classList.remove('active');s.style.display='none';});
     if(el===picker){picker.style.display='block';} else {el.classList.add('active');el.style.display='block';}
     window.scrollTo({top:0,behavior:'smooth'});
   }
@@ -837,7 +1273,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
     });
   });
 
-  function setupUnit(panelSel, baseName, basePrice, summaryId, per){
+  function setupUnit(panelSel, baseName, basePrice, summaryId, per, unitKey){
     var panel=document.querySelector(panelSel);
     var summary=document.getElementById(summaryId);
     var linesBox=summary.querySelector('.s-lines');
@@ -854,9 +1290,9 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
         if(ex.dataset.qty){qty=parseInt(ex.querySelector('.qty-val').textContent,10)||1;}
         var sub=price*qty;
         var name=ex.querySelector('h4').textContent+(qty>1?' ×'+qty:'');
-        if(ex.dataset.once){ once+=sub; chosenOnce.push(name);
+        if(ex.dataset.once){ once+=sub; chosenOnce.push({name:name,price:sub});
           lines+='<div class="s-line"><span class="s-name">'+name+'</span><span>'+money(sub)+'</span></div>';
-        } else { monthly+=sub; chosen.push(name);
+        } else { monthly+=sub; chosen.push({name:name,price:sub});
           lines+='<div class="s-line"><span class="s-name">'+name+'</span><span>'+money(sub)+'</span></div>';
         }
       });
@@ -879,17 +1315,14 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
       linesBox.innerHTML=lines;
       totalEl.innerHTML=bigNumber+'<small>'+bigPer+'</small>'+saveHtml+noteHtml+onceHtml;
 
-      var msg;
-      if(mult===1){
-        msg='Hola ORIGEN, quiero el plan de '+baseName+' ('+money(monthly)+'/mes)';
-      } else {
-        msg='Hola ORIGEN, quiero el plan de '+baseName+' pago '+plazoLabel+' ('+money(mensualConDesc)+'/mes, total '+money(totalPeriodo)+' por '+meses+' meses)';
-      }
-      if(chosen.length) msg+=' con: '+chosen.join(', ');
-      if(chosenOnce.length) msg+=' + pago único: '+chosenOnce.join(', ')+' ('+money(once)+')';
-      msg+='.';
-      cta.setAttribute('href',WA+encodeURIComponent(msg));
+      cta.planState={
+        unidad:unitKey, baseName:baseName, basePrice:basePrice,
+        items:chosen, itemsOnce:chosenOnce,
+        monthly:monthly, once:once, meses:meses, mult:mult,
+        plazoLabel:plazoLabel, totalPeriodo:totalPeriodo, mensualConDesc:mensualConDesc
+      };
     }
+    cta.addEventListener('click',function(e){ e.preventDefault(); CONTRATO.open(cta.planState); });
     plazoBtns.forEach(function(btn){
       btn.addEventListener('click',function(){
         plazoBtns.forEach(function(x){x.classList.remove('on')});
@@ -922,9 +1355,149 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
     recalc();
   }
 
-  setupUnit('#unit-redes','Gestión de redes',200000,'summary-redes','/mes');
-  setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes');
-  setupUnit('#unit-cam','Seguridad 24h',18000,'summary-cam','/mes');
+  setupUnit('#unit-redes','Gestión de redes',200000,'summary-redes','/mes','redes');
+  setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes','web');
+  setupUnit('#unit-cam','Seguridad 24h',18000,'summary-cam','/mes','cam');
+
+  /* ═══ CONTRATO ═══ */
+  var CONTRATO=(function(){
+    var form=document.getElementById('ctr-form');
+    var doc=document.getElementById('ctr-doc');
+    var pending=document.getElementById('ctr-pending');
+    var actions=document.getElementById('ctr-actions');
+    var submit=document.getElementById('ctr-submit');
+    var done=document.getElementById('ctr-done');
+    var stamp=document.getElementById('doc-stamp');
+    var obsBox=document.getElementById('doc-obs-box');
+    var itemsBox=document.getElementById('doc-items');
+    var onceTbl=document.getElementById('doc-once-tbl');
+    var onceBox=document.getElementById('doc-once-items');
+    var inicioInput=document.getElementById('i-inicio');
+    var state=null, nro='', firmado=false;
+
+    var SUB={redes:'ORIGEN Studio · Gestión de redes sociales',
+             web:'ORIGEN Studio · Página web por suscripción',
+             cam:'ORIGEN Tech · Seguridad y videovigilancia 24 h'};
+
+    function set(k,v){ doc.querySelectorAll('[data-f="'+k+'"]').forEach(function(el){el.textContent=v;}); }
+    function fecha(d){ return d.toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}); }
+    function row(name,price){ return '<tr><td>'+name+'</td><td>'+money(price)+'</td></tr>'; }
+    function esc(s){ var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+    function nroOrden(){
+      var d=new Date(), p=function(n){return String(n).padStart(2,'0');};
+      var r=String(Math.floor(Math.random()*9000)+1000);
+      return 'ORG-'+d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'-'+r;
+    }
+
+    function pintarPlan(){
+      var s=state, html=row('<b>'+esc(s.baseName)+'</b> — plan base',s.basePrice);
+      s.items.forEach(function(i){ html+=row(esc(i.name),i.price); });
+      if(s.mult===1){
+        html+='<tr class="tot"><td>Total mensual</td><td>'+money(s.monthly)+'</td></tr>';
+        set('nota-plazo','Abono mensual. Plazo mínimo de permanencia: 3 meses.');
+        set('plazo-detalle','pago mensual de '+money(s.monthly)+', por mes adelantado');
+        set('min-plazo','tres (3) meses');
+      } else {
+        html+='<tr><td>Subtotal mensual de lista</td><td>'+money(s.monthly)+'</td></tr>';
+        html+='<tr><td>Bonificación por pago adelantado ('+(s.meses===6?'1 mes':'3 meses')+' sin cargo)</td><td>−'+money(s.monthly*s.meses-s.totalPeriodo)+'</td></tr>';
+        html+='<tr class="tot"><td>Total por '+s.meses+' meses</td><td>'+money(s.totalPeriodo)+'</td></tr>';
+        set('nota-plazo','Equivale a '+money(s.mensualConDesc)+' por mes. Se abona en un único pago por adelantado, por '+s.meses+' meses de servicio.');
+        set('plazo-detalle','pago único adelantado de '+money(s.totalPeriodo)+' por '+s.meses+' meses de servicio ('+money(s.mensualConDesc)+' mensuales equivalentes)');
+        set('min-plazo',(s.meses===6?'seis (6)':'doce (12)')+' meses');
+      }
+      itemsBox.innerHTML=html;
+
+      if(s.once>0){
+        var h2='';
+        s.itemsOnce.forEach(function(i){ h2+=row(esc(i.name),i.price); });
+        h2+='<tr class="tot"><td>Total pago único</td><td>'+money(s.once)+'</td></tr>';
+        onceBox.innerHTML=h2; onceTbl.style.display='';
+      } else { onceTbl.style.display='none'; }
+
+      set('servicio-sub',SUB[s.unidad]||'');
+      document.querySelectorAll('.anexo').forEach(function(a){a.classList.remove('on');});
+      var an=document.getElementById('anexo-'+s.unidad);
+      if(an) an.classList.add('on');
+    }
+
+    function pintarCliente(){
+      var d=form.elements;
+      set('cli-nombre',d.nombre.value.trim()||'—');
+      set('cli-doc',d.doc.value.trim()||'—');
+      set('cli-negocio',d.negocio.value.trim()||'—');
+      set('cli-dom',(d.dom.value.trim()||'—')+(d.loc.value.trim()?', '+d.loc.value.trim():''));
+      set('cli-tel',d.tel.value.trim()||'—');
+      set('cli-mail',d.mail.value.trim()||'—');
+      set('firma-cli',d.nombre.value.trim()||' ');
+      set('firma-doc',d.doc.value.trim()?'DNI/CUIT '+d.doc.value.trim():' ');
+      var ini=d.inicio.value ? fecha(new Date(d.inicio.value+'T12:00:00')) : '—';
+      set('inicio',ini);
+      set('dia-venc',d.inicio.value ? new Date(d.inicio.value+'T12:00:00').getDate() : '—');
+      var obs=d.obs.value.trim();
+      obsBox.style.display=obs?'block':'none';
+      set('obs',obs||'—');
+    }
+
+    function open(s){
+      if(!s) return;
+      state=s; firmado=false;
+      nro=nroOrden();
+      set('nro',nro); set('nro-foot',nro); set('fecha',fecha(new Date()));
+      if(!inicioInput.value){
+        var t=new Date(); t.setDate(t.getDate()+3);
+        inicioInput.value=t.toISOString().slice(0,10);
+      }
+      inicioInput.min=new Date().toISOString().slice(0,10);
+      pintarPlan(); pintarCliente();
+      pending.style.display=''; actions.classList.remove('on'); done.classList.remove('on');
+      stamp.style.display='none'; submit.disabled=false;
+      submit.textContent='Aceptar y generar contrato';
+      show(contrato); steps.innerHTML=S3;
+    }
+
+    form.addEventListener('input',function(){ pintarCliente(); if(firmado) firmar(); });
+
+    function firmar(){
+      var ahora=new Date();
+      set('stamp','Aceptado por '+form.elements.nombre.value.trim()+' (DNI/CUIT '+form.elements.doc.value.trim()+') el '+
+        fecha(ahora)+' a las '+ahora.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit',hour12:false})+' h.');
+      stamp.style.display='block';
+    }
+
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      if(!form.reportValidity()) return;
+      pintarCliente(); firmado=true; firmar();
+      pending.style.display='none';
+      submit.disabled=true; submit.textContent='Contrato aceptado ✓';
+      actions.classList.add('on'); done.classList.add('on');
+
+      var s=state, d=form.elements;
+      var msg='Hola ORIGEN, acepté el contrato '+nro+'.\n\n'+
+        'Cliente: '+d.nombre.value.trim()+' (DNI/CUIT '+d.doc.value.trim()+')\n'+
+        (d.negocio.value.trim()?'Negocio: '+d.negocio.value.trim()+'\n':'')+
+        'Domicilio: '+d.dom.value.trim()+', '+d.loc.value.trim()+'\n'+
+        'Tel: '+d.tel.value.trim()+' · Mail: '+d.mail.value.trim()+'\n'+
+        'Inicio: '+(d.inicio.value?fecha(new Date(d.inicio.value+'T12:00:00')):'a coordinar')+'\n\n'+
+        'Servicio: '+s.baseName+' — plan base '+money(s.basePrice)+'/mes\n'+
+        (s.items.length?'Extras mensuales: '+s.items.map(function(i){return i.name+' '+money(i.price);}).join(' · ')+'\n':'')+
+        (s.mult===1
+          ? 'Modalidad: mensual — Total '+money(s.monthly)+'/mes\n'
+          : 'Modalidad: '+s.plazoLabel+' — '+money(s.totalPeriodo)+' por '+s.meses+' meses ('+money(s.mensualConDesc)+'/mes)\n')+
+        (s.once>0?'Pago único: '+s.itemsOnce.map(function(i){return i.name+' '+money(i.price);}).join(' · ')+' = '+money(s.once)+'\n':'')+
+        (d.obs.value.trim()?'\nObservaciones: '+d.obs.value.trim():'');
+      document.getElementById('ctr-wa').setAttribute('href',WA+encodeURIComponent(msg));
+      document.getElementById('ctr-actions').scrollIntoView({behavior:'smooth',block:'center'});
+    });
+
+    document.getElementById('ctr-print').addEventListener('click',function(){ window.print(); });
+    document.getElementById('ctr-back').addEventListener('click',function(){
+      show(config); steps.innerHTML=S2;
+    });
+
+    return {open:open};
+  })();
 
   // FAQ acordeón
   document.querySelectorAll('.faq-q').forEach(function(q){
