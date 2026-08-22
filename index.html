@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORIGEN · Marketing y Tecnología en Puerto Iguazú</title>
+<meta name="description" content="ORIGEN — Marketing, tecnología y soluciones para hacer crecer tu negocio. Redes, publicidad, desarrollo web, domótica, seguridad electrónica y sistemas a medida en Puerto Iguazú.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ORIGEN · Marcas que conectan">
+<meta property="og:description" content="Marketing, tecnología y soluciones para hacer crecer tu negocio. Puerto Iguazú, Misiones.">
+<meta property="og:image" content="https://agencia-origen.online/og-preview.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://agencia-origen.online/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --b:#FFFFFF; --n:#111111; --p:#6B6760; --d:#C9B37A; --dk:#8A6E3A; --o:#484D3A;
+  --l:rgba(17,17,17,0.09); --lf:rgba(17,17,17,0.045); --cream:#FAF8F4;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{max-width:100%;overflow-x:clip;background:var(--b)}
+body{font-family:'Jost',sans-serif;font-weight:300;color:var(--n);line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+em{font-family:'Cormorant',serif;font-style:italic}
+a{color:inherit}
+h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+
+/* ── NAV ── */
+.mainnav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.92);
+  backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--l);display:flex;align-items:center;justify-content:space-between;padding:16px 40px}
+.mainnav .brand{font-family:'Cormorant',serif;font-size:22px;letter-spacing:7px;font-weight:400;color:var(--n);text-decoration:none;display:flex;align-items:center}
+.brand-logo{height:44px;width:auto;display:block}
+.nav-planes{color:var(--dk)!important;font-weight:400}
+.nav-planes:hover{color:var(--d)!important}
+.mainnav .links{display:flex;gap:30px;align-items:center}
+.mainnav .links a{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);
+  text-decoration:none;padding:6px 0;position:relative;transition:color .25s}
+.mainnav .links a:hover{color:var(--n)}
+.mainnav .links a:not(.nav-cta)::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--d);transition:width .25s}
+.mainnav .links a:not(.nav-cta):hover::after{width:100%}
+.mainnav .links a.active{color:var(--n)}
+.mainnav .links a.active::after{width:100%}
+.nav-cta{background:var(--n);color:#fff!important;padding:9px 20px!important;letter-spacing:2px;transition:background .25s}
+.nav-cta:hover{background:var(--d);color:var(--n)!important}
+.navtoggle,.navburger{display:none}
+section,.block{scroll-margin-top:74px}
+
+/* ── HERO ── */
+.hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:60px 0 40px}
+.hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;width:100%}
+.hero-left{position:relative;z-index:2}
+.hero-eyebrow{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--dk);margin-bottom:24px}
+.hero h1{font-size:clamp(38px,5vw,72px);margin-bottom:26px;line-height:1.06}
+.hero h1 em{color:var(--dk)}
+.hero-sub{font-size:clamp(16px,1.6vw,20px);color:var(--p);max-width:46ch;margin-bottom:38px;font-weight:300}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.hero-cta{display:inline-flex;align-items:center;gap:12px;padding:17px 38px;background:var(--n);color:#fff;
+  text-decoration:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;transition:background .3s}
+.hero-cta:hover{background:var(--d);color:var(--n)}
+.hero-cta2{display:inline-flex;align-items:center;gap:10px;padding:16px 30px;background:transparent;color:var(--n);
+  text-decoration:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;border:1px solid var(--l);transition:.3s}
+.hero-cta2:hover{border-color:var(--n)}
+/* panel derecho con peso visual */
+.hero-right{position:relative;background:var(--n);border-radius:0;min-height:520px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:26px;padding:60px 40px;overflow:hidden}
+.hero-right::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(circle at 50% 40%, rgba(201,179,122,0.10), transparent 60%)}
+.hero-logo{width:min(56%,260px);height:auto;position:relative;z-index:1;filter:drop-shadow(0 8px 30px rgba(201,179,122,0.15))}
+.hero-tagline{font-family:'Cormorant',serif;font-style:italic;font-size:22px;color:var(--d);position:relative;z-index:1}
+.hero-scroll{margin-top:44px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--p);text-align:center}
+
+/* ── SECCIONES ── */
+section{padding:100px 0;border-top:1px solid var(--l)}
+.sec-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--dk);margin-bottom:18px}
+.sec-h{font-size:clamp(30px,4.5vw,52px);margin-bottom:22px}
+.sec-h em{color:var(--dk)}
+.sec-lead{font-size:18px;color:var(--p);max-width:60ch;line-height:1.7}
+.sec-lead strong{color:var(--n);font-weight:400}
+
+/* ── VALOR ── */
+.valor{background:var(--cream)}
+.valor-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:center}
+.valor-txt h2{font-size:clamp(28px,4vw,46px);margin-bottom:22px}
+.valor-txt h2 em{color:var(--dk)}
+.valor-txt p{font-size:17px;color:var(--p);line-height:1.75;margin-bottom:16px}
+.valor-stats{display:flex;flex-direction:column;gap:0}
+.vstat{padding:24px 0;border-top:1px solid var(--l)}
+.vstat:last-child{border-bottom:1px solid var(--l)}
+.vstat h3{font-family:'Cormorant',serif;font-size:24px;font-style:italic;color:var(--dk);margin-bottom:6px}
+.vstat p{font-size:14.5px;color:var(--p)}
+
+/* ── ÁREAS ── */
+.areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:50px}
+.area{padding:46px 42px;border:1px solid var(--l);margin:-0.5px;position:relative;transition:background .3s}
+.area:hover{background:var(--cream)}
+.area-num{font-family:'Cormorant',serif;font-style:italic;font-size:20px;color:var(--dk);margin-bottom:18px}
+.area h3{font-size:32px;margin-bottom:8px}
+.area h3 em{color:var(--dk);display:block;font-size:24px}
+.area-desc{font-size:15.5px;color:var(--p);line-height:1.75;margin:18px 0 22px}
+.area-list{list-style:none;margin-bottom:28px}
+.area-list li{font-size:14px;color:var(--p);padding:7px 0 7px 20px;position:relative;line-height:1.5}
+.area-list li::before{content:'';position:absolute;left:0;top:13px;width:5px;height:5px;border:1px solid var(--dk);border-radius:50%}
+.area-for{font-size:13px;color:var(--n);font-style:italic;font-family:'Cormorant',serif;margin-bottom:26px;font-size:16px}
+.area-cta{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--n);text-decoration:none;padding-bottom:6px;border-bottom:1px solid var(--n);transition:.25s}
+.area-cta:hover{color:var(--dk);border-color:var(--dk);gap:16px}
+.area-soon{display:inline-block;margin-top:14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--p);opacity:.7}
+
+/* ── NOSOTROS ── */
+.nos{background:var(--n);color:#fff}
+.nos .sec-eyebrow{color:var(--d)}
+.nos .sec-h{color:#fff}
+.nos .sec-h em{color:var(--d)}
+.nos-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:20px}
+.nos-lead{font-size:19px;color:rgba(255,255,255,0.72);line-height:1.75}
+.nos-lead em{color:var(--d)}
+.nos-points{display:flex;flex-direction:column;gap:0}
+.nos-pt{padding:26px 0;border-top:1px solid rgba(255,255,255,0.14)}
+.nos-pt:last-child{border-bottom:1px solid rgba(255,255,255,0.14)}
+.nos-pt h4{font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:8px}
+.nos-pt p{font-size:14.5px;color:rgba(255,255,255,0.6);line-height:1.7}
+
+/* ── PROCESO ── */
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:50px}
+.step{padding:38px 30px;border:1px solid var(--l);margin:-0.5px}
+.step-n{font-family:'Cormorant',serif;font-size:44px;font-style:italic;color:var(--dk);line-height:1;margin-bottom:20px}
+.step h4{font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:10px}
+.step p{font-size:14px;color:var(--p);line-height:1.7}
+
+/* ── CONTACTO ── */
+.cta-final{background:var(--cream);text-align:center}
+.cta-final h2{font-size:clamp(32px,5vw,58px);margin-bottom:20px}
+.cta-final h2 em{color:var(--dk)}
+.cta-final p{font-size:18px;color:var(--p);max-width:52ch;margin:0 auto 40px;line-height:1.7}
+.cta-btn{display:inline-flex;align-items:center;gap:12px;padding:18px 44px;background:var(--n);color:#fff;
+  text-decoration:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;transition:background .3s}
+.cta-btn:hover{background:var(--d);color:var(--n)}
+.cta-info{display:flex;justify-content:center;gap:48px;flex-wrap:wrap;margin-top:56px;padding-top:36px;border-top:1px solid var(--l)}
+.ci-l{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--p);margin-bottom:6px}
+.ci-v{font-family:'Cormorant',serif;font-size:18px}
+.ci-v a{text-decoration:none}
+
+/* ── FOOTER ── */
+footer{background:var(--n);color:#fff;padding:60px 0 40px}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:40px;margin-bottom:44px}
+.foot-brand{font-family:'Cormorant',serif;font-size:26px;letter-spacing:8px}
+.foot-frase{font-family:'Cormorant',serif;font-style:italic;font-size:16px;color:rgba(255,255,255,0.5);margin-top:8px}
+.foot-cols{display:flex;gap:70px;flex-wrap:wrap}
+.foot-col h5{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:16px}
+.foot-col a{display:block;font-size:14px;color:rgba(255,255,255,0.75);text-decoration:none;margin-bottom:10px;transition:color .2s}
+.foot-col a:hover{color:var(--d)}
+.foot-bottom{border-top:1px solid rgba(255,255,255,0.12);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.foot-bottom span{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:860px){
+  .valor-grid,.nos-grid{grid-template-columns:1fr;gap:40px}
+  .areas-grid{grid-template-columns:1fr}
+  .proc-grid{grid-template-columns:1fr 1fr}
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-right{min-height:300px;order:-1;padding:44px}
+  .hero-logo{width:180px}
+}
+@media(max-width:600px){
+  .wrap{padding:0 24px}
+  section{padding:64px 0}
+  .mainnav{padding:14px 22px;flex-wrap:wrap}
+  .mainnav .brand{font-size:18px;letter-spacing:5px}
+  .navburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+  .navburger span{display:block;width:24px;height:2px;background:var(--n);transition:.3s}
+  .mainnav .links{display:none;flex-direction:column;width:100%;gap:0;order:3;margin-top:8px}
+  .navtoggle:checked ~ .links{display:flex}
+  .mainnav .links a{font-size:12px;letter-spacing:2px;padding:14px 0;border-top:1px solid var(--l);width:100%}
+  .mainnav .nav-cta{text-align:center;margin-top:10px;padding:14px!important;border-top:none!important}
+  .navtoggle:checked ~ .navburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .navtoggle:checked ~ .navburger span:nth-child(2){opacity:0}
+  .navtoggle:checked ~ .navburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .proc-grid{grid-template-columns:1fr}
+  .cta-info{gap:28px}
+  .hero-right{min-height:240px;padding:36px}
+  .hero-logo{width:150px}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-cta,.hero-cta2{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════ NAV ══════ -->
+<nav class="mainnav">
+  <a href="#top" class="brand"><img src="logo-origen.png" alt="ORIGEN" class="brand-logo"></a>
+  <input type="checkbox" id="navtoggle" class="navtoggle">
+  <label for="navtoggle" class="navburger" aria-label="Menú"><span></span><span></span><span></span></label>
+  <div class="links">
+    <a href="#areas">Servicios</a>
+    <a href="planes.html" class="nav-planes">Planes ✦</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#proceso">Cómo trabajamos</a>
+    <a href="marketing.html">Portafolio</a>
+    <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener" class="nav-cta">Pedí una propuesta</a>
+  </div>
+</nav>
+<span id="top"></span>
+
+<!-- ══════ HERO ══════ -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Puerto Iguazú · Misiones</div>
+      <h1>Marketing, tecnología y <em>soluciones</em> para hacer crecer tu negocio.</h1>
+      <p class="hero-sub">En ORIGEN unimos estrategia, creatividad y tecnología para que tu marca comunique mejor y tu operación funcione mejor.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener" class="hero-cta">Pedí una propuesta</a>
+        <a href="planes.html" class="hero-cta2">Ver planes ✦</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="logo-origen-light.png" alt="ORIGEN" class="hero-logo">
+      <div class="hero-tagline">Marcas que conectan.</div>
+    </div>
+  </div>
+  <div class="hero-scroll">Conocé lo que hacemos ↓</div>
+</header>
+
+<!-- ══════ VALOR ══════ -->
+<section class="valor">
+  <div class="wrap">
+    <div class="valor-grid">
+      <div class="valor-txt">
+        <div class="sec-eyebrow">Qué es ORIGEN</div>
+        <h2>Una sola empresa para <em>toda</em> tu presencia y tu tecnología.</h2>
+        <p>ORIGEN nace para resolver, desde un mismo lugar, lo que antes obligaba a contratar a cinco proveedores distintos: tu marketing, tu contenido, tu presencia digital y la tecnología que hace funcionar tu negocio.</p>
+        <p>Trabajamos con negocios de Puerto Iguazú y de toda la región, combinando la cercanía de quien conoce el lugar con estándares profesionales.</p>
+      </div>
+      <div class="valor-stats">
+        <div class="vstat"><h3>Estrategia primero</h3><p>No hacemos por hacer: cada acción responde a un objetivo de tu negocio.</p></div>
+        <div class="vstat"><h3>Todo en un lugar</h3><p>Marketing y tecnología integrados, sin coordinar entre varios proveedores.</p></div>
+        <div class="vstat"><h3>Cerca tuyo</h3><p>Somos de Iguazú. Nos sentamos con vos y entendemos tu contexto real.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ ÁREAS ══════ -->
+<section id="areas">
+  <div class="wrap">
+    <div class="sec-eyebrow">Nuestras áreas</div>
+    <h2 class="sec-h">Dos frentes, un mismo <em>criterio</em>.</h2>
+    <p class="sec-lead">ORIGEN trabaja hoy en dos grandes áreas. Cada una resuelve un lado de tu negocio — y juntas, lo hacen crecer.</p>
+
+    <div class="areas-grid">
+      <!-- MARKETING -->
+      <div class="area">
+        <div class="area-num">Área 01</div>
+        <h3>Marketing <em>& Contenido</em></h3>
+        <p class="area-desc">Todo lo que tu marca necesita para comunicar con claridad y vender más: presencia en redes, contenido que conecta, publicidad que rinde y una identidad que te representa.</p>
+        <ul class="area-list">
+          <li>Gestión de redes y community management</li>
+          <li>Estrategia y creación de contenido</li>
+          <li>Fotografía y video profesional</li>
+          <li>Branding e identidad de marca</li>
+          <li>Publicidad y campañas (Meta Ads)</li>
+          <li>Diseño de páginas web y landing pages</li>
+          <li>Reportes de rendimiento</li>
+        </ul>
+        <div class="area-for">Para negocios que quieren crecer y verse profesionales.</div>
+        <br>
+        <a href="marketing.html" class="area-cta">Explorar Marketing →</a>
+      </div>
+
+      <!-- TECH -->
+      <div class="area">
+        <div class="area-num">Área 02</div>
+        <h3>Tecnología <em>& Sistemas</em></h3>
+        <p class="area-desc">Soluciones tecnológicas para tu casa o tu negocio: automatización, seguridad, conectividad y software a medida. La tecnología que hace que todo funcione mejor y más seguro.</p>
+        <ul class="area-list">
+          <li>Automatización y domótica (casa/negocio inteligente)</li>
+          <li>Cámaras de seguridad y videovigilancia</li>
+          <li>Alarmas inteligentes</li>
+          <li>Rastreo GPS de vehículos</li>
+          <li>Instalación y optimización de redes</li>
+          <li>Sistemas y aplicaciones a medida</li>
+          <li>Automatizaciones e integraciones</li>
+        </ul>
+        <div class="area-for">Para hogares y comercios que buscan control, seguridad y eficiencia.</div>
+        <br>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20soluciones%20de%20tecnolog%C3%ADa%20(dom%C3%B3tica%2C%20c%C3%A1maras%2C%20GPS%2C%20sistemas)." target="_blank" rel="noopener" class="area-cta">Explorar Tecnología →</a>
+      </div>
+    </div>
+
+    <p class="sec-lead" style="margin-top:44px;font-size:15px;font-style:italic;font-family:'Cormorant',serif;">Próximamente sumamos nuevas áreas a ORIGEN.</p>
+  </div>
+</section>
+
+<!-- ══════ NOSOTROS ══════ -->
+<section id="nosotros" class="nos">
+  <div class="wrap">
+    <div class="sec-eyebrow">Nosotros</div>
+    <h2 class="sec-h">Un equipo que <em>resuelve</em>.</h2>
+    <div class="nos-grid">
+      <div>
+        <p class="nos-lead">Somos un equipo de Puerto Iguazú apasionado por el marketing y la tecnología. Nacimos para darle a los negocios de la región un servicio <em>profesional y cercano</em> a la vez — sin la distancia de una agencia grande ni la improvisación de lo amateur.</p>
+      </div>
+      <div class="nos-points">
+        <div class="nos-pt"><h4>Visión integral</h4><p>Vemos tu negocio completo: cómo se comunica y cómo funciona. Por eso unimos marketing y tecnología bajo un mismo techo.</p></div>
+        <div class="nos-pt"><h4>Cerca y con contexto</h4><p>Conocemos Iguazú y la región. Entendemos a tu cliente porque compartimos su mismo lugar.</p></div>
+        <div class="nos-pt"><h4>Trabajo real</h4><p>Nada de plantillas genéricas ni piloto automático. Cada proyecto se piensa desde cero para vos.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ PROCESO ══════ -->
+<section id="proceso">
+  <div class="wrap">
+    <div class="sec-eyebrow">Cómo trabajamos</div>
+    <h2 class="sec-h">Simple y <em>transparente</em>.</h2>
+    <p class="sec-lead">Sabés en todo momento qué esperar. Así es trabajar con ORIGEN, de principio a fin.</p>
+
+    <div class="proc-grid">
+      <div class="step"><div class="step-n">01</div><h4>Consulta</h4><p>Nos contás qué necesitás. Escuchamos tu negocio, tu objetivo y tu contexto — sin compromiso.</p></div>
+      <div class="step"><div class="step-n">02</div><h4>Propuesta</h4><p>Armamos una propuesta a tu medida, con alcance y valores claros. Vos decidís con toda la información.</p></div>
+      <div class="step"><div class="step-n">03</div><h4>Ejecución</h4><p>Manos a la obra. Producimos, instalamos o desarrollamos lo acordado con estándar profesional.</p></div>
+      <div class="step"><div class="step-n">04</div><h4>Seguimiento</h4><p>Te mostramos resultados y ajustamos. La relación no termina con la entrega: acompañamos.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CTA FINAL / CONTACTO ══════ -->
+<section id="contacto" class="cta-final">
+  <div class="wrap">
+    <div class="sec-eyebrow" style="text-align:center">Empecemos</div>
+    <h2>Hagamos crecer <em>tu negocio</em>.</h2>
+    <p>Contanos qué necesitás y te armamos una propuesta a medida. El primer paso es una conversación — sin compromiso.</p>
+    <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener" class="cta-btn">Escribinos por WhatsApp</a>
+
+    <div class="cta-info">
+      <div><div class="ci-l">WhatsApp</div><div class="ci-v"><a href="https://wa.me/5493757656783" target="_blank" rel="noopener">+54 9 3757 65-6783</a></div></div>
+      <div><div class="ci-l">Instagram</div><div class="ci-v"><a href="https://instagram.com/origen.agenciademarketing" target="_blank" rel="noopener">@origen.agenciademarketing</a></div></div>
+      <div><div class="ci-l">Ubicación</div><div class="ci-v">Jangadero 233 · Puerto Iguazú</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FOOTER ══════ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand"><img src="logo-origen-light.png" alt="ORIGEN" style="height:56px;width:auto;display:block"></div>
+        <div class="foot-frase">Marcas que conectan.</div>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Explorar</h5>
+          <a href="#areas">Servicios</a>
+          <a href="#nosotros">Nosotros</a>
+          <a href="#proceso">Cómo trabajamos</a>
+          <a href="marketing.html">Marketing & Portafolio</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contacto</h5>
+          <a href="https://wa.me/5493757656783" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://instagram.com/origen.agenciademarketing" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener">Pedí una propuesta</a>
+        </div>
+        <div class="foot-col">
+          <h5>ORIGEN</h5>
+          <span style="font-size:14px;color:rgba(255,255,255,0.6);display:block;line-height:1.7">Jangadero 233<br>Puerto Iguazú, Misiones<br>Alcance regional y online</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 ORIGEN · Puerto Iguazú</span>
+      <span>Marketing · Tecnología</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var toggle=document.getElementById('navtoggle');
+  document.querySelectorAll('.mainnav .links a').forEach(function(a){
+    a.addEventListener('click',function(){ if(toggle) toggle.checked=false; });
+  });
+  var map=['areas','nosotros','proceso','contacto'];
+  var links={};
+  map.forEach(function(id){var l=document.querySelector('.mainnav .links a[href="#'+id+'"]');if(l)links[id]=l;});
+  var secs=map.map(function(id){return document.getElementById(id);}).filter(Boolean);
+  function onScroll(){
+    var pos=window.scrollY+100,cur=null;
+    secs.forEach(function(s){if(s.offsetTop<=pos)cur=s.id;});
+    map.forEach(function(id){if(links[id])links[id].classList.toggle('active',id===cur);});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+</body>
+</html>

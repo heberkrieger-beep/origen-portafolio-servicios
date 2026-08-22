@@ -70,6 +70,9 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .subpick{display:none;padding:10px 0 90px}
 .subpick.active{display:block}
 .subpick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+.subpick-grid.four{grid-template-columns:repeat(2,1fr);max-width:920px;gap:28px}
+.aviso{border-left:2px solid var(--dk);background:var(--sand);padding:18px 22px;font-size:13.5px;color:var(--o);line-height:1.65;margin-top:30px}
+.aviso b{color:var(--n);font-weight:400}
 
 .config{padding:34px 0 100px;display:none}
 .config.active{display:block}
@@ -251,7 +254,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .wc-desc{font-size:13.5px;color:var(--p);line-height:1.6;margin-top:14px}
 
 @media(max-width:900px){
-  .picker-grid,.subpick-grid,.web-choice{grid-template-columns:1fr}
+  .picker-grid,.subpick-grid,.subpick-grid.four,.web-choice{grid-template-columns:1fr}
   .config-grid{grid-template-columns:1fr}
   .summary{position:static;margin-top:10px}
   .completa-card ul{columns:1}
@@ -436,13 +439,13 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
         <div class="pick-tags"><span>Redes sociales</span><span>Contenido</span><span>Páginas web</span></div>
         <span class="pick-go">Ver opciones →</span>
       </div>
-      <div class="pick-card" data-go="cam">
+      <div class="pick-card" data-go="tech">
         <div class="pick-icon"><svg viewBox="0 0 48 48"><path d="M6 18l30-8v18l-30-4z"/><circle cx="19" cy="20" r="5"/><path d="M11 32v6M11 38h8"/><path d="M36 15l6-2v14l-6-2"/></svg></div>
-        <div class="pick-unit">ORIGEN Tech · Seguridad</div>
-        <h2>Seguridad <em>24h</em></h2>
-        <p>Cámaras instaladas y monitoreadas día y noche. Mirá tu casa o tu negocio desde el celular, cuando quieras.</p>
-        <div class="pick-tags"><span>Cámaras</span><span>Monitoreo</span><span>Alarmas</span></div>
-        <span class="pick-go">Armar mi seguridad →</span>
+        <div class="pick-unit">ORIGEN Tech · Instalaciones</div>
+        <h2>Tecnología <em>e instalaciones</em></h2>
+        <p>Cámaras, automatización, redes y rastreo vehicular. Instalamos y configuramos la tecnología que tu casa o tu negocio necesita.</p>
+        <div class="pick-tags"><span>Cámaras</span><span>Domótica</span><span>Redes</span><span>GPS</span></div>
+        <span class="pick-go">Ver opciones →</span>
       </div>
     </div>
   </div>
@@ -480,12 +483,52 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
   </div>
 </section>
 
+<section class="subpick" id="subtech">
+  <div class="wrap">
+    <button class="back-link" data-back="picker">← Volver</button>
+    <div class="subpick-grid four">
+      <div class="pick-card" data-go="cam">
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><path d="M6 18l30-8v18l-30-4z"/><circle cx="19" cy="20" r="5"/><path d="M11 32v6M11 38h8"/><path d="M36 15l6-2v14l-6-2"/></svg></div>
+        <div class="pick-unit">Lo más pedido · Con plan mensual</div>
+        <h2>Cámaras <em>y alarmas</em></h2>
+        <p>Mirá tu casa o tu negocio desde el celular. Instalamos, configuramos y mantenemos el sistema.</p>
+        <div class="pick-tags"><span>Videovigilancia</span><span>Alarmas</span><span>Acceso remoto</span></div>
+        <span class="pick-go">Ver el plan →</span>
+      </div>
+      <div class="pick-card" data-go="domotica">
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><path d="M8 22L24 9l16 13"/><path d="M12 21v18h24V21"/><rect x="20" y="27" width="8" height="8" rx="1"/><path d="M24 27v-3"/></svg></div>
+        <div class="pick-unit">Automatización</div>
+        <h2>Domótica <em>y accesos</em></h2>
+        <p>Luces, aire y riego automatizados. Cerraduras inteligentes y check-in autónomo para alquileres.</p>
+        <div class="pick-tags"><span>Domótica</span><span>Cerraduras</span><span>Alexa · Google</span></div>
+        <span class="pick-go">Pedir presupuesto →</span>
+      </div>
+      <div class="pick-card" data-go="redwifi">
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><path d="M6 19c10-9 26-9 36 0"/><path d="M13 27c7-6 15-6 22 0"/><path d="M20 34c3-2 5-2 8 0"/><circle cx="24" cy="39" r="1.6" fill="currentColor"/></svg></div>
+        <div class="pick-unit">Conectividad</div>
+        <h2>Redes <em>y WiFi</em></h2>
+        <p>Cobertura real en todo el local. Cableado, access points y portal de bienvenida para tus clientes.</p>
+        <div class="pick-tags"><span>WiFi</span><span>Cableado</span><span>Hoteles · Restós</span></div>
+        <span class="pick-go">Pedir presupuesto →</span>
+      </div>
+      <div class="pick-card" data-go="gps">
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><path d="M24 5c-6.6 0-12 5.4-12 12 0 9 12 26 12 26s12-17 12-26c0-6.6-5.4-12-12-12z"/><circle cx="24" cy="17" r="4.5"/></svg></div>
+        <div class="pick-unit">Flotas y vehículos</div>
+        <h2>Rastreo <em>GPS</em></h2>
+        <p>Seguí tus vehículos en tiempo real, con historial de recorridos y alertas. Ideal para transfers y excursiones.</p>
+        <div class="pick-tags"><span>Tiempo real</span><span>Historial</span><span>Flotas</span></div>
+        <span class="pick-go">Pedir presupuesto →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="config" id="config">
   <div class="wrap">
     <button class="back-link" id="back">← Volver</button>
 
     <!-- REDES -->
-    <div class="unit-panel" id="unit-redes">
+    <div class="unit-panel" id="unit-redes" data-parent="subpick">
       <div class="config-grid">
         <div>
           <div class="unit-intro">
@@ -521,6 +564,11 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Producción de contenido</h4><p>Creamos el contenido desde cero, no solo lo publicamos.</p></div>
             <div class="extra-price">+$80.000<small>/mes</small></div>
+          </div>
+          <div class="extra" data-price="50000" data-once="true">
+            <div class="extra-check">✓</div>
+            <div class="extra-body"><h4>Rebranding de tus redes</h4><p>Rearmamos tu perfil: foto, bio, destacados, paleta y plantillas. Podés volver a pedirlo cada vez que tu marca lo necesite.</p></div>
+            <div class="extra-price">+$50.000<small>única vez</small></div>
           </div>
           <div class="extra" data-price="200000" data-once="true">
             <div class="extra-check">✓</div>
@@ -570,7 +618,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     </div>
 
     <!-- WEB -->
-    <div class="unit-panel" id="unit-web">
+    <div class="unit-panel" id="unit-web" data-parent="subpick">
       <div class="unit-intro">
         <div class="u-eyebrow">Página web · Elegí cómo</div>
         <h2>Dos formas de tener <em>tu web</em>.</h2>
@@ -606,6 +654,8 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
                 <li>Optimizada para celular</li>
                 <li>Hasta 5 secciones</li>
                 <li>Mantenimiento y actualizaciones</li>
+                <li>Reporte mensual de visitas</li>
+                <li>Copias de seguridad y actualizaciones de seguridad</li>
                 <li>Soporte por WhatsApp</li>
               </ul>
             </div>
@@ -651,6 +701,10 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
               <div class="extra-check">✓</div>
               <div class="extra-body"><h4>Secciones adicionales</h4><p>Blog, galería, más páginas según lo que necesites.</p></div>
               <div class="extra-price">+$5.000<small>/mes</small></div>
+            </div>
+
+            <div class="aviso">
+              <b>Al año, elegís vos.</b> Cumplidos los 12 meses tenés tres caminos, y ninguno te obliga a nada: <b>renovar</b> con un rediseño completo sin costo, <b>comprar tu web</b> por $150.000 y llevártela con el dominio a tu nombre, o <b>seguir como estás</b>. Si la comprás y querés que te la sigamos alojando y manteniendo, hay un plan liviano de $8.000/mes. No quedás atado a nada.
             </div>
           </div>
           <div class="summary" id="summary-web">
@@ -740,7 +794,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     </div>
 
     <!-- APPS -->
-    <div class="unit-panel" id="unit-app">
+    <div class="unit-panel" id="unit-app" data-parent="subpick">
       <div class="unit-intro">
         <div class="u-eyebrow">Aplicaciones móviles · Desarrollo a medida</div>
         <h2>Tu app, <em>hecha para vos</em>.</h2>
@@ -765,56 +819,61 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       </div>
     </div>
 
-    <!-- CÁMARAS -->
-    <div class="unit-panel" id="unit-cam">
+    <!-- CÁMARAS Y ALARMAS -->
+    <div class="unit-panel" id="unit-cam" data-parent="subtech">
       <div class="config-grid">
         <div>
           <div class="unit-intro">
-            <div class="u-eyebrow">Seguridad · Suscripción mensual</div>
-            <h2>Cuidá tu lugar, <em>día y noche</em>.</h2>
-            <p>Instalamos tus cámaras y las mantenemos con monitoreo permanente.</p>
+            <div class="u-eyebrow">Cámaras y alarmas · Suscripción mensual</div>
+            <h2>Mirá tu lugar, <em>estés donde estés</em>.</h2>
+            <p>Ponemos los equipos y los instalamos: vos pagás una cuota mensual, sin comprar nada. Todo se ve desde tu celular.</p>
           </div>
           <div class="base-card">
             <div class="b-tag">Plan base · incluido</div>
-            <h3>Seguridad 24h</h3>
-            <div class="b-price">$18.000 <small>/ mes</small></div>
+            <h3>Plan Cámaras</h3>
+            <div class="b-price">$30.000 <small>/ mes</small></div>
             <div class="b-inc">Incluye</div>
             <ul>
-              <li>2 cámaras HD instaladas</li>
-              <li>Monitoreo y grabación 24 horas</li>
+              <li>2 cámaras HD provistas e instaladas</li>
+              <li>Grabador y disco incluidos</li>
+              <li>Grabación continua las 24 horas</li>
               <li>Acceso en vivo desde tu celular</li>
-              <li>Almacenamiento en la nube (7 días)</li>
-              <li>Mantenimiento incluido</li>
+              <li>Configuración y puesta en marcha</li>
+              <li>Mantenimiento y reposición por falla</li>
               <li>Soporte por WhatsApp</li>
             </ul>
           </div>
           <div class="extras-h">Sumá extras</div>
-          <div class="extras-sub">Ampliá tu seguridad según tu espacio.</div>
+          <div class="extras-sub">Ampliá la cobertura según tu espacio.</div>
 
-          <div class="extra" data-price="6000" data-qty="true">
+          <div class="extra" data-price="10000" data-qty="true">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Cámara adicional</h4><p>Sumá más cobertura donde la necesites.</p></div>
+            <div class="extra-body"><h4>Cámara adicional</h4><p>Provista, instalada y mantenida, igual que las del plan.</p></div>
             <div class="extra-qty" style="display:none"><button class="qty-btn" data-dir="-1">−</button><span class="qty-val">1</span><button class="qty-btn" data-dir="1">+</button></div>
-            <div class="extra-price">+$6.000<small>/mes c/u</small></div>
-          </div>
-          <div class="extra" data-price="5000">
-            <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Almacenamiento extendido (30 días)</h4><p>Guardá un mes completo de grabaciones.</p></div>
-            <div class="extra-price">+$5.000<small>/mes</small></div>
+            <div class="extra-price">+$10.000<small>/mes c/u</small></div>
           </div>
           <div class="extra" data-price="8000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Alarma inteligente</h4><p>Detección de movimiento con aviso al celular.</p></div>
+            <div class="extra-body"><h4>Alarma con aviso al celular</h4><p>Sensores de movimiento y sirena. Te llega la alerta a vos, al instante.</p></div>
             <div class="extra-price">+$8.000<small>/mes</small></div>
+          </div>
+          <div class="extra" data-price="6000">
+            <div class="extra-check">✓</div>
+            <div class="extra-body"><h4>Copia en la nube</h4><p>Respaldo de las grabaciones fuera del local, por si se llevan el grabador.</p></div>
+            <div class="extra-price">+$6.000<small>/mes</small></div>
           </div>
           <div class="extra" data-price="7000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Botón de pánico / alerta directa</h4><p>Enviá una alerta inmediata ante una emergencia.</p></div>
+            <div class="extra-body"><h4>Videoportero inteligente</h4><p>Mirá y hablá con quien toca timbre, desde el celular.</p></div>
             <div class="extra-price">+$7.000<small>/mes</small></div>
+          </div>
+
+          <div class="aviso">
+            <b>El plan cubre instalación estándar.</b> Antes de instalar hacemos una visita técnica sin cargo para ver el lugar. Si el trabajo requiere obra adicional —cableado de más de 20 metros, trabajo en altura, postes, canaletas o zanjeo— eso se presupuesta aparte y te lo decimos en el momento, nunca después.
           </div>
         </div>
         <div class="summary" id="summary-cam">
-          <div class="summary-top"><div class="s-eyebrow">Tu plan</div><h3>Seguridad 24h</h3></div>
+          <div class="summary-top"><div class="s-eyebrow">Tu plan</div><h3>Plan Cámaras</h3></div>
           <div class="summary-body">
             <div class="plazo">
               <button class="plazo-btn on" data-mult="1" data-per="/mes">Mensual</button>
@@ -822,10 +881,104 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
               <button class="plazo-btn" data-mult="9" data-per="/año">Anual<small>3 meses gratis</small></button>
             </div>
             <div class="s-lines"></div>
-            <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$18.000<small>/mes</small></div></div>
+            <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$30.000<small>/mes</small></div></div>
             <a href="#contrato" class="s-cta" data-cta>Continuar · Ver contrato</a>
           </div>
         </div>
+      </div>
+
+      <div class="completa-card">
+        <div class="cc-tag">¿Necesitás algo más grande?</div>
+        <h3>Instalación <em>a medida</em></h3>
+        <p>Si tenés un depósito, un hotel, varios locales o querés ser dueño de los equipos, no vayas por el plan mensual: vamos, relevamos el lugar y te armamos un presupuesto cerrado. Los equipos quedan tuyos, con garantía.</p>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20un%20presupuesto%20de%20instalaci%C3%B3n%20de%20c%C3%A1maras%20a%20medida." target="_blank" rel="noopener" class="cc-cta">Pedir presupuesto →</a>
+      </div>
+    </div>
+
+    <!-- DOMÓTICA Y ACCESOS -->
+    <div class="unit-panel" id="unit-domotica" data-parent="subtech">
+      <div class="unit-intro">
+        <div class="u-eyebrow">Domótica y accesos · Presupuesto a medida</div>
+        <h2>Que tu lugar <em>se maneje solo</em>.</h2>
+        <p>Automatizamos lo que hoy hacés a mano, y resolvemos el ingreso sin llaves. Cada instalación se presupuesta después de ver el lugar.</p>
+      </div>
+      <div class="completa-card">
+        <div class="cc-tag">Pago único · Los equipos quedan tuyos</div>
+        <h3>Automatización <em>y control de acceso</em></h3>
+        <div class="cc-price">A presupuestar <small>tras la visita técnica</small></div>
+        <p>Vamos hasta tu casa o tu negocio, vemos qué se puede hacer y te pasamos un presupuesto cerrado, sin sorpresas. La visita no tiene costo y no te compromete a nada.</p>
+        <ul>
+          <li>Luces y enchufes inteligentes</li>
+          <li>Control de aire acondicionado</li>
+          <li>Riego y cortinas automatizados</li>
+          <li>Integración con Alexa y Google</li>
+          <li>Cerraduras con código o huella</li>
+          <li>Check-in autónomo para alquileres</li>
+          <li>Escenas y horarios programados</li>
+          <li>Capacitación de uso incluida</li>
+        </ul>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20un%20presupuesto%20de%20dom%C3%B3tica%20y%2Fo%20control%20de%20acceso." target="_blank" rel="noopener" class="cc-cta">Pedir la visita técnica →</a>
+      </div>
+      <div class="aviso" style="margin-top:26px">
+        <b>Para alquileres temporarios y cabañas.</b> Con una cerradura inteligente generás un código distinto para cada huésped, que se vence solo cuando termina la estadía. No tenés que estar presente para entregar llaves ni preocuparte por copias. Si además manejamos tu web de reservas, queda todo conectado.
+      </div>
+    </div>
+
+    <!-- REDES Y WIFI -->
+    <div class="unit-panel" id="unit-redwifi" data-parent="subtech">
+      <div class="unit-intro">
+        <div class="u-eyebrow">Redes y WiFi · Presupuesto a medida</div>
+        <h2>WiFi que <em>anda en todos lados</em>.</h2>
+        <p>El internet que llega a la recepción y se corta en la habitación 4 no es un problema de tu proveedor: es un problema de red. Eso lo resolvemos.</p>
+      </div>
+      <div class="completa-card">
+        <div class="cc-tag">Pago único · Los equipos quedan tuyos</div>
+        <h3>Instalación <em>de red y WiFi</em></h3>
+        <div class="cc-price">A presupuestar <small>tras la visita técnica</small></div>
+        <p>Relevamos el lugar, medimos dónde se cae la señal y te proponemos cuántos puntos hacen falta. Presupuesto cerrado antes de tocar una pared.</p>
+        <ul>
+          <li>Relevamiento de cobertura</li>
+          <li>Cableado de red estructurado</li>
+          <li>Access points para cobertura total</li>
+          <li>Red separada para invitados</li>
+          <li>Portal de bienvenida con tu marca</li>
+          <li>Configuración de router y switches</li>
+          <li>Control de ancho de banda</li>
+          <li>Soporte post-instalación</li>
+        </ul>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20un%20presupuesto%20de%20red%20y%20WiFi%20para%20mi%20negocio." target="_blank" rel="noopener" class="cc-cta">Pedir la visita técnica →</a>
+      </div>
+      <div class="aviso" style="margin-top:26px">
+        <b>Para hoteles, hostels y restós.</b> El portal de bienvenida es una pantalla con tu marca que ve el cliente al conectarse. Podés pedirle que te siga en Instagram o deje su correo antes de darle acceso: el WiFi deja de ser un gasto y te empieza a construir la base de contactos. Si querés, después usamos esos contactos en tu estrategia de redes.
+      </div>
+    </div>
+
+    <!-- GPS -->
+    <div class="unit-panel" id="unit-gps" data-parent="subtech">
+      <div class="unit-intro">
+        <div class="u-eyebrow">Rastreo GPS · Presupuesto a medida</div>
+        <h2>Sabé dónde está <em>tu vehículo</em>.</h2>
+        <p>Instalamos el equipo y te damos acceso a la plataforma desde el celular. Para un auto o para toda la flota.</p>
+      </div>
+      <div class="completa-card">
+        <div class="cc-tag">Instalación única + abono de plataforma</div>
+        <h3>Rastreo <em>vehicular</em></h3>
+        <div class="cc-price">A presupuestar <small>según cantidad de vehículos</small></div>
+        <p>El valor depende de cuántos vehículos son y qué funciones necesitás. Contanos tu caso y te pasamos el número cerrado.</p>
+        <ul>
+          <li>Ubicación en tiempo real</li>
+          <li>Historial de recorridos</li>
+          <li>Alertas de velocidad y zona</li>
+          <li>Corte de motor a distancia</li>
+          <li>Reportes de uso por vehículo</li>
+          <li>Acceso desde celular y computadora</li>
+          <li>Instalación oculta en el vehículo</li>
+          <li>Soporte y configuración</li>
+        </ul>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20un%20presupuesto%20de%20rastreo%20GPS%20vehicular." target="_blank" rel="noopener" class="cc-cta">Pedir presupuesto →</a>
+      </div>
+      <div class="aviso" style="margin-top:26px">
+        <b>Para transfers, excursiones y remises.</b> Además de saber dónde está cada unidad, tenés el historial para responderle a un pasajero, controlar consumos y demostrar recorridos cuando te lo piden.
       </div>
     </div>
 
@@ -1109,6 +1262,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
               <li>La titularidad de las cuentas y perfiles es y permanece de EL CLIENTE, quien otorga accesos por rol de colaborador. A la finalización, EL PRESTADOR revoca sus accesos dentro de las cuarenta y ocho (48) horas.</li>
               <li>La gestión de campañas publicitarias, de contratarse, comprende únicamente la creación, segmentación, monitoreo y optimización de la pauta; el presupuesto publicitario se abona directamente a la plataforma y no integra el abono.</li>
               <li>Las sesiones de fotografía y video se realizan en Puerto Iguazú y alrededores, con una duración aproximada de una hora y media, en fecha coordinada con no menos de siete (7) días de anticipación. Las postergaciones avisadas con menos de veinticuatro (24) horas podrán generar un nuevo cargo. La entrega del material editado se realiza dentro de los diez (10) días hábiles.</li>
+              <li><b>Rebranding de redes.</b> De contratarse, comprende exclusivamente la actualización de la identidad visual de los perfiles: foto de perfil y portada, redacción de la biografía, portadas de destacados hasta un máximo de ocho (8), definición de paleta cromática y tipografías, tres (3) plantillas reutilizables de publicación y el reordenamiento del contenido existente en el feed. <b>No comprende el diseño ni el rediseño del logotipo, ni el desarrollo de una identidad de marca integral, manual de marca o piezas para uso fuera de redes sociales</b>, servicios que se presupuestan por separado. Se entrega dentro de los diez (10) días hábiles de recibidos los materiales y admite las revisiones previstas en la cláusula Sexta. EL CLIENTE podrá volver a contratarlo cuantas veces lo requiera, abonando el valor vigente a ese momento.</li>
               <li>EL PRESTADOR no responde por sanciones, restricciones, bloqueos o cierres de cuentas dispuestos por las plataformas.</li>
             </ul>
           </div>
@@ -1125,21 +1279,35 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
               <li>De contratarse dominio personalizado, este se registra a nombre de EL CLIENTE, quien conserva su titularidad.</li>
               <li>EL PRESTADOR realiza copias de seguridad periódicas y procura una disponibilidad mensual del noventa y nueve por ciento (99 %), excluidas las ventanas de mantenimiento programado y las interrupciones imputables a proveedores de infraestructura.</li>
               <li>De contratarse cobros online, los fondos se acreditan directamente en la cuenta de EL CLIENTE; las comisiones de la pasarela de pago son a su exclusivo cargo y EL PRESTADOR no interviene en la relación de consumo con los compradores.</li>
+              <li>Cesada la relación por cualquier causa, el sitio se despublica. EL PRESTADOR conservará una copia de los archivos y contenidos durante noventa (90) días corridos, dentro de los cuales EL CLIENTE podrá solicitar su entrega sin cargo o la reactivación del servicio.</li>
+            </ul>
+          </div>
+
+          <div class="doc-cl">
+            <h5>Opciones al cumplirse el primer año</h5>
+            <p>Cumplidos doce (12) meses de vigencia ininterrumpida y encontrándose EL CLIENTE al día en sus pagos, podrá optar por cualquiera de las siguientes alternativas, sin que ninguna sea obligatoria:</p>
+            <ul>
+              <li><b>Renovación con rediseño.</b> EL CLIENTE tendrá derecho a un rediseño integral del sitio sin cargo adicional, manteniéndose el abono vigente. El rediseño comprende una nueva propuesta visual y la reorganización de las secciones existentes sobre el mismo alcance contratado, y deberá solicitarse y coordinarse dentro de los sesenta (60) días posteriores al aniversario.</li>
+              <li><b>Opción de compra.</b> EL CLIENTE podrá adquirir la propiedad del sitio abonando la suma única de pesos ciento cincuenta mil ($150.000), actualizable conforme la cláusula Tercera. Ejercida la opción, EL PRESTADOR entregará dentro de los quince (15) días hábiles los archivos que componen el sitio publicado (código, hojas de estilo, imágenes y contenidos) y realizará la transferencia del dominio a nombre de EL CLIENTE, cesando desde entonces el abono mensual y las obligaciones de mantenimiento, alojamiento y soporte de EL PRESTADOR. Conforme la cláusula Séptima, no se transfieren la biblioteca de componentes, plantillas y metodologías propias de EL PRESTADOR ni las licencias de terceros (tipografías, bancos de imágenes o servicios contratados a nombre de EL PRESTADOR), que EL CLIENTE deberá licenciar por su cuenta si desea continuar utilizándolas.</li>
+              <li><b>Continuidad.</b> De no ejercerse ninguna opción, el contrato continúa vigente en los mismos términos, renovándose por períodos mensuales conforme la cláusula Tercera.</li>
+              <li><b>Plan de alojamiento y soporte.</b> Ejercida la opción de compra, EL CLIENTE podrá contratar por separado el servicio de alojamiento, gestión de dominio, copias de seguridad y soporte técnico del sitio adquirido, por un abono de pesos ocho mil ($8.000) mensuales, sujeto a las mismas condiciones generales del presente. Este plan no incluye modificaciones de contenido ni de diseño, que se presupuestan por separado.</li>
             </ul>
           </div>
         </div>
 
         <div class="anexo" id="anexo-cam">
           <div class="doc-cl">
-            <h5>Seguridad y videovigilancia 24 h</h5>
+            <h5>Plan Cámaras — provisión, instalación y mantenimiento</h5>
             <ul>
-              <li>El plan base comprende la provisión e instalación de dos (2) cámaras HD, grabación continua, acceso en vivo desde dispositivo móvil, almacenamiento en la nube por siete (7) días y mantenimiento correctivo.</li>
-              <li>Los equipos se entregan en comodato: son propiedad de EL PRESTADOR mientras dure la suscripción. Finalizado el contrato, EL CLIENTE deberá permitir su retiro dentro de los quince (15) días corridos, respondiendo por su pérdida o deterioro no derivado del uso normal.</li>
-              <li>EL CLIENTE debe proveer suministro eléctrico estable y conexión a internet en el domicilio de instalación; las interrupciones de dichos servicios suspenden la grabación y el monitoreo sin responsabilidad para EL PRESTADOR.</li>
-              <li>El servicio consiste en monitoreo técnico y registro de imágenes. <b>No constituye servicio de vigilancia física, custodia armada ni respuesta ante emergencias</b>, ni sustituye la intervención de las fuerzas de seguridad, a las que EL CLIENTE deberá dar aviso por sí.</li>
-              <li>La instalación se coordina dentro de los diez (10) días hábiles de confirmado el plan, y requiere que EL CLIENTE facilite el acceso al inmueble. EL CLIENTE declara ser titular o contar con autorización del titular del inmueble para la instalación.</li>
-              <li>EL CLIENTE es responsable de que las cámaras no capten espacios de terceros ni ámbitos de intimidad, de exhibir cartelería visible de videovigilancia y de cumplir la Ley N° 25.326. Las imágenes se entregan únicamente a EL CLIENTE o a requerimiento de autoridad competente.</li>
-              <li>El mantenimiento incluido cubre fallas del equipo por uso normal. Los daños por vandalismo, robo, siniestros, sobretensiones o manipulación por terceros se presupuestan aparte.</li>
+              <li><b>Naturaleza del servicio.</b> EL PRESTADOR provee, instala, configura y mantiene un sistema de captación y grabación de imágenes de uso privado. <b>El servicio no constituye vigilancia física, custodia, seguridad privada, central de monitoreo ni respuesta ante emergencias</b>, actividades que EL PRESTADOR no presta ni ofrece. Ante cualquier emergencia, EL CLIENTE deberá dar aviso por sí a las fuerzas de seguridad. EL PRESTADOR no observa las imágenes en tiempo real ni se obliga a advertir a EL CLIENTE sobre lo que estas registren.</li>
+              <li><b>Alcance del plan base.</b> Comprende dos (2) cámaras de alta definición, grabador con disco de almacenamiento, cableado y accesorios de instalación estándar, configuración del acceso remoto desde dispositivo móvil, puesta en marcha y capacitación básica de uso.</li>
+              <li><b>Comodato de los equipos.</b> Los equipos instalados son y permanecen de propiedad exclusiva de EL PRESTADOR, entregándose a EL CLIENTE en comodato mientras dure la suscripción. EL CLIENTE no podrá venderlos, cederlos, gravarlos, trasladarlos ni permitir su intervención por terceros. Finalizada la relación por cualquier causa, EL CLIENTE deberá permitir el retiro dentro de los quince (15) días corridos, respondiendo por su valor de reposición en caso de pérdida, faltante o deterioro no derivado del uso normal.</li>
+              <li><b>Instalación estándar.</b> El plan cubre una instalación estándar. Se entiende por tal la que no requiere tendidos de cable superiores a veinte (20) metros por cámara, trabajos en altura que demanden equipamiento especial, instalación sobre postes o estructuras externas, canaletas embutidas, picado de mampostería, zanjeo ni obra civil. Detectada alguna de estas circunstancias en la visita técnica previa, EL PRESTADOR informará el costo adicional antes de ejecutar el trabajo, quedando EL CLIENTE libre de aceptarlo o desistir sin cargo alguno.</li>
+              <li><b>Visita técnica y factibilidad.</b> La contratación queda sujeta a una visita técnica previa sin cargo. Si de ella surgiera que la instalación no es técnicamente viable, el contrato quedará sin efecto sin obligación para ninguna de las Partes. La instalación se coordina dentro de los diez (10) días hábiles de confirmada la factibilidad, y requiere que EL CLIENTE facilite el acceso al inmueble en el horario convenido.</li>
+              <li><b>Condiciones del lugar.</b> EL CLIENTE declara ser titular del inmueble o contar con autorización expresa del titular para la instalación, y se obliga a proveer suministro eléctrico estable y conexión a internet. La interrupción de dichos servicios suspende la grabación y el acceso remoto, sin responsabilidad alguna para EL PRESTADOR.</li>
+              <li><b>Mantenimiento y reposición.</b> El abono incluye el mantenimiento correctivo y la reposición de equipos que fallen por defecto de fabricación o desgaste normal. Quedan excluidos y se presupuestan aparte los daños por vandalismo, robo, incendio, inundación, descargas atmosféricas, sobretensiones de la red eléctrica, animales o manipulación por EL CLIENTE o terceros no autorizados.</li>
+              <li><b>Uso lícito y datos personales.</b> EL CLIENTE es el responsable del tratamiento de las imágenes captadas y se obliga a que las cámaras no registren la vía pública, propiedades de terceros ni ámbitos de intimidad —baños, vestuarios, dormitorios—, a exhibir cartelería visible de videovigilancia y a cumplir la Ley N° 25.326. Las credenciales de acceso se entregan únicamente a EL CLIENTE, quien responde por su uso. EL PRESTADOR entregará copia de las grabaciones solo a EL CLIENTE o a requerimiento de autoridad competente.</li>
+              <li><b>Permanencia mínima.</b> Atento a que el equipamiento es provisto e instalado por EL PRESTADOR sin cargo inicial para EL CLIENTE, este plan tiene una permanencia mínima de seis (6) meses. La baja anticipada no exime del pago de las cuotas pendientes hasta completar dicho plazo.</li>
             </ul>
           </div>
         </div>
@@ -1189,7 +1357,23 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q">¿Tengo que firmar un contrato largo?<span class="faq-ic">+</span></button>
-        <div class="faq-a"><p>No te atamos con contratos complicados. Los planes de suscripción tienen un mínimo de 3 meses para poder mostrar resultados reales, y de ahí en más seguís mes a mes si estás conforme.</p></div>
+        <div class="faq-a"><p>No te atamos con contratos complicados. Los planes de marketing tienen un mínimo de 3 meses para poder mostrar resultados reales, y de ahí en más seguís mes a mes si estás conforme. El Plan Cámaras tiene un mínimo de 6 meses, porque los equipos los ponemos e instalamos nosotros sin que pagues nada por adelantado.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">En el Plan Cámaras, ¿los equipos quedan míos?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>No: los equipos son nuestros y quedan instalados en tu lugar mientras dure el plan. Por eso no pagás nada al principio y el mantenimiento y la reposición por falla están incluidos. Si preferís ser dueño de los equipos, no vayas por el plan mensual — pedinos un presupuesto de instalación a medida y quedan tuyos con garantía.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Con la web por suscripción, ¿la página termina siendo mía?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>Puede serlo, cuando vos quieras. Al cumplir el año tenés tres caminos: renovar con un rediseño completo sin costo, comprar tu web por $150.000 y llevártela con el dominio a tu nombre, o seguir como estás. Si la comprás y no querés ocuparte del alojamiento, te la seguimos hospedando y manteniendo por $8.000 al mes. La idea es que te quedes porque querés, no porque no podés irte.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Qué pasa con mi web si doy de baja el plan?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>El sitio se despublica al terminar el período que pagaste. Guardamos una copia completa durante 90 días: en ese tiempo podés pedirnos los archivos sin cargo, o reactivar el servicio y volver a estar online en el día. Si tenías dominio propio, ese siempre fue tuyo y sigue siéndolo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Cobran la visita técnica?<span class="faq-ic">+</span></button>
+        <div class="faq-a"><p>No, es sin cargo y no te compromete a nada. Vamos, miramos el lugar y recién ahí te decimos qué se puede hacer y cuánto sale. En el Plan Cámaras la visita sirve además para confirmar que la instalación entra dentro de lo estándar; si hace falta obra adicional te lo decimos antes de empezar, nunca después.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">¿Cuánto tardan en arrancar?<span class="faq-ic">+</span></button>
@@ -1225,6 +1409,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
   function money(n){return '$'+n.toLocaleString('es-AR');}
   var picker=document.getElementById('picker');
   var subpick=document.getElementById('subpick');
+  var subtech=document.getElementById('subtech');
   var config=document.getElementById('config');
   var contrato=document.getElementById('contrato');
   var steps=document.getElementById('steps');
@@ -1233,7 +1418,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
   var S3='1 · Qué necesitás <span>›</span> 2 · Tu plan <span>›</span> <b>3 · Contrato</b>';
 
   function show(el){
-    [picker,subpick,config,contrato].forEach(function(s){s.classList.remove('active');s.style.display='none';});
+    [picker,subpick,subtech,config,contrato].forEach(function(s){s.classList.remove('active');s.style.display='none';});
     if(el===picker){picker.style.display='block';} else {el.classList.add('active');el.style.display='block';}
     window.scrollTo({top:0,behavior:'smooth'});
   }
@@ -1250,17 +1435,14 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     card.addEventListener('click',function(){
       var g=card.dataset.go;
       if(g==='marketing'){ show(subpick); steps.innerHTML=S1; }
-      else if(g==='cam'){ openUnit('cam'); }
-      else if(g==='redes'){ openUnit('redes'); }
-      else if(g==='web'){ openUnit('web'); }
-      else if(g==='app'){ openUnit('app'); }
+      else if(g==='tech'){ show(subtech); steps.innerHTML=S1; }
+      else { openUnit(g); }
     });
   });
 
   document.getElementById('back').addEventListener('click',function(){
     var active=document.querySelector('.unit-panel.active');
-    if(active && active.id==='unit-cam'){ show(picker); }
-    else { show(subpick); }
+    show(active && active.dataset.parent==='subtech' ? subtech : subpick);
     steps.innerHTML=S1;
   });
   document.querySelectorAll('[data-back]').forEach(function(btn){
@@ -1277,7 +1459,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     });
   });
 
-  function setupUnit(panelSel, baseName, basePrice, summaryId, per, unitKey){
+  function setupUnit(panelSel, baseName, basePrice, summaryId, per, unitKey, minMeses){
     var panel=document.querySelector(panelSel);
     var summary=document.getElementById(summaryId);
     var linesBox=summary.querySelector('.s-lines');
@@ -1307,7 +1489,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
 
       if(mult===1){
         bigNumber=money(monthly); bigPer='/mes';
-        noteHtml='<div class="s-note">Mínimo 3 meses</div>';
+        noteHtml='<div class="s-note">Permanencia mínima '+minMeses+' meses</div>';
       } else {
         // protagonista: mensual con descuento
         bigNumber=money(mensualConDesc); bigPer='/mes';
@@ -1320,7 +1502,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       totalEl.innerHTML=bigNumber+'<small>'+bigPer+'</small>'+saveHtml+noteHtml+onceHtml;
 
       cta.planState={
-        unidad:unitKey, baseName:baseName, basePrice:basePrice,
+        unidad:unitKey, baseName:baseName, basePrice:basePrice, minMeses:minMeses,
         items:chosen, itemsOnce:chosenOnce,
         monthly:monthly, once:once, meses:meses, mult:mult,
         plazoLabel:plazoLabel, totalPeriodo:totalPeriodo, mensualConDesc:mensualConDesc
@@ -1359,9 +1541,9 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     recalc();
   }
 
-  setupUnit('#unit-redes','Gestión de redes',200000,'summary-redes','/mes','redes');
-  setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes','web');
-  setupUnit('#unit-cam','Seguridad 24h',18000,'summary-cam','/mes','cam');
+  setupUnit('#unit-redes','Gestión de redes',200000,'summary-redes','/mes','redes',3);
+  setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes','web',3);
+  setupUnit('#unit-cam','Plan Cámaras',30000,'summary-cam','/mes','cam',6);
 
   /* ═══ CONTRATO ═══ */
   var CONTRATO=(function(){
@@ -1381,7 +1563,8 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
 
     var SUB={redes:'ORIGEN Studio · Gestión de redes sociales',
              web:'ORIGEN Studio · Página web por suscripción',
-             cam:'ORIGEN Tech · Seguridad y videovigilancia 24 h'};
+             cam:'ORIGEN Tech · Plan Cámaras · Equipos en comodato'};
+    var LETRAS={3:'tres (3) meses',6:'seis (6) meses',12:'doce (12) meses'};
 
     function set(k,v){ doc.querySelectorAll('[data-f="'+k+'"]').forEach(function(el){el.textContent=v;}); }
     function fecha(d){ return d.toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}); }
@@ -1399,16 +1582,16 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       s.items.forEach(function(i){ html+=row(esc(i.name),i.price); });
       if(s.mult===1){
         html+='<tr class="tot"><td>Total mensual</td><td>'+money(s.monthly)+'</td></tr>';
-        set('nota-plazo','Abono mensual. Plazo mínimo de permanencia: 3 meses.');
+        set('nota-plazo','Abono mensual. Plazo mínimo de permanencia: '+s.minMeses+' meses.');
         set('plazo-detalle','pago mensual de '+money(s.monthly)+', por mes adelantado');
-        set('min-plazo','tres (3) meses');
+        set('min-plazo',LETRAS[s.minMeses]);
       } else {
         html+='<tr><td>Subtotal mensual de lista</td><td>'+money(s.monthly)+'</td></tr>';
         html+='<tr><td>Bonificación por pago adelantado ('+(s.meses===6?'1 mes':'3 meses')+' sin cargo)</td><td>−'+money(s.monthly*s.meses-s.totalPeriodo)+'</td></tr>';
         html+='<tr class="tot"><td>Total por '+s.meses+' meses</td><td>'+money(s.totalPeriodo)+'</td></tr>';
         set('nota-plazo','Equivale a '+money(s.mensualConDesc)+' por mes. Se abona en un único pago por adelantado, por '+s.meses+' meses de servicio.');
         set('plazo-detalle','pago único adelantado de '+money(s.totalPeriodo)+' por '+s.meses+' meses de servicio ('+money(s.mensualConDesc)+' mensuales equivalentes)');
-        set('min-plazo',(s.meses===6?'seis (6)':'doce (12)')+' meses');
+        set('min-plazo',LETRAS[Math.max(s.meses,s.minMeses)]);
       }
       itemsBox.innerHTML=html;
 
