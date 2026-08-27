@@ -139,6 +139,28 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .s-cta{display:block;width:100%;text-align:center;padding:16px;background:var(--n);color:#fff;text-decoration:none;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;margin-top:18px;transition:background .3s;font-family:'Jost'}
 .s-cta:hover{background:var(--d);color:var(--n)}
 
+.pro-toggle{display:block;width:100%;text-align:center;background:none;border:none;border-top:1px dashed var(--l);
+  margin-top:16px;padding-top:12px;font-family:'Jost';font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase;
+  color:#B9B4AA;cursor:pointer;transition:color .2s}
+.pro-toggle:hover{color:var(--p)}
+.pro-panel{display:none;margin-top:12px;padding:14px;background:var(--cream);border:1px solid var(--l)}
+.pro-panel.on{display:block}
+.pro-panel label{display:block;font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dk);margin-bottom:5px}
+.pro-panel textarea{width:100%;font-family:'Jost';font-size:12.5px;color:var(--n);border:1px solid var(--l);padding:8px 10px;resize:vertical}
+.pro-panel .pro-hint{font-size:11px;color:var(--p);line-height:1.5;margin-top:8px}
+.pro-panel .pro-reset{display:inline-block;margin-top:10px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--p);
+  background:none;border:none;text-decoration:underline;cursor:pointer;padding:0}
+.pro-input{display:none;font-family:'Cormorant',serif;font-size:inherit;color:inherit;border:none;border-bottom:1px dashed var(--dk);
+  background:none;width:100px;padding:0 0 1px}
+.pro-active .pro-input{display:inline-block}
+.pro-active .b-price>span.static,.pro-active .extra-price>span.static{display:none}
+.pro-active .extra-price{display:flex;align-items:center;gap:6px;justify-content:flex-end}
+.extra-price .pro-input{width:64px;font-size:15px;text-align:right}
+.b-price .pro-input{font-size:32px;width:130px}
+.pro-line-reset{display:none;border:none;background:none;color:var(--p);cursor:pointer;font-size:13px;line-height:1;padding:0 2px}
+.pro-active .adjusted .pro-line-reset{display:inline-block}
+.gratis-tag{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dk);margin-left:4px}
+
 .completa-card{border:1px solid var(--l);background:var(--sand);padding:34px 36px;margin-top:34px}
 .completa-card .cc-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--dk);margin-bottom:12px}
 .completa-card h3{font-size:28px;margin-bottom:10px}
@@ -342,10 +364,18 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .doc-head img{height:46px;width:auto}
 .doc-meta{text-align:right;font-size:11px;color:var(--p);line-height:1.6;letter-spacing:.4px}
 .doc-meta b{color:var(--n);font-weight:400}
-.doc-title{text-align:center;margin-bottom:28px}
+.doc-title{text-align:center;margin-bottom:20px}
 .doc-title h3{font-size:27px;line-height:1.2}
 .doc-title h3 em{color:var(--dk)}
-.doc-title .doc-sub{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--p);margin-top:8px}
+.doc-resumen{border:1.5px solid var(--n);background:var(--cream);padding:22px 26px 18px;margin-bottom:26px}
+.doc-resumen .dr-tag{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--dk);margin-bottom:6px}
+.doc-resumen h4{font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:14px}
+.doc-resumen table.doc-tbl{margin:0 0 8px}
+.doc-resumen table.doc-tbl caption{padding-top:10px}
+.row-list{color:#B0AA9C;font-weight:400;margin-left:6px;font-size:0.88em}
+.doc-especial{margin-top:10px;padding:10px 14px;background:#fff;border:1px dashed var(--dk);font-size:11.5px;color:var(--o);line-height:1.6}
+.doc-especial b{color:var(--n);font-weight:400}
+.cortesia-tag{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dk);font-family:'Jost',sans-serif}
 .doc-parts{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:28px}
 .doc-part{border:1px solid var(--l);padding:16px 18px;background:var(--cream)}
 .doc-part h4{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--dk);font-weight:400;margin-bottom:10px}
@@ -539,7 +569,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
           <div class="base-card">
             <div class="b-tag">Plan base · incluido</div>
             <h3>Gestión de redes</h3>
-            <div class="b-price">$200.000 <small>/ mes</small></div>
+            <div class="b-price"><span class="static">$200.000</span><input type="number" class="pro-input pro-base" min="0" step="1000" value="200000"> <small>/ mes</small></div>
             <div class="b-inc">Incluye</div>
             <ul>
               <li>Gestión de 1 red social (Instagram o Facebook)</li>
@@ -612,6 +642,13 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
             <div class="s-lines"></div>
             <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$200.000<small>/mes</small></div></div>
             <a href="#contrato" class="s-cta" data-cta>Continuar · Ver contrato</a>
+            <button class="pro-toggle" type="button" data-pro-toggle>Uso interno · Precio especial para este cliente</button>
+            <div class="pro-panel" data-pro-panel>
+              <label>Motivo del ajuste (queda escrito en el contrato)</label>
+              <textarea class="pro-motivo" rows="2" maxlength="200" placeholder="Ej: cliente de referencia, promoción de lanzamiento..."></textarea>
+              <div class="pro-hint">Con esto activo, hacé clic sobre cualquier precio de la izquierda para editarlo — incluso ponerlo en $0. El cliente ve el precio de lista tachado y el acordado en el contrato, con este motivo.</div>
+              <button class="pro-reset" type="button" data-pro-reset>Quitar todos los ajustes</button>
+            </div>
           </div>
         </div>
       </div>
@@ -646,7 +683,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
             <div class="base-card">
               <div class="b-tag">Plan base · incluido</div>
               <h3>Web por suscripción</h3>
-              <div class="b-price">$20.000 <small>/ mes</small></div>
+              <div class="b-price"><span class="static">$20.000</span><input type="number" class="pro-input pro-base" min="0" step="500" value="20000"> <small>/ mes</small></div>
               <div class="b-inc">Incluye</div>
               <ul>
                 <li>Diseño inicial de tu sitio (sin costo aparte)</li>
@@ -718,6 +755,13 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
               <div class="s-lines"></div>
               <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$20.000<small>/mes</small></div></div>
               <a href="#contrato" class="s-cta" data-cta>Continuar · Ver contrato</a>
+              <button class="pro-toggle" type="button" data-pro-toggle>Uso interno · Precio especial para este cliente</button>
+              <div class="pro-panel" data-pro-panel>
+                <label>Motivo del ajuste (queda escrito en el contrato)</label>
+                <textarea class="pro-motivo" rows="2" maxlength="200" placeholder="Ej: cliente de referencia, promoción de lanzamiento..."></textarea>
+                <div class="pro-hint">Con esto activo, hacé clic sobre cualquier precio de la izquierda para editarlo — incluso ponerlo en $0. El cliente ve el precio de lista tachado y el acordado en el contrato, con este motivo.</div>
+                <button class="pro-reset" type="button" data-pro-reset>Quitar todos los ajustes</button>
+              </div>
             </div>
           </div>
         </div>
@@ -831,7 +875,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
           <div class="base-card">
             <div class="b-tag">Plan base · incluido</div>
             <h3>Plan Cámaras</h3>
-            <div class="b-price">$30.000 <small>/ mes</small></div>
+            <div class="b-price"><span class="static">$30.000</span><input type="number" class="pro-input pro-base" min="0" step="1000" value="30000"> <small>/ mes</small></div>
             <div class="b-inc">Incluye</div>
             <ul>
               <li>2 cámaras HD provistas e instaladas</li>
@@ -883,6 +927,13 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
             <div class="s-lines"></div>
             <div class="s-total"><div class="t-l">Total<br>mensual</div><div class="t-v" data-total>$30.000<small>/mes</small></div></div>
             <a href="#contrato" class="s-cta" data-cta>Continuar · Ver contrato</a>
+            <button class="pro-toggle" type="button" data-pro-toggle>Uso interno · Precio especial para este cliente</button>
+            <div class="pro-panel" data-pro-panel>
+              <label>Motivo del ajuste (queda escrito en el contrato)</label>
+              <textarea class="pro-motivo" rows="2" maxlength="200" placeholder="Ej: cliente de referencia, promoción de lanzamiento..."></textarea>
+              <div class="pro-hint">Con esto activo, hacé clic sobre cualquier precio de la izquierda para editarlo — incluso ponerlo en $0. El cliente ve el precio de lista tachado y el acordado en el contrato, con este motivo.</div>
+              <button class="pro-reset" type="button" data-pro-reset>Quitar todos los ajustes</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1104,7 +1155,22 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
 
         <div class="doc-title">
           <h3>Contrato de <em>prestación de servicios</em></h3>
-          <div class="doc-sub" data-f="servicio-sub">—</div>
+        </div>
+
+        <div class="doc-resumen">
+          <div class="dr-tag">Servicio contratado</div>
+          <h4 data-f="servicio-sub">—</h4>
+          <table class="doc-tbl">
+            <tbody id="doc-items"></tbody>
+          </table>
+          <table class="doc-tbl" id="doc-once-tbl" style="display:none">
+            <caption>Pago único</caption>
+            <tbody id="doc-once-items"></tbody>
+          </table>
+          <p class="doc-note" data-f="nota-plazo">—</p>
+          <div class="doc-especial" id="doc-especial" style="display:none">
+            <b>Precio especial acordado con el cliente.</b> <span data-f="especial-motivo">—</span>
+          </div>
         </div>
 
         <div class="doc-parts">
@@ -1132,122 +1198,39 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
 
         <p style="font-size:12.5px;color:#33312E;margin-bottom:22px;text-align:justify">En la ciudad de Puerto Iguazú, Provincia de Misiones, República Argentina, a la fecha indicada, entre las partes individualizadas precedentemente —en adelante «EL PRESTADOR» y «EL CLIENTE», y conjuntamente «las Partes»— se conviene celebrar el presente Contrato de Prestación de Servicios, que se regirá por las siguientes cláusulas:</p>
 
-        <div class="doc-sec-title">Detalle del servicio contratado</div>
-        <table class="doc-tbl">
-          <caption>Servicios de abono mensual</caption>
-          <thead><tr><th scope="col">Concepto</th><th scope="col">Importe</th></tr></thead>
-          <tbody id="doc-items"></tbody>
-        </table>
-        <table class="doc-tbl" id="doc-once-tbl" style="display:none">
-          <caption>Servicios de pago único</caption>
-          <thead><tr><th scope="col">Concepto</th><th scope="col">Importe</th></tr></thead>
-          <tbody id="doc-once-items"></tbody>
-        </table>
-        <p class="doc-note" data-f="nota-plazo">—</p>
-
         <div class="doc-sec-title">Cláusulas</div>
 
         <div class="doc-cl">
-          <h5>Primera — Objeto</h5>
-          <p>EL PRESTADOR se obliga a ejecutar en favor de EL CLIENTE los servicios individualizados en el «Detalle del servicio contratado», con el alcance, límites y condiciones específicas descriptos en el Anexo I, que forma parte inseparable del presente. Todo servicio, entregable o funcionalidad no enumerado expresamente en dicho detalle se considera excluido y, de requerirse, será objeto de presupuesto y acuerdo por escrito por separado.</p>
+          <h5>Primera — Objeto y precio</h5>
+          <p>EL PRESTADOR ejecutará para EL CLIENTE el servicio detallado arriba, con el alcance específico del Anexo I. Lo no enumerado allí queda excluido y se presupuesta aparte. El precio es el consignado en el detalle; se abona por adelantado vía Mercado Pago o transferencia, venciendo el abono mensual el día <b data-f="dia-venc">—</b> de cada mes. La mora superior a diez (10) días habilita a suspender el servicio. La pauta publicitaria, si la hubiera, la abona EL CLIENTE directamente a la plataforma.</p>
         </div>
 
         <div class="doc-cl">
-          <h5>Segunda — Precio y forma de pago</h5>
-          <p>EL CLIENTE abonará el importe consignado en el detalle, expresado en pesos argentinos, conforme la modalidad de plazo elegida: <b data-f="plazo-detalle">—</b>. Los pagos podrán efectuarse mediante Mercado Pago (tarjeta de crédito o débito, dinero en cuenta o efectivo) o transferencia bancaria a la cuenta que EL PRESTADOR informe.</p>
+          <h5>Segunda — Plazo y renovación</h5>
+          <p>Rige desde el <b data-f="inicio">—</b> por un mínimo de <b data-f="min-plazo">—</b>, renovándose luego mes a mes salvo aviso en contrario con treinta (30) días de anticipación. EL PRESTADOR puede actualizar el valor del abono al vencer cada período, avisando con la misma antelación; si EL CLIENTE no lo acepta, puede rescindir sin penalidad al cierre del período vigente.</p>
+        </div>
+
+        <div class="doc-cl">
+          <h5>Tercera — Obligaciones de las partes</h5>
           <ul>
-            <li>El abono mensual se factura por adelantado y vence el día <b data-f="dia-venc">—</b> de cada mes.</li>
-            <li>Los servicios de pago único se abonan al inicio, previo a su ejecución.</li>
-            <li>La mora se produce de pleno derecho por el mero vencimiento del plazo, sin necesidad de interpelación previa.</li>
-            <li>Transcurridos diez (10) días corridos de mora, EL PRESTADOR podrá suspender la prestación hasta la regularización, sin que ello genere derecho a reclamo ni prórroga del plazo contratado.</li>
-            <li>Las inversiones en pauta publicitaria (Meta Ads, Google Ads u otras plataformas) no están incluidas y son abonadas por EL CLIENTE de forma directa a la plataforma.</li>
+            <li>EL PRESTADOR ejecuta el servicio con calidad profesional, somete los entregables a aprobación de EL CLIENTE (72 h hábiles para observar; sin respuesta, se tienen por aprobados) y responde por WhatsApp en 24 h hábiles.</li>
+            <li>EL CLIENTE paga en término, provee a tiempo la información y materiales necesarios, designa un único referente, y garantiza ser dueño o tener licencia de lo que entregue.</li>
           </ul>
         </div>
 
         <div class="doc-cl">
-          <h5>Tercera — Plazo, renovación y actualización</h5>
-          <p>El presente rige a partir del <b data-f="inicio">—</b> por un plazo mínimo de <b data-f="min-plazo">—</b>, vencido el cual se renovará automáticamente por períodos mensuales sucesivos, salvo notificación en contrario de cualquiera de las Partes con al menos treinta (30) días corridos de anticipación al vencimiento del período en curso.</p>
-          <p>Dado el contexto económico, EL PRESTADOR podrá actualizar los valores del abono al vencimiento de cada período, notificando a EL CLIENTE con no menos de treinta (30) días de anticipación. La actualización no será aplicable a los períodos ya abonados por adelantado. Si EL CLIENTE no aceptara la actualización, podrá rescindir sin penalidad al finalizar el período vigente.</p>
+          <h5>Cuarta — Propiedad y confidencialidad</h5>
+          <p>Cuentas, dominios y datos preexistentes de EL CLIENTE son y siguen siendo suyos. Pagado el contrato en su totalidad, las piezas finales aprobadas quedan cedidas a EL CLIENTE; no se transfieren archivos de trabajo, plantillas ni licencias de terceros de EL PRESTADOR, quien puede exhibir lo realizado en su portafolio salvo pedido en contrario. Ambas Partes mantienen reserva de la información no pública a la que accedan, y los datos personales se tratan conforme la Ley N° 25.326.</p>
         </div>
 
         <div class="doc-cl">
-          <h5>Cuarta — Obligaciones de EL PRESTADOR</h5>
-          <ul>
-            <li>Ejecutar los servicios con la diligencia, calidad profesional y periodicidad comprometidas.</li>
-            <li>Asignar personal idóneo y responder por su desempeño.</li>
-            <li>Someter los entregables a aprobación de EL CLIENTE antes de su publicación o puesta en producción, conforme la cláusula Sexta.</li>
-            <li>Mantener un canal de contacto por WhatsApp en días hábiles, de lunes a viernes de 9 a 18 h, con respuesta dentro de las veinticuatro (24) horas hábiles.</li>
-            <li>Informar mensualmente el estado del servicio y las métricas correspondientes, cuando el plan lo prevea.</li>
-          </ul>
+          <h5>Quinta — Rescisión y responsabilidad</h5>
+          <p>Cumplido el plazo mínimo, cualquiera puede rescindir avisando con treinta (30) días; lo abonado no se reintegra. EL PRESTADOR puede rescindir sin indemnización ante mora mayor a treinta (30) días o incumplimiento grave. En baja anticipada dentro del plazo mínimo con descuento por pago adelantado, se recalcula a valor mensual de lista. EL PRESTADOR asume obligación de medios, no de resultado: no garantiza ventas, alcance ni posicionamiento, y su responsabilidad total no supera lo cobrado en los últimos tres (3) meses.</p>
         </div>
 
         <div class="doc-cl">
-          <h5>Quinta — Obligaciones de EL CLIENTE</h5>
-          <ul>
-            <li>Abonar en tiempo y forma los importes convenidos.</li>
-            <li>Proveer en tiempo oportuno la información, materiales, accesos, credenciales y autorizaciones necesarios para la prestación.</li>
-            <li>Designar una única persona referente con facultades para aprobar entregables y tomar decisiones.</li>
-            <li>Garantizar que los materiales que entregue (imágenes, textos, marcas, logotipos, música) son de su propiedad o cuenta con licencia suficiente para su uso, manteniendo indemne a EL PRESTADOR frente a reclamos de terceros por dicho concepto.</li>
-            <li>Abstenerse de solicitar contenidos falsos, engañosos, discriminatorios o contrarios a la ley y a las políticas de las plataformas.</li>
-          </ul>
-          <p>La demora de EL CLIENTE en el cumplimiento de estas obligaciones no suspende ni prorroga sus obligaciones de pago, y podrá desplazar los plazos de entrega en igual medida.</p>
-        </div>
-
-        <div class="doc-cl">
-          <h5>Sexta — Revisiones y aprobación</h5>
-          <p>Cada entregable admite hasta dos (2) rondas de correcciones sin cargo, siempre que las modificaciones se mantengan dentro del alcance originalmente acordado. Los pedidos que impliquen un cambio de concepto, rediseño integral o ampliación del alcance serán presupuestados por separado.</p>
-          <p>EL CLIENTE dispondrá de setenta y dos (72) horas hábiles para observar cada entregable. Vencido dicho plazo sin observaciones, el entregable se tendrá por aprobado y EL PRESTADOR quedará habilitado a publicarlo o implementarlo.</p>
-        </div>
-
-        <div class="doc-cl">
-          <h5>Séptima — Propiedad intelectual</h5>
-          <p>Las cuentas, perfiles, dominios y datos preexistentes de EL CLIENTE son y permanecen de su exclusiva titularidad. Cancelado el contrato y abonadas la totalidad de las sumas devengadas, las piezas creativas finales producidas y aprobadas durante la vigencia quedan cedidas a EL CLIENTE para su uso comercial.</p>
-          <p>No se transfieren: archivos editables de trabajo, metodologías, plantillas, código base propio ni licencias de terceros (fuentes tipográficas, bancos de imágenes, plugins), que permanecen en cabeza de EL PRESTADOR o de sus respectivos licenciantes. EL PRESTADOR se reserva el derecho de exhibir los trabajos realizados en su portafolio y redes, salvo pedido escrito en contrario de EL CLIENTE.</p>
-        </div>
-
-        <div class="doc-cl">
-          <h5>Octava — Confidencialidad y datos personales</h5>
-          <p>Las Partes se obligan a mantener en reserva toda información no pública a la que accedan con motivo del presente, obligación que subsistirá por dos (2) años posteriores a su finalización. EL PRESTADOR tratará los datos personales a los que acceda conforme la Ley N° 25.326 de Protección de Datos Personales, limitándose a las finalidades del presente contrato y adoptando medidas razonables de seguridad. Las credenciales de acceso serán utilizadas exclusivamente para la prestación y devueltas o revocadas a la finalización.</p>
-        </div>
-
-        <div class="doc-cl">
-          <h5>Novena — Rescisión</h5>
-          <ul>
-            <li>Cumplido el plazo mínimo, cualquiera de las Partes podrá rescindir sin expresión de causa, notificando por escrito con treinta (30) días corridos de anticipación. Los importes ya abonados no se reintegran; el servicio se presta hasta el fin del período abonado.</li>
-            <li>La rescisión anticipada por parte de EL CLIENTE dentro del plazo mínimo no dará derecho a reintegro de las sumas abonadas ni eximirá del pago de las cuotas pendientes hasta completarlo.</li>
-            <li>EL PRESTADOR podrá rescindir de pleno derecho, sin indemnización alguna, ante mora superior a treinta (30) días, uso indebido de los servicios, o incumplimiento grave de las obligaciones de EL CLIENTE.</li>
-            <li>Los descuentos por pago adelantado (6 o 12 meses) se otorgan en función del compromiso de permanencia; en caso de baja anticipada, se recalculará el servicio efectivamente prestado a valor mensual de lista, compensándose contra lo abonado.</li>
-          </ul>
-        </div>
-
-        <div class="doc-cl">
-          <h5>Décima — Responsabilidad</h5>
-          <p>EL PRESTADOR asume una obligación de medios y no de resultado. No garantiza volúmenes determinados de ventas, seguidores, alcance, posicionamiento ni conversiones, por depender de factores ajenos a su control, incluidos los algoritmos y políticas de plataformas de terceros. En ningún caso la responsabilidad total de EL PRESTADOR excederá el importe efectivamente percibido en los tres (3) meses anteriores al hecho que la origine, quedando excluidos los daños indirectos y el lucro cesante.</p>
-        </div>
-
-        <div class="doc-cl">
-          <h5>Undécima — Caso fortuito y fuerza mayor</h5>
-          <p>Ninguna de las Partes será responsable por el incumplimiento derivado de caso fortuito o fuerza mayor, incluyendo cortes prolongados de energía o conectividad, fallas o cambios unilaterales de plataformas de terceros, restricciones de autoridad pública o eventos climáticos extraordinarios. La Parte afectada deberá notificar la situación dentro de las setenta y dos (72) horas.</p>
-        </div>
-
-        <div class="doc-cl">
-          <h5>Duodécima — Notificaciones y domicilios</h5>
-          <p>Las Partes constituyen domicilio en los indicados en el encabezado y aceptan como medios fehacientes de notificación el correo electrónico y la mensajería de WhatsApp declarados, siendo cada Parte responsable de informar cualquier modificación.</p>
-        </div>
-
-        <div class="doc-cl">
-          <h5>Decimotercera — Naturaleza del vínculo</h5>
-          <p>El presente no genera relación laboral, societaria ni de dependencia entre las Partes ni respecto del personal que cada una afecte a su cumplimiento. EL PRESTADOR actúa con total autonomía técnica y organizativa.</p>
-        </div>
-
-        <div class="doc-cl">
-          <h5>Decimocuarta — Ley aplicable y jurisdicción</h5>
-          <p>El presente se rige por las leyes de la República Argentina. Para toda controversia derivada de su interpretación o cumplimiento, las Partes se someten a la jurisdicción de los Tribunales Ordinarios de la ciudad de Puerto Iguazú, Provincia de Misiones, renunciando a cualquier otro fuero o jurisdicción. Con carácter previo, las Partes procurarán de buena fe una solución amistosa dentro de los treinta (30) días de notificado el conflicto.</p>
-        </div>
-
-        <div class="doc-cl">
-          <h5>Decimoquinta — Integridad del acuerdo</h5>
-          <p>Este documento, junto con su Anexo I, constituye la totalidad de lo acordado y reemplaza toda propuesta o comunicación previa. Sus modificaciones requieren acuerdo escrito de ambas Partes. La nulidad de alguna cláusula no afectará la validez de las restantes.</p>
+          <h5>Sexta — Disposiciones generales</h5>
+          <p>Ninguna Parte responde por incumplimientos derivados de caso fortuito o fuerza mayor. Las notificaciones válidas son por WhatsApp o correo electrónico a los datos declarados. El presente no genera relación laboral ni societaria entre las Partes. Se rige por la ley argentina, con jurisdicción de los Tribunales de Puerto Iguazú, Misiones. Este documento y su Anexo I constituyen la totalidad de lo acordado.</p>
         </div>
 
         <div class="doc-sec-title">Anexo I — Alcance específico del servicio</div>
@@ -1256,14 +1239,10 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
           <div class="doc-cl">
             <h5>Gestión de redes sociales</h5>
             <ul>
-              <li>El plan base comprende la gestión de una (1) red social, con ocho (8) a doce (12) publicaciones mensuales, historias semanales, redacción de textos y hashtags, programación, publicación y reporte mensual de métricas.</li>
-              <li>La grilla de contenidos del mes se presenta para aprobación con no menos de cinco (5) días hábiles de anticipación al inicio del período.</li>
-              <li>Las publicaciones no ejecutadas por falta de aprobación, materiales o información de EL CLIENTE no se acumulan ni se trasladan al mes siguiente.</li>
-              <li>La titularidad de las cuentas y perfiles es y permanece de EL CLIENTE, quien otorga accesos por rol de colaborador. A la finalización, EL PRESTADOR revoca sus accesos dentro de las cuarenta y ocho (48) horas.</li>
-              <li>La gestión de campañas publicitarias, de contratarse, comprende únicamente la creación, segmentación, monitoreo y optimización de la pauta; el presupuesto publicitario se abona directamente a la plataforma y no integra el abono.</li>
-              <li>Las sesiones de fotografía y video se realizan en Puerto Iguazú y alrededores, con una duración aproximada de una hora y media, en fecha coordinada con no menos de siete (7) días de anticipación. Las postergaciones avisadas con menos de veinticuatro (24) horas podrán generar un nuevo cargo. La entrega del material editado se realiza dentro de los diez (10) días hábiles.</li>
-              <li><b>Rebranding de redes.</b> De contratarse, comprende exclusivamente la actualización de la identidad visual de los perfiles: foto de perfil y portada, redacción de la biografía, portadas de destacados hasta un máximo de ocho (8), definición de paleta cromática y tipografías, tres (3) plantillas reutilizables de publicación y el reordenamiento del contenido existente en el feed. <b>No comprende el diseño ni el rediseño del logotipo, ni el desarrollo de una identidad de marca integral, manual de marca o piezas para uso fuera de redes sociales</b>, servicios que se presupuestan por separado. Se entrega dentro de los diez (10) días hábiles de recibidos los materiales y admite las revisiones previstas en la cláusula Sexta. EL CLIENTE podrá volver a contratarlo cuantas veces lo requiera, abonando el valor vigente a ese momento.</li>
-              <li>EL PRESTADOR no responde por sanciones, restricciones, bloqueos o cierres de cuentas dispuestos por las plataformas.</li>
+              <li>El plan base comprende la gestión de una (1) red social, con 8 a 12 publicaciones mensuales, historias semanales, textos, programación, publicación y reporte mensual de métricas. La grilla se presenta para aprobación con 5 días hábiles de anticipación; lo no aprobado a tiempo por EL CLIENTE no se acumula al mes siguiente.</li>
+              <li>Las cuentas son y siguen siendo de EL CLIENTE, con accesos por rol de colaborador que se revocan al finalizar. La pauta publicitaria (Meta Ads), de contratarse, se abona aparte y directo a la plataforma. EL PRESTADOR no responde por sanciones o bloqueos de las plataformas.</li>
+              <li>Las sesiones de fotografía y video se coordinan con 7 días de anticipación en Puerto Iguazú y alrededores (1½ h aprox.); la postergación con menos de 24 h puede generar un nuevo cargo. Entrega del material en 10 días hábiles.</li>
+              <li><b>Rebranding de redes.</b> Comprende foto de perfil, bio, hasta 8 destacados, paleta, tipografías y 3 plantillas reutilizables. <b>No incluye logotipo ni identidad de marca integral</b> (se presupuestan aparte). Puede volver a pedirse cuantas veces se necesite, al valor vigente.</li>
             </ul>
           </div>
         </div>
@@ -1272,14 +1251,10 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
           <div class="doc-cl">
             <h5>Página web por suscripción</h5>
             <ul>
-              <li>El plan comprende el diseño inicial del sitio sin cargo adicional, hosting y dominio gestionados, adaptación a dispositivos móviles, hasta cinco (5) secciones, mantenimiento, actualizaciones de contenido y soporte por WhatsApp.</li>
-              <li>El diseño inicial se entrega dentro de los quince (15) días hábiles contados desde la recepción completa de textos, imágenes y logotipo por parte de EL CLIENTE.</li>
-              <li>Se incluyen hasta dos (2) actualizaciones de contenido por mes; las adicionales se presupuestan aparte.</li>
-              <li>Durante la vigencia, el hosting y —salvo contratación del dominio propio— la infraestructura permanecen a cargo y bajo administración de EL PRESTADOR. Finalizado el contrato, el sitio se da de baja; EL CLIENTE podrá solicitar dentro de los treinta (30) días una copia de sus contenidos (textos e imágenes) sin cargo. La migración del sitio a un servidor propio de EL CLIENTE se cotiza por separado.</li>
-              <li>De contratarse dominio personalizado, este se registra a nombre de EL CLIENTE, quien conserva su titularidad.</li>
-              <li>EL PRESTADOR realiza copias de seguridad periódicas y procura una disponibilidad mensual del noventa y nueve por ciento (99 %), excluidas las ventanas de mantenimiento programado y las interrupciones imputables a proveedores de infraestructura.</li>
-              <li>De contratarse cobros online, los fondos se acreditan directamente en la cuenta de EL CLIENTE; las comisiones de la pasarela de pago son a su exclusivo cargo y EL PRESTADOR no interviene en la relación de consumo con los compradores.</li>
-              <li>Cesada la relación por cualquier causa, el sitio se despublica. EL PRESTADOR conservará una copia de los archivos y contenidos durante noventa (90) días corridos, dentro de los cuales EL CLIENTE podrá solicitar su entrega sin cargo o la reactivación del servicio.</li>
+              <li>El plan comprende el diseño inicial (entrega en 15 días hábiles desde que EL CLIENTE envía textos, imágenes y logo), hosting y dominio gestionados, hasta 5 secciones, mantenimiento, hasta 2 actualizaciones de contenido por mes y soporte por WhatsApp. Adicionales se presupuestan aparte.</li>
+              <li>El hosting y la infraestructura quedan bajo administración de EL PRESTADOR durante la vigencia; el dominio personalizado, si se contrata, se registra a nombre de EL CLIENTE. EL PRESTADOR hace copias de seguridad periódicas y procura 99% de disponibilidad mensual.</li>
+              <li>De contratarse cobros online, los fondos van directo a la cuenta de EL CLIENTE; las comisiones de la pasarela son a su cargo.</li>
+              <li>Dada de baja, el sitio se despublica y EL PRESTADOR conserva una copia por 90 días corridos, en los que EL CLIENTE puede pedir sus archivos sin cargo o reactivar el servicio.</li>
             </ul>
           </div>
 
@@ -1287,10 +1262,10 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
             <h5>Opciones al cumplirse el primer año</h5>
             <p>Cumplidos doce (12) meses de vigencia ininterrumpida y encontrándose EL CLIENTE al día en sus pagos, podrá optar por cualquiera de las siguientes alternativas, sin que ninguna sea obligatoria:</p>
             <ul>
-              <li><b>Renovación con rediseño.</b> EL CLIENTE tendrá derecho a un rediseño integral del sitio sin cargo adicional, manteniéndose el abono vigente. El rediseño comprende una nueva propuesta visual y la reorganización de las secciones existentes sobre el mismo alcance contratado, y deberá solicitarse y coordinarse dentro de los sesenta (60) días posteriores al aniversario.</li>
-              <li><b>Opción de compra.</b> EL CLIENTE podrá adquirir la propiedad del sitio abonando la suma única de pesos ciento cincuenta mil ($150.000), actualizable conforme la cláusula Tercera. Ejercida la opción, EL PRESTADOR entregará dentro de los quince (15) días hábiles los archivos que componen el sitio publicado (código, hojas de estilo, imágenes y contenidos) y realizará la transferencia del dominio a nombre de EL CLIENTE, cesando desde entonces el abono mensual y las obligaciones de mantenimiento, alojamiento y soporte de EL PRESTADOR. Conforme la cláusula Séptima, no se transfieren la biblioteca de componentes, plantillas y metodologías propias de EL PRESTADOR ni las licencias de terceros (tipografías, bancos de imágenes o servicios contratados a nombre de EL PRESTADOR), que EL CLIENTE deberá licenciar por su cuenta si desea continuar utilizándolas.</li>
-              <li><b>Continuidad.</b> De no ejercerse ninguna opción, el contrato continúa vigente en los mismos términos, renovándose por períodos mensuales conforme la cláusula Tercera.</li>
-              <li><b>Plan de alojamiento y soporte.</b> Ejercida la opción de compra, EL CLIENTE podrá contratar por separado el servicio de alojamiento, gestión de dominio, copias de seguridad y soporte técnico del sitio adquirido, por un abono de pesos ocho mil ($8.000) mensuales, sujeto a las mismas condiciones generales del presente. Este plan no incluye modificaciones de contenido ni de diseño, que se presupuestan por separado.</li>
+              <li><b>Renovación con rediseño.</b> Rediseño integral sin cargo, sobre el mismo alcance contratado, a solicitar dentro de los 60 días del aniversario.</li>
+              <li><b>Opción de compra.</b> Por $150.000 (actualizable según cláusula Segunda), EL CLIENTE se queda con el sitio: se le entregan los archivos en 15 días hábiles y se transfiere el dominio, cesando el abono. No se incluyen la biblioteca de componentes ni licencias de terceros de EL PRESTADOR (cláusula Cuarta).</li>
+              <li><b>Continuidad.</b> Si no elige ninguna opción, el contrato sigue igual, mes a mes.</li>
+              <li><b>Plan de alojamiento y soporte.</b> Comprado el sitio, puede contratarse por separado hosting, dominio, backups y soporte por $8.000/mes (no incluye cambios de contenido ni diseño).</li>
             </ul>
           </div>
         </div>
@@ -1299,15 +1274,12 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
           <div class="doc-cl">
             <h5>Plan Cámaras — provisión, instalación y mantenimiento</h5>
             <ul>
-              <li><b>Naturaleza del servicio.</b> EL PRESTADOR provee, instala, configura y mantiene un sistema de captación y grabación de imágenes de uso privado. <b>El servicio no constituye vigilancia física, custodia, seguridad privada, central de monitoreo ni respuesta ante emergencias</b>, actividades que EL PRESTADOR no presta ni ofrece. Ante cualquier emergencia, EL CLIENTE deberá dar aviso por sí a las fuerzas de seguridad. EL PRESTADOR no observa las imágenes en tiempo real ni se obliga a advertir a EL CLIENTE sobre lo que estas registren.</li>
-              <li><b>Alcance del plan base.</b> Comprende dos (2) cámaras de alta definición, grabador con disco de almacenamiento, cableado y accesorios de instalación estándar, configuración del acceso remoto desde dispositivo móvil, puesta en marcha y capacitación básica de uso.</li>
-              <li><b>Comodato de los equipos.</b> Los equipos instalados son y permanecen de propiedad exclusiva de EL PRESTADOR, entregándose a EL CLIENTE en comodato mientras dure la suscripción. EL CLIENTE no podrá venderlos, cederlos, gravarlos, trasladarlos ni permitir su intervención por terceros. Finalizada la relación por cualquier causa, EL CLIENTE deberá permitir el retiro dentro de los quince (15) días corridos, respondiendo por su valor de reposición en caso de pérdida, faltante o deterioro no derivado del uso normal.</li>
-              <li><b>Instalación estándar.</b> El plan cubre una instalación estándar. Se entiende por tal la que no requiere tendidos de cable superiores a veinte (20) metros por cámara, trabajos en altura que demanden equipamiento especial, instalación sobre postes o estructuras externas, canaletas embutidas, picado de mampostería, zanjeo ni obra civil. Detectada alguna de estas circunstancias en la visita técnica previa, EL PRESTADOR informará el costo adicional antes de ejecutar el trabajo, quedando EL CLIENTE libre de aceptarlo o desistir sin cargo alguno.</li>
-              <li><b>Visita técnica y factibilidad.</b> La contratación queda sujeta a una visita técnica previa sin cargo. Si de ella surgiera que la instalación no es técnicamente viable, el contrato quedará sin efecto sin obligación para ninguna de las Partes. La instalación se coordina dentro de los diez (10) días hábiles de confirmada la factibilidad, y requiere que EL CLIENTE facilite el acceso al inmueble en el horario convenido.</li>
-              <li><b>Condiciones del lugar.</b> EL CLIENTE declara ser titular del inmueble o contar con autorización expresa del titular para la instalación, y se obliga a proveer suministro eléctrico estable y conexión a internet. La interrupción de dichos servicios suspende la grabación y el acceso remoto, sin responsabilidad alguna para EL PRESTADOR.</li>
-              <li><b>Mantenimiento y reposición.</b> El abono incluye el mantenimiento correctivo y la reposición de equipos que fallen por defecto de fabricación o desgaste normal. Quedan excluidos y se presupuestan aparte los daños por vandalismo, robo, incendio, inundación, descargas atmosféricas, sobretensiones de la red eléctrica, animales o manipulación por EL CLIENTE o terceros no autorizados.</li>
-              <li><b>Uso lícito y datos personales.</b> EL CLIENTE es el responsable del tratamiento de las imágenes captadas y se obliga a que las cámaras no registren la vía pública, propiedades de terceros ni ámbitos de intimidad —baños, vestuarios, dormitorios—, a exhibir cartelería visible de videovigilancia y a cumplir la Ley N° 25.326. Las credenciales de acceso se entregan únicamente a EL CLIENTE, quien responde por su uso. EL PRESTADOR entregará copia de las grabaciones solo a EL CLIENTE o a requerimiento de autoridad competente.</li>
-              <li><b>Permanencia mínima.</b> Atento a que el equipamiento es provisto e instalado por EL PRESTADOR sin cargo inicial para EL CLIENTE, este plan tiene una permanencia mínima de seis (6) meses. La baja anticipada no exime del pago de las cuotas pendientes hasta completar dicho plazo.</li>
+              <li><b>Naturaleza del servicio.</b> EL PRESTADOR provee, instala y mantiene un sistema de grabación de imágenes de uso privado. <b>No constituye vigilancia física, custodia, seguridad privada ni respuesta ante emergencias</b>: ante una emergencia, EL CLIENTE avisa por sí a las fuerzas de seguridad. Comprende 2 cámaras HD, grabador, cableado estándar, acceso remoto y capacitación de uso.</li>
+              <li><b>Comodato.</b> Los equipos son de EL PRESTADOR y se entregan en comodato mientras dure la suscripción; no pueden venderse, cederse ni trasladarse. Terminada la relación, EL CLIENTE permite su retiro en 15 días y responde por pérdida o deterioro fuera del uso normal.</li>
+              <li><b>Instalación estándar.</b> El plan cubre instalación estándar (hasta 20 m de cable por cámara, sin altura, postes, zanjeo ni obra civil). Si la visita técnica detecta algo distinto, se avisa el costo adicional antes de trabajar, y EL CLIENTE decide si lo acepta. La contratación queda sujeta a esa visita: si no es viable, el contrato queda sin efecto sin obligación para nadie. EL CLIENTE provee electricidad e internet estables y acceso al inmueble.</li>
+              <li><b>Mantenimiento.</b> Incluye reposición por falla de fábrica o desgaste normal. Vandalismo, robo, incendio, inundación o sobretensión se presupuestan aparte.</li>
+              <li><b>Uso lícito.</b> EL CLIENTE responde por que las cámaras no registren la vía pública ni ámbitos de intimidad, por exhibir cartelería de videovigilancia y por cumplir la Ley N° 25.326. Las grabaciones se entregan solo a EL CLIENTE o a la autoridad competente.</li>
+              <li><b>Permanencia mínima de 6 meses</b>, porque el equipo lo pone EL PRESTADOR sin cargo inicial. La baja anticipada no exime el pago de las cuotas pendientes hasta completarla.</li>
             </ul>
           </div>
         </div>
@@ -1466,21 +1438,50 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     var totalEl=summary.querySelector('[data-total]');
     var cta=summary.querySelector('[data-cta]');
     var plazoBtns=summary.querySelectorAll('.plazo-btn');
+    var proToggle=summary.querySelector('[data-pro-toggle]');
+    var proPanel=summary.querySelector('[data-pro-panel]');
+    var proMotivo=proPanel.querySelector('.pro-motivo');
+    var proResetAll=proPanel.querySelector('[data-pro-reset]');
+    var baseInput=panel.querySelector('.pro-base');
     var mult=1, plazoPer='/mes', plazoLabel='mensual';
+
+    // inyecta un precio editable al lado de cada extra (uso interno)
+    panel.querySelectorAll('.extra').forEach(function(ex){
+      var box=ex.querySelector('.extra-price');
+      var small=box.querySelector('small');
+      var smallHTML=small?small.outerHTML:'';
+      var unit=parseInt(ex.dataset.price,10);
+      box.innerHTML='<span class="static">+'+money(unit)+'</span>'+
+        '<input type="number" class="pro-input" min="0" step="500" value="'+unit+'">'+
+        '<button type="button" class="pro-line-reset" title="Volver al precio de lista">↺</button>'+smallHTML;
+      box.querySelector('.pro-input').addEventListener('input',function(){ recalc(); });
+      box.querySelector('.pro-line-reset').addEventListener('click',function(e){
+        e.stopPropagation();
+        box.querySelector('.pro-input').value=unit;
+        recalc();
+      });
+    });
+
     function recalc(){
-      var monthly=basePrice, once=0;
+      var baseEff = baseInput ? (parseInt(baseInput.value,10)||0) : basePrice;
+      var hasAdj = baseEff!==basePrice;
+      var monthly=baseEff, monthlyList=basePrice, once=0, onceList=0;
       var chosen=[], chosenOnce=[];
-      var lines='<div class="s-line base"><span class="s-name">'+baseName+'</span><span>'+money(basePrice)+'</span></div>';
+      var lines='<div class="s-line base"><span class="s-name">'+baseName+'</span><span>'+money(baseEff)+'</span></div>';
       panel.querySelectorAll('.extra.on').forEach(function(ex){
-        var price=parseInt(ex.dataset.price,10),qty=1;
+        var listPrice=parseInt(ex.dataset.price,10);
+        var input=ex.querySelector('.pro-input');
+        var price=input?(parseInt(input.value,10)||0):listPrice;
+        var qty=1;
         if(ex.dataset.qty){qty=parseInt(ex.querySelector('.qty-val').textContent,10)||1;}
-        var sub=price*qty;
+        var sub=price*qty, subList=listPrice*qty;
+        if(price!==listPrice) hasAdj=true;
+        ex.classList.toggle('adjusted', price!==listPrice);
         var name=ex.querySelector('h4').textContent+(qty>1?' ×'+qty:'');
-        if(ex.dataset.once){ once+=sub; chosenOnce.push({name:name,price:sub});
-          lines+='<div class="s-line"><span class="s-name">'+name+'</span><span>'+money(sub)+'</span></div>';
-        } else { monthly+=sub; chosen.push({name:name,price:sub});
-          lines+='<div class="s-line"><span class="s-name">'+name+'</span><span>'+money(sub)+'</span></div>';
-        }
+        var tag = price===0 ? ' <span class="gratis-tag">Cortesía</span>' : '';
+        var lineHtml='<div class="s-line"><span class="s-name">'+name+tag+'</span><span>'+money(sub)+'</span></div>';
+        if(ex.dataset.once){ once+=sub; onceList+=subList; chosenOnce.push({name:name,price:sub,listPrice:subList}); lines+=lineHtml; }
+        else { monthly+=sub; monthlyList+=subList; chosen.push({name:name,price:sub,listPrice:subList}); lines+=lineHtml; }
       });
       var meses = mult===1?1:(mult===5?6:12);
       var totalPeriodo = monthly*mult;        // lo que paga junto (5 o 10 meses)
@@ -1502,13 +1503,30 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       totalEl.innerHTML=bigNumber+'<small>'+bigPer+'</small>'+saveHtml+noteHtml+onceHtml;
 
       cta.planState={
-        unidad:unitKey, baseName:baseName, basePrice:basePrice, minMeses:minMeses,
+        unidad:unitKey, baseName:baseName, basePrice:basePrice, baseEff:baseEff, minMeses:minMeses,
         items:chosen, itemsOnce:chosenOnce,
-        monthly:monthly, once:once, meses:meses, mult:mult,
-        plazoLabel:plazoLabel, totalPeriodo:totalPeriodo, mensualConDesc:mensualConDesc
+        monthly:monthly, monthlyList:monthlyList, once:once, onceList:onceList, meses:meses, mult:mult,
+        plazoLabel:plazoLabel, totalPeriodo:totalPeriodo, mensualConDesc:mensualConDesc,
+        hasAdj:hasAdj, motivo:proMotivo.value.trim()
       };
     }
     cta.addEventListener('click',function(e){ e.preventDefault(); CONTRATO.open(cta.planState); });
+    proToggle.addEventListener('click',function(){
+      panel.classList.toggle('pro-active');
+      proPanel.classList.toggle('on');
+    });
+    if(baseInput) baseInput.addEventListener('input',function(){ recalc(); });
+    proMotivo.addEventListener('input',function(){ recalc(); });
+    proResetAll.addEventListener('click',function(){
+      if(baseInput) baseInput.value=basePrice;
+      panel.querySelectorAll('.extra').forEach(function(ex){
+        var input=ex.querySelector('.pro-input');
+        if(input) input.value=ex.dataset.price;
+        ex.classList.remove('adjusted');
+      });
+      proMotivo.value='';
+      recalc();
+    });
     plazoBtns.forEach(function(btn){
       btn.addEventListener('click',function(){
         plazoBtns.forEach(function(x){x.classList.remove('on')});
@@ -1522,7 +1540,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     panel.querySelectorAll('.extra').forEach(function(ex){
       var qtyBox=ex.querySelector('.extra-qty');
       ex.addEventListener('click',function(e){
-        if(e.target.closest('.qty-btn')) return;
+        if(e.target.closest('.qty-btn, .pro-input, .pro-line-reset')) return;
         ex.classList.toggle('on');
         if(qtyBox) qtyBox.style.display=ex.classList.contains('on')?'flex':'none';
         recalc();
@@ -1568,8 +1586,12 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
 
     function set(k,v){ doc.querySelectorAll('[data-f="'+k+'"]').forEach(function(el){el.textContent=v;}); }
     function fecha(d){ return d.toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}); }
-    function row(name,price){ return '<tr><td>'+name+'</td><td>'+money(price)+'</td></tr>'; }
+    function row(name,price,listPrice){
+      var cmp = (listPrice!==undefined && listPrice!==price) ? ' <s class="row-list">'+money(listPrice)+'</s>' : '';
+      return '<tr><td>'+name+'</td><td>'+money(price)+cmp+'</td></tr>';
+    }
     function esc(s){ var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+    var especialBox=document.getElementById('doc-especial');
 
     function nroOrden(){
       var d=new Date(), p=function(n){return String(n).padStart(2,'0');};
@@ -1578,17 +1600,25 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     }
 
     function pintarPlan(){
-      var s=state, html=row('<b>'+esc(s.baseName)+'</b> — plan base',s.basePrice);
-      s.items.forEach(function(i){ html+=row(esc(i.name),i.price); });
+      var s=state;
+      var baseEff = s.baseEff!==undefined ? s.baseEff : s.basePrice;
+      var baseTag = baseEff===0 ? ' <span class="cortesia-tag">Cortesía</span>' : '';
+      var html=row('<b>'+esc(s.baseName)+'</b> — plan base'+baseTag, baseEff, baseEff!==s.basePrice?s.basePrice:undefined);
+      s.items.forEach(function(i){
+        var tag=i.price===0?' <span class="cortesia-tag">Cortesía</span>':'';
+        html+=row(esc(i.name)+tag, i.price, (i.listPrice!==undefined&&i.listPrice!==i.price)?i.listPrice:undefined);
+      });
+      var monthlyList = s.monthlyList!==undefined ? s.monthlyList : s.monthly;
       if(s.mult===1){
-        html+='<tr class="tot"><td>Total mensual</td><td>'+money(s.monthly)+'</td></tr>';
+        html+='<tr class="tot"><td>Total mensual</td><td>'+money(s.monthly)+(s.hasAdj&&monthlyList!==s.monthly?' <s class="row-list">'+money(monthlyList)+'</s>':'')+'</td></tr>';
         set('nota-plazo','Abono mensual. Plazo mínimo de permanencia: '+s.minMeses+' meses.');
         set('plazo-detalle','pago mensual de '+money(s.monthly)+', por mes adelantado');
         set('min-plazo',LETRAS[s.minMeses]);
       } else {
-        html+='<tr><td>Subtotal mensual de lista</td><td>'+money(s.monthly)+'</td></tr>';
+        var totalPeriodoList = monthlyList*s.mult;
+        html+='<tr><td>Subtotal mensual</td><td>'+money(s.monthly)+'</td></tr>';
         html+='<tr><td>Bonificación por pago adelantado ('+(s.meses===6?'1 mes':'3 meses')+' sin cargo)</td><td>−'+money(s.monthly*s.meses-s.totalPeriodo)+'</td></tr>';
-        html+='<tr class="tot"><td>Total por '+s.meses+' meses</td><td>'+money(s.totalPeriodo)+'</td></tr>';
+        html+='<tr class="tot"><td>Total por '+s.meses+' meses</td><td>'+money(s.totalPeriodo)+(s.hasAdj&&totalPeriodoList!==s.totalPeriodo?' <s class="row-list">'+money(totalPeriodoList)+'</s>':'')+'</td></tr>';
         set('nota-plazo','Equivale a '+money(s.mensualConDesc)+' por mes. Se abona en un único pago por adelantado, por '+s.meses+' meses de servicio.');
         set('plazo-detalle','pago único adelantado de '+money(s.totalPeriodo)+' por '+s.meses+' meses de servicio ('+money(s.mensualConDesc)+' mensuales equivalentes)');
         set('min-plazo',LETRAS[Math.max(s.meses,s.minMeses)]);
@@ -1597,10 +1627,19 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
 
       if(s.once>0){
         var h2='';
-        s.itemsOnce.forEach(function(i){ h2+=row(esc(i.name),i.price); });
-        h2+='<tr class="tot"><td>Total pago único</td><td>'+money(s.once)+'</td></tr>';
+        s.itemsOnce.forEach(function(i){
+          var tag=i.price===0?' <span class="cortesia-tag">Cortesía</span>':'';
+          h2+=row(esc(i.name)+tag, i.price, (i.listPrice!==undefined&&i.listPrice!==i.price)?i.listPrice:undefined);
+        });
+        var onceList = s.onceList!==undefined ? s.onceList : s.once;
+        h2+='<tr class="tot"><td>Total pago único</td><td>'+money(s.once)+(s.hasAdj&&onceList!==s.once?' <s class="row-list">'+money(onceList)+'</s>':'')+'</td></tr>';
         onceBox.innerHTML=h2; onceTbl.style.display='';
       } else { onceTbl.style.display='none'; }
+
+      if(s.hasAdj){
+        set('especial-motivo', s.motivo ? s.motivo : 'Precio especial acordado con el cliente.');
+        especialBox.style.display='block';
+      } else { especialBox.style.display='none'; }
 
       set('servicio-sub',SUB[s.unidad]||'');
       document.querySelectorAll('.anexo').forEach(function(a){a.classList.remove('on');});
@@ -1667,12 +1706,13 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
         'Domicilio: '+d.dom.value.trim()+', '+d.loc.value.trim()+'\n'+
         'Tel: '+d.tel.value.trim()+' · Mail: '+d.mail.value.trim()+'\n'+
         'Inicio: '+(d.inicio.value?fecha(new Date(d.inicio.value+'T12:00:00')):'a coordinar')+'\n\n'+
-        'Servicio: '+s.baseName+' — plan base '+money(s.basePrice)+'/mes\n'+
+        'Servicio: '+s.baseName+' — plan base '+money(s.baseEff!==undefined?s.baseEff:s.basePrice)+'/mes\n'+
         (s.items.length?'Extras mensuales: '+s.items.map(function(i){return i.name+' '+money(i.price);}).join(' · ')+'\n':'')+
         (s.mult===1
           ? 'Modalidad: mensual — Total '+money(s.monthly)+'/mes\n'
           : 'Modalidad: '+s.plazoLabel+' — '+money(s.totalPeriodo)+' por '+s.meses+' meses ('+money(s.mensualConDesc)+'/mes)\n')+
         (s.once>0?'Pago único: '+s.itemsOnce.map(function(i){return i.name+' '+money(i.price);}).join(' · ')+' = '+money(s.once)+'\n':'')+
+        (s.hasAdj?'\n⚠ PRECIO ESPECIAL — Motivo: '+(s.motivo||'(sin especificar)')+'\n':'')+
         (d.obs.value.trim()?'\nObservaciones: '+d.obs.value.trim():'');
       document.getElementById('ctr-wa').setAttribute('href',WA+encodeURIComponent(msg));
       document.getElementById('ctr-actions').scrollIntoView({behavior:'smooth',block:'center'});
