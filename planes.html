@@ -196,6 +196,18 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .cc-cta{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;background:var(--n);color:#fff;text-decoration:none;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;transition:background .3s}
 .cc-cta:hover{background:var(--dk)}
 
+/* ═══ PRODUCCIÓN DE CONTENIDO ═══ */
+.cont-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:30px}
+.cont-card{border:1px solid var(--l);background:#fff;padding:28px 26px;transition:.3s}
+.cont-card:hover{border-color:var(--n);box-shadow:0 20px 40px -28px rgba(17,17,17,0.25)}
+.cont-card h4{font-family:'Jost';font-size:16px;font-weight:400;color:var(--n);margin-bottom:8px}
+.cont-card p{font-size:13.5px;color:var(--p);line-height:1.6;margin-bottom:16px}
+.cont-card .cont-price{font-family:'Cormorant',serif;font-size:24px;color:var(--dk)}
+.cont-note{text-align:center;margin-top:32px;font-size:14px;color:var(--p)}
+.cont-note a{color:var(--dk);text-decoration:none;border-bottom:1px solid var(--dk);padding-bottom:2px;margin-left:6px}
+.cont-note a:hover{color:var(--n);border-color:var(--n)}
+@media(max-width:768px){.cont-grid{grid-template-columns:1fr}}
+
 /* ═══ ESTILOS DE WEB ═══ */
 .estilos{margin-top:70px;padding-top:60px;border-top:1px solid var(--l)}
 .estilos-head{text-align:center;max-width:640px;margin:0 auto 44px}
@@ -285,7 +297,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .unit-panel{display:none}
 .unit-panel.active{display:block}
 
-.web-choice{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:10px}
+.web-choice{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:10px}
 .wc-card{border:1px solid var(--l);padding:32px 30px;cursor:pointer;transition:.25s;background:#fff;position:relative}
 .wc-card:hover{border-color:var(--n);background:var(--cream)}
 .wc-card.sel{border-color:var(--n);border-width:2px;background:var(--cream)}
@@ -523,13 +535,13 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
         <div class="pick-tags"><span>Suscripción</span><span>o Pago único</span></div>
         <span class="pick-go">Ver opciones →</span>
       </div>
-      <div class="pick-card" data-go="app">
-        <div class="pick-icon"><svg viewBox="0 0 48 48"><rect x="14" y="4" width="20" height="40" rx="3"/><path d="M14 10h20M14 38h20"/><circle cx="24" cy="41" r="0.8" fill="currentColor"/></svg></div>
-        <div class="pick-unit">Desarrollo a medida</div>
-        <h2>Aplicación <em>Móvil</em></h2>
-        <p>Tu app a medida para Android e iOS. Pensada para tu negocio.</p>
-        <div class="pick-tags"><span>A medida</span><span>Android · iOS</span></div>
-        <span class="pick-go">Ver más →</span>
+      <div class="pick-card" data-go="contenido">
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><path d="M6 14l30-8v18l-30-4z"/><circle cx="19" cy="16" r="5"/><path d="M36 11l6-2v14l-6-2"/><rect x="10" y="30" width="16" height="12" rx="1"/></svg></div>
+        <div class="pick-unit">Pago único · A la carta</div>
+        <h2>Producción <em>de Contenido</em></h2>
+        <p>Fotografía, video, marca personal. Servicios sueltos para reforzar tu presencia cuando los necesites.</p>
+        <div class="pick-tags"><span>Fotografía</span><span>Video</span><span>Marca personal</span></div>
+        <span class="pick-go">Ver servicios →</span>
       </div>
     </div>
   </div>
@@ -699,6 +711,12 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
           <div class="wc-price">$250K<small>a $600K</small></div>
           <div class="wc-desc">Tu web a medida, es tuya para siempre. Ideal si querés una solución completa y ser dueño de tu sitio.</div>
         </div>
+        <div class="wc-card" data-web="app">
+          <div class="wc-tag">Pago único · A medida</div>
+          <h3>Aplicación <em>móvil</em></h3>
+          <div class="wc-price">$400K<small>a $1.5M</small></div>
+          <div class="wc-desc">Tu app a medida para Android e iOS, pensada para tu negocio.</div>
+        </div>
       </div>
 
       <div id="web-susc">
@@ -712,7 +730,6 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
               <div class="b-inc">Incluye</div>
               <ul>
                 <li>Landing page de una página, ideal para profesionales independientes (abogados, contadores, consultorios, estudios)</li>
-                <li>Página con dominio personalizado (sujeto a disponibilidad)</li>
                 <li>Formulario o datos de contacto</li>
                 <li>Estilo a elección entre modelos</li>
                 <li>Optimizada para celular</li>
@@ -813,6 +830,26 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
         </div>
       </div>
 
+      <div id="web-app" style="display:none">
+        <div class="completa-card">
+          <div class="cc-tag">Pago único · Desarrollo a medida</div>
+          <h3>Aplicación <em>móvil a medida</em></h3>
+          <div class="cc-price">$400.000 <small>a $1.500.000 según complejidad</small></div>
+          <p>Cada app es un proyecto único. El valor depende de las funciones que necesites: desde una app sencilla hasta una con usuarios, pagos, pedidos o integraciones. Te armamos un presupuesto a medida después de entender tu idea.</p>
+          <ul>
+            <li>Diseño 100% personalizado</li>
+            <li>Para Android e iOS</li>
+            <li>Pensada para tu negocio</li>
+            <li>Panel de administración</li>
+            <li>Publicación en las tiendas</li>
+            <li>Capacitación de uso</li>
+            <li>Soporte post-lanzamiento</li>
+            <li>Actualizaciones según plan</li>
+          </ul>
+          <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20una%20propuesta%20para%20una%20aplicaci%C3%B3n%20m%C3%B3vil%20a%20medida." target="_blank" rel="noopener" class="cc-cta">Pedir presupuesto →</a>
+        </div>
+      </div>
+
       <!-- ESTILOS DE WEB -->
       <div class="estilos">
         <div class="estilos-head">
@@ -863,30 +900,41 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       </div>
     </div>
 
-    <!-- APPS -->
-    <div class="unit-panel" id="unit-app" data-parent="subpick">
+    <!-- PRODUCCIÓN DE CONTENIDO -->
+    <div class="unit-panel" id="unit-contenido" data-parent="subpick">
       <div class="unit-intro">
-        <div class="u-eyebrow">Aplicaciones móviles · Desarrollo a medida</div>
-        <h2>Tu app, <em>hecha para vos</em>.</h2>
-        <p>Desarrollamos aplicaciones móviles a medida para Android e iOS, pensadas para las necesidades de tu negocio.</p>
+        <div class="u-eyebrow">Producción de contenido · Pago único</div>
+        <h2>Contenido <em>a la carta</em>.</h2>
+        <p>Servicios sueltos de fotografía, video y marca personal, para cuando los necesites — sin suscripción.</p>
       </div>
-      <div class="completa-card">
-        <div class="cc-tag">Pago único · Desarrollo a medida</div>
-        <h3>Aplicación <em>móvil a medida</em></h3>
-        <div class="cc-price">$400.000 <small>a $1.500.000 según complejidad</small></div>
-        <p>Cada app es un proyecto único. El valor depende de las funciones que necesites: desde una app sencilla hasta una con usuarios, pagos, pedidos o integraciones. Te armamos un presupuesto a medida después de entender tu idea.</p>
-        <ul>
-          <li>Diseño 100% personalizado</li>
-          <li>Para Android e iOS</li>
-          <li>Pensada para tu negocio</li>
-          <li>Panel de administración</li>
-          <li>Publicación en las tiendas</li>
-          <li>Capacitación de uso</li>
-          <li>Soporte post-lanzamiento</li>
-          <li>Actualizaciones según plan</li>
-        </ul>
-        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20una%20propuesta%20para%20una%20aplicaci%C3%B3n%20m%C3%B3vil%20a%20medida." target="_blank" rel="noopener" class="cc-cta">Pedir presupuesto →</a>
+      <div class="cont-grid" id="cont-grid">
+
+        <div class="cont-card" data-cont-price="200000">
+          <h4>Sesión de fotografía profesional</h4>
+          <p>Sesión de 1½ h para generar contenido de marca que usás durante varios meses.</p>
+          <div class="cont-price">$200.000</div>
+        </div>
+
+        <div class="cont-card" data-cont-price="250000">
+          <h4>Sesión de fotografía + video profesional</h4>
+          <p>Sesión de 1½ h de fotos y video profesional, con edición incluida.</p>
+          <div class="cont-price">$250.000</div>
+        </div>
+
+        <div class="cont-card" data-cont-price="20000">
+          <h4>Set de producción sin cámaras (estudio)</h4>
+          <p>Alquilá nuestro estudio por 1½ h y generá vos mismo tu contenido: incluye fondo, luces y micrófonos inalámbricos.</p>
+          <div class="cont-price">$20.000</div>
+        </div>
+
+        <div class="cont-card" data-cont-price="50000">
+          <h4>Set de producción de contenido (con producción)</h4>
+          <p>1½ h de trabajo con nosotros generando contenido para redes: fotos, reels y videos cortos, en nuestro local o en el tuyo.</p>
+          <div class="cont-price">$50.000</div>
+        </div>
+
       </div>
+      <p class="cont-note">Precios de referencia, sujetos a ajuste según alcance. <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20producci%C3%B3n%20de%20contenido." target="_blank" rel="noopener">Consultar por WhatsApp →</a></p>
     </div>
 
     <!-- CÁMARAS Y ALARMAS -->
@@ -1452,8 +1500,10 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       document.querySelectorAll('.wc-card').forEach(function(c){c.classList.remove('sel')});
       card.classList.add('sel');
       var t=card.dataset.web;
-      document.getElementById('web-susc').style.display=(t==='susc')?'block':'none';
-      document.getElementById('web-full').style.display=(t==='full')?'block':'none';
+      ['susc','full','app'].forEach(function(k){
+        var el=document.getElementById('web-'+k);
+        if(el) el.style.display=(t===k)?'block':'none';
+      });
     });
   });
 
@@ -1697,12 +1747,11 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
   setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes','web',3,[
     {key:'profesional', name:'Profesional', price:20000, sel:true, includes:[
       'Landing page de una página, ideal para profesionales independientes (abogados, contadores, consultorios, estudios)',
-      'Página con dominio personalizado (sujeto a disponibilidad)',
       'Formulario o datos de contacto',
       'Estilo a elección entre modelos',
       'Mantenimiento y actualizaciones',
       'Reporte mensual de visitas'
-    ], included:['Dominio personalizado']},
+    ]},
     {key:'recomendado', name:'Recomendado', price:30000, tag:'Lo más elegido', includes:[
       'Ideal para restaurantes y comercios con atención al público',
       'Botón de WhatsApp integrado',
