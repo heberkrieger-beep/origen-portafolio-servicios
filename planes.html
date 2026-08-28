@@ -95,6 +95,27 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .base-card li{font-size:14px;color:var(--n);padding:6px 0 6px 22px;position:relative}
 .base-card li::before{content:'✓';position:absolute;left:0;color:var(--dk);font-size:13px}
 
+.paquetes{margin-bottom:36px}
+.paq-tag{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:14px}
+.paq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:16px}
+.paq-card{border:1px solid var(--l);background:#fff;padding:24px 22px;cursor:pointer;transition:.25s;position:relative}
+.paq-card:hover{border-color:var(--n);transform:translateY(-2px);box-shadow:0 16px 34px -24px rgba(17,17,17,.28)}
+.paq-card.popular{border-color:var(--n);border-width:2px;background:var(--cream)}
+.paq-card.sel{border-color:var(--dk);border-width:2px}
+.paq-badge{position:absolute;top:-11px;left:20px;background:var(--dk);color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px}
+.paq-name{font-family:'Cormorant',serif;font-size:21px;margin-bottom:6px}
+.paq-price{font-family:'Cormorant',serif;font-size:28px;color:var(--n);margin-bottom:14px;line-height:1}
+.paq-price small{font-size:12px;color:var(--p);font-family:'Jost'}
+.paq-list{list-style:none;margin-bottom:16px}
+.paq-list li{font-size:12px;color:var(--p);padding:3px 0 3px 17px;position:relative}
+.paq-list li::before{content:'✓';position:absolute;left:0;color:var(--dk);font-size:10px}
+.paq-cta{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--n);border-bottom:1px solid var(--n);padding-bottom:3px}
+.paq-card:hover .paq-cta{color:var(--dk);border-color:var(--dk)}
+.paq-custom-toggle{display:block;margin:22px auto 0;background:var(--cream);border:1px solid var(--d);font-family:'Jost';font-size:14px;letter-spacing:.5px;color:var(--dk);cursor:pointer;padding:14px 28px;border-radius:2px;text-align:center;width:100%;max-width:420px}
+.paq-custom-toggle:hover{background:var(--d);color:var(--n)}
+.config-custom{margin-top:28px;padding-top:26px;border-top:1px solid var(--l)}
+@media(max-width:900px){.paq-grid{grid-template-columns:1fr}}
+
 .extras-h{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:6px}
 .extras-sub{font-family:'Cormorant',serif;font-size:17px;color:var(--p);margin-bottom:20px;font-style:italic}
 .extra{display:flex;align-items:center;gap:16px;padding:17px 0;border-top:1px solid var(--l);cursor:pointer;transition:padding .2s}
@@ -566,21 +587,22 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
             <h2>Tu marca, <em>siempre activa</em>.</h2>
             <p>Nos ocupamos de tus redes para que vos te ocupes de tu negocio. Empezá con la base y sumá lo que necesites.</p>
           </div>
+          <div class="paquetes-slot" data-paquetes></div>
           <div class="base-card">
-            <div class="b-tag">Plan base · incluido</div>
-            <h3>Gestión de redes</h3>
-            <div class="b-price"><span class="static">$200.000</span><input type="number" class="pro-input pro-base" min="0" step="1000" value="200000"> <small>/ mes</small></div>
+            <div class="b-tag">Plan elegido · incluido</div>
+            <h3>Gestión de redes · Arranque</h3>
+            <div class="b-price"><span class="static">$250.000</span><input type="number" class="pro-input pro-base" min="0" step="1000" value="250000"> <small>/ mes</small></div>
             <div class="b-inc">Incluye</div>
             <ul>
               <li>Gestión de 1 red social (Instagram o Facebook)</li>
-              <li>8 a 12 publicaciones mensuales</li>
-              <li>Diseño profesional de cada pieza</li>
-              <li>Redacción de textos y hashtags</li>
+              <li>8 a 10 publicaciones mensuales</li>
+              <li>Producción de una pieza de contenido propio por mes</li>
               <li>Historias semanales</li>
               <li>Programación y publicación</li>
               <li>Reporte mensual de métricas</li>
             </ul>
           </div>
+          <div class="config-custom" data-config-custom style="display:none">
           <div class="extras-h">Sumá extras</div>
           <div class="extras-sub">Potenciá tu presencia con lo que tu marca necesite.</div>
 
@@ -629,6 +651,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Automatizaciones y respuestas</h4><p>Respuestas automáticas y chatbot en WhatsApp e Instagram.</p></div>
             <div class="extra-price">+$35.000<small>/mes</small></div>
+          </div>
           </div>
         </div>
         <div class="summary" id="summary-redes">
@@ -680,6 +703,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       <div id="web-susc">
         <div class="config-grid" style="margin-top:36px">
           <div>
+            <div class="paquetes-slot" data-paquetes></div>
             <div class="base-card">
               <div class="b-tag">Plan base · incluido</div>
               <h3>Web por suscripción</h3>
@@ -696,6 +720,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
                 <li>Soporte por WhatsApp</li>
               </ul>
             </div>
+            <div class="config-custom" data-config-custom style="display:none">
             <div class="extras-h">Sumá extras</div>
             <div class="extras-sub">Potenciá tu web con lo que tu negocio necesite.</div>
 
@@ -738,6 +763,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
               <div class="extra-check">✓</div>
               <div class="extra-body"><h4>Secciones adicionales</h4><p>Blog, galería, más páginas según lo que necesites.</p></div>
               <div class="extra-price">+$5.000<small>/mes</small></div>
+            </div>
             </div>
 
             <div class="aviso">
@@ -1239,7 +1265,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
           <div class="doc-cl">
             <h5>Gestión de redes sociales</h5>
             <ul>
-              <li>El plan base comprende la gestión de una (1) red social, con 8 a 12 publicaciones mensuales, historias semanales, textos, programación, publicación y reporte mensual de métricas. La grilla se presenta para aprobación con 5 días hábiles de anticipación; lo no aprobado a tiempo por EL CLIENTE no se acumula al mes siguiente.</li>
+              <li>El alcance (cantidad de redes, publicaciones mensuales y servicios incluidos) es el detallado en el resumen del plan contratado, arriba. Comprende textos, programación, publicación y reporte mensual de métricas. La grilla se presenta para aprobación con 5 días hábiles de anticipación; lo no aprobado a tiempo por EL CLIENTE no se acumula al mes siguiente.</li>
               <li>Las cuentas son y siguen siendo de EL CLIENTE, con accesos por rol de colaborador que se revocan al finalizar. La pauta publicitaria (Meta Ads), de contratarse, se abona aparte y directo a la plataforma. EL PRESTADOR no responde por sanciones o bloqueos de las plataformas.</li>
               <li>Las sesiones de fotografía y video se coordinan con 7 días de anticipación en Puerto Iguazú y alrededores (1½ h aprox.); la postergación con menos de 24 h puede generar un nuevo cargo. Entrega del material en 10 días hábiles.</li>
               <li><b>Rebranding de redes.</b> Comprende foto de perfil, bio, hasta 8 destacados, paleta, tipografías y 3 plantillas reutilizables. <b>No incluye logotipo ni identidad de marca integral</b> (se presupuestan aparte). Puede volver a pedirse cuantas veces se necesite, al valor vigente.</li>
@@ -1431,7 +1457,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     });
   });
 
-  function setupUnit(panelSel, baseName, basePrice, summaryId, per, unitKey, minMeses){
+  function setupUnit(panelSel, baseName, basePrice, summaryId, per, unitKey, minMeses, packages){
     var panel=document.querySelector(panelSel);
     var summary=document.getElementById(summaryId);
     var linesBox=summary.querySelector('.s-lines');
@@ -1440,6 +1466,85 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     var plazoBtns=summary.querySelectorAll('.plazo-btn');
     var proToggle=summary.querySelector('[data-pro-toggle]');
     var proPanel=summary.querySelector('[data-pro-panel]');
+    var paqSlot=panel.querySelector('[data-paquetes]');
+    var customBox=panel.querySelector('[data-config-custom]');
+    var curBasePrice=basePrice, curBaseName=baseName;
+
+    function findExtraByName(nm){
+      return [].slice.call(panel.querySelectorAll('.extra')).find(function(ex){
+        return ex.querySelector('h4').textContent.trim()===nm;
+      });
+    }
+
+    // pinta un plan de precio fijo en el base-card (reemplaza el plan activo)
+    function paintTier(pk){
+      curBasePrice=pk.price; curBaseName=baseName+' · '+pk.name;
+      var bc=panel.querySelector('.base-card');
+      bc.querySelector('h3').textContent=curBaseName;
+      var stat=bc.querySelector('.b-price > span.static');
+      if(stat) stat.textContent=money(pk.price);
+      if(baseInput) baseInput.value=pk.price;
+      bc.querySelector('ul').innerHTML=(pk.includes||[]).map(function(t){return '<li>'+t+'</li>';}).join('');
+      panel.querySelectorAll('.extra').forEach(function(ex){
+        ex.classList.remove('on'); ex.style.display='';
+        var qtyBox=ex.querySelector('.extra-qty');
+        if(qtyBox){ qtyBox.style.display='none'; var v=qtyBox.querySelector('.qty-val'); if(v) v.textContent='1'; }
+      });
+      (pk.included||[]).forEach(function(nm){ var ex=findExtraByName(nm); if(ex) ex.style.display='none'; });
+    }
+
+    if(paqSlot && customBox && packages && packages.length){
+      var ph='<div class="paq-tag">Elegí un punto de partida</div><div class="paq-grid">';
+      packages.forEach(function(pk){
+        var total, lines;
+        if(pk.price!==undefined){ total=pk.price; lines=pk.includes||[]; }
+        else {
+          total=basePrice; lines=[];
+          pk.items.forEach(function(nm){
+            var ex=findExtraByName(nm);
+            if(ex){ total+=parseInt(ex.dataset.price,10); lines.push(nm); }
+          });
+          lines=[baseName].concat(lines);
+        }
+        ph+='<div class="paq-card'+(pk.tag?' popular':'')+(pk.sel?' sel':'')+'" data-paq="'+pk.key+'">'+
+          (pk.tag?'<div class="paq-badge">'+pk.tag+'</div>':'')+
+          '<div class="paq-name">'+pk.name+'</div>'+
+          '<div class="paq-price">'+money(total)+'<small>/mes</small></div>'+
+          '<ul class="paq-list">'+lines.map(function(l){return '<li>'+l+'</li>';}).join('')+'</ul>'+
+          '<span class="paq-cta">Elegir este plan →</span></div>';
+      });
+      ph+='</div><button class="paq-custom-toggle" type="button" data-paq-toggle>¿Preferís armar tu plan a medida? →</button>';
+      paqSlot.innerHTML=ph;
+
+      paqSlot.querySelectorAll('.paq-card').forEach(function(card){
+        var pk=packages.find(function(p){return p.key===card.dataset.paq;});
+        card.addEventListener('click',function(){
+          if(pk.price!==undefined){
+            paintTier(pk);
+          } else {
+            panel.querySelectorAll('.extra').forEach(function(ex){
+              ex.classList.remove('on');
+              var qtyBox=ex.querySelector('.extra-qty');
+              if(qtyBox){ qtyBox.style.display='none'; var v=qtyBox.querySelector('.qty-val'); if(v) v.textContent='1'; }
+            });
+            pk.items.forEach(function(nm){
+              var ex=findExtraByName(nm);
+              if(ex){ ex.classList.add('on'); var qtyBox=ex.querySelector('.extra-qty'); if(qtyBox) qtyBox.style.display='flex'; }
+            });
+          }
+          paqSlot.querySelectorAll('.paq-card').forEach(function(c){ c.classList.remove('sel'); });
+          card.classList.add('sel');
+          recalc();
+          summary.scrollIntoView({behavior:'smooth',block:'center'});
+        });
+      });
+      paqSlot.querySelector('[data-paq-toggle]').addEventListener('click',function(){
+        customBox.style.display = customBox.style.display==='none' ? 'block' : 'none';
+      });
+      // al cargar, sincroniza el base-card con el primer plan de precio fijo (si lo hay)
+      var initial = packages.filter(function(p){return p.price!==undefined;})[0];
+      if(initial) paintTier(initial);
+    }
     var proMotivo=proPanel.querySelector('.pro-motivo');
     var proResetAll=proPanel.querySelector('[data-pro-reset]');
     var baseInput=panel.querySelector('.pro-base');
@@ -1463,11 +1568,11 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     });
 
     function recalc(){
-      var baseEff = baseInput ? (parseInt(baseInput.value,10)||0) : basePrice;
-      var hasAdj = baseEff!==basePrice;
-      var monthly=baseEff, monthlyList=basePrice, once=0, onceList=0;
+      var baseEff = baseInput ? (parseInt(baseInput.value,10)||0) : curBasePrice;
+      var hasAdj = baseEff!==curBasePrice;
+      var monthly=baseEff, monthlyList=curBasePrice, once=0, onceList=0;
       var chosen=[], chosenOnce=[];
-      var lines='<div class="s-line base"><span class="s-name">'+baseName+'</span><span>'+money(baseEff)+'</span></div>';
+      var lines='<div class="s-line base"><span class="s-name">'+curBaseName+'</span><span>'+money(baseEff)+'</span></div>';
       panel.querySelectorAll('.extra.on').forEach(function(ex){
         var listPrice=parseInt(ex.dataset.price,10);
         var input=ex.querySelector('.pro-input');
@@ -1503,7 +1608,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       totalEl.innerHTML=bigNumber+'<small>'+bigPer+'</small>'+saveHtml+noteHtml+onceHtml;
 
       cta.planState={
-        unidad:unitKey, baseName:baseName, basePrice:basePrice, baseEff:baseEff, minMeses:minMeses,
+        unidad:unitKey, baseName:curBaseName, basePrice:curBasePrice, baseEff:baseEff, minMeses:minMeses,
         items:chosen, itemsOnce:chosenOnce,
         monthly:monthly, monthlyList:monthlyList, once:once, onceList:onceList, meses:meses, mult:mult,
         plazoLabel:plazoLabel, totalPeriodo:totalPeriodo, mensualConDesc:mensualConDesc,
@@ -1518,7 +1623,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     if(baseInput) baseInput.addEventListener('input',function(){ recalc(); });
     proMotivo.addEventListener('input',function(){ recalc(); });
     proResetAll.addEventListener('click',function(){
-      if(baseInput) baseInput.value=basePrice;
+      if(baseInput) baseInput.value=curBasePrice;
       panel.querySelectorAll('.extra').forEach(function(ex){
         var input=ex.querySelector('.pro-input');
         if(input) input.value=ex.dataset.price;
@@ -1559,8 +1664,40 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     recalc();
   }
 
-  setupUnit('#unit-redes','Gestión de redes',200000,'summary-redes','/mes','redes',3);
-  setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes','web',3);
+  setupUnit('#unit-redes','Gestión de redes',250000,'summary-redes','/mes','redes',3,[
+    {key:'arranque', name:'Arranque', price:250000, sel:true, includes:[
+      'Gestión de 1 red social (Instagram o Facebook)',
+      '8 a 10 publicaciones mensuales',
+      'Producción de una pieza de contenido propio por mes',
+      'Historias semanales','Programación y publicación','Reporte mensual de métricas'
+    ]},
+    {key:'crecimiento', name:'Crecimiento', price:350000, tag:'Lo más elegido', includes:[
+      'Gestión de hasta 2 redes sociales',
+      '15 a 20 publicaciones mensuales (feed, historias y reels)',
+      '2 sesiones de producción de contenido por mes',
+      'Rebranding de tus redes, cuando lo necesites',
+      'Google Maps y ficha de negocio',
+      'Gestión de campañas publicitarias (Meta Ads)',
+      'Reporte mensual de métricas'
+    ], included:['Producción de contenido','Google Maps y ficha de negocio','Campañas publicitarias (Meta Ads)','Rebranding de tus redes']},
+    {key:'full', name:'Full', price:500000, includes:[
+      'Gestión completa de tus redes sociales (hasta 3 redes)',
+      'Planeación mensual de contenido y agenda',
+      'Producción de contenido propio, todos los meses',
+      'Reunión mensual de análisis y resultados',
+      'Rebranding de tus redes cuando lo necesites',
+      'Página web por suscripción, incluida',
+      'Google Maps y ficha de negocio',
+      'Gestión de campañas publicitarias (Meta Ads)',
+      'Sesión de fotografía profesional, una vez por mes',
+      'Reporte mensual de métricas'
+    ], included:['Producción de contenido','Google Maps y ficha de negocio','Campañas publicitarias (Meta Ads)','Rebranding de tus redes','Sesión de fotografía profesional']}
+  ]);
+  setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes','web',3,[
+    {key:'arranque', name:'Arranque', items:[]},
+    {key:'recomendado', name:'Recomendado', tag:'Lo más elegido', items:['Botón de WhatsApp integrado','Google Maps y ficha de negocio']},
+    {key:'ventas', name:'Con ventas online', items:['Tienda / catálogo online','Cobros online (Mercado Pago)']}
+  ]);
   setupUnit('#unit-cam','Plan Cámaras',30000,'summary-cam','/mes','cam',6);
 
   /* ═══ CONTRATO ═══ */
