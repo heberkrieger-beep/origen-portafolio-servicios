@@ -123,7 +123,6 @@ h1{font-family:Georgia,serif;font-weight:400;font-size:28px;margin:0 0 4px}
 <script>
 (function(){
   var API='https://cvxmmrfuwjefdovoakqw.supabase.co/functions/v1/rapid-responder';
-  var ANON_KEY='sb_publishable_TWUBWwPYE04Nu9TaVGE0qw_-oLLb-pm';
   var pass=localStorage.getItem('origen_panel_pass')||'';
   var data={clientes:[],tareas:[],pagos:[]};
   var filtroActual='todos';
@@ -133,11 +132,8 @@ h1{font-family:Georgia,serif;font-weight:400;font-size:28px;margin:0 0 4px}
   function fechaCorta(f){ var d=new Date(f+'T12:00:00'); return d.toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'}); }
 
   function call(body){
-    return fetch(API,{method:'POST',headers:{
-        'Content-Type':'application/json',
-        'apikey':ANON_KEY,
-        'Authorization':'Bearer '+ANON_KEY
-      },body:JSON.stringify(Object.assign({password:pass},body))})
+    return fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(Object.assign({password:pass},body))})
       .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||'Error'); return j; }); });
   }
 
