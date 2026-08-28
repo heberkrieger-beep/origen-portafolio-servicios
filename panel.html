@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel · ORIGEN</title>
+<style>
+:root{--n:#111;--p:#767066;--l:#e4ddcf;--dk:#8A6E3A;--d:#C9B37A;--cream:#F7F3EA;--sand:#F1EADA;--ok:#4a7c4e;--warn:#b3872f;--bad:#a13d3d}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Jost',Arial,sans-serif;font-weight:300;background:var(--cream);color:var(--n)}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 24px}
+h1{font-family:Georgia,serif;font-weight:400;font-size:28px;margin:0 0 4px}
+.sub{color:var(--p);font-size:14px;margin-bottom:32px}
+
+/* login */
+#gate{max-width:360px;margin:120px auto;padding:36px;background:#fff;border:1px solid var(--l);text-align:center}
+#gate input{width:100%;padding:12px;border:1px solid var(--l);font-size:15px;margin:16px 0;font-family:inherit}
+#gate button{width:100%;padding:12px;background:var(--n);color:#fff;border:none;cursor:pointer;font-size:13px;letter-spacing:1px;text-transform:uppercase}
+#gate button:hover{background:var(--dk)}
+#gate .err{color:var(--bad);font-size:13px;min-height:18px}
+
+/* dashboard */
+#app{display:none}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px}
+.kpi{background:#fff;border:1px solid var(--l);padding:20px}
+.kpi .k-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--p);margin-bottom:8px}
+.kpi .k-val{font-family:Georgia,serif;font-size:26px}
+
+.section-title{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dk);margin:36px 0 14px;display:flex;justify-content:space-between;align-items:center}
+
+.filters{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.filters button{padding:7px 14px;border:1px solid var(--l);background:#fff;font-size:12px;cursor:pointer;color:var(--p)}
+.filters button.on{background:var(--n);color:#fff;border-color:var(--n)}
+
+.cli-card{background:#fff;border:1px solid var(--l);padding:20px 22px;margin-bottom:12px;display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center}
+.cli-card h4{margin:0 0 4px;font-size:16px;font-weight:400}
+.cli-card .meta{font-size:12.5px;color:var(--p);line-height:1.6}
+.cli-card .precio{font-family:Georgia,serif;font-size:19px;text-align:right;white-space:nowrap}
+.cli-card .precio small{display:block;font-family:'Jost';font-size:10.5px;color:var(--p);font-weight:400}
+.estado-sel{padding:6px 10px;border:1px solid var(--l);font-size:12px;background:#fff;font-family:inherit}
+.badge{display:inline-block;font-size:10px;letter-spacing:.5px;text-transform:uppercase;padding:3px 8px;border-radius:2px;margin-left:6px}
+.badge.activo{background:#e7f0e7;color:var(--ok)}
+.badge.pausado{background:#faf1e2;color:var(--warn)}
+.badge.cancelado{background:#f3e4e4;color:var(--bad)}
+
+.tareas-box{background:#fff;border:1px solid var(--l);padding:20px 22px}
+.tarea-add{display:flex;gap:8px;margin-bottom:14px}
+.tarea-add input{flex:1;padding:10px;border:1px solid var(--l);font-family:inherit;font-size:14px}
+.tarea-add select{padding:10px;border:1px solid var(--l);font-family:inherit;font-size:13px}
+.tarea-add button{padding:10px 18px;background:var(--n);color:#fff;border:none;cursor:pointer;font-size:12px}
+.tarea{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--l);font-size:14px}
+.tarea:last-child{border-bottom:none}
+.tarea.hecha span{text-decoration:line-through;color:var(--p)}
+.tarea small{color:var(--p);margin-left:auto;font-size:11px}
+.tarea .del{cursor:pointer;color:var(--p);font-size:16px;padding:0 4px}
+.tarea .del:hover{color:var(--bad)}
+
+.empty{color:var(--p);font-size:14px;padding:20px 0;text-align:center}
+@media(max-width:768px){.kpis{grid-template-columns:1fr 1fr}.cli-card{grid-template-columns:1fr;text-align:left}.cli-card .precio{text-align:left}}
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <h1>ORIGEN</h1>
+  <div class="sub">Panel interno</div>
+  <input type="password" id="gate-pass" placeholder="Clave" autofocus>
+  <button id="gate-btn">Entrar</button>
+  <div class="err" id="gate-err"></div>
+</div>
+
+<div id="app">
+  <div class="wrap">
+    <h1>Panel ORIGEN</h1>
+    <div class="sub">Clientes, contratos y tareas — uso interno</div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="k-label">Clientes activos</div><div class="k-val" id="kpi-activos">—</div></div>
+      <div class="kpi"><div class="k-label">Ingreso mensual recurrente</div><div class="k-val" id="kpi-mrr">—</div></div>
+      <div class="kpi"><div class="k-label">Pagos únicos (histórico)</div><div class="k-val" id="kpi-once">—</div></div>
+      <div class="kpi"><div class="k-label">Total de contratos</div><div class="k-val" id="kpi-total">—</div></div>
+    </div>
+
+    <div class="section-title">Clientes</div>
+    <div class="filters" id="filtros">
+      <button data-f="todos" class="on">Todos</button>
+      <button data-f="activo">Activos</button>
+      <button data-f="pausado">Pausados</button>
+      <button data-f="cancelado">Cancelados</button>
+    </div>
+    <div id="lista-clientes"><div class="empty">Cargando…</div></div>
+
+    <div class="section-title">Tareas</div>
+    <div class="tareas-box">
+      <div class="tarea-add">
+        <select id="tarea-cliente"><option value="">General (sin cliente)</option></select>
+        <input type="text" id="tarea-texto" placeholder="Nueva tarea…">
+        <button id="tarea-add-btn">Añadir</button>
+      </div>
+      <div id="lista-tareas"><div class="empty">Cargando…</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var API='https://cvxmmrfuwjefdovoakqw.supabase.co/functions/v1/panel-api';
+  var pass=localStorage.getItem('origen_panel_pass')||'';
+  var data={clientes:[],tareas:[]};
+  var filtroActual='todos';
+
+  function money(n){ return '$'+Math.round(n||0).toLocaleString('es-AR'); }
+
+  function call(body){
+    return fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({password:pass},body))})
+      .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw new Error(j.error||'Error'); return j; }); });
+  }
+
+  function mostrarGate(err){
+    document.getElementById('gate').style.display='block';
+    document.getElementById('app').style.display='none';
+    document.getElementById('gate-err').textContent=err||'';
+  }
+  function mostrarApp(){
+    document.getElementById('gate').style.display='none';
+    document.getElementById('app').style.display='block';
+  }
+
+  function cargar(){
+    call({action:'list'}).then(function(j){
+      data=j; localStorage.setItem('origen_panel_pass',pass);
+      mostrarApp(); render();
+    }).catch(function(e){ mostrarGate(e.message==='Clave incorrecta'?'Clave incorrecta.':'No se pudo conectar.'); });
+  }
+
+  document.getElementById('gate-btn').addEventListener('click',function(){
+    pass=document.getElementById('gate-pass').value.trim();
+    if(!pass) return;
+    cargar();
+  });
+  document.getElementById('gate-pass').addEventListener('keydown',function(e){
+    if(e.key==='Enter') document.getElementById('gate-btn').click();
+  });
+
+  document.querySelectorAll('#filtros button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('#filtros button').forEach(function(x){x.classList.remove('on')});
+      b.classList.add('on'); filtroActual=b.dataset.f; render();
+    });
+  });
+
+  function render(){
+    var activos=data.clientes.filter(function(c){return c.estado==='activo'});
+    var mrr=activos.reduce(function(s,c){ return s + (c.meses&&c.meses>1 ? (c.mensual_con_desc||0) : (c.precio_acordado||0)); },0);
+    var once=data.clientes.reduce(function(s,c){
+      var arr=c.items_once||[]; return s + arr.reduce(function(s2,i){return s2+(i.price||0);},0);
+    },0);
+    document.getElementById('kpi-activos').textContent=activos.length;
+    document.getElementById('kpi-mrr').textContent=money(mrr);
+    document.getElementById('kpi-once').textContent=money(once);
+    document.getElementById('kpi-total').textContent=data.clientes.length;
+
+    var lista=data.clientes.filter(function(c){ return filtroActual==='todos' || c.estado===filtroActual; });
+    var box=document.getElementById('lista-clientes');
+    if(!lista.length){ box.innerHTML='<div class="empty">No hay clientes en esta vista.</div>'; }
+    else {
+      box.innerHTML=lista.map(function(c){
+        var precio=c.meses&&c.meses>1 ? money(c.mensual_con_desc)+'<small>equiv. /mes</small>' : money(c.precio_acordado)+'<small>'+(c.plazo==='mensual'?'/mes':'')+'</small>';
+        return '<div class="cli-card">'+
+          '<div><h4>'+esc(c.nombre||'(sin nombre)')+(c.negocio?' · '+esc(c.negocio):'')+'</h4>'+
+          '<div class="meta">'+esc(c.plan_nombre||'')+' · '+esc(c.unidad||'')+' · '+esc(c.telefono||'')+
+          '<span class="badge '+c.estado+'">'+c.estado+'</span></div></div>'+
+          '<div class="precio">'+precio+'</div>'+
+          '<select class="estado-sel" data-id="'+c.id+'">'+
+            ['activo','pausado','cancelado'].map(function(e){return '<option value="'+e+'"'+(e===c.estado?' selected':'')+'>'+e+'</option>';}).join('')+
+          '</select></div>';
+      }).join('');
+      box.querySelectorAll('.estado-sel').forEach(function(sel){
+        sel.addEventListener('change',function(){
+          call({action:'update_estado', id:sel.dataset.id, estado:sel.value}).then(function(){
+            var c=data.clientes.find(function(x){return x.id===sel.dataset.id});
+            if(c) c.estado=sel.value;
+            render();
+          });
+        });
+      });
+    }
+
+    var selCli=document.getElementById('tarea-cliente');
+    selCli.innerHTML='<option value="">General (sin cliente)</option>'+
+      data.clientes.map(function(c){return '<option value="'+c.id+'">'+esc(c.nombre||c.negocio||'(sin nombre)')+'</option>';}).join('');
+
+    var tbox=document.getElementById('lista-tareas');
+    if(!data.tareas.length){ tbox.innerHTML='<div class="empty">No hay tareas todavía.</div>'; }
+    else {
+      tbox.innerHTML=data.tareas.map(function(t){
+        var cli=data.clientes.find(function(c){return c.id===t.cliente_id});
+        return '<div class="tarea'+(t.hecha?' hecha':'')+'">'+
+          '<input type="checkbox" data-id="'+t.id+'" '+(t.hecha?'checked':'')+'>'+
+          '<span>'+esc(t.texto)+'</span>'+
+          (cli?'<small>'+esc(cli.nombre||cli.negocio)+'</small>':'')+
+          '<span class="del" data-del="'+t.id+'">×</span></div>';
+      }).join('');
+      tbox.querySelectorAll('input[type=checkbox]').forEach(function(cb){
+        cb.addEventListener('change',function(){
+          call({action:'toggle_tarea', id:cb.dataset.id}).then(function(){
+            var t=data.tareas.find(function(x){return x.id===cb.dataset.id});
+            if(t) t.hecha=!t.hecha;
+            render();
+          });
+        });
+      });
+      tbox.querySelectorAll('.del').forEach(function(x){
+        x.addEventListener('click',function(){
+          call({action:'delete_tarea', id:x.dataset.del}).then(function(){
+            data.tareas=data.tareas.filter(function(t){return t.id!==x.dataset.del});
+            render();
+          });
+        });
+      });
+    }
+  }
+
+  document.getElementById('tarea-add-btn').addEventListener('click',function(){
+    var texto=document.getElementById('tarea-texto').value.trim();
+    if(!texto) return;
+    var cliente_id=document.getElementById('tarea-cliente').value||null;
+    call({action:'add_tarea', texto:texto, cliente_id:cliente_id}).then(function(j){
+      data.tareas.push(j.tarea);
+      document.getElementById('tarea-texto').value='';
+      render();
+    });
+  });
+
+  function esc(s){ var d=document.createElement('div'); d.textContent=s==null?'':s; return d.innerHTML; }
+
+  if(pass) cargar(); else mostrarGate('');
+})();
+</script>
+</body>
+</html>

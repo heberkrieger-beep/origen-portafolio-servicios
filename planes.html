@@ -1452,6 +1452,20 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
 <script>
 (function(){
   var WA='https://wa.me/5493757656783?text=';
+  var SUPABASE_URL='https://cvxmmrfuwjefdovoakqw.supabase.co';
+  var SUPABASE_ANON_KEY='sb_publishable_TWUBWwPYE04Nu9TaVGE0qw_-oLLb-pm';
+  function guardarContrato(payload){
+    fetch(SUPABASE_URL+'/rest/v1/clientes',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey':SUPABASE_ANON_KEY,
+        'Authorization':'Bearer '+SUPABASE_ANON_KEY,
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify(payload)
+    }).catch(function(){ /* si falla el guardado, no interrumpe el contrato del cliente */ });
+  }
   function money(n){return '$'+n.toLocaleString('es-AR');}
   var picker=document.getElementById('picker');
   var subpick=document.getElementById('subpick');
@@ -1926,6 +1940,23 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
         (s.hasAdj?'\n⚠ PRECIO ESPECIAL — Motivo: '+(s.motivo||'(sin especificar)')+'\n':'')+
         (d.obs.value.trim()?'\nObservaciones: '+d.obs.value.trim():'');
       document.getElementById('ctr-wa').setAttribute('href',WA+encodeURIComponent(msg));
+
+      guardarContrato({
+        nombre:d.nombre.value.trim(), dni_cuit:d.doc.value.trim(),
+        telefono:d.tel.value.trim(), email:d.mail.value.trim(),
+        negocio:d.negocio.value.trim(), domicilio:d.dom.value.trim(),
+        localidad:d.loc.value.trim(),
+        fecha_inicio:d.inicio.value||null,
+        observaciones:d.obs.value.trim(),
+        unidad:s.unidad, plan_nombre:s.baseName,
+        precio_lista:s.basePrice, precio_acordado:(s.baseEff!==undefined?s.baseEff:s.basePrice),
+        motivo_ajuste:s.hasAdj?(s.motivo||''):null,
+        items:s.items, items_once:s.itemsOnce,
+        meses:s.meses, plazo:s.plazoLabel,
+        total_periodo:s.totalPeriodo, mensual_con_desc:s.mensualConDesc,
+        firmado_por:'cliente'
+      });
+
       document.getElementById('ctr-actions').scrollIntoView({behavior:'smooth',block:'center'});
     });
 
