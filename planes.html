@@ -23,6 +23,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 html,body{max-width:100%;overflow-x:clip;background:var(--b)}
+@media (min-width:769px){ body{zoom:1.25} }
 body{font-family:'Jost',sans-serif;font-weight:300;color:var(--n);line-height:1.6;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 em{font-family:'Cormorant',serif;font-style:italic}
@@ -1680,18 +1681,19 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       'Gestión de campañas publicitarias (Meta Ads)',
       'Reporte mensual de métricas'
     ], included:['Producción de contenido','Google Maps y ficha de negocio','Campañas publicitarias (Meta Ads)','Rebranding de tus redes']},
-    {key:'full', name:'Full', price:500000, includes:[
-      'Gestión completa de tus redes sociales (hasta 3 redes)',
+    {key:'full', name:'Full', price:500000, tag:'Todo incluido', includes:[
+      '<b>Página web por suscripción, incluida</b>',
+      '<b>Sesión de fotografía profesional, una vez por mes</b>',
+      '<b>Gestión de hasta 5 redes sociales</b>',
+      '<b>Automatización de WhatsApp</b>',
       'Planeación mensual de contenido y agenda',
       'Producción de contenido propio, todos los meses',
       'Reunión mensual de análisis y resultados',
       'Rebranding de tus redes cuando lo necesites',
-      'Página web por suscripción, incluida',
       'Google Maps y ficha de negocio',
       'Gestión de campañas publicitarias (Meta Ads)',
-      'Sesión de fotografía profesional, una vez por mes',
       'Reporte mensual de métricas'
-    ], included:['Producción de contenido','Google Maps y ficha de negocio','Campañas publicitarias (Meta Ads)','Rebranding de tus redes','Sesión de fotografía profesional']}
+    ], included:['Producción de contenido','Google Maps y ficha de negocio','Campañas publicitarias (Meta Ads)','Rebranding de tus redes','Sesión de fotografía profesional','Automatizaciones y respuestas']}
   ]);
   setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes','web',3,[
     {key:'arranque', name:'Arranque', items:[]},
