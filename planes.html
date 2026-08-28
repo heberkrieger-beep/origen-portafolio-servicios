@@ -706,19 +706,18 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
           <div>
             <div class="paquetes-slot" data-paquetes></div>
             <div class="base-card">
-              <div class="b-tag">Plan base · incluido</div>
-              <h3>Web por suscripción</h3>
+              <div class="b-tag">Plan elegido · incluido</div>
+              <h3>Web por suscripción · Profesional</h3>
               <div class="b-price"><span class="static">$20.000</span><input type="number" class="pro-input pro-base" min="0" step="500" value="20000"> <small>/ mes</small></div>
               <div class="b-inc">Incluye</div>
               <ul>
-                <li>Diseño inicial de tu sitio (sin costo aparte)</li>
-                <li>Hosting y dominio gestionados</li>
+                <li>Landing page de una página, ideal para profesionales independientes (abogados, contadores, consultorios, estudios)</li>
+                <li>Página con dominio personalizado (sujeto a disponibilidad)</li>
+                <li>Formulario o datos de contacto</li>
+                <li>Estilo a elección entre modelos</li>
                 <li>Optimizada para celular</li>
-                <li>Hasta 5 secciones</li>
                 <li>Mantenimiento y actualizaciones</li>
                 <li>Reporte mensual de visitas</li>
-                <li>Copias de seguridad y actualizaciones de seguridad</li>
-                <li>Soporte por WhatsApp</li>
               </ul>
             </div>
             <div class="config-custom" data-config-custom style="display:none">
@@ -1683,7 +1682,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     ], included:['Producción de contenido','Google Maps y ficha de negocio','Campañas publicitarias (Meta Ads)','Rebranding de tus redes']},
     {key:'full', name:'Full', price:500000, tag:'Todo incluido', includes:[
       '<b>Página web por suscripción, incluida</b>',
-      '<b>Sesión de fotografía profesional, una vez por mes</b>',
+      '<b>Sesión de fotografía profesional, según necesidad (hasta 1 vez por mes)</b>',
       '<b>Gestión de hasta 5 redes sociales</b>',
       '<b>Automatización de WhatsApp</b>',
       'Planeación mensual de contenido y agenda',
@@ -1696,9 +1695,33 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     ], included:['Producción de contenido','Google Maps y ficha de negocio','Campañas publicitarias (Meta Ads)','Rebranding de tus redes','Sesión de fotografía profesional','Automatizaciones y respuestas']}
   ]);
   setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes','web',3,[
-    {key:'arranque', name:'Arranque', items:[]},
-    {key:'recomendado', name:'Recomendado', tag:'Lo más elegido', items:['Botón de WhatsApp integrado','Google Maps y ficha de negocio']},
-    {key:'ventas', name:'Con ventas online', items:['Tienda / catálogo online','Cobros online (Mercado Pago)']}
+    {key:'profesional', name:'Profesional', price:20000, sel:true, includes:[
+      'Landing page de una página, ideal para profesionales independientes (abogados, contadores, consultorios, estudios)',
+      'Página con dominio personalizado (sujeto a disponibilidad)',
+      'Formulario o datos de contacto',
+      'Estilo a elección entre modelos',
+      'Mantenimiento y actualizaciones',
+      'Reporte mensual de visitas'
+    ], included:['Dominio personalizado']},
+    {key:'recomendado', name:'Recomendado', price:30000, tag:'Lo más elegido', includes:[
+      'Ideal para restaurantes y comercios con atención al público',
+      'Botón de WhatsApp integrado',
+      'Google Maps y ficha de negocio',
+      'Página con dominio personalizado (sujeto a disponibilidad)',
+      'Menú o listado de productos/servicios (hasta 15 ítems)',
+      'Estilo a elección entre modelos',
+      'Mantenimiento y actualizaciones',
+      'Reporte mensual de visitas'
+    ], included:['Dominio personalizado','Botón de WhatsApp integrado','Google Maps y ficha de negocio']},
+    {key:'tienda', name:'Tienda Online', price:45000, includes:[
+      'Cobros online (Mercado Pago)',
+      'Tienda / catálogo online',
+      'Gestor de turnos y reservas online',
+      'Página con dominio personalizado (sujeto a disponibilidad)',
+      'Botón de WhatsApp integrado',
+      'Google Maps y ficha de negocio',
+      'Reporte mensual de visitas'
+    ], included:['Cobros online (Mercado Pago)','Tienda / catálogo online','Turnos y reservas online','Dominio personalizado','Botón de WhatsApp integrado','Google Maps y ficha de negocio']}
   ]);
   setupUnit('#unit-cam','Plan Cámaras',30000,'summary-cam','/mes','cam',6);
 
