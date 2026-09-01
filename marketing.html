@@ -706,6 +706,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden;height:100%}
 .origen-intro{position:fixed;inset:0;z-index:3000;background:#111111;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:opacity .7s ease,transform .7s ease}
 .origen-intro.leaving{opacity:0;transform:scale(1.04);pointer-events:none}
 .origen-intro::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.025) 0 2px,transparent 2px 5px)}
+.oi-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:.55}
 .oi-sweep{position:absolute;inset:0;background:linear-gradient(100deg,transparent 40%,rgba(168,137,79,.16) 50%,transparent 60%);background-size:220% 220%;animation:oiSweep 6s ease-in-out infinite}
 @keyframes oiSweep{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
 @keyframes oiBlink{50%{opacity:.2}}
@@ -780,6 +781,7 @@ body{padding-bottom:56px}
 <body>
 
 <div class="origen-intro" id="origenIntro">
+  <video class="oi-video" autoplay muted loop playsinline><source src="hero.mp4" type="video/mp4"></video>
   <div class="oi-sweep"></div>
   <div class="oi-top"><span><span class="rec"></span>ORIGEN STUDIO</span><span id="oiTime">00:00</span></div>
   <div class="oi-center">
