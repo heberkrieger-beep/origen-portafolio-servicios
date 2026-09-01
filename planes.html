@@ -112,16 +112,19 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 
 .paquetes{margin-bottom:36px}
 .paq-tag{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:14px}
-.paq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:16px}
-.paq-card{border:1px solid var(--l);background:#fff;padding:24px 22px;cursor:pointer;transition:.25s;position:relative}
+.paq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-bottom:16px}
+.paq-card{border:1px solid var(--l);background:#fff;padding:24px 22px;cursor:pointer;transition:.25s;position:relative;display:flex;flex-direction:column}
 .paq-card:hover{border-color:var(--n);transform:translateY(-2px);box-shadow:0 16px 34px -24px rgba(17,17,17,.28)}
 .paq-card.popular{border-color:var(--n);border-width:2px;background:var(--cream)}
 .paq-card.sel{border-color:var(--dk);border-width:2px}
+.paq-card.promo{border-color:#D9635B;border-width:2px;background:#FFF8F6}
+.paq-card.promo .paq-badge{background:#D9635B}
+.paq-note{color:#B84B3E;font-style:italic;font-family:'Cormorant',serif;font-size:13.5px;margin:-6px 0 12px}
 .paq-badge{position:absolute;top:-11px;left:20px;background:var(--dk);color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px}
 .paq-name{font-family:'Cormorant',serif;font-size:21px;margin-bottom:6px}
 .paq-price{font-family:'Cormorant',serif;font-size:28px;color:var(--n);margin-bottom:14px;line-height:1}
 .paq-price small{font-size:12px;color:var(--p);font-family:'Jost'}
-.paq-list{list-style:none;margin-bottom:16px}
+.paq-list{list-style:none;margin-bottom:16px;flex:1}
 .paq-list li{font-size:12px;color:var(--p);padding:3px 0 3px 17px;position:relative}
 .paq-list li::before{content:'✓';position:absolute;left:0;color:var(--dk);font-size:10px}
 .paq-cta{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--n);border-bottom:1px solid var(--n);padding-bottom:3px}
@@ -212,10 +215,10 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 
 /* ═══ PRODUCCIÓN DE CONTENIDO ═══ */
 .cont-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:30px}
-.cont-card{border:1px solid var(--l);background:#fff;padding:28px 26px;transition:.3s}
+.cont-card{border:1px solid var(--l);background:#fff;padding:28px 26px;transition:.3s;display:flex;flex-direction:column}
 .cont-card:hover{border-color:var(--n);box-shadow:0 20px 40px -28px rgba(17,17,17,0.25)}
 .cont-card h4{font-family:'Jost';font-size:16px;font-weight:400;color:var(--n);margin-bottom:8px}
-.cont-card p{font-size:13.5px;color:var(--p);line-height:1.6;margin-bottom:16px}
+.cont-card p{font-size:13.5px;color:var(--p);line-height:1.6;margin-bottom:16px;flex:1}
 .cont-card .cont-price{font-family:'Cormorant',serif;font-size:24px;color:var(--dk)}
 .cont-note{text-align:center;margin-top:32px;font-size:14px;color:var(--p)}
 .cont-note a{color:var(--dk);text-decoration:none;border-bottom:1px solid var(--dk);padding-bottom:2px;margin-left:6px}
@@ -353,9 +356,9 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .faq-q:hover{color:var(--d)}
 .faq-ic{font-family:'Cormorant',serif;font-size:26px;color:var(--d);flex-shrink:0;transition:transform .3s;line-height:1}
 .faq-item.open .faq-ic{transform:rotate(45deg)}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
-.faq-a p{font-size:15px;color:rgba(255,255,255,0.66);line-height:1.7;padding:0 40px 24px 0}
-.faq-item.open .faq-a{max-height:300px}
+.faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.faq-a p{overflow:hidden;font-size:15px;color:rgba(255,255,255,0.66);line-height:1.7;padding:0 40px 24px 0}
+.faq-item.open .faq-a{grid-template-rows:1fr}
 .faq-cta{text-align:center;margin-top:48px}
 .faq-cta p{font-family:'Cormorant',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,0.6);margin-bottom:14px}
 .faq-cta a{display:inline-block;color:#fff;text-decoration:none;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;
@@ -1626,11 +1629,12 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
           });
           lines=[baseName].concat(lines);
         }
-        ph+='<div class="paq-card'+(pk.tag?' popular':'')+(pk.sel?' sel':'')+'" data-paq="'+pk.key+'">'+
+        ph+='<div class="paq-card'+(pk.promo?' promo':(pk.tag?' popular':''))+(pk.sel?' sel':'')+'" data-paq="'+pk.key+'">'+
           (pk.tag?'<div class="paq-badge">'+pk.tag+'</div>':'')+
           '<div class="paq-name">'+pk.name+'</div>'+
           '<div class="paq-price">'+money(total)+'<small>/mes</small></div>'+
           '<ul class="paq-list">'+lines.map(function(l){return '<li>'+l+'</li>';}).join('')+'</ul>'+
+          (pk.note?'<div class="paq-note">'+pk.note+'</div>':'')+
           '<span class="paq-cta">Elegir este plan →</span></div>';
       });
       ph+='</div><button class="paq-custom-toggle" type="button" data-paq-toggle>¿Preferís armar tu plan a medida? →</button>';
@@ -1812,7 +1816,13 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       'Google Maps y ficha de negocio',
       'Gestión de campañas publicitarias (Meta Ads)',
       'Reporte mensual de métricas'
-    ], included:['Producción de contenido','Google Maps y ficha de negocio','Campañas publicitarias (Meta Ads)','Rebranding de tus redes','Sesión de fotografía profesional','Automatizaciones y respuestas']}
+    ], included:['Producción de contenido','Google Maps y ficha de negocio','Campañas publicitarias (Meta Ads)','Rebranding de tus redes','Sesión de fotografía profesional','Automatizaciones y respuestas']},
+    {key:'contenido-promo', name:'Solo Contenido', price:100000, tag:'Promo · cupos limitados', promo:true, note:'Precio promocional por tiempo limitado.', includes:[
+      '1 sesión de producción mensual (fotos y/o reels)',
+      '6 a 8 piezas editadas por mes',
+      'Sin gestión de redes ni publicación',
+      'Ideal si ya publicás vos y solo te falta el material'
+    ]}
   ]);
   setupUnit('#web-susc','Web por suscripción',20000,'summary-web','/mes','web',3,[
     {key:'profesional', name:'Profesional', price:20000, sel:true, includes:[
