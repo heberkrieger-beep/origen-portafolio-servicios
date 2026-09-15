@@ -42,56 +42,61 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .mainnav .links a{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);
   text-decoration:none;padding:6px 0;position:relative;transition:color .25s}
 .mainnav .links a:hover{color:var(--n)}
-.mainnav .links a:not(.nav-cta)::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--d);transition:width .25s}
-.mainnav .links a:not(.nav-cta):hover::after{width:100%}
+.mainnav .links a:not(.nav-cta)::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--d);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.mainnav .links a:not(.nav-cta):hover::after{transform:scaleX(1)}
 .mainnav .links a.active{color:var(--n)}
-.mainnav .links a.active::after{width:100%}
+.mainnav .links a.active::after{transform:scaleX(1)}
 .nav-cta{background:var(--n);color:#fff!important;padding:9px 20px!important;letter-spacing:2px;transition:background .25s}
 .nav-cta:hover{background:var(--d);color:var(--n)!important}
 .navtoggle,.navburger{display:none}
 section,.block{scroll-margin-top:74px}
 
 /* ── HERO ── */
-.hero{min-height:88vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:60px 0 40px}
-.hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;width:100%}
-.hero-left{position:relative;z-index:2}
+/* ── HERO: 100% carrusel, sin texto ── */
+.hero{position:relative;background:var(--n);overflow:hidden;height:92vh;min-height:560px;max-height:820px;
+  display:flex;flex-direction:column;justify-content:center}
+.hero::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(circle at 50% 40%, rgba(201,179,122,0.10), transparent 60%)}
+.hcar{position:relative;z-index:2;height:100%}
+
+/* ── Intro (título/CTA, debajo del hero) ── */
+.hero-intro{padding:90px 0}
+.hero-intro-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
 .hero-eyebrow{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--dk);margin-bottom:24px}
-.hero h1{font-size:clamp(38px,5vw,72px);margin-bottom:26px;line-height:1.06}
-.hero h1 em{color:var(--dk)}
-.hero-sub{font-size:clamp(16px,1.6vw,20px);color:var(--p);max-width:46ch;margin-bottom:38px;font-weight:300}
-.hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.hero-intro h1{font-size:clamp(32px,4.2vw,58px);margin-bottom:22px;line-height:1.08}
+.hero-intro h1 em{color:var(--dk)}
+.hero-sub{font-size:clamp(16px,1.6vw,20px);color:var(--p);max-width:46ch;font-weight:300}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-self:end}
 .hero-cta{display:inline-flex;align-items:center;gap:12px;padding:17px 38px;background:var(--n);color:#fff;
   text-decoration:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;transition:background .3s}
 .hero-cta:hover{background:var(--d);color:var(--n)}
 .hero-cta2{display:inline-flex;align-items:center;gap:10px;padding:16px 30px;background:transparent;color:var(--n);
   text-decoration:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;border:1px solid var(--l);transition:.3s}
 .hero-cta2:hover{border-color:var(--n)}
-/* panel derecho: visor en vivo */
-.hero-right{position:relative;background:var(--n);border-radius:0;min-height:520px;overflow:hidden}
-.hero-right::before{content:'';position:absolute;inset:0;background:
-  radial-gradient(circle at 50% 40%, rgba(201,179,122,0.10), transparent 60%)}
-.hero-right video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:.65}
-.hero-right .grain{position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 2px,transparent 2px 4px)}
-.hero-right .sweep{position:absolute;inset:0;background:linear-gradient(100deg,transparent 40%,rgba(201,179,122,.16) 50%,transparent 60%);background-size:220% 220%;animation:heroSweep 7s ease-in-out infinite}
-@keyframes heroSweep{0%,100%{background-position:0% 0%}50%{background-position:100% 100%}}
-.hero-right .vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(17,17,17,.6) 100%)}
-.hero-right .visor-bar{position:relative;z-index:2;display:flex;align-items:center;gap:8px;padding:18px 22px;font-family:'Jost';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--d)}
-.hero-right .visor-bar .rec{width:7px;height:7px;border-radius:50%;background:#D9635B;animation:heroBlink 1.6s step-start infinite}
-@keyframes heroBlink{50%{opacity:.15}}
-.hero-right .visor-bar .vtime{margin-left:auto;font-variant-numeric:tabular-nums}
-.hero-right .visor-frame{position:absolute;inset:18px;pointer-events:none}
-.hero-right .visor-frame span{position:absolute;width:20px;height:20px}
-.hero-right .vf-tl{top:0;left:0;border-top:2px solid var(--d);border-left:2px solid var(--d)}
-.hero-right .vf-tr{top:0;right:0;border-top:2px solid var(--d);border-right:2px solid var(--d)}
-.hero-right .vf-bl{bottom:0;left:0;border-bottom:2px solid var(--d);border-left:2px solid var(--d)}
-.hero-right .vf-br{bottom:0;right:0;border-bottom:2px solid var(--d);border-right:2px solid var(--d)}
-.hero-right-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:34px 40px 54px;text-align:center;min-height:calc(520px - 54px)}
-.hero-logo{width:min(56%,260px);height:auto;filter:drop-shadow(0 8px 30px rgba(201,179,122,0.15))}
-.hero-tagline{font-family:'Cormorant',serif;font-style:italic;font-size:22px;color:var(--d)}
-.hero-cycle{position:relative;height:18px;width:160px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55)}
-.hero-cycle span{position:absolute;inset:0;opacity:0;transition:opacity .6s ease}
-.hero-cycle span.on{opacity:1}
-@media(prefers-reduced-motion:reduce){.hero-right .sweep{animation:none}.hero-right .visor-bar .rec{animation:none}.hero-cycle span{transition:none}}
+.hcar-top{position:absolute;top:26px;right:0;z-index:6;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.hcar-top b{color:var(--d);font-weight:400}
+.hcar-stage{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;perspective:1400px}
+.hcard{position:absolute;top:50%;left:50%;width:17vw;max-width:250px;height:56vh;min-height:340px;border-radius:4px;overflow:hidden;cursor:pointer;
+  border:none;padding:0;background:#2a2a24;background-size:cover;background-position:center;
+  transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .55s,filter .55s;box-shadow:0 30px 60px -22px rgba(0,0,0,.7);filter:brightness(.5)}
+.hcard:focus-visible{outline:2px solid var(--d);outline-offset:3px}
+.hcard::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.85) 100%)}
+.hcard .hc-label{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:22px 22px 20px;text-align:left;display:none}
+.hcard .hc-label b{display:block;font-family:'Jost';font-weight:600;font-size:clamp(17px,1.6vw,23px);text-transform:uppercase;letter-spacing:1px;color:#fff;line-height:1.2;margin-bottom:8px}
+.hcard .hc-label span{display:block;font-size:12px;color:rgba(255,255,255,.75);font-weight:300;text-transform:none;letter-spacing:0}
+.hcard.hc-ph{display:flex;align-items:flex-end;justify-content:center}
+.hcard.center{width:23vw;max-width:340px;height:72vh;min-height:440px;box-shadow:0 40px 80px -26px rgba(0,0,0,.75);filter:none;z-index:5}
+.hcard.center .hc-label{display:block}
+.hcar-nav{position:absolute;bottom:26px;left:0;right:0;z-index:6;display:flex;align-items:center;justify-content:center;gap:18px}
+.hcar-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:6;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;width:38px;height:38px;
+  border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:.2s}
+.hcar-arrow:hover{background:var(--d);color:var(--n);border-color:var(--d)}
+.hcar-arrow.hcar-prev{left:24px}
+.hcar-arrow.hcar-next{right:24px}
+.hcar-dots{display:flex;align-items:center;gap:8px}
+.hcar-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);transition:.2s}
+.hcar-dots span.on{background:var(--d);width:18px;border-radius:3px}
+@media(prefers-reduced-motion:reduce){.hcard{transition:none}}
 .hero-scroll{margin-top:44px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--p);text-align:center}
 
 /* ── SECCIONES ── */
@@ -182,10 +187,13 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   .valor-grid,.nos-grid{grid-template-columns:1fr;gap:40px}
   .areas-grid{grid-template-columns:1fr}
   .proc-grid{grid-template-columns:1fr 1fr}
-  .hero-grid{grid-template-columns:1fr;gap:40px}
-  .hero-right{min-height:300px;order:-1}
-  .hero-right-content{padding:26px 30px 34px;min-height:calc(300px - 34px)}
-  .hero-logo{width:180px}
+  .hero{height:auto;min-height:520px;padding:60px 0}
+  .hero-intro-grid{grid-template-columns:1fr;gap:28px}
+  .hero-actions{justify-self:start}
+  .hcard{width:34vw;max-width:200px;height:46vh;min-height:300px}
+  .hcard.center{width:46vw;max-width:260px;height:60vh;min-height:360px}
+  .hcar-arrow.hcar-prev{left:8px}
+  .hcar-arrow.hcar-next{right:8px}
 }
 @media(max-width:600px){
   .wrap{padding:0 24px}
@@ -203,9 +211,11 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   .navtoggle:checked ~ .navburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .proc-grid{grid-template-columns:1fr}
   .cta-info{gap:28px}
-  .hero-right{min-height:240px}
-  .hero-right-content{padding:22px 24px 28px;min-height:calc(240px - 28px)}
-  .hero-logo{width:150px}
+  .hero{min-height:440px}
+  .hcard{width:30vw;max-width:150px;height:38vh;min-height:220px}
+  .hcard.center{width:44vw;max-width:220px;height:52vh;min-height:300px}
+  .hcar-top{top:16px;right:16px;font-size:9px}
+  .hcar-arrow{width:32px;height:32px;font-size:14px}
   .hero-actions{flex-direction:column;align-items:stretch}
   .hero-cta,.hero-cta2{justify-content:center}
 }
@@ -229,34 +239,34 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 </nav>
 <span id="top"></span>
 
-<!-- ══════ HERO ══════ -->
+<!-- ══════ HERO — solo carrusel ══════ -->
 <header class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-left">
-      <div class="hero-eyebrow">Puerto Iguazú · Misiones</div>
-      <h1>Marketing, tecnología y <em>soluciones</em> para hacer crecer tu negocio.</h1>
-      <p class="hero-sub">En ORIGEN unimos estrategia, creatividad y tecnología para que tu marca comunique mejor y tu operación funcione mejor.</p>
-      <div class="hero-actions">
-        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener" class="hero-cta">Pedí una propuesta</a>
-        <a href="planes.html" class="hero-cta2">Ver planes ✦</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <video autoplay muted loop playsinline poster="og-preview.jpg"><source src="hero.mp4" type="video/mp4"></video>
-      <div class="grain"></div>
-      <div class="sweep"></div>
-      <div class="vignette"></div>
-      <div class="visor-bar"><span class="rec"></span> ORIGEN · en vivo <span class="vtime" id="vtime">00:00</span></div>
-      <div class="visor-frame"><span class="vf-tl"></span><span class="vf-tr"></span><span class="vf-bl"></span><span class="vf-br"></span></div>
-      <div class="hero-right-content">
-        <img src="logo-origen-light.png" alt="ORIGEN" class="hero-logo">
-        <div class="hero-tagline">Marcas que conectan.</div>
-        <div class="hero-cycle"><span class="cy-item on">Marketing</span><span class="cy-item">Tecnología</span></div>
-      </div>
+  <div class="hcar" id="hcar">
+    <div class="hcar-top">Lo que hacemos · <b id="hcarCount">01 / 05</b></div>
+    <button class="hcar-arrow hcar-prev" id="hcarPrev" aria-label="Anterior">←</button>
+    <div class="hcar-stage" id="hcarStage"></div>
+    <button class="hcar-arrow hcar-next" id="hcarNext" aria-label="Siguiente">→</button>
+    <div class="hcar-nav">
+      <div class="hcar-dots" id="hcarDots"></div>
     </div>
   </div>
   <div class="hero-scroll">Conocé lo que hacemos ↓</div>
 </header>
+
+<!-- ══════ INTRO ══════ -->
+<section class="hero-intro">
+  <div class="wrap hero-intro-grid">
+    <div>
+      <div class="hero-eyebrow">Puerto Iguazú · Misiones</div>
+      <h1>Marketing, tecnología y <em>soluciones</em> para hacer crecer tu negocio.</h1>
+      <p class="hero-sub">En ORIGEN unimos estrategia, creatividad y tecnología para que tu marca comunique mejor y tu operación funcione mejor.</p>
+    </div>
+    <div class="hero-actions">
+      <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener" class="hero-cta">Pedí una propuesta</a>
+      <a href="planes.html" class="hero-cta2">Ver planes ✦</a>
+    </div>
+  </div>
+</section>
 
 <!-- ══════ VALOR ══════ -->
 <section class="valor">
@@ -415,24 +425,56 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 
 <script>
 (function(){
-  var vt=document.getElementById('vtime');
-  if(vt){
-    var t0=Date.now();
-    setInterval(function(){
-      var s=Math.floor((Date.now()-t0)/1000);
-      var m=Math.floor(s/60);
-      vt.textContent=(m<10?'0':'')+m+':'+(s%60<10?'0':'')+(s%60);
-    },1000);
+  // ── Carrusel de servicios (hero) ──
+  var hcarStage=document.getElementById('hcarStage');
+  if(hcarStage){
+    var SERVICIOS=[
+      {label:'Redes Sociales', sub:'Gestión y contenido', img:'https://images.unsplash.com/photo-1759215524472-1b0686fdbd87?auto=format&fit=crop&w=900&q=75', href:'planes.html?ir=redes'},
+      {label:'Producción de Contenido', sub:'Foto y video', img:'https://images.unsplash.com/photo-1635360381874-edd74cbd57f3?auto=format&fit=crop&w=900&q=75', href:'planes.html?ir=contenido'},
+      {label:'Página Web', sub:'Suscripción o a medida', img:'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=75', href:'planes.html?ir=web'},
+      {label:'Streaming', sub:'Consultar propuesta', img:'https://images.unsplash.com/photo-1559523161-0fc0d8b38a7a?auto=format&fit=crop&w=900&q=75', href:'https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20streaming.', blank:true},
+      {label:'Seguridad, Alarmas y Domótica', sub:'Cámaras · redes · automatización', img:'https://images.unsplash.com/photo-1549109926-58f039549485?auto=format&fit=crop&w=900&q=75', href:'planes.html?ir=tech'},
+    ];
+    var idx=0;
+    var cards=SERVICIOS.map(function(s){
+      var b=document.createElement('button');
+      b.className='hcard'+(s.img?'':' hc-ph');
+      b.style.background=(s.img?'url('+s.img+') center/cover no-repeat':s.bg);
+      b.innerHTML='<span class="hc-label"><b>'+s.label+'</b><span>'+s.sub+'</span></span>';
+      b.addEventListener('click',function(){
+        var i=cards.indexOf(b);
+        if(i===idx){ if(s.blank) window.open(s.href,'_blank','noopener'); else location.href=s.href; }
+        else { idx=i; render(); }
+      });
+      hcarStage.appendChild(b);
+      return b;
+    });
+    var dotsBox=document.getElementById('hcarDots');
+    var dots=SERVICIOS.map(function(_,i){
+      var d=document.createElement('span');
+      d.addEventListener('click',function(){ idx=i; render(); });
+      dotsBox.appendChild(d);
+      return d;
+    });
+    var countEl=document.getElementById('hcarCount');
+    function render(){
+      var n=SERVICIOS.length;
+      cards.forEach(function(c,i){
+        var d=i-idx;
+        if(d>n/2) d-=n; else if(d<-n/2) d+=n; // distancia circular: hace que siempre haya vecinas a ambos lados
+        c.classList.toggle('center', d===0);
+        var op=Math.abs(d)>2?0:1, z=10-Math.abs(d);
+        c.style.transform='translate(-50%,-50%) translateX('+(d*19)+'vw)';
+        c.style.opacity=op; c.style.zIndex=z;
+      });
+      dots.forEach(function(d,i){ d.classList.toggle('on', i===idx); });
+      countEl.textContent=('0'+(idx+1)).slice(-2)+' / 0'+SERVICIOS.length;
+    }
+    document.getElementById('hcarPrev').addEventListener('click',function(){ idx=(idx-1+SERVICIOS.length)%SERVICIOS.length; render(); });
+    document.getElementById('hcarNext').addEventListener('click',function(){ idx=(idx+1)%SERVICIOS.length; render(); });
+    render();
   }
-  var cyc=document.querySelectorAll('.hero-cycle .cy-item');
-  if(cyc.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    var ci=0;
-    setInterval(function(){
-      cyc[ci].classList.remove('on');
-      ci=(ci+1)%cyc.length;
-      cyc[ci].classList.add('on');
-    },2400);
-  }
+
   var toggle=document.getElementById('navtoggle');
   document.querySelectorAll('.mainnav .links a').forEach(function(a){
     a.addEventListener('click',function(){ if(toggle) toggle.checked=false; });
