@@ -60,7 +60,7 @@ section,.block{scroll-margin-top:74px}
   radial-gradient(circle at 50% 40%, rgba(201,179,122,0.10), transparent 60%)}
 .hero::after{content:'';position:absolute;inset:0;z-index:7;pointer-events:none;background:
   linear-gradient(90deg, var(--n) 0%, transparent 14%, transparent 86%, var(--n) 100%)}
-.hcar{position:relative;z-index:2;height:100%}
+.hcar{position:relative;z-index:2;height:100%;--off:16.5}
 
 /* ── Intro (título/CTA, debajo del hero) ── */
 .hero-intro{padding:90px 0}
@@ -197,11 +197,12 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   .valor-grid,.nos-grid{grid-template-columns:1fr;gap:40px}
   .areas-grid{grid-template-columns:1fr}
   .proc-grid{grid-template-columns:1fr 1fr}
-  .hero{height:auto;min-height:520px;padding:60px 0}
+  .hero{height:460px;min-height:0;padding:0}
+  .hcar{--off:27}
   .hero-intro-grid{grid-template-columns:1fr;gap:28px}
   .hero-actions{justify-self:start}
-  .hcard{width:34vw;max-width:200px;height:46vh;min-height:300px}
-  .hcard.center{width:46vw;max-width:260px;height:60vh;min-height:360px}
+  .hcard{width:170px;height:250px;max-width:none;min-height:0}
+  .hcard.center{width:220px;height:320px;max-width:none;min-height:0}
   .hcar-arrow.hcar-prev{left:8px}
   .hcar-arrow.hcar-next{right:8px}
 }
@@ -221,10 +222,12 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   .navtoggle:checked ~ .navburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .proc-grid{grid-template-columns:1fr}
   .cta-info{gap:28px}
-  .hero{min-height:440px}
-  .hcard{width:30vw;max-width:150px;height:38vh;min-height:220px}
-  .hcard.center{width:44vw;max-width:220px;height:52vh;min-height:300px}
-  .hcar-top{top:16px;right:16px;font-size:9px}
+  .hero{height:400px}
+  .hcar{--off:35}
+  .hcard{width:120px;height:180px;max-width:none;min-height:0}
+  .hcard.center{width:160px;height:250px;max-width:none;min-height:0}
+  .hcar-top{top:16px;left:0;right:0;font-size:9px}
+  .hcar-top::before,.hcar-top::after{width:16px}
   .hcar-arrow{width:32px;height:32px;font-size:14px}
   .hero-actions{flex-direction:column;align-items:stretch}
   .hero-cta,.hero-cta2{justify-content:center}
@@ -467,22 +470,43 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
       return d;
     });
     var countEl=document.getElementById('hcarCount');
+    var hcarEl=document.getElementById('hcar');
     function render(){
       var n=SERVICIOS.length;
+      var off=parseFloat(getComputedStyle(hcarEl).getPropertyValue('--off'))||16.5;
       cards.forEach(function(c,i){
         var d=i-idx;
         if(d>n/2) d-=n; else if(d<-n/2) d+=n; // distancia circular: hace que siempre haya vecinas a ambos lados
         c.classList.toggle('center', d===0);
         var ad=Math.abs(d), op=ad>2?0:1, z=10-ad, scale=d===0?1:Math.max(.8,1-ad*0.12);
-        c.style.transform='translate(-50%,-50%) translateX('+(d*16.5)+'vw) scale('+scale+')';
+        c.style.transform='translate(-50%,-50%) translateX('+(d*off)+'vw) scale('+scale+')';
         c.style.opacity=op; c.style.zIndex=z;
       });
       dots.forEach(function(d,i){ d.classList.toggle('on', i===idx); });
       countEl.textContent=('0'+(idx+1)).slice(-2)+' / 0'+SERVICIOS.length;
     }
-    document.getElementById('hcarPrev').addEventListener('click',function(){ idx=(idx-1+SERVICIOS.length)%SERVICIOS.length; render(); });
-    document.getElementById('hcarNext').addEventListener('click',function(){ idx=(idx+1)%SERVICIOS.length; render(); });
+    function next(){ idx=(idx+1)%SERVICIOS.length; render(); }
+    function prev(){ idx=(idx-1+SERVICIOS.length)%SERVICIOS.length; render(); }
+    document.getElementById('hcarPrev').addEventListener('click',function(){ prev(); resetAuto(); });
+    document.getElementById('hcarNext').addEventListener('click',function(){ next(); resetAuto(); });
     render();
+
+    // ── Avance automático (desktop y mobile), respeta "reducir movimiento" ──
+    var reduceMotion=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var AUTO_MS=5000, auto=reduceMotion?null:setInterval(next, AUTO_MS);
+    function resetAuto(){ if(reduceMotion) return; clearInterval(auto); auto=setInterval(next, AUTO_MS); }
+    hcarEl.addEventListener('mouseenter', function(){ clearInterval(auto); });
+    hcarEl.addEventListener('mouseleave', resetAuto);
+
+    // ── Arrastre táctil (swipe) para mobile ──
+    var touchX=null;
+    hcarStage.addEventListener('touchstart', function(e){ touchX=e.touches[0].clientX; }, {passive:true});
+    hcarStage.addEventListener('touchmove', function(e){
+      if(touchX===null) return;
+      var dx=e.touches[0].clientX-touchX;
+      if(Math.abs(dx)>40){ dx<0?next():prev(); touchX=null; resetAuto(); }
+    }, {passive:true});
+    hcarStage.addEventListener('touchend', function(){ touchX=null; });
   }
 
   var toggle=document.getElementById('navtoggle');
