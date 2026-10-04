@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<!-- ORIGEN · planes.html · v3.0 · 2026-10-04 · base publicada + correcciones + 3D -->
+<!-- ORIGEN · planes.html · v3.4 · 2026-10-04 · demo + webs + datos para Google -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ORIGEN · Armá tu plan</title>
+<title>ORIGEN · Planes de redes, páginas web y seguridad en Puerto Iguazú</title>
+<link rel="canonical" href="https://agencia-origen.online/planes.html">
 <meta name="description" content="Armá tu plan a medida con ORIGEN. Redes sociales, páginas web y seguridad. Elegí lo que necesitás y el precio se arma solo. Puerto Iguazú.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ORIGEN · Armá tu plan">
@@ -227,74 +228,109 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .cont-note a:hover{color:var(--tx);border-color:var(--tx)}
 @media(max-width:768px){.cont-grid{grid-template-columns:1fr}}
 
-/* ═══ ESTILOS DE WEB ═══ */
-.estilos{margin-top:70px;padding-top:60px;border-top:1px solid var(--l)}
+/* ═══ WEBS QUE HICIMOS ═══ */
+.wq{margin-top:70px;padding-top:60px;border-top:1px solid var(--l)}
+.wq .u-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--dk);margin-bottom:14px}
+.wq-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.wq-card{border:1px solid var(--l);background:var(--cream);display:flex;flex-direction:column;transition:border-color .3s}
+.wq-card:hover{border-color:var(--d)}
+.wq-shot{border-bottom:1px solid var(--l);overflow:hidden;background:#fff}
+.wq-shot img,.wq-cover{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:top}
+.wq-cover{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center}
+.wq-enp{background:radial-gradient(circle at 50% 30%,#1C2420,#07090B 70%);color:#fff}
+.enp-k{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:#C9E265}
+.enp-t{font-family:'Jost',sans-serif;font-weight:500;font-size:clamp(26px,3.4vw,40px);letter-spacing:6px}
+.enp-s{font-family:'Cormorant',serif;font-style:italic;font-size:17px;color:rgba(255,255,255,.7)}
+.enp-r{display:flex;gap:8px;margin-top:12px}
+.enp-r b{width:44px;height:30px;display:grid;place-items:center;border:1px solid rgba(201,226,101,.4);font-size:11px;font-weight:400;color:#C9E265}
+.wq-info{padding:28px 30px 30px;display:flex;flex-direction:column;flex:1}
+.wq-tipo{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--dk);margin-bottom:10px}
+.wq-info h3{font-size:28px;margin-bottom:12px;color:var(--tx)}
+.wq-info h3 em{color:var(--dk)}
+.wq-info p{font-size:14.5px;color:var(--p);line-height:1.7;margin-bottom:18px}
+.wq-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.wq-tags span{font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 11px;background:var(--sand);color:var(--o)}
+.wq-link{margin-top:auto;align-self:flex-start;color:var(--tx);text-decoration:none;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;padding-bottom:6px;border-bottom:1px solid var(--d);transition:color .25s}
+.wq-link:hover{color:var(--d)}
+@media(max-width:800px){.wq-grid{grid-template-columns:1fr}}
+
+/* ═══ DEMO: mirá cómo quedaría tu web ═══ */
+.demo{margin-top:70px;padding-top:60px;border-top:1px solid var(--l)}
+.demo-grid{display:grid;grid-template-columns:330px 1fr;gap:50px;align-items:center}
+.demo-form{display:flex;flex-direction:column;gap:10px}
+.df-l{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--dk);margin-top:8px}
+.df-in{width:100%;background:var(--cream);border:1px solid var(--l);color:var(--tx);font-family:'Jost',sans-serif;font-size:15px;font-weight:300;padding:13px 14px;border-radius:0;outline:none;transition:border-color .2s}
+.df-in:focus{border-color:var(--d)}
+select.df-in{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--d) 50%),linear-gradient(135deg,var(--d) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat}
+select.df-in option{background:#1A1917;color:#F1ECE0}
+.df-est{border:none;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.df-est legend{margin-bottom:10px}
+.df-est label{cursor:pointer}
+.df-est input{position:absolute;opacity:0;width:1px;height:1px}
+.df-est span{display:block;text-align:center;padding:11px 6px;border:1px solid var(--l);font-size:12px;letter-spacing:1px;color:var(--p);transition:.2s}
+.df-est input:checked+span{border-color:var(--d);color:var(--tx);background:var(--sand)}
+.df-est input:focus-visible+span{outline:2px solid var(--d);outline-offset:2px}
+.demo-cta{margin-top:18px;justify-content:center}
+.demo-nota{font-family:'Cormorant',serif;font-style:italic;font-size:15px;color:var(--p);line-height:1.5;margin-top:4px}
+/* escenario 3D */
+.demo-stage{position:relative;perspective:1400px;padding:10px 0 40px}
+.demo-browser{border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -30px rgba(0,0,0,.75);border:1px solid rgba(255,255,255,.12);
+  transform:rotateY(-9deg) rotateX(4deg);transform-origin:left center;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.demo-stage:hover .demo-browser{transform:rotateY(-2deg) rotateX(1deg)}
+.db-bar{height:30px;background:#E9E6E0;display:flex;align-items:center;gap:6px;padding:0 12px}
+.db-bar i{width:9px;height:9px;border-radius:50%;background:#C9C3B8}
+.db-url{margin-left:12px;flex:1;max-width:260px;height:18px;border-radius:9px;background:#fff;font-size:10px;color:#777;display:flex;align-items:center;padding:0 10px;overflow:hidden;white-space:nowrap}
+.demo-phone{position:absolute;right:-14px;bottom:0;width:150px;height:300px;border-radius:24px;background:#0b0b0b;padding:9px;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.8);border:1px solid rgba(255,255,255,.14);transform:rotateY(-14deg) translateZ(60px);transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.demo-stage:hover .demo-phone{transform:rotateY(-4deg) translateZ(40px)}
+.demo-phone .ms{border-radius:16px;height:100%;overflow:hidden}
+/* mini-sitio */
+.ms{--mbg:#fff;--mtx:#141414;--mmu:#777;--mac:#141414;--mcard:#F3F3F1;--mhero:linear-gradient(135deg,#ECEAE6,#D9D6CF);--mrad:2px;
+  background:var(--mbg);color:var(--mtx);font-family:'Jost',sans-serif;height:300px;overflow:hidden;transition:background .4s,color .4s}
+.ms-nav{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--mmu)}
+.ms-brand{font-weight:500;font-size:13px;letter-spacing:2px;color:var(--mtx);text-transform:uppercase;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ms-links{display:flex;gap:14px}
+.ms-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:center;padding:10px 20px 16px}
+.ms-h1{font-size:24px;line-height:1.1;font-weight:400;margin-bottom:8px}
+.ms-sub{font-size:11px;color:var(--mmu);line-height:1.5;margin-bottom:12px}
+.ms-btn{display:inline-block;background:var(--mac);color:var(--mbg);font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;padding:8px 14px;border-radius:var(--mrad)}
+.ms-img{height:130px;border-radius:var(--mrad);background:var(--mhero);display:grid;place-items:center;position:relative;overflow:hidden}
+.ms-img svg{width:46px;height:46px;stroke:var(--mtx);opacity:.55;fill:none;stroke-width:1.2}
+.ms-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:0 20px}
+.ms-card{background:var(--mcard);border-radius:var(--mrad);padding:12px 10px;font-size:10px;letter-spacing:.5px;color:var(--mtx)}
+.ms-card b{display:block;font-weight:500;margin-bottom:3px}
+.ms-card span{color:var(--mmu);font-size:9px}
+.ms.is-phone{height:100%}
+.ms.is-phone .ms-nav{padding:10px 12px}.ms.is-phone .ms-links{display:none}.ms.is-phone .ms-brand{max-width:100%;font-size:10px}
+.ms.is-phone .ms-hero{grid-template-columns:1fr;padding:4px 12px 10px;gap:10px}
+.ms.is-phone .ms-img{height:84px;order:-1}.ms.is-phone .ms-h1{font-size:17px}.ms.is-phone .ms-sub{font-size:9px;margin-bottom:8px}
+.ms.is-phone .ms-btn{font-size:8px;padding:6px 10px}
+.ms.is-phone .ms-cards{grid-template-columns:1fr;padding:0 12px;gap:6px}.ms.is-phone .ms-card:nth-child(n+3){display:none}
+/* temas */
+.ms.t-ele{--mbg:#0F0F0E;--mtx:#F1ECE0;--mmu:#9A9284;--mac:#C9B37A;--mcard:#1B1A17;--mhero:radial-gradient(circle at 30% 30%,#3A3326,#121110)}
+.ms.t-ele .ms-h1{font-family:'Cormorant',serif;font-style:italic;font-size:28px;color:#E6D4A6}
+.ms.t-ele .ms-brand{font-family:'Cormorant',serif;letter-spacing:4px;color:#C9B37A}
+.ms.t-ele .ms-img svg{stroke:#C9B37A;opacity:.8}
+.ms.t-mod{--mac:linear-gradient(90deg,#7C3AED,#EC4899);--mcard:#F4F0FF;--mhero:linear-gradient(135deg,#C4B5FD,#F9A8D4);--mrad:12px}
+.ms.t-mod .ms-btn{background:linear-gradient(90deg,#7C3AED,#EC4899);color:#fff;border-radius:20px}
+.ms.t-mod .ms-h1{font-weight:500;letter-spacing:-.5px}
+.ms.t-mod .ms-img svg{stroke:#fff;opacity:.9}
+.ms.t-cal{--mbg:#2A1E16;--mtx:#F0E3CC;--mmu:#B9A588;--mac:#C9A576;--mcard:#3A2A1F;--mhero:linear-gradient(135deg,#C4703A,#6B4226);--mrad:4px}
+.ms.t-cal .ms-h1{font-family:'Cormorant',serif;font-size:27px}
+.ms.t-cal .ms-btn{color:#2A1E16}
+.ms.t-cal .ms-img svg{stroke:#F0E3CC;opacity:.85}
+.ms.is-phone.t-ele .ms-h1,.ms.is-phone.t-cal .ms-h1{font-size:19px}
+.demo .u-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--dk);margin-bottom:14px}
+@media(max-width:900px){.demo-grid{grid-template-columns:1fr;gap:34px}.demo-phone{right:4px}}
+@media(max-width:600px){.demo-browser{transform:none}.ms{height:300px}.ms-h1{font-size:19px}.ms-links{display:none}.demo-phone{display:none}.demo-stage{padding-bottom:0}.ms-cards{grid-template-columns:1fr 1fr}.ms-card:nth-child(3){display:none}}
+@media(prefers-reduced-motion:reduce){.demo-browser,.demo-phone,.ms{transition:none}}
+
+/* encabezado de la demo */
 .estilos-head{text-align:center;max-width:640px;margin:0 auto 44px}
 .estilos-head .u-eyebrow{margin-bottom:14px}
 .estilos-head h2{font-size:clamp(28px,4vw,42px);margin-bottom:14px}
 .estilos-head h2 em{color:var(--dk)}
 .estilos-head p{font-size:16px;color:var(--p);line-height:1.7}
-.estilos-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
-.estilo{border:1px solid var(--l);background:var(--cream);overflow:hidden;transition:.3s}
-.estilo:hover{border-color:var(--d);transform:translateY(-3px);box-shadow:0 20px 40px -26px rgba(0,0,0,0.45)}
-.estilo-info{padding:24px 26px}
-.estilo-info h4{font-family:'Cormorant',serif;font-size:24px;font-weight:400;margin-bottom:8px}
-.estilo-info p{font-size:14px;color:var(--p);line-height:1.6}
-
-/* mockup base */
-.mock{height:220px;padding:0;position:relative;overflow:hidden;border-bottom:1px solid var(--l)}
-.mk-nav{height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#fff;border-bottom:1px solid rgba(0,0,0,0.06)}
-.mk-nav.dark{background:#141414}
-.mk-nav.dark2{background:#2A1E16}
-.mk-logo{width:34px;height:9px;background:#222;border-radius:2px}
-.mk-logo.gold{background:var(--d)}
-.mk-logo.grad{background:linear-gradient(90deg,#7C3AED,#EC4899)}
-.mk-logo.cream{background:#E8D9C0}
-.mk-links{width:70px;height:6px;background:rgba(0,0,0,0.14);border-radius:3px}
-.dark .mk-links,.dark2 .mk-links{background:rgba(255,255,255,0.25)}
-
-/* Minimalista */
-.mock-min{background:#fff}
-.mk-hero-min{padding:30px 20px 20px;display:flex;flex-direction:column;gap:9px}
-.mk-hero-min .mk-h1{width:65%;height:16px;background:#1a1a1a;border-radius:2px}
-.mk-hero-min .mk-h2{width:45%;height:8px;background:#bbb;border-radius:2px}
-.mk-hero-min .mk-btn{width:80px;height:20px;background:#1a1a1a;border-radius:2px;margin-top:8px}
-.mk-row3{display:flex;gap:10px;padding:0 20px}
-.mk-row3 span{flex:1;height:44px;background:#f0f0f0;border-radius:3px}
-
-/* Elegante */
-.mock-eleg{background:#faf8f4}
-.mk-hero-eleg{padding:34px 20px 22px;display:flex;flex-direction:column;gap:11px;align-items:center;background:#141414}
-.mk-hero-eleg .mk-h1{width:70%;height:15px;background:var(--d);border-radius:2px}
-.mk-hero-eleg .mk-h2{width:40%;height:7px;background:rgba(255,255,255,0.4);border-radius:2px}
-.mock-eleg .mk-row2{display:flex;gap:12px;padding:16px 20px}
-.mock-eleg .mk-row2 span{flex:1;height:40px;background:#ece4d5;border-radius:3px;border:1px solid var(--d)}
-
-/* Moderna */
-.mock-mod{background:#fff}
-.mk-hero-mod{padding:26px 20px;position:relative;display:flex;flex-direction:column;gap:10px;overflow:hidden}
-.mk-blob{position:absolute;width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#7C3AED,#EC4899);opacity:.16;right:-30px;top:-20px}
-.mk-hero-mod .mk-h1{width:60%;height:16px;background:#1a1a1a;border-radius:2px;position:relative}
-.mk-hero-mod .mk-btn.grad{width:90px;height:22px;background:linear-gradient(90deg,#7C3AED,#EC4899);border-radius:11px;position:relative}
-.mock-mod .mk-row3{display:flex;gap:8px;padding:0 20px}
-.mock-mod .mk-row3 span{flex:1;height:40px;border-radius:6px}
-.mock-mod .c1{background:#EDE9FE}.mock-mod .c2{background:#FCE7F3}.mock-mod .c3{background:#DBEAFE}
-
-/* Gastronómica */
-.mock-gastro{background:#2A1E16}
-.mk-hero-gastro{padding:28px 20px;display:flex;flex-direction:column;gap:12px;background:linear-gradient(160deg,#3d2c20,#2A1E16)}
-.mk-hero-gastro .mk-h1{width:66%;height:15px;background:#E8D9C0;border-radius:2px}
-.mk-hero-gastro .mk-btn.cream{width:84px;height:20px;background:#C9A576;border-radius:3px}
-.mock-gastro .mk-row2{display:flex;gap:10px;padding:14px 20px}
-.mock-gastro .mk-row2 span{flex:1;height:46px;border-radius:4px}
-.mock-gastro .food1{background:linear-gradient(135deg,#C4703A,#8B4A2B)}
-.mock-gastro .food2{background:linear-gradient(135deg,#A56A3A,#6B4226)}
-
-.estilos-note{text-align:center;margin-top:36px;font-size:16px;color:var(--p);font-family:'Cormorant',serif;font-style:italic;font-size:19px}
-.estilos-note a{color:var(--dk);text-decoration:none;border-bottom:1px solid var(--dk);padding-bottom:2px;font-style:normal;font-family:'Jost';font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-left:8px}
-.estilos-note a:hover{color:var(--tx);border-color:var(--tx)}
-
-@media(max-width:700px){.estilos-grid{grid-template-columns:1fr}}
 
 /* ═══ FORMAS DE PAGO ═══ */
 .pagos{margin-top:70px;padding-top:56px;border-top:1px solid var(--l)}
@@ -889,53 +925,87 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
         </div>
       </div>
 
-      <!-- ESTILOS DE WEB -->
-      <div class="estilos">
+      <!-- DEMO: MIRÁ CÓMO QUEDARÍA TU WEB -->
+      <div class="demo" id="demo">
         <div class="estilos-head">
-          <div class="u-eyebrow">Estilos que trabajamos</div>
-          <h2>Elegí la <em>estética</em> de tu web.</h2>
-          <p>Cada negocio tiene su personalidad. Adaptamos el diseño a la tuya — estos son algunos estilos con los que trabajamos.</p>
+          <div class="u-eyebrow">Probalo ahora</div>
+          <h2>Mirá cómo quedaría <em>tu web</em>.</h2>
+          <p>Escribí el nombre de tu negocio, elegí tu rubro y un estilo. Tu página se arma en vivo.</p>
         </div>
-        <div class="estilos-grid">
-
-          <div class="estilo">
-            <div class="mock mock-min">
-              <div class="mk-nav"><span class="mk-logo"></span><span class="mk-links"></span></div>
-              <div class="mk-hero-min"><span class="mk-h1"></span><span class="mk-h2"></span><span class="mk-btn"></span></div>
-              <div class="mk-row3"><span></span><span></span><span></span></div>
+        <div class="demo-grid">
+          <form class="demo-form" id="demoForm" onsubmit="return false" autocomplete="off">
+            <label class="df-l" for="dmNombre">Nombre de tu negocio</label>
+            <input class="df-in" id="dmNombre" type="text" maxlength="32" placeholder="Ej: Café del Puerto">
+            <label class="df-l" for="dmRubro">Rubro</label>
+            <select class="df-in" id="dmRubro">
+              <option value="gastro">Gastronomía</option>
+              <option value="belleza">Belleza y estética</option>
+              <option value="turismo">Turismo y alojamiento</option>
+              <option value="tienda">Tienda / comercio</option>
+              <option value="profesional">Profesional / servicios</option>
+              <option value="salud">Salud y bienestar</option>
+            </select>
+            <fieldset class="df-est">
+              <legend class="df-l">Estilo</legend>
+              <label><input type="radio" name="dmEst" value="min" checked><span>Minimalista</span></label>
+              <label><input type="radio" name="dmEst" value="ele"><span>Elegante</span></label>
+              <label><input type="radio" name="dmEst" value="mod"><span>Moderna</span></label>
+              <label><input type="radio" name="dmEst" value="cal"><span>Cálida</span></label>
+            </fieldset>
+            <a class="cc-cta demo-cta" id="dmCta" href="#" target="_blank" rel="noopener">Quiero esta web →</a>
+            <p class="demo-nota">Vista previa ilustrativa. Tu web final se diseña a medida, con tus fotos y tus textos.</p>
+          </form>
+          <div class="demo-stage" aria-live="polite">
+            <div class="demo-browser">
+              <div class="db-bar"><i></i><i></i><i></i><span class="db-url" id="dmUrl">tunegocio.com</span></div>
+              <div class="ms" id="dmPc"></div>
             </div>
-            <div class="estilo-info"><h4>Minimalista</h4><p>Limpio, mucho espacio en blanco, tipografía protagonista. Ideal para marcas modernas y profesionales.</p></div>
+            <div class="demo-phone"><div class="ms is-phone" id="dmPh"></div></div>
           </div>
-
-          <div class="estilo">
-            <div class="mock mock-eleg">
-              <div class="mk-nav dark"><span class="mk-logo gold"></span><span class="mk-links"></span></div>
-              <div class="mk-hero-eleg"><span class="mk-h1"></span><span class="mk-h2"></span></div>
-              <div class="mk-row2"><span></span><span></span></div>
-            </div>
-            <div class="estilo-info"><h4>Elegante</h4><p>Negro, dorado y serif. Transmite exclusividad y calidad. Perfecto para estética, joyería, vinos.</p></div>
-          </div>
-
-          <div class="estilo">
-            <div class="mock mock-mod">
-              <div class="mk-nav"><span class="mk-logo grad"></span><span class="mk-links"></span></div>
-              <div class="mk-hero-mod"><span class="mk-blob"></span><span class="mk-h1"></span><span class="mk-btn grad"></span></div>
-              <div class="mk-row3"><span class="c1"></span><span class="c2"></span><span class="c3"></span></div>
-            </div>
-            <div class="estilo-info"><h4>Moderna / Vibrante</h4><p>Colores llamativos, formas dinámicas, mucha energía. Para marcas jóvenes que quieren destacar.</p></div>
-          </div>
-
-          <div class="estilo">
-            <div class="mock mock-gastro">
-              <div class="mk-nav dark2"><span class="mk-logo cream"></span><span class="mk-links"></span></div>
-              <div class="mk-hero-gastro"><span class="mk-h1"></span><span class="mk-btn cream"></span></div>
-              <div class="mk-row2"><span class="food1"></span><span class="food2"></span></div>
-            </div>
-            <div class="estilo-info"><h4>Gastronómica</h4><p>Fotos grandes, tonos cálidos, menú a la vista. Pensada para restós, cafés y delivery.</p></div>
-          </div>
-
         </div>
-        <p class="estilos-note">¿Viste uno que te gusta? <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20me%20interesa%20una%20web%20y%20vi%20los%20estilos.%20Quiero%20consultar." target="_blank" rel="noopener">Contanos tu idea →</a></p>
+      </div>
+
+      <!-- WEBS QUE HICIMOS -->
+      <div class="wq" id="webs-reales">
+        <div class="estilos-head">
+          <div class="u-eyebrow">Trabajo real</div>
+          <h2>Webs que <em>hicimos</em>.</h2>
+          <p>Proyectos publicados y funcionando. Entrá, navegalos y mirá cómo trabajamos.</p>
+        </div>
+        <div class="wq-grid">
+          <article class="wq-card">
+            <div class="wq-shot">
+              <div class="db-bar"><i></i><i></i><i></i><span class="db-url">elnortepadel.com</span></div>
+              <!-- PENDIENTE: reemplazar por captura real (web-elnortepadel.jpg) -->
+              <div class="wq-cover wq-enp" aria-hidden="true">
+                <span class="enp-k">Circuito de pádel</span>
+                <span class="enp-t">NORTE PADEL</span>
+                <span class="enp-s">Movimiento. Disciplina. Resultado.</span>
+                <span class="enp-r"><b>01</b><b>02</b><b>03</b></span>
+              </div>
+            </div>
+            <div class="wq-info">
+              <div class="wq-tipo">Plataforma web · Deporte</div>
+              <h3>El Norte <em>Pádel</em></h3>
+              <p>Plataforma completa del circuito: torneos, inscripción por pasos, ranking en vivo, reservas de cancha, fotos, sponsors y panel de gestión para el club.</p>
+              <div class="wq-tags"><span>Ranking en vivo</span><span>Inscripciones</span><span>Panel del club</span></div>
+              <a class="wq-link" href="https://elnortepadel.com" target="_blank" rel="noopener">Visitar web ↗</a>
+            </div>
+          </article>
+          <article class="wq-card">
+            <div class="wq-shot">
+              <div class="db-bar"><i></i><i></i><i></i><span class="db-url">Activa tu Postura</span></div>
+              <img src="web-atp.jpg" alt="Captura de la landing Activa tu Postura, programa de salud postural para empresas" width="1440" height="900" loading="lazy">
+            </div>
+            <div class="wq-info">
+              <div class="wq-tipo">Landing page · Salud</div>
+              <h3>ATP · <em>Activa tu Postura</em></h3>
+              <p>Landing para vender un programa de salud postural a empresas. Bilingüe español y portugués, pensada para clientes de los dos lados de la frontera.</p>
+              <div class="wq-tags"><span>Español · Portugués</span><span>Para empresas</span><span>Contacto directo</span></div>
+              <a class="wq-link" href="https://magcommunityy.github.io/ATPparaempresas/" target="_blank" rel="noopener">Visitar web ↗</a>
+            </div>
+          </article>
+        </div>
       </div>
     </div>
 
@@ -2075,7 +2145,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     zona.addEventListener('pointerleave',function(){s.style.removeProperty('--ry');s.style.removeProperty('--rx');});
   });
   // tarjetas que se inclinan
-  document.querySelectorAll('.pick-card,.wc-card,.estilo,.pago-item,.cont-card').forEach(function(el){
+  document.querySelectorAll('.pick-card,.wc-card,.pago-item,.cont-card,.wq-card').forEach(function(el){
     el.classList.add('tilt3d');
     el.addEventListener('pointermove',function(e){var p=pos(e,el);
       el.style.transition='transform .12s ease-out, box-shadow .3s';
@@ -2084,6 +2154,44 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
     el.addEventListener('pointerleave',function(){
       el.style.transition='transform .5s ease, box-shadow .5s';el.style.transform='';el.style.boxShadow='';});
   });
+})();
+</script>
+<script>
+/* ORIGEN · demo "Mirá cómo quedaría tu web" (sin librerías; el nombre se inserta solo como texto) */
+(function(){
+  var f=document.getElementById('demoForm'); if(!f) return;
+  var R={
+    gastro:{t:'Gastronomía',h:'Sabores que se recuerdan',s:'Reservá tu mesa o pedí por WhatsApp en un clic.',b:'Reservar mesa',c:[['Menú','Platos y precios'],['Reservas','Online, 24 h'],['Delivery','Pedí desde casa']],i:'<path d="M14 6v14a4 4 0 0 0 8 0V6M18 6v34M30 6c-3 4-3 12 0 16v18"/>'},
+    belleza:{t:'Belleza y estética',h:'Tu momento de cuidado',s:'Elegí tu tratamiento y pedí turno cuando quieras.',b:'Pedí tu turno',c:[['Servicios','Uñas, faciales y más'],['Turnos','Reservá online'],['Galería','Nuestros trabajos']],i:'<path d="M24 6c6 8 10 14 10 20a10 10 0 0 1-20 0c0-6 4-12 10-20z"/><path d="M20 30a5 5 0 0 0 5 4"/>'},
+    turismo:{t:'Turismo y alojamiento',h:'Viví Iguazú a tu manera',s:'Habitaciones, excursiones y reservas directas, sin comisiones.',b:'Ver disponibilidad',c:[['Habitaciones','Fotos y tarifas'],['Excursiones','Cataratas y más'],['Ubicación','Cómo llegar']],i:'<path d="M6 34l12-16 8 10 6-7 10 13z"/><circle cx="34" cy="12" r="4"/>'},
+    tienda:{t:'Tienda / comercio',h:'Todo lo que buscás, en un clic',s:'Mirá el catálogo, pagá online y recibí en tu casa.',b:'Ver catálogo',c:[['Catálogo','Productos y precios'],['Pago online','Mercado Pago'],['Envíos','A todo el país']],i:'<path d="M8 14h32l-3 22H11z"/><path d="M17 14a7 7 0 0 1 14 0"/>'},
+    profesional:{t:'Profesional / servicios',h:'Soluciones claras para tu empresa',s:'Conocé cómo trabajamos y agendá una consulta.',b:'Agendar consulta',c:[['Servicios','Qué hacemos'],['Experiencia','Casos y clientes'],['Contacto','Respuesta en el día']],i:'<rect x="8" y="14" width="32" height="22" rx="2"/><path d="M18 14v-4h12v4M8 24h32"/>'},
+    salud:{t:'Salud y bienestar',h:'Tu bienestar, en buenas manos',s:'Especialidades, turnos online y atención personalizada.',b:'Reservar turno',c:[['Especialidades','Nuestro equipo'],['Turnos','Online, sin esperas'],['Obras sociales','Consultá cobertura']],i:'<path d="M24 40S8 30 8 18a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 12-16 22-16 22z"/>'}
+  };
+  var EST={min:'Minimalista',ele:'Elegante',mod:'Moderna',cal:'Cálida'};
+  var nom=document.getElementById('dmNombre'), rub=document.getElementById('dmRubro');
+  var pc=document.getElementById('dmPc'), ph=document.getElementById('dmPh'), url=document.getElementById('dmUrl'), cta=document.getElementById('dmCta');
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+  function limpio(){var v=(nom.value||'').replace(/\s+/g,' ').trim().slice(0,32);return v||'Tu Negocio';}
+  function slug(v){return v.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'').slice(0,22)||'tunegocio';}
+  function armar(box,d,n,e){
+    box.className='ms'+(box===ph?' is-phone':'')+' t-'+e; box.textContent='';
+    var nav=el('div','ms-nav'); nav.appendChild(el('span','ms-brand',n));
+    var lk=el('span','ms-links'); ['Inicio','Servicios','Contacto'].forEach(function(x){lk.appendChild(el('span',null,x));}); nav.appendChild(lk);
+    var hero=el('div','ms-hero'), tx=el('div');
+    tx.appendChild(el('div','ms-h1',d.h)); tx.appendChild(el('div','ms-sub',d.s)); tx.appendChild(el('span','ms-btn',d.b));
+    var img=el('div','ms-img'); img.innerHTML='<svg viewBox="0 0 48 48">'+d.i+'</svg>'; // íconos fijos, no datos del usuario
+    hero.appendChild(tx); hero.appendChild(img);
+    var cs=el('div','ms-cards'); d.c.forEach(function(c){var k=el('div','ms-card');k.appendChild(el('b',null,c[0]));k.appendChild(el('span',null,c[1]));cs.appendChild(k);});
+    box.appendChild(nav); box.appendChild(hero); box.appendChild(cs);
+  }
+  function upd(){
+    var n=limpio(), d=R[rub.value]||R.gastro, e=(f.querySelector('input[name=dmEst]:checked')||{}).value||'min';
+    armar(pc,d,n,e); armar(ph,d,n,e); url.textContent=slug(n)+'.com';
+    var msg='Hola ORIGEN, probé la demo de la web: quiero una página para "'+n+'" ('+d.t+'), estilo '+EST[e]+'.';
+    cta.href='https://wa.me/5493757656783?text='+encodeURIComponent(msg);
+  }
+  f.addEventListener('input',upd); f.addEventListener('change',upd); upd();
 })();
 </script>
 </body>
