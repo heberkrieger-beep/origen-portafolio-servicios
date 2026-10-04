@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- ORIGEN · planes.html · v3.0 · 2026-10-04 · base publicada + correcciones + 3D -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -497,6 +498,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
   a{text-decoration:none;color:inherit}
 }
 
+.tilt3d{transform-style:preserve-3d;will-change:transform}
 </style>
 </head>
 <body>
@@ -1291,7 +1293,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
               <dt>Denominación</dt><dd>ORIGEN — Agencia de Marketing</dd>
               <dt>Domicilio</dt><dd>Jangadero 233, Puerto Iguazú, Misiones</dd>
               <dt>Contacto</dt><dd>+54 9 3757 65-6783</dd>
-              <dt>Instagram</dt><dd>@origen.agenciademarketing</dd>
+              <dt>Instagram</dt><dd>@origen.studioiguazu</dd>
             </dl>
           </div>
           <div class="doc-part">
@@ -2055,6 +2057,32 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
       document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open')});
       if(!wasOpen) item.classList.add('open');
     });
+  });
+})();
+</script>
+<script>
+/* ORIGEN · efectos 3D (sin librerías) */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var fino=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(!fino) return;
+  function pos(e,el){var r=el.getBoundingClientRect();return [(e.clientX-r.left)/r.width-.5,(e.clientY-r.top)/r.height-.5];}
+  // escenas que siguen al mouse
+  document.querySelectorAll('[data-escena]').forEach(function(zona){
+    var s=document.getElementById(zona.dataset.escena); if(!s) return;
+    zona.addEventListener('pointermove',function(e){var p=pos(e,zona);
+      s.style.setProperty('--ry',(p[0]*34)+'deg');s.style.setProperty('--rx',(10-p[1]*22)+'deg');});
+    zona.addEventListener('pointerleave',function(){s.style.removeProperty('--ry');s.style.removeProperty('--rx');});
+  });
+  // tarjetas que se inclinan
+  document.querySelectorAll('.pick-card,.wc-card,.estilo,.pago-item,.cont-card').forEach(function(el){
+    el.classList.add('tilt3d');
+    el.addEventListener('pointermove',function(e){var p=pos(e,el);
+      el.style.transition='transform .12s ease-out, box-shadow .3s';
+      el.style.transform='perspective(1000px) rotateX('+(-p[1]*7)+'deg) rotateY('+(p[0]*7)+'deg) translateY(-4px)';
+      el.style.boxShadow='0 26px 50px -30px rgba(17,17,17,.4)';});
+    el.addEventListener('pointerleave',function(){
+      el.style.transition='transform .5s ease, box-shadow .5s';el.style.transform='';el.style.boxShadow='';});
   });
 })();
 </script>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- ORIGEN · marketing.html · v3.0 · 2026-10-04 · base publicada + correcciones + 3D -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -20,7 +21,7 @@
 html{scroll-behavior:smooth}
 html,body{max-width:100%;overflow-x:clip;background:#fff}
 body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
-.mainnav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.92);
+.mainnav{position:sticky;top:0;z-index:1000;background:#fff;
   backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);
   border-bottom:1px solid rgba(17,17,17,0.08);display:flex;align-items:center;
   justify-content:space-between;padding:16px 40px}
@@ -88,7 +89,7 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
   --b: #FFFFFF;
   --n: #111111;
   --p: #6B6760;
-  --d: #A8894F;
+  --d: #8A6E3A;
   --o: #484D3A;
   --l: rgba(17,17,17,0.09);
   --lf: rgba(17,17,17,0.05);
@@ -106,6 +107,30 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
   position: relative;
   overflow: hidden;
 }
+/* ═══ 3D: anillos de portada (reemplaza la O plana) ═══ */
+#svc .cover::after,#pf .cover::after{display:none!important}
+.cover>*:not(.cov3d-wrap):not(.svc-frame):not(.pf-frame){position:relative;z-index:1}
+.cov3d-wrap{position:absolute;right:-4vw;top:50%;width:min(48vw,600px);aspect-ratio:1;transform:translateY(-50%);perspective:1200px;pointer-events:none;z-index:0}
+.cov3d{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx,12deg)) rotateY(var(--ry,-18deg));transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.c-orb{position:absolute;inset:0;border-radius:50%;border:1.2px solid rgba(138,110,58,.40);transform-style:preserve-3d}
+.c-orb span{position:absolute;top:-11px;left:50%;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:radial-gradient(circle,#B8964F 0 22%,rgba(201,179,122,.35) 30%,transparent 68%)}
+.c-orb.a{animation:corb1 40s linear infinite}
+.c-orb.b{inset:12%;border-color:rgba(138,110,58,.30);animation:corb2 55s linear infinite}
+.c-orb.c{inset:26%;border-color:rgba(138,110,58,.24);animation:corb3 30s linear infinite}
+.c-orb.c span{width:16px;height:16px;margin-left:-8px;top:-8px}
+.c-core{position:absolute;inset:44%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#F3E3B8,#C9B37A 45%,#8A6E3A);transform:translateZ(40px)}
+@keyframes corb1{from{transform:rotateX(72deg) rotateZ(0)}to{transform:rotateX(72deg) rotateZ(360deg)}}
+@keyframes corb2{from{transform:rotateY(66deg) rotateZ(0)}to{transform:rotateY(66deg) rotateZ(-360deg)}}
+@keyframes corb3{from{transform:rotateX(-55deg) rotateY(30deg) rotateZ(0)}to{transform:rotateX(-55deg) rotateY(30deg) rotateZ(360deg)}}
+@media (max-width:700px){.cov3d-wrap{width:62vw;right:-20vw;top:2%;transform:none;opacity:.75}}
+.tilt3d{transform-style:preserve-3d;will-change:transform}
+@media (prefers-reduced-motion:reduce){.c-orb,.cov3d{animation:none!important;transition:none!important}}
+/* portadas oscuras: anillos en dorado claro */
+.cover .c-orb{border-color:rgba(201,179,122,.42)}
+.cover .c-orb.b{border-color:rgba(201,179,122,.30)}
+.cover .c-orb.c{border-color:rgba(201,179,122,.22)}
+.cover .c-orb span{background:radial-gradient(circle,#FFF1C9 0 22%,rgba(201,179,122,.5) 32%,transparent 70%)}
+.cover .c-core{background:radial-gradient(circle at 35% 30%,#FFF1C9,#C9B37A 45%,#7A5F2E)}
 #svc .cover::after {
   content: 'O';
   position: absolute;
@@ -396,6 +421,31 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 #svc .comp-table tr:hover td { background: #FAFAF8; }
 
 
+/* ═══ servicios y planes (nuevo) ═══ */
+#svc .sv-wrap{padding:90px 68px;background:#FAF6EF;border-top:1px solid var(--l);border-bottom:1px solid var(--l);position:relative}
+#svc .sv-head{max-width:640px;margin-bottom:44px}
+#svc .sv-sub{font-size:16px;color:var(--p);line-height:1.7;margin-top:16px}
+#svc .sv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+#svc .sv-card{background:#fff;border:1px solid var(--l);padding:30px 26px;position:relative;display:flex;flex-direction:column;transition:border-color .25s,transform .25s}
+#svc .sv-card:hover{border-color:var(--n);transform:translateY(-3px)}
+#svc .sv-dest{border:1.5px solid var(--n)}
+#svc .sv-badge{position:absolute;top:-11px;left:24px;background:#8A6E3A;color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px}
+#svc .sv-cat{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#8A6E3A;margin-bottom:12px}
+#svc .sv-nom{font-family:'Cormorant',serif;font-size:26px;font-weight:300;line-height:1.1;margin-bottom:18px;min-height:2.2em}
+#svc .sv-nom em{color:#8A6E3A}
+#svc .sv-desde{font-size:12px;color:var(--p);padding-bottom:18px;margin-bottom:18px;border-bottom:1px solid var(--l)}
+#svc .sv-desde b{font-family:'Cormorant',serif;font-size:30px;font-weight:400;color:var(--n);margin:0 4px}
+#svc .sv-desde span{font-size:11px;letter-spacing:.5px}
+#svc .sv-lista{list-style:none}
+#svc .sv-lista li{font-size:13.5px;color:var(--n);line-height:1.5;padding:6px 0 6px 18px;position:relative}
+#svc .sv-lista li::before{content:'✓';position:absolute;left:0;color:#8A6E3A;font-size:12px}
+#svc .sv-pie{margin-top:40px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+#svc .sv-pie p{font-family:'Cormorant',serif;font-style:italic;font-size:19px;color:var(--p)}
+#svc .sv-cta{display:inline-block;background:var(--n);color:#fff;text-decoration:none;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;padding:17px 34px;transition:background .25s}
+#svc .sv-cta:hover{background:#8A6E3A}
+@media(max-width:1000px){#svc .sv-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:1000px){#svc .sv-nom{min-height:0}}
+@media(max-width:600px){#svc .sv-wrap{padding:56px 22px}#svc .sv-grid{grid-template-columns:1fr}#svc .sv-card{padding:28px 22px}#svc .sv-pie{flex-direction:column;align-items:stretch;text-align:center}#svc .sv-cta{font-size:11px;letter-spacing:1.5px;padding:16px 18px}}
 #svc .proceso-wrap {
   padding: 72px 68px;
   border-bottom: 1px solid var(--l);
@@ -538,7 +588,7 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 #svc, #svc { max-width: 100%; overflow-x: hidden; }
 
 
-#pf {--b:#FFFFFF;--n:#111111;--p:#6B6760;--d:#A8894F;--o:#484D3A;--l:rgba(17,17,17,0.09);--lf:rgba(17,17,17,0.04);--cream:#FAF6EF;--sand:#F3EDE3;--ink:#1A1712;}
+#pf {--b:#FFFFFF;--n:#111111;--p:#6B6760;--d:#8A6E3A;--o:#484D3A;--l:rgba(17,17,17,0.09);--lf:rgba(17,17,17,0.04);--cream:#FAF6EF;--sand:#F3EDE3;--ink:#1A1712;}
 #pf * {margin:0;padding:0;box-sizing:border-box;}
 #pf {background:var(--b);color:var(--n);font-family:'Jost',sans-serif;font-weight:300;}
 
@@ -587,7 +637,8 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 #pf .proy-info {padding:38px 40px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--l);background:var(--cream);}
 #pf .proy:nth-child(even) .proy-info {background:var(--sand);}
 #pf .proy-grid.inv .proy-info {border-left:none;border-right:1px solid var(--l);}
-#pf .proy-num {font-family:'Cormorant',serif;font-size:13px;color:var(--d);margin-bottom:28px;display:flex;align-items:center;gap:12px;}
+#pf .proy-num {font-family:'Cormorant',serif;font-size:15px;color:#75592A;margin-bottom:28px;display:flex;align-items:center;gap:12px;}
+#svc .frase-f, #pf .frase-f{color:#C9B37A !important}
 #pf .proy-num::after {content:'';flex:1;height:1px;background:var(--l);}
 #pf .proy-cat {font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:10px;}
 #pf .proy-nom {font-family:'Cormorant',serif;font-size:clamp(26px,3.5vw,44px);font-weight:300;line-height:1;margin-bottom:8px;}
@@ -770,6 +821,7 @@ body{padding-bottom:56px}
 /* viewfinder: cada foto de proyecto enmarcada como una toma */
 #pf .proy-vis{position:relative}
 .proy-frame{position:absolute;inset:14px;pointer-events:none;z-index:2}
+.proy-frame .tag{background:rgba(17,17,17,.62)!important;color:#fff!important;padding:4px 9px!important;font-size:9px!important}
 .proy-frame span{position:absolute;width:18px;height:18px}
 .proy-frame .tl{top:0;left:0;border-top:1.5px solid rgba(255,255,255,.55);border-left:1.5px solid rgba(255,255,255,.55)}
 .proy-frame .tr{top:0;right:0;border-top:1.5px solid rgba(255,255,255,.55);border-right:1.5px solid rgba(255,255,255,.55)}
@@ -813,7 +865,10 @@ body{padding-bottom:56px}
 
 
 <!-- COVER -->
-<section class="cover">
+<section class="cover" data-escena="c3d1">
+  <div class="cov3d-wrap" aria-hidden="true"><div class="cov3d" id="c3d1">
+    <div class="c-orb a"><span></span></div><div class="c-orb b"><span></span></div><div class="c-orb c"><span></span></div><div class="c-core"></div>
+  </div></div>
   <div class="svc-topbar"><span><span class="dot" style="width:6px;height:6px;border-radius:50%;background:#D9635B;display:inline-block;margin-right:8px;animation:oiBlink 1.6s step-start infinite"></span>ORIGEN STUDIO — REF MONITOR</span><span id="svcTime">00:00:00</span></div>
   <div class="svc-frame"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
   <div class="cover-body">
@@ -823,9 +878,9 @@ body{padding-bottom:56px}
     <div class="cover-desc">Todo lo que necesita tu marca para comunicar con claridad, estrategia y una estética que te represente.</div>
   </div>
   <div class="cover-foot">
-    <div><div class="cf-l">Instagram</div><div class="cf-v"><a href="https://instagram.com/origen.agenciademarketing" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">@origen.agenciademarketing</a></div></div>
+    <div><div class="cf-l">Instagram</div><div class="cf-v"><a href="https://instagram.com/origen.studioiguazu" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">@origen.studioiguazu</a></div></div>
     <div><div class="cf-l">WhatsApp</div><div class="cf-v"><a href="https://wa.me/5493757656783" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">+54 9 3757 65-6783</a></div></div>
-    <div><div class="cf-l">Ubicación</div><div class="cf-v">Puerto Iguazú, Misiones</div></div>
+    <div><div class="cf-l">Ubicación</div><div class="cf-v">Jangadero 233 · Puerto Iguazú</div></div>
   </div>
 </section>
 
@@ -833,15 +888,15 @@ body{padding-bottom:56px}
 <div class="intro">
   <div class="intro-izq">
     <div class="sec-ojo">Antes de empezar</div>
-    <div class="intro-tit">No vendemos paquetes.<br><em>Construimos marcas.</em></div>
+    <div class="intro-tit">No vendemos posteos.<br><em>Construimos marcas.</em></div>
     <div class="intro-txt">
-      Cada paquete de ORIGEN es el punto de partida de una relación de trabajo real. No hacemos contenido en piloto automático ni mandamos templates genéricos.<br><br>
+      Cada plan de ORIGEN es el punto de partida de una relación de trabajo real. No hacemos contenido en piloto automático ni mandamos templates genéricos.<br><br>
       Antes de publicar una sola pieza, entendemos tu negocio, tu cliente y lo que querés comunicar. Eso es lo que hace que el contenido funcione.
     </div>
     <div class="intro-frase">"Publicar sin estrategia es solo hacer ruido."</div>
   </div>
   <div class="intro-der">
-    <div class="sec-ojo">Lo que siempre incluye cada paquete</div>
+    <div class="sec-ojo">Lo que incluye la gestión de redes</div>
     <div class="intro-der-lista">
       <div class="idl-item">Estrategia de contenido mensual</div>
       <div class="idl-item">Calendario editorial planificado</div>
@@ -854,372 +909,63 @@ body{padding-bottom:56px}
   </div>
 </div>
 
-<!-- PAQUETES HEADER -->
-<div class="paq-header">
-  <div class="paq-h-tit">Cuatro<br><em>paquetes</em></div>
-  <div class="paq-h-nota">Todos los precios son mensuales. Permanencia mínima de 3 meses. Producción audiovisual incluida en paquetes intermedios y superiores. Los valores se actualizan trimestralmente.</div>
-</div>
-
-<!-- PAQUETES -->
-<div class="paquetes">
-
-  <!-- Solo Redes -->
-  <div class="paq">
-    <div class="paq-nivel">Esencial</div>
-    <div class="paq-nombre">Solo<br><em>Redes</em></div>
-    <div class="paq-precio">$275K</div>
-    <div class="paq-precio-label">por mes</div>
-    <div class="paq-sep"></div>
-    <div class="paq-incluye-label">Incluye</div>
-    <ul class="paq-lista">
-      <li>8–10 posts mensuales</li>
-      <li>1 visita mensual para captura de material</li>
-      <li>Diseño gráfico de cada pieza</li>
-      <li>Copy y hashtags</li>
-      <li>Historias semanales según estrategia</li>
-      <li>Publicación y programación</li>
-      <li>Reporte mensual de métricas</li>
-    </ul>
-    <div class="paq-perfil">
-      <div class="paq-perfil-l">Ideal para</div>
-      <div class="paq-perfil-v">Comercios, profesionales y pequeños negocios que quieren presencia activa.</div>
-    </div>
-  </div>
-
-  <!-- Redes + foto O video -->
-  <div class="paq">
-    <div class="paq-nivel">Intermedio</div>
-    <div class="paq-nombre">Redes +<br><em>foto o video</em></div>
-    <div class="paq-precio">$400K</div>
-    <div class="paq-precio-label">por mes</div>
-    <div class="paq-sep"></div>
-    <div class="paq-incluye-label">Incluye</div>
-    <ul class="paq-lista">
-      <li>Todo lo del paquete Esencial</li>
-      <li>1 sesión mensual de 1.5 hs</li>
-      <li>Fotógrafo <em>o</em> filmmaker profesional incluido</li>
-      <li>Edición y entrega de material</li>
-    </ul>
-    <div class="paq-perfil">
-      <div class="paq-perfil-l">Ideal para</div>
-      <div class="paq-perfil-v">Restaurantes, tiendas y emprendedores que necesitan contenido visual propio.</div>
-    </div>
-  </div>
-
-  <!-- Redes + foto Y video — RECOMENDADO -->
-  <div class="paq rec">
-    <div class="paq-badge">Recomendado</div>
-    <div class="paq-nivel">Completo</div>
-    <div class="paq-nombre">Redes +<br><em>foto y video</em></div>
-    <div class="paq-precio">$550K</div>
-    <div class="paq-precio-label">por mes</div>
-    <div class="paq-sep"></div>
-    <div class="paq-incluye-label">Incluye</div>
-    <ul class="paq-lista">
-      <li>Todo lo anterior</li>
-      <li>Fotógrafo y filmmaker incluidos en simultáneo</li>
-      <li>Sesión mensual de 1.5 hs (foto + video)</li>
-      <li>Reels editados listos para publicar</li>
-      <li>Story pack mensual</li>
-    </ul>
-    <div class="paq-perfil">
-      <div class="paq-perfil-l">Ideal para</div>
-      <div class="paq-perfil-v">Hoteles, agencias turísticas y marcas en crecimiento que quieren el servicio completo.</div>
-    </div>
-  </div>
-
-  <!-- Full Marketing -->
-  <div class="paq">
-    <div class="paq-nivel">Premium</div>
-    <div class="paq-nombre">Full<br><em>Marketing</em></div>
-    <div class="paq-precio">$850K</div>
-    <div class="paq-precio-label">por mes</div>
-    <div class="paq-sep"></div>
-    <div class="paq-incluye-label">Incluye</div>
-    <ul class="paq-lista">
-      <li>Todo lo del paquete Completo</li>
-      <li>2 sesiones de producción mensuales</li>
-      <li>Gestión de Meta Ads (pauta)</li>
-      <li>Estrategia de marca integral</li>
-      <li>Reunión presencial mensual</li>
-    </ul>
-    <div class="paq-perfil">
-      <div class="paq-perfil-l">Ideal para</div>
-      <div class="paq-perfil-v">Empresas con presupuesto de pauta y hotelería premium que buscan resultados escalables.</div>
-    </div>
-  </div>
-
-</div>
-
-<!-- NOTA RECOMENDADO -->
-<div class="rec-nota">
-  <div class="rec-nota-icono">✦</div>
-  <div class="rec-nota-txt">
-    <strong>¿Por qué recomendamos Redes + foto y video?</strong> En una sola sesión de 1.5 hs tenés fotógrafo y filmmaker trabajando en simultáneo — y todo el costo está incluido en el precio del paquete. Más contenido, mejor resultado, sin sorpresas.
-  </div>
-</div>
-
-<!-- COMPARATIVA -->
-<div class="comp-wrap">
+<!-- SERVICIOS Y PLANES (alineado con planes.html) -->
+<div class="sv-wrap">
   <span id="precios" class="nav-anchor"></span>
-  <div class="sec-ojo">Comparativa</div>
-  <div class="intro-tit" style="margin-bottom:0;">¿Qué incluye<br><em>cada paquete?</em></div>
-
-  <div class="table-scroll">
-  <table class="comp-table">
-    <thead>
-      <tr>
-        <th style="width:30%;">Servicio</th>
-        <th class="centro">Solo Redes<br><span style="color:var(--d);font-family:'Cormorant',serif;font-size:16px;font-weight:400;">$275K</span></th>
-        <th class="centro">+ Foto o Video<br><span style="color:var(--d);font-family:'Cormorant',serif;font-size:16px;font-weight:400;">$400K</span></th>
-        <th class="centro rec-col">+ Foto y Video ✦<br><span style="color:var(--d);font-family:'Cormorant',serif;font-size:16px;font-weight:400;">$550K</span></th>
-        <th class="centro">Full Marketing<br><span style="color:var(--d);font-family:'Cormorant',serif;font-size:16px;font-weight:400;">$850K</span></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="feature">8–10 posts mensuales</td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Diseño gráfico</td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Copy y hashtags</td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Historias semanales</td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Reporte mensual</td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Visita mensual de captura</td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Sesión de fotografía</td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Producción de video / Reels</td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="parcial">Foto o video</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Equipo completo (foto + film)</td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Story pack mensual</td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">2 sesiones de producción</td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Gestión de Meta Ads</td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-      <tr>
-        <td class="feature">Reunión presencial mensual</td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="no">—</span></td>
-        <td class="centro"><span class="si">✦</span></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="sv-head">
+    <div class="sec-ojo">Servicios y planes</div>
+    <div class="intro-tit">Elegí lo que <em>necesitás</em>.</div>
+    <p class="sv-sub">Planes por suscripción con extras que sumás a medida. El precio exacto lo armás vos en el configurador.</p>
   </div>
-</div>
-
-
-
-<!-- SERVICIOS PUNTUALES -->
-<div class="comp-wrap">
-  <div class="sec-ojo">Servicios puntuales</div>
-  <div class="intro-tit" style="margin-bottom:48px;">Sin mensualidad.<br><em>Sin compromiso.</em></div>
-  <div class="extras-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--l);">
-
-    <div style="padding:36px 28px;border-right:1px solid var(--l);">
-      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:14px;">Cobertura de evento</div>
-      <div style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:20px;line-height:1.2;">Cobertura<br><em style="font-style:italic;">de evento</em></div>
-      <div style="font-size:11px;line-height:1.7;color:var(--p);margin-bottom:20px;">Captación en tiempo real con equipo móvil profesional. Videos para historias, fotos del evento y 1 Reel completo editado. Entrega por Drive.</div>
-      <div style="display:flex;flex-direction:column;gap:10px;padding-top:16px;border-top:1px solid var(--l);">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span style="font-size:11px;color:var(--p);">2 horas</span>
-          <span style="font-family:'Cormorant',serif;font-size:20px;color:var(--d);">$120K</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span style="font-size:11px;color:var(--p);">3 horas</span>
-          <span style="font-family:'Cormorant',serif;font-size:20px;color:var(--d);">$170K</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span style="font-size:11px;color:var(--p);">4 horas</span>
-          <span style="font-family:'Cormorant',serif;font-size:20px;color:var(--d);">$220K</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;padding-top:8px;border-top:1px solid var(--l);">
-          <span style="font-size:10px;color:var(--p);">Hora adicional</span>
-          <span style="font-family:'Cormorant',serif;font-size:16px;color:var(--p);">$50K</span>
-        </div>
-      </div>
+  <div class="sv-grid">
+    <div class="sv-card sv-dest">
+      <div class="sv-badge">Lo más pedido</div>
+      <div class="sv-cat">Redes sociales</div>
+      <div class="sv-nom">Gestión de <em>redes</em></div>
+      <div class="sv-desde">desde <b>$250.000</b><span>/mes</span></div>
+      <ul class="sv-lista">
+        <li>8 a 12 publicaciones con diseño profesional</li>
+        <li>Textos, hashtags e historias</li>
+        <li>Reporte mensual de métricas</li>
+        <li>Extras: más redes, sesiones de foto y video, Meta Ads</li>
+      </ul>
     </div>
-
-    <div style="padding:36px 28px;border-right:1px solid var(--l);">
-      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:14px;">Consultoría</div>
-      <div style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:20px;line-height:1.2;">Consultoría<br><em style="font-style:italic;">de marca</em></div>
-      <div style="font-size:11px;line-height:1.7;color:var(--p);margin-bottom:20px;">Sesión de 1 hora para diagnosticar tu marca: qué estás comunicando, qué deberías comunicar y cómo mejorarlo. Ideal para emprendedores que quieren claridad antes de invertir en un paquete mensual.</div>
-      <div style="padding-top:16px;border-top:1px solid var(--l);">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span style="font-size:11px;color:var(--p);">Sesión de 1 hora</span>
-          <span style="font-family:'Cormorant',serif;font-size:20px;color:var(--d);">$60K</span>
-        </div>
-        <div style="font-size:10px;color:var(--p);margin-top:8px;font-style:italic;">Incluye informe de recomendaciones por escrito.</div>
-      </div>
+    <div class="sv-card">
+      <div class="sv-cat">Página web</div>
+      <div class="sv-nom">Tu web, <em>siempre al día</em></div>
+      <div class="sv-desde">desde <b>$20.000</b><span>/mes</span></div>
+      <ul class="sv-lista">
+        <li>Diseño inicial incluido, hosting y dominio</li>
+        <li>Tienda, turnos y cobros online como extras</li>
+        <li>O web completa en pago único: $250K a $600K</li>
+      </ul>
     </div>
-
-    <div style="padding:36px 28px;border-right:1px solid var(--l);">
-      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:14px;">Feed desde cero</div>
-      <div style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:20px;line-height:1.2;">Armado de<br><em style="font-style:italic;">feed inicial</em></div>
-      <div style="font-size:11px;line-height:1.7;color:var(--p);margin-bottom:20px;">Para negocios que arrancan o que quieren resetear su Instagram. Incluye estrategia de contenido + primeras 9 piezas diseñadas, con copy y hashtags, listas para publicar.</div>
-      <div style="padding-top:16px;border-top:1px solid var(--l);">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;">
-          <span style="font-size:11px;color:var(--p);">9 piezas + estrategia</span>
-          <span style="font-family:'Cormorant',serif;font-size:20px;color:var(--d);">$150K</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:8px;">
-          <span style="font-size:11px;color:var(--p);">12 piezas + estrategia</span>
-          <span style="font-family:'Cormorant',serif;font-size:20px;color:var(--d);">$180K</span>
-        </div>
-        <div style="font-size:10px;color:var(--p);margin-top:8px;font-style:italic;">Pago único. Sin mensualidad.</div>
-      </div>
+    <div class="sv-card">
+      <div class="sv-cat">Producción de contenido</div>
+      <div class="sv-nom">Foto, video y <em>estudio</em></div>
+      <div class="sv-desde">desde <b>$20.000</b><span>pago único</span></div>
+      <ul class="sv-lista">
+        <li>Sesión de fotografía 1½ h: $200.000</li>
+        <li>Sesión de foto y video 1½ h: $250.000</li>
+        <li>Set de estudio 1½ h: $20.000</li>
+        <li>Set con producción 1½ h: $50.000</li>
+      </ul>
     </div>
-
-    <div style="padding:36px 28px;">
-      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:14px;">A tener en cuenta</div>
-      <div style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:20px;line-height:1.2;">Servicios<br><em style="font-style:italic;">a medida</em></div>
-      <div style="font-size:11px;line-height:1.7;color:var(--p);margin-bottom:20px;">Todos los servicios puntuales pueden combinarse con un paquete mensual o contratarse de forma independiente.</div>
-      <div style="padding-top:16px;border-top:1px solid var(--l);display:flex;flex-direction:column;gap:10px;">
-        <div style="font-size:11px;color:var(--n);display:flex;align-items:baseline;gap:8px;"><span style="color:var(--d);font-size:10px;">→</span> Sin permanencia mínima</div>
-        <div style="font-size:11px;color:var(--n);display:flex;align-items:baseline;gap:8px;"><span style="color:var(--d);font-size:10px;">→</span> Presupuesto personalizado para eventos grandes</div>
-        <div style="font-size:11px;color:var(--n);display:flex;align-items:baseline;gap:8px;"><span style="color:var(--d);font-size:10px;">→</span> Consulta sin cargo para definir qué necesitás</div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
-<!-- SERVICIOS DIGITALES -->
-<div style="border-bottom:1px solid var(--l);">
-<div class="comp-wrap">
-  <div class="sec-ojo">Servicios digitales</div>
-  <div class="intro-tit" style="margin-bottom:12px;">Presencia digital<br><em>que representa tu marca.</em></div>
-  <div style="font-size:13px;line-height:1.8;color:var(--p);margin-bottom:48px;max-width:600px;">Diseñamos y desarrollamos sitios web, landing pages y aplicaciones a medida — con tiempos de entrega más cortos y costos más accesibles que una agencia tradicional.</div>
-
-  <div class="extras-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--l);">
-
-    <div style="padding:36px 28px;border-right:1px solid var(--l);">
-      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:14px;">Landing Page</div>
-      <div style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:20px;line-height:1.2;">Landing<br><em style="font-style:italic;">Page</em></div>
-      <div style="font-size:11px;line-height:1.7;color:var(--p);margin-bottom:20px;">Página de una sola sección enfocada en conversión. Ideal para campañas, lanzamientos o servicios puntuales. Diseño personalizado y mobile-friendly.</div>
-      <div style="padding-top:16px;border-top:1px solid var(--l);">
-        <div style="font-family:'Cormorant',serif;font-size:36px;font-weight:300;color:var(--d);line-height:1;margin-bottom:4px;">$120K</div>
-        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--p);">a $180K · pago único</div>
-      </div>
-    </div>
-
-    <div style="padding:36px 28px;border-right:1px solid var(--l);">
-      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:14px;">Web de presentación</div>
-      <div style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:20px;line-height:1.2;">Web de<br><em style="font-style:italic;">presentación</em></div>
-      <div style="font-size:11px;line-height:1.7;color:var(--p);margin-bottom:20px;">1 a 3 secciones: inicio, servicios y contacto. Diseño personalizado con la identidad de tu marca, adaptado a celular y computadora.</div>
-      <div style="padding-top:16px;border-top:1px solid var(--l);">
-        <div style="font-family:'Cormorant',serif;font-size:36px;font-weight:300;color:var(--d);line-height:1;margin-bottom:4px;">$200K</div>
-        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--p);">a $350K · pago único</div>
-      </div>
-    </div>
-
-    <div style="padding:36px 28px;border-right:1px solid var(--l);background:#F9F8F5;">
-      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:14px;">Sitio web completo</div>
-      <div style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:20px;line-height:1.2;">Sitio web<br><em style="font-style:italic;">completo</em></div>
-      <div style="font-size:11px;line-height:1.7;color:var(--p);margin-bottom:20px;">Hasta 6 secciones: inicio, servicios, portfolio, sobre nosotros, contacto y blog opcional. Solución completa para tu presencia digital.</div>
-      <div style="padding-top:16px;border-top:1px solid var(--l);">
-        <div style="font-family:'Cormorant',serif;font-size:36px;font-weight:300;color:var(--d);line-height:1;margin-bottom:4px;">$400K</div>
-        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--p);">a $700K · pago único</div>
-      </div>
-    </div>
-
-    <div style="padding:36px 28px;">
-      <div style="font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--p);margin-bottom:14px;">App / Web App</div>
-      <div style="font-family:'Cormorant',serif;font-size:22px;font-weight:400;margin-bottom:20px;line-height:1.2;">Web App<br><em style="font-style:italic;">interactiva</em></div>
-      <div style="font-size:11px;line-height:1.7;color:var(--p);margin-bottom:20px;">Herramientas digitales, formularios avanzados, dashboards o aplicaciones a medida. Cotización personalizada según complejidad.</div>
-      <div style="padding-top:16px;border-top:1px solid var(--l);">
-        <div style="font-family:'Cormorant',serif;font-size:36px;font-weight:300;color:var(--d);line-height:1;margin-bottom:4px;">$600K</div>
-        <div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--p);">a $1.2M · según proyecto</div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Nota dominio y mantenimiento -->
-  <div style="margin-top:20px;padding:24px 28px;background:#F9F8F5;border:1px solid var(--l);display:grid;grid-template-columns:1fr 1fr;gap:32px;">
-    <div style="display:flex;gap:14px;align-items:flex-start;">
-      <div style="color:var(--d);font-size:12px;flex-shrink:0;margin-top:2px;">→</div>
-      <div>
-        <div style="font-size:11px;font-weight:500;color:var(--n);margin-bottom:4px;">Dominio y hosting — a cargo del cliente</div>
-        <div style="font-size:11px;color:var(--p);line-height:1.6;">El dominio (~$15-20 USD/año) y el hosting (~$5-15 USD/mes) se contratan directamente a nombre del cliente. Lo recomendamos siempre — es tuyo para siempre y cuesta menos de $20 USD al año.</div>
-      </div>
-    </div>
-    <div style="display:flex;gap:14px;align-items:flex-start;">
-      <div style="color:var(--d);font-size:12px;flex-shrink:0;margin-top:2px;">→</div>
-      <div>
-        <div style="font-size:11px;font-weight:500;color:var(--n);margin-bottom:4px;">Mantenimiento mensual — opcional</div>
-        <div style="font-size:11px;color:var(--p);line-height:1.6;">Actualizaciones de contenido, cambios y soporte técnico. <span style="font-family:'Cormorant',serif;font-size:14px;color:var(--d);">$50K — $80K/mes</span></div>
-      </div>
+    <div class="sv-card">
+      <div class="sv-cat">Aplicaciones</div>
+      <div class="sv-nom">App móvil <em>a medida</em></div>
+      <div class="sv-desde">desde <b>$400.000</b><span>pago único</span></div>
+      <ul class="sv-lista">
+        <li>Android e iOS, diseño propio</li>
+        <li>Panel de administración</li>
+        <li>Presupuesto según funciones</li>
+      </ul>
     </div>
   </div>
-
-</div>
+  <div class="sv-pie">
+    <p>Pagando 6 meses tenés 1 mes gratis; pagando el año, 3 meses gratis.</p>
+    <a href="planes.html" class="sv-cta">Armá tu plan y mirá el precio →</a>
+  </div>
 </div>
 
 <!-- PROCESO -->
@@ -1258,28 +1004,6 @@ body{padding-bottom:56px}
   <div class="frase-f">ORIGEN Studio · Puerto Iguazú</div>
 </div>
 
-<!-- CONTACTO -->
-<div class="cont">
-  <div>
-    <span id="contacto" class="nav-anchor"></span>
-    <div class="cont-tit">¿Empezamos<br><em>a trabajar?</em></div>
-    <div class="cont-sub">El primer paso es una conversación. Sin compromiso, sin formularios. Solo contanos de tu negocio y vemos qué tiene sentido para vos.</div>
-    <a class="cont-btn" href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20vi%20la%20propuesta%20de%20servicios%20y%20quiero%20que%20trabajemos%20juntos." target="_blank" rel="noopener">Escribir a ORIGEN</a>
-  </div>
-  <div class="cont-info">
-    <div><div class="ci-l">Instagram</div><div class="ci-v"><a href="https://instagram.com/origen.agenciademarketing" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">@origen.agenciademarketing</a></div></div>
-    <div><div class="ci-l">Ubicación</div><div class="ci-v">Puerto Iguazú, Misiones</div></div>
-    <div><div class="ci-l">Modalidad</div><div class="ci-v">Presencial y remoto</div></div>
-    <div><div class="ci-l">Web</div><div class="ci-v"><a href="https://agencia-origen.online" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">agencia-origen.online</a></div></div>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="f-logo">ORIGEN</div>
-  <div class="f-frase">Marcas que conectan.</div>
-  <div class="f-copy">Propuesta 2026 · Puerto Iguazú</div>
-</footer>
 
 
 </div>
@@ -1288,7 +1012,10 @@ body{padding-bottom:56px}
 
 
 <!-- COVER -->
-<section class="cover">
+<section class="cover" data-escena="c3d2">
+  <div class="cov3d-wrap" aria-hidden="true"><div class="cov3d" id="c3d2">
+    <div class="c-orb a"><span></span></div><div class="c-orb b"><span></span></div><div class="c-orb c"><span></span></div><div class="c-core"></div>
+  </div></div>
   <div class="pf-topbar"><span><span class="dot" style="width:6px;height:6px;border-radius:50%;background:#D9635B;display:inline-block;margin-right:8px;animation:oiBlink 1.6s step-start infinite"></span>ORIGEN STUDIO — REF MONITOR</span><span id="pfTime">00:00:00</span></div>
   <div class="pf-frame"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
   <div class="cover-body">
@@ -1477,7 +1204,7 @@ body{padding-bottom:56px}
       <div style="text-align:center;">
         <div style="font-size:10px;letter-spacing:5px;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:20px;">Manual de Marca · 2025</div>
         <div style="font-family:'Cormorant',serif;font-size:52px;font-weight:300;color:#fff;letter-spacing:3px;line-height:1;margin-bottom:6px;">GESTORÍA</div>
-        <div style="font-family:'Cormorant',serif;font-size:30px;font-weight:300;font-style:italic;color:#036d99;margin-bottom:36px;">del Automotor</div>
+        <div style="font-family:'Cormorant',serif;font-size:30px;font-weight:300;font-style:italic;color:#4FB0DA;margin-bottom:36px;">del Automotor</div>
         <div style="display:flex;justify-content:center;gap:12px;margin-bottom:36px;">
           <div style="width:44px;height:44px;border-radius:50%;background:#010000;border:1px solid rgba(255,255,255,0.1);"></div>
           <div style="width:44px;height:44px;border-radius:50%;background:#036d99;"></div>
@@ -1587,16 +1314,17 @@ body{padding-bottom:56px}
     <a class="cont-btn" href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20vi%20su%20portfolio%20y%20quiero%20que%20trabajemos%20juntos" target="_blank" rel="noopener">Escribir a ORIGEN</a>
   </div>
   <div class="cont-info">
-    <div><div class="ci-l">Instagram</div><div class="ci-v"><a href="https://instagram.com/origen.agenciademarketing" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px">@origen.agenciademarketing</a></div></div>
-    <div><div class="ci-l">Ubicación</div><div class="ci-v">Puerto Iguazú, Misiones</div></div>
+    <div><div class="ci-l">WhatsApp</div><div class="ci-v"><a href="https://wa.me/5493757656783" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">+54 9 3757 65-6783</a></div></div>
+    <div><div class="ci-l">Instagram</div><div class="ci-v"><a href="https://instagram.com/origen.studioiguazu" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px">@origen.studioiguazu</a></div></div>
+    <div><div class="ci-l">Ubicación</div><div class="ci-v">Jangadero 233 · Puerto Iguazú</div></div>
     <div><div class="ci-l">Alcance</div><div class="ci-v">Local · Regional · Remoto</div></div>
   </div>
 </div>
 
 <footer>
-  <div class="f-logo">ORIGEN</div>
+  <div class="f-logo"><img src="logo-origen.png" alt="ORIGEN" style="height:40px;width:auto;display:block"></div>
   <div class="f-frase">Marcas que conectan.</div>
-  <div class="f-copy">Portfolio 2026 · Puerto Iguazú</div>
+  <div class="f-copy">© 2026 ORIGEN · Puerto Iguazú</div>
 </footer>
 
 
@@ -1723,6 +1451,32 @@ body{padding-bottom:56px}
   }
   window.addEventListener('scroll', onTlScroll, { passive: true });
   onTlScroll();
+})();
+</script>
+<script>
+/* ORIGEN · efectos 3D (sin librerías) */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var fino=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(!fino) return;
+  function pos(e,el){var r=el.getBoundingClientRect();return [(e.clientX-r.left)/r.width-.5,(e.clientY-r.top)/r.height-.5];}
+  // escenas que siguen al mouse
+  document.querySelectorAll('[data-escena]').forEach(function(zona){
+    var s=document.getElementById(zona.dataset.escena); if(!s) return;
+    zona.addEventListener('pointermove',function(e){var p=pos(e,zona);
+      s.style.setProperty('--ry',(p[0]*34)+'deg');s.style.setProperty('--rx',(10-p[1]*22)+'deg');});
+    zona.addEventListener('pointerleave',function(){s.style.removeProperty('--ry');s.style.removeProperty('--rx');});
+  });
+  // tarjetas que se inclinan
+  document.querySelectorAll('.sv-card,.paso').forEach(function(el){
+    el.classList.add('tilt3d');
+    el.addEventListener('pointermove',function(e){var p=pos(e,el);
+      el.style.transition='transform .12s ease-out, box-shadow .3s';
+      el.style.transform='perspective(1000px) rotateX('+(-p[1]*7)+'deg) rotateY('+(p[0]*7)+'deg) translateY(-4px)';
+      el.style.boxShadow='0 26px 50px -30px rgba(17,17,17,.4)';});
+    el.addEventListener('pointerleave',function(){
+      el.style.transition='transform .5s ease, box-shadow .5s';el.style.transform='';el.style.boxShadow='';});
+  });
 })();
 </script>
 </body>

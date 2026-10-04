@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- ORIGEN · index.html · v3.1 · 2026-10-04 · placas del carrusel en 3D -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -93,6 +94,15 @@ section,.block{scroll-margin-top:74px}
 .hcard .hc-label b{display:block;font-family:'Cormorant',serif;font-weight:400;font-size:clamp(22px,2vw,30px);color:#fff;line-height:1.15;margin-bottom:8px}
 .hcard .hc-label span.hc-sub{display:block;font-size:13px;color:rgba(255,255,255,.72);font-weight:300;font-style:italic;font-family:'Cormorant',serif}
 .hcard.hc-ph{display:flex;align-items:flex-end;justify-content:center}
+/* ═══ 3D de las placas ═══ */
+.hcard .hc-label{z-index:2}
+.hcard .hc-glare{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .4s;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,30%),rgba(255,236,190,.24),transparent 55%)}
+.hcard.center:hover .hc-glare{opacity:1}
+.hcard:not(.center){-webkit-box-reflect:below 6px linear-gradient(transparent 86%,rgba(255,255,255,.12))}
+.hcar-stage::after{content:'';position:absolute;left:50%;bottom:7%;width:60%;height:70px;transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(201,179,122,.16),transparent 70%)}
+@media(prefers-reduced-motion:reduce){.hcard .hc-glare{display:none}}
 .hcard.center{width:22vw;max-width:330px;height:68vh;min-height:420px;box-shadow:0 44px 90px -24px rgba(0,0,0,.7);filter:none;z-index:5;
   outline:1px solid rgba(201,179,122,.4);outline-offset:-1px}
 .hcard.center .hc-label{display:block}
@@ -151,6 +161,11 @@ section{padding:100px 0;border-top:1px solid var(--l)}
 .nos .sec-eyebrow{color:var(--d)}
 .nos .sec-h{color:#fff}
 .nos .sec-h em{color:var(--d)}
+.nos-datos{margin-top:40px;display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,0.14)}
+.nd{display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.14)}
+.nd-l{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--d);flex-shrink:0}
+.nd-v{font-family:'Cormorant',serif;font-size:19px;color:#fff;text-align:right}
+@media(max-width:600px){.nd{flex-direction:column;gap:4px}.nd-v{text-align:left}}
 .nos-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:20px}
 .nos-lead{font-size:19px;color:rgba(255,255,255,0.72);line-height:1.75}
 .nos-lead em{color:var(--d)}
@@ -232,6 +247,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   .hero-actions{flex-direction:column;align-items:stretch}
   .hero-cta,.hero-cta2{justify-content:center}
 }
+.tilt3d{transform-style:preserve-3d;will-change:transform}
 </style>
 </head>
 <body>
@@ -359,6 +375,11 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
     <div class="nos-grid">
       <div>
         <p class="nos-lead">Somos un equipo de Puerto Iguazú apasionado por el marketing y la tecnología. Nacimos para darle a los negocios de la región un servicio <em>profesional y cercano</em> a la vez — sin la distancia de una agencia grande ni la improvisación de lo amateur.</p>
+        <div class="nos-datos">
+          <div class="nd"><span class="nd-l">Local propio</span><span class="nd-v">Jangadero 233 · Puerto Iguazú</span></div>
+          <div class="nd"><span class="nd-l">Estudio propio</span><span class="nd-v">Podcast y producción de contenido</span></div>
+          <div class="nd"><span class="nd-l">Dos áreas</span><span class="nd-v">ORIGEN Studio · ORIGEN Tech</span></div>
+        </div>
       </div>
       <div class="nos-points">
         <div class="nos-pt"><h4>Visión integral</h4><p>Vemos tu negocio completo: cómo se comunica y cómo funciona. Por eso unimos marketing y tecnología bajo un mismo techo.</p></div>
@@ -395,7 +416,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 
     <div class="cta-info">
       <div><div class="ci-l">WhatsApp</div><div class="ci-v"><a href="https://wa.me/5493757656783" target="_blank" rel="noopener">+54 9 3757 65-6783</a></div></div>
-      <div><div class="ci-l">Instagram</div><div class="ci-v"><a href="https://instagram.com/origen.agenciademarketing" target="_blank" rel="noopener">@origen.agenciademarketing</a></div></div>
+      <div><div class="ci-l">Instagram</div><div class="ci-v"><a href="https://instagram.com/origen.studioiguazu" target="_blank" rel="noopener">@origen.studioiguazu</a></div></div>
       <div><div class="ci-l">Ubicación</div><div class="ci-v">Jangadero 233 · Puerto Iguazú</div></div>
     </div>
   </div>
@@ -413,6 +434,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
         <div class="foot-col">
           <h5>Explorar</h5>
           <a href="#areas">Servicios</a>
+          <a href="planes.html">Planes</a>
           <a href="#nosotros">Nosotros</a>
           <a href="#proceso">Cómo trabajamos</a>
           <a href="marketing.html">Marketing & Portafolio</a>
@@ -420,7 +442,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
         <div class="foot-col">
           <h5>Contacto</h5>
           <a href="https://wa.me/5493757656783" target="_blank" rel="noopener">WhatsApp</a>
-          <a href="https://instagram.com/origen.agenciademarketing" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://instagram.com/origen.studioiguazu" target="_blank" rel="noopener">Instagram</a>
           <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener">Pedí una propuesta</a>
         </div>
         <div class="foot-col">
@@ -453,7 +475,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
       var b=document.createElement('button');
       b.className='hcard'+(s.img?'':' hc-ph');
       b.style.background=(s.img?'url('+s.img+') center/cover no-repeat':s.bg);
-      b.innerHTML='<span class="hc-label"><span class="hc-eyebrow">Servicio 0'+(i+1)+'</span><b>'+s.label+'</b><span class="hc-sub">'+s.sub+'</span></span>';
+      b.innerHTML='<span class="hc-glare"></span><span class="hc-label"><span class="hc-eyebrow">Servicio 0'+(i+1)+'</span><b>'+s.label+'</b><span class="hc-sub">'+s.sub+'</span></span>';
       b.addEventListener('click',function(){
         var i=cards.indexOf(b);
         if(i===idx){ if(s.blank) window.open(s.href,'_blank','noopener'); else location.href=s.href; }
@@ -471,6 +493,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
     });
     var countEl=document.getElementById('hcarCount');
     var hcarEl=document.getElementById('hcar');
+    var ROT=26;
     function render(){
       var n=SERVICIOS.length;
       var off=parseFloat(getComputedStyle(hcarEl).getPropertyValue('--off'))||16.5;
@@ -479,7 +502,9 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
         if(d>n/2) d-=n; else if(d<-n/2) d+=n; // distancia circular: hace que siempre haya vecinas a ambos lados
         c.classList.toggle('center', d===0);
         var ad=Math.abs(d), op=ad>2?0:1, z=10-ad, scale=d===0?1:Math.max(.8,1-ad*0.12);
-        c.style.transform='translate(-50%,-50%) translateX('+(d*off)+'vw) scale('+scale+')';
+        var giro=d===0?0:(d<0?1:-1)*Math.min(ad,2)*ROT, prof=-Math.min(ad,3)*150;
+        var base='translate(-50%,-50%) translateX('+(d*off)+'vw) translateZ('+prof+'px) rotateY('+giro+'deg) scale('+scale+')';
+        c.dataset.base=base; c.style.transform=base;
         c.style.opacity=op; c.style.zIndex=z;
       });
       dots.forEach(function(d,i){ d.classList.toggle('on', i===idx); });
@@ -490,6 +515,21 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
     document.getElementById('hcarPrev').addEventListener('click',function(){ prev(); resetAuto(); });
     document.getElementById('hcarNext').addEventListener('click',function(){ next(); resetAuto(); });
     render();
+
+    // ── 3D: la placa central sigue al mouse ──
+    if(matchMedia('(hover:hover) and (pointer:fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+      cards.forEach(function(c){
+        c.addEventListener('pointermove',function(e){
+          if(!c.classList.contains('center')) return;
+          var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+          c.style.transition='transform .15s ease-out,opacity .6s,filter .6s';
+          c.style.transform=c.dataset.base+' rotateX('+(-y*12)+'deg) rotateY('+(x*14)+'deg)';
+          c.style.setProperty('--mx',((x+.5)*100)+'%');c.style.setProperty('--my',((y+.5)*100)+'%');
+          c.style.backgroundPosition=(50-x*8)+'% '+(50-y*8)+'%';
+        });
+        c.addEventListener('pointerleave',function(){c.style.transition='';c.style.transform=c.dataset.base;c.style.backgroundPosition='';});
+      });
+    }
 
     // ── Avance automático (desktop y mobile), respeta "reducir movimiento" ──
     var reduceMotion=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -523,6 +563,32 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
     map.forEach(function(id){if(links[id])links[id].classList.toggle('active',id===cur);});
   }
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+})();
+</script>
+<script>
+/* ORIGEN · efectos 3D (sin librerías) */
+(function(){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var fino=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(!fino) return;
+  function pos(e,el){var r=el.getBoundingClientRect();return [(e.clientX-r.left)/r.width-.5,(e.clientY-r.top)/r.height-.5];}
+  // escenas que siguen al mouse
+  document.querySelectorAll('[data-escena]').forEach(function(zona){
+    var s=document.getElementById(zona.dataset.escena); if(!s) return;
+    zona.addEventListener('pointermove',function(e){var p=pos(e,zona);
+      s.style.setProperty('--ry',(p[0]*34)+'deg');s.style.setProperty('--rx',(10-p[1]*22)+'deg');});
+    zona.addEventListener('pointerleave',function(){s.style.removeProperty('--ry');s.style.removeProperty('--rx');});
+  });
+  // tarjetas que se inclinan
+  document.querySelectorAll('.area,.step').forEach(function(el){
+    el.classList.add('tilt3d');
+    el.addEventListener('pointermove',function(e){var p=pos(e,el);
+      el.style.transition='transform .12s ease-out, box-shadow .3s';
+      el.style.transform='perspective(1000px) rotateX('+(-p[1]*7)+'deg) rotateY('+(p[0]*7)+'deg) translateY(-4px)';
+      el.style.boxShadow='0 26px 50px -30px rgba(17,17,17,.4)';});
+    el.addEventListener('pointerleave',function(){
+      el.style.transition='transform .5s ease, box-shadow .5s';el.style.transform='';el.style.boxShadow='';});
+  });
 })();
 </script>
 </body>
