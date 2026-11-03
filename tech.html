@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<!-- ORIGEN · tech.html · v1.0 · 2026-11-02 · página del sector ORIGEN Tech: cámaras, alarmas, domótica, WiFi y GPS -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORIGEN Tech · Cámaras, alarmas y domótica en Puerto Iguazú</title>
+<link rel="canonical" href="https://agencia-origen.online/tech.html">
+<meta name="description" content="ORIGEN Tech: cámaras de seguridad desde $30.000 por mes con equipos incluidos, alarmas con aviso al celular, domótica, redes WiFi y rastreo GPS en Puerto Iguazú.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ORIGEN Tech · Tu casa, segura">
+<meta property="og:description" content="Cámaras, alarmas, domótica, WiFi y GPS para tu casa o tu negocio. Puerto Iguazú, Misiones.">
+<meta property="og:image" content="https://agencia-origen.online/og-preview.jpg">
+<meta property="og:url" content="https://agencia-origen.online/tech.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0E0E0D;--ink2:#161615;--tx:#F1ECE0;--p:#A79F92;--l:rgba(255,255,255,.10);--ac:#7FD6E8;--ac2:#0A6577;--hielo:#EEF4F5}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{max-width:100%;overflow-x:clip;background:var(--ink)}
+body{font-family:'Jost',sans-serif;font-weight:300;color:var(--tx);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+img{display:block;max-width:100%}
+h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
+h2 em,h3 em{color:var(--ac)}
+.d{font-family:'Anton',Impact,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;line-height:.92}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.skip{position:absolute;left:-999px;top:0;background:var(--ac);color:#111;padding:10px 16px;z-index:3000}
+.skip:focus{left:10px}
+section{padding:100px 0;border-top:1px solid var(--l);scroll-margin-top:72px}
+.eb{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--ac);margin-bottom:18px}
+.h2{font-size:clamp(34px,4.6vw,56px);margin-bottom:18px}
+.lead{font-size:17px;color:var(--p);max-width:58ch;line-height:1.7}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 30px;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;font-weight:500;transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-a{background:var(--ac);color:#0D1A1E}
+.btn-a:hover{background:#fff}
+.btn-k{background:#0D1A1E;color:#fff}
+.btn-k:hover{background:var(--ac2)}
+.lnk{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--ac);padding-bottom:4px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:14px 40px;background:rgba(14,14,13,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--l)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{height:44px;width:auto}
+.brand span{font-size:10px;letter-spacing:3px;font-weight:500;background:var(--ac);color:#0D1A1E;padding:4px 8px}
+.links{display:flex;gap:26px;align-items:center}
+.links a{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);text-decoration:none}
+.links a:hover{color:var(--tx)}
+.links .btn{padding:10px 18px;font-size:10px;color:#0D1A1E}
+.navtoggle,.navburger{display:none}
+
+/* HERO: escena */
+.hero{--mx:0;--my:0;position:relative;overflow:hidden;height:calc(100vh - 73px);min-height:600px;max-height:820px;padding:0;border:0;
+  background:radial-gradient(circle at 70% 55%,#8CCAD8,var(--hielo) 62%) var(--hielo);color:#0D1A1E}
+.word{position:absolute;left:50%;top:50%;transform:translate(calc(-50% + var(--mx)*-30px),calc(-56% + var(--my)*-20px));font-size:clamp(120px,19vw,300px);white-space:nowrap;color:transparent;-webkit-text-stroke:2px var(--ac2);opacity:.22;pointer-events:none}
+.h-txt{position:absolute;left:max(40px,calc((100% - 1180px)/2 + 40px));top:50%;transform:translateY(-54%);width:min(520px,44%);z-index:5}
+.h-txt .eb{color:var(--ac2)}
+.h-txt h1{font-size:clamp(64px,8.6vw,132px);margin-bottom:22px}
+.h-txt h1 span{color:var(--ac2);display:block}
+.h-txt p{font-size:clamp(16px,1.4vw,19px);max-width:42ch;line-height:1.6}
+.h-acts{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:30px}
+.h-acts .lnk{color:#0D1A1E;border-color:var(--ac2)}
+.obj{position:absolute;z-index:3;right:max(8%,calc((100% - 1180px)/2 + 80px));bottom:16%;height:62%;width:auto;filter:drop-shadow(0 40px 50px rgba(10,60,70,.35));
+  transform:translate(calc(var(--mx)*14px),calc(var(--my)*10px));animation:entra 1.1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes entra{from{opacity:0;transform:translateY(80px) scale(.9) rotate(-6deg);filter:blur(10px)}}
+.fl{position:absolute;z-index:4;left:var(--x);top:var(--y);width:var(--s,auto);filter:blur(var(--b,0));pointer-events:none;
+  transform:translate(calc(var(--mx)*var(--z)*-46px),calc(var(--my)*var(--z)*-34px));animation:flota 6s ease-in-out infinite}
+.fl:nth-of-type(2n){animation-duration:7.5s;animation-direction:reverse}
+@keyframes flota{50%{translate:0 -14px}}
+.tag{background:#fff;color:#111;font-size:13px;font-weight:500;padding:8px 14px;border-radius:30px;white-space:nowrap;box-shadow:0 10px 24px rgba(10,101,119,.25)}
+.tag i{display:inline-block;width:8px;height:8px;border-radius:50%;background:#1FA95B;margin-right:6px}
+
+/* PASOS */
+.pasos{display:grid;grid-template-columns:repeat(4,1fr);margin-top:44px}
+.paso{padding:32px 26px;border:1px solid var(--l);margin:-.5px}
+.paso b{display:block;font-family:'Cormorant',serif;font-style:italic;font-size:40px;color:var(--ac);line-height:1;margin-bottom:14px;font-weight:300}
+.paso h3{font-size:22px;margin-bottom:8px}
+.paso p{font-size:14px;color:var(--p)}
+
+/* CÁMARAS */
+.cam{background:var(--ink2)}
+.cam-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;margin-top:40px}
+.plan{border:1px solid var(--ac);padding:36px;background:var(--ink)}
+.plan-tag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ac)}
+.plan h3{font-size:34px;margin:8px 0 4px}
+.precio{font-family:'Cormorant',serif;font-size:54px;line-height:1;margin:10px 0 4px}
+.precio small{font-family:'Jost';font-size:14px;color:var(--p)}
+.plan-nota{font-size:13px;color:var(--p);margin-bottom:22px}
+.check{list-style:none}
+.check li{font-size:14.5px;padding:9px 0 9px 26px;border-top:1px solid var(--l);position:relative}
+.check li::before{content:'✓';position:absolute;left:0;color:var(--ac)}
+.ext-h{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--p);margin-bottom:14px}
+.ext{list-style:none;border-top:1px solid var(--l)}
+.ext li{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--l)}
+.ext b{font-weight:400;font-size:15.5px;display:block}
+.ext small{font-size:13px;color:var(--p)}
+.ext span{font-family:'Cormorant',serif;font-size:22px;color:var(--ac);white-space:nowrap}
+.aviso{margin-top:24px;font-size:13.5px;color:var(--p);border-left:2px solid var(--ac);padding-left:14px}
+.cam-acts{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:28px}
+
+/* OTROS SERVICIOS */
+.sv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.sv{border:1px solid var(--l);padding:34px 30px;display:flex;flex-direction:column;scroll-margin-top:90px;transition:border-color .25s,transform .25s}
+.sv:hover{border-color:var(--ac);transform:translateY(-4px)}
+.sv svg{width:44px;height:44px;color:var(--ac);margin-bottom:20px}
+.sv-u{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ac)}
+.sv h3{font-size:30px;margin:8px 0 12px}
+.sv p{font-size:14.5px;color:var(--p);flex:1}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 24px}
+.tags span{font-size:11.5px;border:1px solid var(--l);padding:4px 10px}
+.sv .lnk{align-self:flex-start}
+
+/* PARA QUIÉN */
+.para{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;list-style:none}
+.para li{font-family:'Cormorant',serif;font-size:22px;border:1px solid var(--l);padding:12px 20px}
+
+/* CTA */
+.cta{background:var(--hielo);color:#0D1A1E;text-align:center}
+.cta h2{font-size:clamp(40px,6vw,76px);margin-bottom:16px}
+.cta h2 em{color:var(--ac2)}
+.cta p{font-size:18px;max-width:50ch;margin:0 auto 32px}
+.cta .h-acts{justify-content:center}
+.cta .lnk{border-color:var(--ac2)}
+footer{padding:44px 0;border-top:1px solid var(--l)}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:center}
+.foot nav a{font-size:13px;color:var(--p);text-decoration:none;margin-right:20px}
+.foot nav a:hover{color:var(--ac)}
+.foot span{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--p)}
+
+@media(max-width:900px){
+  .pasos{grid-template-columns:1fr 1fr}
+  .cam-grid{grid-template-columns:1fr;gap:36px}
+  .sv-grid{grid-template-columns:1fr}
+  .hero{height:calc(100svh - 70px);min-height:640px;max-height:none}
+  .h-txt{left:24px;right:24px;width:auto;top:30px;transform:none}
+  .h-txt h1{font-size:clamp(52px,15vw,84px);margin-bottom:14px}
+  .h-txt p{font-size:15px}
+  .obj{right:50%;margin-right:-26%;bottom:40px;height:32%}
+  .word{top:74%;font-size:clamp(90px,30vw,150px)}
+  .fl{left:calc(var(--x)*.82);top:calc(50% + var(--y)*.44)}
+  .fl.m-no{display:none}
+  .tag{font-size:11px;padding:6px 10px}
+}
+@media(max-width:620px){
+  .wrap{padding:0 22px}
+  section{padding:70px 0}
+  .nav{padding:12px 20px;flex-wrap:wrap}
+  .brand img{height:38px}
+  .navburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+  .navburger span{display:block;width:24px;height:2px;background:var(--tx)}
+  .links{display:none;flex-direction:column;align-items:stretch;width:100%;gap:0;margin-top:8px}
+  .navtoggle:checked ~ .links{display:flex}
+  .links a{padding:14px 0;border-top:1px solid var(--l);font-size:12px}
+  .links .btn{margin-top:10px;padding:14px;justify-content:center}
+  .pasos{grid-template-columns:1fr}
+  .plan{padding:26px 22px}
+  .precio{font-size:44px}
+  .btn{padding:14px 20px;font-size:11px}
+}
+@media(prefers-reduced-motion:reduce){.obj,.fl{animation:none}.btn,.sv{transition:none}}
+</style>
+</head>
+<body>
+<a href="#camaras" class="skip">Saltar al contenido</a>
+
+<nav class="nav" aria-label="Principal">
+  <a href="index.html" class="brand" aria-label="Volver a ORIGEN"><img src="logo-origen.png" alt="ORIGEN"><span>TECH</span></a>
+  <input type="checkbox" id="navtoggle" class="navtoggle" aria-label="Abrir menú">
+  <label for="navtoggle" class="navburger" aria-hidden="true"><span></span><span></span><span></span></label>
+  <div class="links">
+    <a href="index.html">← ORIGEN</a>
+    <a href="#camaras">Cámaras y alarmas</a>
+    <a href="#domotica">Domótica</a>
+    <a href="#wifi">WiFi</a>
+    <a href="#gps">GPS</a>
+    <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%20Tech%2C%20quiero%20pedir%20una%20visita%20t%C3%A9cnica%20sin%20cargo." target="_blank" rel="noopener" class="btn btn-a">Pedí una visita</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+  <span class="word d" aria-hidden="true">SEGURIDAD</span>
+  <div class="h-txt">
+    <div class="eb">ORIGEN Tech · Sector 03</div>
+    <h1 class="d">Tu casa,<span>segura.</span></h1>
+    <p>Cámaras, alarmas, domótica, WiFi y GPS para tu casa o tu negocio. Instalamos, configuramos y te acompañamos. Todo se ve desde tu celular.</p>
+    <div class="h-acts"><a href="#camaras" class="btn btn-k">Ver el plan de cámaras</a><a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%20Tech%2C%20quiero%20pedir%20una%20visita%20t%C3%A9cnica%20sin%20cargo." target="_blank" rel="noopener" class="lnk">Pedí una visita sin cargo →</a></div>
+  </div>
+  <img class="obj" src="esc-camara.webp" alt="" width="595" height="585">
+  <div aria-hidden="true">
+    <svg class="fl" style="--x:58%;--y:14%;--z:.9;--s:70px" viewBox="0 0 24 24"><path fill="none" stroke="#0A6577" stroke-width="2.2" stroke-linecap="round" d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19.5" r="1.6" fill="#0A6577"/></svg>
+    <svg class="fl" style="--x:90%;--y:20%;--z:1.6;--s:96px;--b:4px" viewBox="0 0 24 24"><path fill="#0A6577" d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5z"/><path d="M8 12l3 3 5-6" fill="none" stroke="#fff" stroke-width="2"/></svg>
+    <span class="fl tag" style="--x:86%;--y:68%;--z:.6"><i></i>Alarma activada</span>
+    <span class="fl tag m-no" style="--x:56%;--y:62%;--z:.5">Cámara 2 · en vivo</span>
+    <svg class="fl m-no" style="--x:52%;--y:82%;--z:.5;--s:40px" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2" fill="#0D1A1E"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="#0D1A1E" stroke-width="2"/></svg>
+  </div>
+</header>
+
+<!-- CÓMO TRABAJAMOS -->
+<section aria-labelledby="pasos-h">
+  <div class="wrap">
+    <div class="eb">Cómo trabajamos</div>
+    <h2 class="h2" id="pasos-h">Simple, de principio <em>a fin</em>.</h2>
+    <div class="pasos">
+      <div class="paso"><b>01</b><h3>Visita técnica</h3><p>Vamos a tu casa o tu negocio y vemos el lugar. Sin cargo.</p></div>
+      <div class="paso"><b>02</b><h3>Propuesta</h3><p>Te decimos qué conviene y cuánto cuesta, sin letra chica.</p></div>
+      <div class="paso"><b>03</b><h3>Instalación</h3><p>Instalamos y configuramos todo, y te enseñamos a usarlo.</p></div>
+      <div class="paso"><b>04</b><h3>Soporte</h3><p>Mantenimiento y ayuda por WhatsApp cuando lo necesites.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CÁMARAS Y ALARMAS -->
+<section class="cam" id="camaras" aria-labelledby="cam-h">
+  <div class="wrap">
+    <div class="eb">Lo más pedido · Cámaras y alarmas</div>
+    <h2 class="h2" id="cam-h">Mirá tu lugar, <em>estés donde estés</em>.</h2>
+    <p class="lead">Ponemos los equipos y los instalamos: vos pagás una cuota mensual, sin comprar nada.</p>
+    <div class="cam-grid">
+      <div class="plan">
+        <div class="plan-tag">Plan base</div>
+        <h3>Plan Cámaras</h3>
+        <div class="precio">$30.000 <small>/ mes</small></div>
+        <p class="plan-nota">Equipos incluidos. Sin inversión inicial.</p>
+        <ul class="check">
+          <li>2 cámaras HD provistas e instaladas</li>
+          <li>Grabador y disco incluidos</li>
+          <li>Grabación continua las 24 horas</li>
+          <li>Acceso en vivo desde tu celular</li>
+          <li>Configuración y puesta en marcha</li>
+          <li>Mantenimiento y reposición por falla</li>
+          <li>Soporte por WhatsApp</li>
+        </ul>
+      </div>
+      <div>
+        <div class="ext-h">Sumá lo que necesites</div>
+        <ul class="ext">
+          <li><div><b>Cámara adicional</b><small>Provista, instalada y mantenida.</small></div><span>+$10.000/mes c/u</span></li>
+          <li><div><b>Alarma con aviso al celular</b><small>Sensores de movimiento y sirena.</small></div><span>+$8.000/mes</span></li>
+          <li><div><b>Copia en la nube</b><small>Respaldo de las grabaciones fuera del lugar.</small></div><span>+$6.000/mes</span></li>
+          <li><div><b>Videoportero inteligente</b><small>Mirá y hablá con quien toca timbre.</small></div><span>+$7.000/mes</span></li>
+        </ul>
+        <p class="aviso">El plan cubre instalación estándar. Antes de instalar hacemos una visita técnica sin cargo; si el lugar necesita obra adicional, te lo presupuestamos aparte.</p>
+        <div class="cam-acts"><a href="planes.html?ir=tech" class="btn btn-a">Armá tu plan de cámaras</a><a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%20Tech%2C%20quiero%20consultar%20por%20el%20plan%20de%20c%C3%A1maras%20y%20alarmas." target="_blank" rel="noopener" class="lnk">Consultar por WhatsApp</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOMÓTICA · WIFI · GPS -->
+<section aria-labelledby="mas-h">
+  <div class="wrap">
+    <div class="eb">También instalamos</div>
+    <h2 class="h2" id="mas-h">Tecnología que <em>trabaja por vos</em>.</h2>
+    <div class="sv-grid">
+      <article class="sv" id="domotica">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/><circle cx="12" cy="11" r="1.6" fill="currentColor"/></svg>
+        <div class="sv-u">Automatización</div>
+        <h3>Domótica <em>y accesos</em></h3>
+        <p>Luces, aire y riego automatizados. Cerraduras inteligentes y check-in autónomo para alquileres temporarios.</p>
+        <div class="tags"><span>Luces y aire</span><span>Cerraduras</span><span>Alexa · Google</span></div>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%20Tech%2C%20quiero%20un%20presupuesto%20de%20dom%C3%B3tica%20y%20accesos." target="_blank" rel="noopener" class="lnk">Pedir presupuesto →</a>
+      </article>
+      <article class="sv" id="wifi">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M2 9a15 15 0 0 1 20 0M5.5 12.5a10 10 0 0 1 13 0M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19.5" r="1.4" fill="currentColor"/></svg>
+        <div class="sv-u">Conectividad</div>
+        <h3>Redes <em>y WiFi</em></h3>
+        <p>Cobertura real en todo el local. Cableado, access points y portal de bienvenida para tus clientes.</p>
+        <div class="tags"><span>WiFi</span><span>Cableado</span><span>Hoteles · Restós</span></div>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%20Tech%2C%20quiero%20un%20presupuesto%20de%20red%20y%20WiFi." target="_blank" rel="noopener" class="lnk">Pedir presupuesto →</a>
+      </article>
+      <article class="sv" id="gps">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 22s7-6.3 7-12a7 7 0 0 0-14 0c0 5.7 7 12 7 12z"/><circle cx="12" cy="10" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <div class="sv-u">Flotas y vehículos</div>
+        <h3>Rastreo <em>GPS</em></h3>
+        <p>Seguí tus vehículos en tiempo real, con historial de recorridos y alertas. Ideal para transfers y excursiones.</p>
+        <div class="tags"><span>Tiempo real</span><span>Historial</span><span>Flotas</span></div>
+        <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%20Tech%2C%20quiero%20un%20presupuesto%20de%20rastreo%20GPS." target="_blank" rel="noopener" class="lnk">Pedir presupuesto →</a>
+      </article>
+    </div>
+    <div class="eb" style="margin-top:70px">Para quién</div>
+    <ul class="para">
+      <li>Hogares</li><li>Comercios</li><li>Alquileres temporarios</li><li>Hoteles y restaurantes</li><li>Transfers y excursiones</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" aria-labelledby="cta-h">
+  <div class="wrap">
+    <h2 id="cta-h">Empezá con una <em>visita sin cargo</em>.</h2>
+    <p>Vamos, vemos tu lugar y te decimos qué conviene. Sin compromiso.</p>
+    <div class="h-acts"><a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%20Tech%2C%20quiero%20pedir%20una%20visita%20t%C3%A9cnica%20sin%20cargo." target="_blank" rel="noopener" class="btn btn-k">Pedir visita por WhatsApp</a><a href="planes.html?ir=tech" class="lnk">Ver planes y precios →</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <nav aria-label="Otros sectores">
+      <a href="index.html">ORIGEN</a><a href="marketing.html">Marketing Digital</a><a href="tv.html">ORIGEN TV</a><a href="planes.html">Planes</a>
+    </nav>
+    <span>© 2026 ORIGEN Tech · Jangadero 233 · Puerto Iguazú</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var t=document.getElementById('navtoggle');
+  document.querySelectorAll('.links a').forEach(function(a){a.addEventListener('click',function(){t.checked=false;});});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  var h=document.getElementById('hero');
+  h.addEventListener('pointermove',function(e){var r=h.getBoundingClientRect();
+    h.style.setProperty('--mx',((e.clientX-r.left)/r.width-.5).toFixed(3));h.style.setProperty('--my',((e.clientY-r.top)/r.height-.5).toFixed(3));});
+})();
+</script>
+</body>
+</html>

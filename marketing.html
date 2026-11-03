@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · marketing.html · v3.2 · 2026-10-04 · fotos WebP + video + datos para Google -->
+<!-- ORIGEN · marketing.html · v4.0 · 2026-11-02 · página del sector Marketing Digital: carrusel 3D + Redes, Web, Fotografía + Y además -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -42,7 +42,7 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 .navtoggle,.navburger{display:none}
 .nav-anchor{display:block;position:relative;top:-70px;visibility:hidden;height:0}
 .scope-anchor{scroll-margin-top:70px}
-#servicios,#precios,#proceso,#portafolio,#contacto{scroll-margin-top:70px}
+#servicios,#precios,#proceso,#portafolio,#contacto,#redes,#web,#fotografia,#ademas{scroll-margin-top:70px}
 .section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,179,122,0.5),transparent)}
 
 /* ── Mejora de legibilidad: textos de cuerpo más grandes ── */
@@ -829,6 +829,86 @@ body{padding-bottom:56px}
 .proy-frame .bl{bottom:0;left:0;border-bottom:1.5px solid rgba(255,255,255,.55);border-left:1.5px solid rgba(255,255,255,.55)}
 .proy-frame .br{bottom:0;right:0;border-bottom:1.5px solid rgba(255,255,255,.55);border-right:1.5px solid rgba(255,255,255,.55)}
 .proy-frame .tag{position:absolute;top:16px;left:16px;width:auto;height:auto;white-space:nowrap;font-family:'Jost',sans-serif;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.7);background:rgba(0,0,0,.28);padding:4px 8px}
+
+/* ═══ v4.0 · Marketing Digital: carrusel 3D + servicios ═══ */
+#svc .mk-hero{--hn:#111111;--hd:#C9B37A;--htx:#F1ECE0;--hp:#A79F92;position:relative;background:radial-gradient(circle at 50% 60%,rgba(201,179,122,.12),transparent 60%),#111;color:var(--htx);overflow:hidden;padding:52px 0 40px}
+#svc .mk-hero-top{text-align:center;padding:0 24px;position:relative;z-index:8}
+#svc .mk-eb{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--hd);margin-bottom:16px}
+#svc .mk-h1{font-family:'Cormorant',serif;font-weight:300;font-size:clamp(46px,6.4vw,92px);line-height:1}
+#svc .mk-h1 em{color:var(--hd)}
+#svc .mk-sub{max-width:52ch;margin:16px auto 0;color:var(--hp);font-size:16px;line-height:1.6}
+#svc .hcar{position:relative;height:min(54vh,500px);min-height:400px;--off:16.5}
+#svc .hcar::after{content:'';position:absolute;inset:0;z-index:7;pointer-events:none;background:linear-gradient(90deg,#111 0%,transparent 14%,transparent 86%,#111 100%)}
+#svc .hcar-stage{position:relative;width:100%;height:100%;perspective:1600px}
+#svc .hcard{position:absolute;top:46%;left:50%;width:14vw;max-width:200px;height:34vh;min-height:250px;border-radius:2px;overflow:hidden;cursor:pointer;border:none;padding:0;background:#2a2a24;
+  transition:transform .6s cubic-bezier(.22,.85,.25,1),opacity .6s,filter .6s;box-shadow:0 24px 50px -20px rgba(0,0,0,.65);filter:brightness(.42) saturate(.85)}
+#svc .hcard:focus-visible{outline:2px solid var(--hd);outline-offset:4px}
+#svc .hcard::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 44%,rgba(0,0,0,.88) 100%)}
+#svc .hcard:not(.center){-webkit-box-reflect:below 6px linear-gradient(transparent 86%,rgba(255,255,255,.12))}
+#svc .hcard.center{width:19vw;max-width:270px;height:44vh;min-height:330px;filter:none;z-index:5;outline:1px solid rgba(201,179,122,.4);outline-offset:-1px}
+#svc .hc-label{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:26px;text-align:left;display:none}
+#svc .hcard.center .hc-label{display:block}
+#svc .hc-eyebrow{display:block;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--hd);margin-bottom:8px;font-weight:400}
+#svc .hc-label b{display:block;font-family:'Cormorant',serif;font-weight:400;font-size:clamp(22px,2vw,30px);color:#fff;line-height:1.15;margin-bottom:6px}
+#svc .hc-sub{display:block;font-size:13px;color:rgba(255,255,255,.75);font-style:italic;font-family:'Cormorant',serif}
+#svc .hc-ver{display:inline-block;margin-top:12px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--hd)}
+#svc .hc-glare{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(circle at var(--mx,50%) var(--my,30%),rgba(255,236,190,.24),transparent 55%)}
+#svc .hcard.center:hover .hc-glare{opacity:1}
+#svc .hcar-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:8;background:transparent;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.85);width:42px;height:42px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.25s}
+#svc .hcar-arrow svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.4}
+#svc .hcar-arrow:hover{background:var(--hd);color:#111;border-color:var(--hd)}
+#svc .hcar-prev{left:32px}#svc .hcar-next{right:32px}
+#svc .hcar-nav{position:absolute;bottom:22px;left:0;right:0;z-index:8;display:flex;align-items:center;justify-content:center;gap:16px}
+#svc .hcar-count{font-size:10px;letter-spacing:3px;color:var(--hd)}
+#svc .hcar-dots{display:flex;gap:9px}
+#svc .hcar-dots button{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);border:0;padding:0;cursor:pointer;transition:.35s}
+#svc .hcar-dots button[aria-current]{background:var(--hd);width:20px;border-radius:3px}
+#svc .srv-wrap{background:var(--b)}
+#svc .srv{display:grid;grid-template-columns:1fr 1.15fr;border-top:1px solid var(--l);scroll-margin-top:70px}
+#svc .srv:nth-child(even) .srv-img{order:2}
+#svc .srv-img{position:relative;overflow:hidden;min-height:520px;background:#111}
+#svc .srv-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#svc .srv-n{position:absolute;right:22px;bottom:0;font-family:'Cormorant',serif;font-style:italic;font-size:clamp(100px,12vw,170px);line-height:1;color:#fff;opacity:.85;text-shadow:0 10px 40px rgba(0,0,0,.4)}
+#svc .srv-body{padding:70px 64px;display:flex;flex-direction:column;justify-content:center}
+#svc .srv-txt{font-size:16px;color:var(--p);line-height:1.7;margin:4px 0 22px;max-width:52ch}
+#svc .srv-2c{display:grid;grid-template-columns:1fr 1fr;gap:0 22px;margin-bottom:22px}
+#svc .srv-precio{font-size:13px;color:var(--p);margin-bottom:18px}
+#svc .srv-precio b{font-family:'Cormorant',serif;font-size:34px;font-weight:400;color:var(--n);margin:0 4px}
+#svc .srv-extra{font-size:12px;color:var(--p);display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:28px}
+#svc .srv-extra span{border:1px solid var(--l);padding:5px 10px;color:var(--n);font-size:12px}
+#svc .srv-opc{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+#svc .srv-opc > div{border:1px solid var(--l);padding:18px}
+#svc .srv-opc b{display:block;font-weight:500;font-size:14px}
+#svc .srv-p{display:block;font-family:'Cormorant',serif;font-size:24px;color:var(--d);margin:6px 0}
+#svc .srv-opc small{font-size:12.5px;color:var(--p);line-height:1.5;display:block}
+#svc .srv-tabla{list-style:none;margin-bottom:28px;border-top:1px solid var(--l)}
+#svc .srv-tabla li{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--l);font-size:15px}
+#svc .srv-tabla b{font-family:'Cormorant',serif;font-size:22px;font-weight:400;color:var(--d)}
+#svc .srv-acts{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+#svc .srv-lnk{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--n);text-decoration:none;border-bottom:1px solid var(--d);padding-bottom:3px}
+#svc .srv-lnk:hover{color:var(--d)}
+#svc .ad-grid .sv-nom{min-height:0;margin-bottom:10px}
+#svc .ad-txt{font-size:13.5px;color:var(--p);line-height:1.55}
+@media(max-width:900px){
+  #svc .hcar{--off:27;height:430px;min-height:0}
+  #svc .hcard{width:150px;height:230px;max-width:none;min-height:0}
+  #svc .hcard.center{width:210px;height:320px;max-width:none;min-height:0}
+  #svc .hcar-prev{left:8px}#svc .hcar-next{right:8px}
+  #svc .srv{grid-template-columns:1fr}
+  #svc .srv:nth-child(even) .srv-img{order:0}
+  #svc .srv-img{min-height:300px}
+  #svc .srv-body{padding:48px 22px 60px}
+  #svc .srv-2c,#svc .srv-opc{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  #svc .mk-hero{padding-top:44px}
+  #svc .hcar{--off:36;height:380px}
+  #svc .hcard{width:110px;height:170px}
+  #svc .hcard.center{width:170px;height:260px}
+  #svc .hc-label{padding:16px}
+  #svc .hcar-arrow{width:34px;height:34px}
+}
+@media(prefers-reduced-motion:reduce){#svc .hcard{transition:none}#svc .hc-glare{display:none}}
 </style>
 </head>
 <body>
@@ -852,12 +932,13 @@ body{padding-bottom:56px}
   <input type="checkbox" id="navtoggle" class="navtoggle">
   <label for="navtoggle" class="navburger" aria-label="Menú"><span></span><span></span><span></span></label>
   <div class="links">
-    <a href="index.html">← Inicio</a>
-    <a href="planes.html">Planes</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#precios">Precios</a>
-    <a href="#proceso">Cómo trabajamos</a>
+    <a href="index.html">← ORIGEN</a>
+    <a href="#redes">Redes</a>
+    <a href="#web">Web</a>
+    <a href="#fotografia">Fotografía</a>
+    <a href="#ademas">Y además</a>
     <a href="#portafolio">Portafolio</a>
+    <a href="planes.html">Planes</a>
     <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20sus%20servicios." target="_blank" rel="noopener" class="nav-cta">Contactar</a>
   </div>
 </nav>
@@ -865,103 +946,87 @@ body{padding-bottom:56px}
 <div id="svc" class="scope-anchor"><span id="servicios"></span>
 
 
-<!-- COVER -->
-<section class="cover" data-escena="c3d1">
-  <div class="cov3d-wrap" aria-hidden="true"><div class="cov3d" id="c3d1">
-    <div class="c-orb a"><span></span></div><div class="c-orb b"><span></span></div><div class="c-orb c"><span></span></div><div class="c-core"></div>
-  </div></div>
-  <div class="svc-topbar"><span><span class="dot" style="width:6px;height:6px;border-radius:50%;background:#D9635B;display:inline-block;margin-right:8px;animation:oiBlink 1.6s step-start infinite"></span>ORIGEN STUDIO — REF MONITOR</span><span id="svcTime">00:00:00</span></div>
-  <div class="svc-frame"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
-  <div class="cover-body">
-    <div class="cover-ojo">Marcas que conectan.</div>
-    <div class="cover-h">Nuestros<br><em>servicios.</em></div>
-    <div class="cover-sep"></div>
-    <div class="cover-desc">Todo lo que necesita tu marca para comunicar con claridad, estrategia y una estética que te represente.</div>
+<!-- HERO: carrusel 3D de servicios de Marketing Digital -->
+<section class="mk-hero" aria-label="Servicios de Marketing Digital">
+  <div class="mk-hero-top">
+    <div class="mk-eb">ORIGEN · Sector 01</div>
+    <h1 class="mk-h1">Marketing <em>Digital</em></h1>
+    <p class="mk-sub">Redes, páginas web y fotografía para que tu negocio se vea profesional y venda más. Tocá un servicio para ver el detalle.</p>
   </div>
-  <div class="cover-foot">
-    <div><div class="cf-l">Instagram</div><div class="cf-v"><a href="https://instagram.com/origen.studioiguazu" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">@origen.studioiguazu</a></div></div>
-    <div><div class="cf-l">WhatsApp</div><div class="cf-v"><a href="https://wa.me/5493757656783" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">+54 9 3757 65-6783</a></div></div>
-    <div><div class="cf-l">Ubicación</div><div class="cf-v">Jangadero 233 · Puerto Iguazú</div></div>
+  <div class="hcar" id="hcar">
+    <button class="hcar-arrow hcar-prev" id="hcarPrev" aria-label="Servicio anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-8 6 8 6"/></svg></button>
+    <div class="hcar-stage" id="hcarStage"></div>
+    <button class="hcar-arrow hcar-next" id="hcarNext" aria-label="Servicio siguiente"><svg viewBox="0 0 24 24"><path d="M9 6l8 6-8 6"/></svg></button>
+    <div class="hcar-nav"><span class="hcar-count" id="hcarCount">01 / 06</span><div class="hcar-dots" id="hcarDots"></div></div>
   </div>
 </section>
 
-<!-- INTRO -->
-<div class="intro">
-  <div class="intro-izq">
-    <div class="sec-ojo">Antes de empezar</div>
-    <div class="intro-tit">No vendemos posteos.<br><em>Construimos marcas.</em></div>
-    <div class="intro-txt">
-      Cada plan de ORIGEN es el punto de partida de una relación de trabajo real. No hacemos contenido en piloto automático ni mandamos templates genéricos.<br><br>
-      Antes de publicar una sola pieza, entendemos tu negocio, tu cliente y lo que querés comunicar. Eso es lo que hace que el contenido funcione.
+<!-- SERVICIOS PRINCIPALES -->
+<div class="srv-wrap">
+  <article class="srv" id="redes">
+    <div class="srv-img"><img src="pexels-magnus-mueller-1398178-2818118.jpg" alt="Celular con apps de redes sociales" loading="lazy" width="1136" height="900"><span class="srv-n">01</span></div>
+    <div class="srv-body">
+      <div class="sec-ojo">Servicio 01 · Redes sociales</div>
+      <h2 class="intro-tit">Tu marca, <em>siempre activa</em>.</h2>
+      <p class="srv-txt">Gestionamos tus redes con estrategia y contenido profesional. Vos atendés tu negocio; nosotros hacemos que se vea.</p>
+      <ul class="sv-lista srv-2c">
+        <li>Estrategia de contenido mensual</li><li>Calendario editorial</li><li>Diseño de cada pieza</li><li>Textos y hashtags</li><li>Historias semanales</li><li>Publicación y programación</li><li>Reporte de métricas mensual</li>
+      </ul>
+      <div class="srv-precio">desde <b>$250.000</b> por mes</div>
+      <div class="srv-extra">Podés sumar: <span>Red social adicional</span><span>Community management</span><span>Meta Ads</span><span>Rebranding de redes</span><span>Producción de contenido</span></div>
+      <div class="srv-acts"><a href="planes.html?ir=redes" class="sv-cta">Armá tu plan de redes</a><a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20gesti%C3%B3n%20de%20redes%20sociales." target="_blank" rel="noopener" class="srv-lnk">Consultar por WhatsApp</a></div>
     </div>
-    <div class="intro-frase">"Publicar sin estrategia es solo hacer ruido."</div>
-  </div>
-  <div class="intro-der">
-    <div class="sec-ojo">Lo que incluye la gestión de redes</div>
-    <div class="intro-der-lista">
-      <div class="idl-item">Estrategia de contenido mensual</div>
-      <div class="idl-item">Calendario editorial planificado</div>
-      <div class="idl-item">Diseño gráfico de cada pieza</div>
-      <div class="idl-item">Redacción de copies y hashtags</div>
-      <div class="idl-item">Historias semanales según estrategia</div>
-      <div class="idl-item">Publicación y programación</div>
-      <div class="idl-item">Reporte de métricas mensual</div>
+  </article>
+
+  <article class="srv" id="web">
+    <div class="srv-img"><img src="pexels-dimkidama-15115560.jpg" alt="Página web en una computadora" loading="lazy" width="900" height="1600"><span class="srv-n">02</span></div>
+    <div class="srv-body">
+      <div class="sec-ojo">Servicio 02 · Páginas web</div>
+      <h2 class="intro-tit">Tu web, <em>siempre al día</em>.</h2>
+      <p class="srv-txt">Una página profesional que funciona en el celular y que te traiga clientes. Elegí cómo pagarla:</p>
+      <div class="srv-opc">
+        <div><b>Por suscripción</b><span class="srv-p">desde $20.000 / mes</span><small>Diseño inicial, hosting y mantenimiento incluidos.</small></div>
+        <div><b>Web completa</b><span class="srv-p">$250.000 a $600.000</span><small>Pago único, según secciones y funciones.</small></div>
+      </div>
+      <div class="srv-extra">Podés sumar: <span>Dominio propio</span><span>Botón de WhatsApp</span><span>Tienda / catálogo</span><span>Turnos y reservas</span><span>Cobros con Mercado Pago</span><span>Google Maps</span><span>Secciones adicionales</span></div>
+      <div class="srv-acts"><a href="planes.html?ir=web" class="sv-cta">Armá tu web</a><a href="planes.html#demo" class="srv-lnk">Mirá cómo quedaría tu web</a><a href="planes.html#webs-reales" class="srv-lnk">Webs que hicimos</a></div>
     </div>
-  </div>
+  </article>
+
+  <article class="srv" id="fotografia">
+    <div class="srv-img"><img src="mk-plato.webp" alt="Fotografía gastronómica hecha por ORIGEN" loading="lazy" width="941" height="1672"><span class="srv-n">03</span></div>
+    <div class="srv-body">
+      <div class="sec-ojo">Servicio 03 · Fotografía y video</div>
+      <h2 class="intro-tit">Contenido que <em>se ve como vos</em>.</h2>
+      <p class="srv-txt">Sesiones en tu local o en nuestro set de Jangadero 233. Contenido para usar durante meses.</p>
+      <ul class="srv-tabla">
+        <li><span>Sesión de fotografía · 1½ h</span><b>$200.000</b></li>
+        <li><span>Sesión de foto y video · 1½ h</span><b>$250.000</b></li>
+        <li><span>Set de estudio · 1½ h</span><b>$20.000</b></li>
+        <li><span>Set con producción · 1½ h</span><b>$50.000</b></li>
+      </ul>
+      <div class="srv-acts"><a href="planes.html?ir=contenido" class="sv-cta">Reservá una sesión</a><a href="#portafolio" class="srv-lnk">Ver trabajos</a></div>
+    </div>
+  </article>
 </div>
 
-<!-- SERVICIOS Y PLANES (alineado con planes.html) -->
-<div class="sv-wrap">
+<!-- Y ADEMÁS: todo lo que está en planes -->
+<div class="sv-wrap" id="ademas">
   <span id="precios" class="nav-anchor"></span>
   <div class="sv-head">
-    <div class="sec-ojo">Servicios y planes</div>
-    <div class="intro-tit">Elegí lo que <em>necesitás</em>.</div>
-    <p class="sv-sub">Planes por suscripción con extras que sumás a medida. El precio exacto lo armás vos en el configurador.</p>
+    <div class="sec-ojo">Y además</div>
+    <div class="intro-tit">Todo lo que <em>sumás</em> a tu plan.</div>
+    <p class="sv-sub">Servicios que podés agregar a tu plan o contratar aparte. El precio exacto lo armás en el configurador.</p>
   </div>
-  <div class="sv-grid">
-    <div class="sv-card sv-dest">
-      <div class="sv-badge">Lo más pedido</div>
-      <div class="sv-cat">Redes sociales</div>
-      <div class="sv-nom">Gestión de <em>redes</em></div>
-      <div class="sv-desde">desde <b>$250.000</b><span>/mes</span></div>
-      <ul class="sv-lista">
-        <li>8 a 12 publicaciones con diseño profesional</li>
-        <li>Textos, hashtags e historias</li>
-        <li>Reporte mensual de métricas</li>
-        <li>Extras: más redes, sesiones de foto y video, Meta Ads</li>
-      </ul>
-    </div>
-    <div class="sv-card">
-      <div class="sv-cat">Página web</div>
-      <div class="sv-nom">Tu web, <em>siempre al día</em></div>
-      <div class="sv-desde">desde <b>$20.000</b><span>/mes</span></div>
-      <ul class="sv-lista">
-        <li>Diseño inicial incluido, hosting y dominio</li>
-        <li>Tienda, turnos y cobros online como extras</li>
-        <li>O web completa en pago único: $250K a $600K</li>
-      </ul>
-    </div>
-    <div class="sv-card">
-      <div class="sv-cat">Producción de contenido</div>
-      <div class="sv-nom">Foto, video y <em>estudio</em></div>
-      <div class="sv-desde">desde <b>$20.000</b><span>pago único</span></div>
-      <ul class="sv-lista">
-        <li>Sesión de fotografía 1½ h: $200.000</li>
-        <li>Sesión de foto y video 1½ h: $250.000</li>
-        <li>Set de estudio 1½ h: $20.000</li>
-        <li>Set con producción 1½ h: $50.000</li>
-      </ul>
-    </div>
-    <div class="sv-card">
-      <div class="sv-cat">Aplicaciones</div>
-      <div class="sv-nom">App móvil <em>a medida</em></div>
-      <div class="sv-desde">desde <b>$400.000</b><span>pago único</span></div>
-      <ul class="sv-lista">
-        <li>Android e iOS, diseño propio</li>
-        <li>Panel de administración</li>
-        <li>Presupuesto según funciones</li>
-      </ul>
-    </div>
+  <div class="sv-grid ad-grid">
+    <div class="sv-card"><div class="sv-cat">Publicidad</div><div class="sv-nom">Campañas en <em>Meta Ads</em></div><p class="ad-txt">Gestión de pauta paga en Instagram y Facebook. El presupuesto de publicidad va aparte.</p></div>
+    <div class="sv-card"><div class="sv-cat">Atención</div><div class="sv-nom">Community <em>management</em></div><p class="ad-txt">Respondemos comentarios y mensajes por vos.</p></div>
+    <div class="sv-card"><div class="sv-cat">Google</div><div class="sv-nom">Maps y <em>ficha de negocio</em></div><p class="ad-txt">Que aparezcas en el mapa y en las búsquedas de Google.</p></div>
+    <div class="sv-card"><div class="sv-cat">Automatización</div><div class="sv-nom">Respuestas y <em>chatbot</em></div><p class="ad-txt">Respuestas automáticas en WhatsApp e Instagram.</p></div>
+    <div class="sv-card"><div class="sv-cat">Marca</div><div class="sv-nom">Branding e <em>identidad</em></div><p class="ad-txt">Logo, paleta, tipografías y manual de marca.</p></div>
+    <div class="sv-card"><div class="sv-cat">Redes</div><div class="sv-nom">Rebranding <em>de perfil</em></div><p class="ad-txt">Foto, bio, destacados, paleta y plantillas nuevas.</p></div>
+    <div class="sv-card"><div class="sv-cat">Aplicaciones</div><div class="sv-nom">App móvil <em>a medida</em></div><p class="ad-txt">Android e iOS con panel de administración. Desde $400.000, pago único.</p></div>
+    <div class="sv-card"><div class="sv-cat">Medición</div><div class="sv-nom">Reportes <em>mensuales</em></div><p class="ad-txt">Qué funcionó, cuánto creciste y qué ajustamos.</p></div>
   </div>
   <div class="sv-pie">
     <p>Pagando 6 meses tenés 1 mes gratis; pagando el año, 3 meses gratis.</p>
@@ -1338,7 +1403,7 @@ body{padding-bottom:56px}
     a.addEventListener('click',function(){ if(toggle) toggle.checked=false; });
   });
   // Scroll-spy: resaltar la sección activa en el menú
-  var map=['servicios','precios','proceso','portafolio'];
+  var map=['redes','web','fotografia','ademas','portafolio'];
   var links={};
   map.forEach(function(id){
     var l=document.querySelector('.mainnav .links a[href="#'+id+'"]');
@@ -1412,10 +1477,11 @@ body{padding-bottom:56px}
   });
 
   // ── Barra de timeline: progreso de scroll + capítulos reales ──
-  var sections = ['servicios','precios','proceso','contacto','portafolio']
+  var sections = ['redes','web','fotografia','ademas','proceso','portafolio']
     .map(function(id){ return document.getElementById(id); })
     .filter(Boolean);
-  var labels = sections.map(function(s){ return s.id.charAt(0).toUpperCase() + s.id.slice(1); });
+  var NOM={redes:'Redes',web:'Web',fotografia:'Fotografía',ademas:'Y además',proceso:'Proceso',portafolio:'Portafolio'};
+  var labels = sections.map(function(s){ return NOM[s.id]||s.id; });
   var chaptersEl = document.getElementById('otlChapters');
   var fillEl = document.getElementById('otlFill');
   var headEl = document.getElementById('otlHead');
@@ -1478,6 +1544,64 @@ body{padding-bottom:56px}
     el.addEventListener('pointerleave',function(){
       el.style.transition='transform .5s ease, box-shadow .5s';el.style.transform='';el.style.boxShadow='';});
   });
+})();
+</script>
+<script>
+/* Carrusel 3D de servicios de Marketing Digital */
+(function(){
+  var stage=document.getElementById('hcarStage'); if(!stage) return;
+  var SV=[
+    {label:'Redes Sociales',sub:'Gestión, contenido y estrategia',img:'pexels-magnus-mueller-1398178-2818118.jpg',href:'#redes'},
+    {label:'Páginas Web',sub:'Suscripción o a medida',img:'pexels-dimkidama-15115560.jpg',href:'#web'},
+    {label:'Fotografía',sub:'Sesiones para tu marca',img:'mk-plato.webp',href:'#fotografia'},
+    {label:'Video y Reels',sub:'Contenido que se mueve',img:'pexels-amar-39285064.jpg',href:'#fotografia'},
+    {label:'Set de Estudio',sub:'Por hora, en Jangadero 233',img:'tv-set.webp',href:'#fotografia'},
+    {label:'Branding y más',sub:'Identidad, Meta Ads, apps',img:'mk-el-zorzal-brand-board.webp',href:'#ademas'}
+  ];
+  var idx=0,ROT=26,car=document.getElementById('hcar'),dotsBox=document.getElementById('hcarDots'),countEl=document.getElementById('hcarCount');
+  var quieto=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cards=SV.map(function(s,i){
+    var b=document.createElement('button');
+    b.className='hcard'; b.style.background='url('+s.img+') center/cover no-repeat';
+    b.setAttribute('aria-label',s.label+': '+s.sub);
+    b.innerHTML='<span class="hc-glare"></span><span class="hc-label"><span class="hc-eyebrow">Servicio 0'+(i+1)+'</span><b></b><span class="hc-sub"></span><span class="hc-ver">Ver detalle ↓</span></span>';
+    b.querySelector('b').textContent=s.label; b.querySelector('.hc-sub').textContent=s.sub;
+    b.addEventListener('click',function(){
+      if(i===idx){var t=document.querySelector(s.href); if(t) t.scrollIntoView({behavior:quieto?'auto':'smooth'});}
+      else{idx=i;render();reset();}
+    });
+    stage.appendChild(b); return b;
+  });
+  var dots=SV.map(function(s,i){var d=document.createElement('button');d.setAttribute('aria-label','Ir a '+s.label);
+    d.addEventListener('click',function(){idx=i;render();reset();});dotsBox.appendChild(d);return d;});
+  function render(){
+    var n=SV.length,off=parseFloat(getComputedStyle(car).getPropertyValue('--off'))||16.5;
+    cards.forEach(function(c,i){
+      var d=i-idx; if(d>n/2)d-=n; else if(d<-n/2)d+=n;
+      var ad=Math.abs(d); c.classList.toggle('center',d===0);
+      var giro=d===0?0:(d<0?1:-1)*Math.min(ad,2)*ROT,prof=-Math.min(ad,3)*150,sc=d===0?1:Math.max(.8,1-ad*.12);
+      c.dataset.base='translate(-50%,-50%) translateX('+(d*off)+'vw) translateZ('+prof+'px) rotateY('+giro+'deg) scale('+sc+')';
+      c.style.transform=c.dataset.base; c.style.opacity=ad>2?0:1; c.style.zIndex=10-ad; c.tabIndex=ad>1?-1:0;
+    });
+    dots.forEach(function(d,i){if(i===idx)d.setAttribute('aria-current','true');else d.removeAttribute('aria-current');});
+    countEl.textContent='0'+(idx+1)+' / 0'+SV.length;
+  }
+  function next(){idx=(idx+1)%SV.length;render();}
+  function prev(){idx=(idx-1+SV.length)%SV.length;render();}
+  document.getElementById('hcarNext').addEventListener('click',function(){next();reset();});
+  document.getElementById('hcarPrev').addEventListener('click',function(){prev();reset();});
+  var auto=null; function reset(){if(quieto)return;clearInterval(auto);auto=setInterval(next,5000);}
+  car.addEventListener('mouseenter',function(){clearInterval(auto);}); car.addEventListener('mouseleave',reset);
+  car.addEventListener('focusin',function(){clearInterval(auto);});
+  var tx=null; stage.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;},{passive:true});
+  stage.addEventListener('touchend',function(e){if(tx===null)return;var dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40){dx<0?next():prev();reset();}tx=null;},{passive:true});
+  if(!quieto&&matchMedia('(hover:hover) and (pointer:fine)').matches) cards.forEach(function(c){
+    c.addEventListener('pointermove',function(e){if(!c.classList.contains('center'))return;var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      c.style.transition='transform .15s ease-out,opacity .6s,filter .6s';c.style.transform=c.dataset.base+' rotateX('+(-y*12)+'deg) rotateY('+(x*14)+'deg)';
+      c.style.setProperty('--mx',((x+.5)*100)+'%');c.style.setProperty('--my',((y+.5)*100)+'%');});
+    c.addEventListener('pointerleave',function(){c.style.transition='';c.style.transform=c.dataset.base;});
+  });
+  addEventListener('resize',render); render(); reset();
 })();
 </script>
 </body>

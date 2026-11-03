@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · tv.html · v2.2 · 2026-11-02 · sin concurso de canto (no anunciado) · suma Origen Deportes (pádel) -->
+<!-- ORIGEN · tv.html · v2.3 · 2026-11-02 · logo de Café de Ideas + primeros invitados · link a ORIGEN Tech -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -152,6 +152,14 @@ section{padding:110px 0;scroll-margin-top:70px;position:relative}
 .p-dep{background-image:repeating-linear-gradient(90deg,transparent 0 48%,rgba(228,246,22,.08) 48% 52%,transparent 52%),linear-gradient(180deg,transparent 60%,rgba(36,51,255,.18))}
 .p-esp{background-image:linear-gradient(rgba(228,246,22,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(228,246,22,.07) 1px,transparent 1px);background-size:28px 28px}
 .p-ver{display:flex;gap:14px;flex-wrap:wrap;margin-top:40px}
+.p-logo{width:min(380px,90%);height:auto;margin-bottom:4px;filter:drop-shadow(6px 6px 0 rgba(11,11,10,.35))}
+.invit{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:50px;align-items:center;margin-top:60px;padding:34px;border:2px solid var(--cafe);background:var(--ink2)}
+.invit img{width:100%;height:auto}
+.invit-h{font-size:clamp(36px,4.4vw,60px)}
+.invit-h span{color:var(--cafe)}
+.invit-l{list-style:none;margin-top:22px;border-top:1px solid var(--l)}
+.invit-l li{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:22px;padding:10px 0;border-bottom:1px solid var(--l)}
+@media(max-width:860px){.invit{grid-template-columns:minmax(0,1fr);gap:24px;padding:20px}}
 
 /* ── 3. EL SET ── */
 .set{background:var(--ink2)}
@@ -404,7 +412,7 @@ footer{padding:40px 0;border-top:1px solid var(--l)}
     <h2 class="h2 d" id="prog-h">Nuestros <span>programas</span></h2>
     <div class="posters">
       <a class="poster p-cafe tilt" href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener" aria-label="Café de Ideas, miércoles y domingos 19 horas. Ver en YouTube">
-        <div class="p-tit d">Café<br>de Ideas</div>
+        <img class="p-logo" src="logo-cafe.webp" alt="Café de Ideas" width="640" height="328">
         <div class="p-tag">PODCAST</div>
         <div class="p-cuando d">Miércoles y domingos <b>19:00 hs</b></div>
         <p class="p-desc">Conversaciones con referentes de Iguazú: empresa, comunidad y política.</p>
@@ -427,6 +435,16 @@ footer{padding:40px 0;border-top:1px solid var(--l)}
         <div class="p-cuando d">Torneos</div>
         <h3 class="p-tit d">Origen Esports</h3>
         <p class="p-desc">Torneos de videojuegos transmitidos en vivo, con relatos y premios.</p>
+      </div>
+    </div>
+    <div class="invit">
+      <img src="cafe-invitados.webp" alt="Primeros invitados de Café de Ideas: Alejandro Verón, Harry Foos, Mario Antonowicz y Lic. Marina González" width="900" height="900" loading="lazy">
+      <div>
+        <div class="eyebrow" style="color:var(--cafe)">Café de Ideas · Recién empezamos</div>
+        <h3 class="d invit-h">Nuestros primeros <span>invitados</span></h3>
+        <ul class="invit-l"><li>Alejandro Verón</li><li>Harry Foos</li><li>Mario Antonowicz</li><li>Lic. Marina González</li></ul>
+        <p class="lead">Episodios nuevos todos los miércoles y domingos a las 19 hs.</p>
+        <div class="acts"><a href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener" class="btn btn-l" style="background:var(--cafe)">▶ Ver los episodios</a></div>
       </div>
     </div>
     <div class="p-ver">
@@ -551,7 +569,7 @@ footer{padding:40px 0;border-top:1px solid var(--l)}
 <footer>
   <div class="wrap foot">
     <nav aria-label="Pie de página">
-      <a href="index.html">ORIGEN</a><a href="marketing.html">Marketing Digital</a><a href="planes.html">Planes</a><a href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener">YouTube</a><a href="https://instagram.com/tvorigen" target="_blank" rel="noopener">Instagram</a>
+      <a href="index.html">ORIGEN</a><a href="marketing.html">Marketing Digital</a><a href="tech.html">ORIGEN Tech</a><a href="planes.html">Planes</a><a href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener">YouTube</a><a href="https://instagram.com/tvorigen" target="_blank" rel="noopener">Instagram</a>
     </nav>
     <span>© 2026 ORIGEN TV · Jangadero 233 · Puerto Iguazú</span>
   </div>

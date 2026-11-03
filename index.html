@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · index.html · v4.1 · 2026-11-02 · portada con escenas por sector (estilo creativo) + inicio por sectores -->
+<!-- ORIGEN · index.html · v5.0 · 2026-11-02 · inicio = puerta a 3 páginas: Marketing Digital · ORIGEN TV · ORIGEN Tech -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -255,38 +255,15 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 .s-chip span{grid-row:span 2;font-family:'Cormorant',serif;font-style:italic;font-size:34px;color:var(--ac);line-height:1}
 .s-chip b{font-family:'Cormorant',serif;font-weight:400;font-size:24px;color:var(--tx)}
 .s-chip small{font-size:13px;color:var(--p)}
-.sector{display:grid;grid-template-columns:1fr 1fr;min-height:600px;padding:0;border-top:1px solid var(--l)}
-.sector:nth-child(even) .s-img{order:2}
-.s-img{position:relative;overflow:hidden;background:#000;min-height:340px}
-.s-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.62) saturate(.9)}
-.s-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(14,14,13,.55))}
-.s-img .s-logo{inset:auto;left:36px;top:36px;width:130px;height:auto;filter:drop-shadow(0 0 20px rgba(228,246,22,.4));z-index:2}
-.s-big{position:absolute;right:28px;bottom:6px;z-index:2;font-family:'Cormorant',serif;font-style:italic;font-size:clamp(110px,14vw,200px);line-height:1;color:var(--ac);opacity:.9}
-.s-body{padding:80px 64px;display:flex;flex-direction:column;justify-content:center}
 .s-num{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
-.sector h2{font-size:clamp(34px,4vw,52px);margin-bottom:18px}
-.sector h2 em{color:var(--ac)}
-.s-lead{font-size:17px;color:var(--p);line-height:1.7;max-width:52ch}
-.s-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0 26px;margin:26px 0 22px}
-.s-list li{font-size:14.5px;color:var(--tx);padding:9px 0 9px 18px;border-top:1px solid var(--l);position:relative}
-.s-list li::before{content:'';position:absolute;left:0;top:17px;width:6px;height:6px;background:var(--ac);transform:rotate(45deg)}
-.s-para{font-family:'Cormorant',serif;font-style:italic;font-size:18px;color:var(--tx);margin-bottom:26px}
-.s-acts{display:flex;gap:24px;flex-wrap:wrap;align-items:center}
 .s-btn{display:inline-flex;padding:15px 28px;background:var(--ac);color:#111;text-decoration:none;font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;transition:background .25s}
 .s-btn:hover{background:var(--tx)}
-.s-link{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx);text-decoration:none;border-bottom:1px solid var(--ac);padding-bottom:4px}
-.s-link:hover{color:var(--ac)}
 .cta-sect{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
 .cs{display:inline-flex;align-items:center;gap:12px;padding:16px 26px;border:1px solid var(--l);border-bottom:3px solid var(--ac);text-decoration:none;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--tx);transition:background .25s}
 .cs span{font-family:'Cormorant',serif;font-style:italic;font-size:22px;letter-spacing:0;color:var(--ac);text-transform:none}
 .cs:hover{background:var(--n)}
 @media(max-width:860px){
   .s-chips{grid-template-columns:1fr}
-  .sector{grid-template-columns:1fr;min-height:0}
-  .sector:nth-child(even) .s-img{order:0}
-  .s-img{min-height:260px}
-  .s-body{padding:50px 24px 64px}
-  .s-list{grid-template-columns:1fr}
 }
 
 /* ═══ v4.1 · escenas del hero (una por sector) ═══ */
@@ -376,6 +353,27 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 @media(prefers-reduced-motion:reduce){
   .esc-hero,.esc *,.fl{transition:none!important;animation:none!important}
 }
+
+/* ═══ v5.0 · directorio de sectores ═══ */
+.dir-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+.door{display:flex;flex-direction:column;border:1px solid var(--l);border-top:3px solid var(--ac);background:var(--n);transition:transform .3s,box-shadow .3s}
+.door:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+.door-img{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:#000}
+.door-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.6);transition:transform .6s}
+.door:hover .door-img img{transform:scale(1.05)}
+.door-img .door-logo{inset:auto;left:20px;top:18px;width:90px;height:auto;filter:drop-shadow(0 0 16px rgba(228,246,22,.4))}
+.door:hover .door-img .door-logo{transform:none}
+.door-img span{position:absolute;right:16px;bottom:-6px;font-family:'Cormorant',serif;font-style:italic;font-size:86px;line-height:1;color:var(--ac)}
+.door-body{padding:28px 26px 30px;display:flex;flex-direction:column;flex:1}
+.door h3{font-size:30px;margin-bottom:18px}
+.door h3 em{color:var(--ac);display:block}
+.door-list{list-style:none;margin-bottom:26px;flex:1}
+.door-list li{border-top:1px solid var(--l)}
+.door-list a{display:block;padding:10px 0 10px 18px;font-size:14.5px;color:var(--tx);text-decoration:none;position:relative;transition:color .2s,padding .2s}
+.door-list a::before{content:'';position:absolute;left:0;top:18px;width:6px;height:6px;background:var(--ac);transform:rotate(45deg)}
+.door-list a:hover{color:var(--ac);padding-left:24px}
+.door .s-btn{align-self:flex-start}
+@media(max-width:960px){.dir-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -386,9 +384,9 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   <input type="checkbox" id="navtoggle" class="navtoggle">
   <label for="navtoggle" class="navburger" aria-label="Menú"><span></span><span></span><span></span></label>
   <div class="links">
-    <a href="#marketing">Marketing Digital</a>
-    <a href="#tv" class="nav-tv">ORIGEN TV</a>
-    <a href="#tech">Tech</a>
+    <a href="marketing.html">Marketing Digital</a>
+    <a href="tv.html" class="nav-tv">ORIGEN TV</a>
+    <a href="tech.html">ORIGEN Tech</a>
     <a href="planes.html" class="nav-planes">Planes ✦</a>
     <a href="#nosotros">Nosotros</a>
     <span class="lang-sw" aria-label="Idioma"><a href="index.html" hreflang="es" lang="es" aria-current="page">ES</a><a href="pt.html" hreflang="pt-BR" lang="pt-BR">PT</a></span>
@@ -407,7 +405,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
       <div class="esc-eb">Sector 01 · Marketing Digital</div>
       <p class="esc-t d"><span class="ln"><span>Tu marca</span></span><span class="ln"><span class="ac">en redes</span></span></p>
       <p class="esc-s">Redes, contenido, publicidad, web y apps para que tu negocio se vea profesional y venda más.</p>
-      <div class="esc-acts"><a class="esc-btn" href="marketing.html">Ver Marketing Digital</a><a class="esc-lnk" href="planes.html">Armá tu plan →</a></div>
+      <div class="esc-acts"><a class="esc-btn" href="marketing.html">Entrar a Marketing Digital</a><a class="esc-lnk" href="planes.html">Armá tu plan →</a></div>
     </div>
     <img class="esc-obj o-cel" src="esc-celular.webp" alt="" width="269" height="422">
     <div class="esc-fl" aria-hidden="true">
@@ -444,7 +442,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
       <div class="esc-eb">Sector 03 · ORIGEN Tech</div>
       <p class="esc-t d"><span class="ln"><span>Tu casa,</span></span><span class="ln"><span class="ac">segura</span></span></p>
       <p class="esc-s">Cámaras, alarmas, domótica, GPS y sistemas para tu casa o tu negocio. Mirá todo desde el celular.</p>
-      <div class="esc-acts"><a class="esc-btn" href="planes.html?ir=tech">Ver planes de seguridad</a><a class="esc-lnk" href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20ORIGEN%20Tech%20%28seguridad%2C%20dom%C3%B3tica%20o%20sistemas%29." target="_blank" rel="noopener">Consultar →</a></div>
+      <div class="esc-acts"><a class="esc-btn" href="tech.html">Entrar a ORIGEN Tech</a><a class="esc-lnk" href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20ORIGEN%20Tech%20%28seguridad%2C%20dom%C3%B3tica%20o%20sistemas%29." target="_blank" rel="noopener">Consultar →</a></div>
     </div>
     <img class="esc-obj o-cam" src="esc-camara.webp" alt="" width="595" height="585">
     <div class="esc-fl" aria-hidden="true">
@@ -474,77 +472,70 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
     <h1>Una empresa, <em>tres sectores</em>.</h1>
     <p class="hero-sub">ORIGEN reúne en un mismo lugar tu marketing digital, una productora audiovisual y la tecnología de tu negocio. Elegí por dónde empezar.</p>
     <nav class="s-chips" aria-label="Sectores de ORIGEN">
-      <a href="#marketing" class="s-chip s-mk"><span>01</span><b>Marketing Digital</b><small>Redes, contenido, web y apps</small></a>
-      <a href="#tv" class="s-chip s-tv"><span>02</span><b>ORIGEN TV</b><small>Programas, vivos y auspicios</small></a>
-      <a href="#tech" class="s-chip s-tech"><span>03</span><b>ORIGEN Tech</b><small>Seguridad, domótica y sistemas</small></a>
+      <a href="marketing.html" class="s-chip s-mk"><span>01</span><b>Marketing Digital</b><small>Redes, contenido, web y apps</small></a>
+      <a href="tv.html" class="s-chip s-tv"><span>02</span><b>ORIGEN TV</b><small>Programas, vivos y auspicios</small></a>
+      <a href="tech.html" class="s-chip s-tech"><span>03</span><b>ORIGEN Tech</b><small>Seguridad, domótica y sistemas</small></a>
     </nav>
   </div>
 </section>
 
-<!-- ══════ SECTORES ══════ -->
-<div id="sectores">
-  <!-- 01 · MARKETING DIGITAL -->
-  <section id="marketing" class="sector s-mk" aria-labelledby="mk-h">
-    <div class="s-img"><img src="pexels-magnus-mueller-1398178-2818118.jpg" alt="" loading="lazy" width="1136" height="900"><span class="s-big" aria-hidden="true">01</span></div>
-    <div class="s-body">
-      <div class="s-num">Sector 01</div>
-      <h2 id="mk-h">ORIGEN <em>Marketing Digital</em></h2>
-      <p class="s-lead">Todo lo que tu marca necesita para verse profesional y vender más: redes, contenido, publicidad, página web y aplicaciones.</p>
-      <ul class="s-list">
-        <li>Gestión de redes y community management</li>
-        <li>Sesiones de foto y video</li>
-        <li>Set de estudio por hora</li>
-        <li>Publicidad en Meta Ads</li>
-        <li>Páginas web y tiendas online</li>
-        <li>Aplicaciones a medida</li>
-        <li>Branding e identidad de marca</li>
-        <li>Reportes mensuales</li>
-      </ul>
-      <p class="s-para">Para negocios que quieren crecer y verse profesionales.</p>
-      <div class="s-acts"><a href="marketing.html" class="s-btn">Ver Marketing Digital →</a><a href="planes.html" class="s-link">Armá tu plan y mirá precios</a></div>
+<!-- ══════ TODO LO QUE HACEMOS: un directorio, tres puertas ══════ -->
+<section id="sectores" class="dir" aria-labelledby="dir-h">
+  <div class="wrap">
+    <div class="sec-eyebrow">Todo lo que hacemos</div>
+    <h2 class="sec-h" id="dir-h">Elegí lo que te <em>interesa</em>.</h2>
+    <div class="dir-grid">
+      <article class="door s-mk">
+        <a class="door-img" href="marketing.html" tabindex="-1" aria-hidden="true"><img src="pexels-magnus-mueller-1398178-2818118.jpg" alt="" loading="lazy" width="1136" height="900"><span>01</span></a>
+        <div class="door-body">
+          <div class="s-num">Sector 01</div>
+          <h3>ORIGEN <em>Marketing Digital</em></h3>
+          <ul class="door-list">
+            <li><a href="marketing.html#redes">Redes sociales</a></li>
+            <li><a href="marketing.html#web">Páginas web</a></li>
+            <li><a href="marketing.html#fotografia">Fotografía y video</a></li>
+            <li><a href="marketing.html#fotografia">Set de estudio por hora</a></li>
+            <li><a href="marketing.html#ademas">Meta Ads y Google Maps</a></li>
+            <li><a href="marketing.html#ademas">Branding y aplicaciones</a></li>
+          </ul>
+          <a href="marketing.html" class="s-btn">Entrar a Marketing Digital →</a>
+        </div>
+      </article>
+      <article class="door s-tv">
+        <a class="door-img" href="tv.html" tabindex="-1" aria-hidden="true"><img src="tv-set.webp" alt="" loading="lazy" width="720" height="1280"><img class="door-logo" src="logo-tv.webp" alt="" loading="lazy" width="360" height="280"><span>02</span></a>
+        <div class="door-body">
+          <div class="s-num">Sector 02</div>
+          <h3>ORIGEN <em>TV</em></h3>
+          <ul class="door-list">
+            <li><a href="tv.html#programas">Café de Ideas · mié y dom 19 hs</a></li>
+            <li><a href="tv.html#programas">Heberdá · viernes 10 hs en vivo</a></li>
+            <li><a href="tv.html#programas">Origen Esports</a></li>
+            <li><a href="tv.html#programas">Origen Deportes · pádel en vivo</a></li>
+            <li><a href="tv.html#auspicios">Auspicios para marcas</a></li>
+            <li><a href="tv.html#set">Transmisión de eventos</a></li>
+          </ul>
+          <a href="tv.html" class="s-btn">Entrar a ORIGEN TV →</a>
+        </div>
+      </article>
+      <article class="door s-tech">
+        <a class="door-img" href="tech.html" tabindex="-1" aria-hidden="true"><img src="pexels-danielzh1-14596555.jpg" alt="" loading="lazy" width="1600" height="1067"><span>03</span></a>
+        <div class="door-body">
+          <div class="s-num">Sector 03</div>
+          <h3>ORIGEN <em>Tech</em></h3>
+          <ul class="door-list">
+            <li><a href="tech.html#camaras">Cámaras · desde $30.000/mes</a></li>
+            <li><a href="tech.html#camaras">Alarmas con aviso al celular</a></li>
+            <li><a href="tech.html#domotica">Domótica y cerraduras</a></li>
+            <li><a href="tech.html#wifi">Redes y WiFi</a></li>
+            <li><a href="tech.html#gps">Rastreo GPS de vehículos</a></li>
+            <li><a href="tech.html">Visita técnica sin cargo</a></li>
+          </ul>
+          <a href="tech.html" class="s-btn">Entrar a ORIGEN Tech →</a>
+        </div>
+      </article>
     </div>
-  </section>
-
-  <!-- 02 · ORIGEN TV -->
-  <section id="tv" class="sector s-tv" aria-labelledby="tv-h">
-    <div class="s-img"><img src="tv-set.webp" alt="" loading="lazy" width="720" height="1280"><img class="s-logo" src="logo-tv.webp" alt="" loading="lazy" width="360" height="280"><span class="s-big" aria-hidden="true">02</span></div>
-    <div class="s-body">
-      <div class="s-num">Sector 02</div>
-      <h2 id="tv-h">ORIGEN <em>TV</em></h2>
-      <p class="s-lead">Nuestra productora digital: programas propios, vivos y transmisiones en YouTube e Instagram, con espacios para que las marcas auspicien.</p>
-      <ul class="s-list">
-        <li>Café de Ideas · miércoles y domingos 19 hs</li>
-        <li>Heberdá · viernes 10 hs en vivo</li>
-        <li>Origen Deportes · transmisiones de pádel</li>
-        <li>Origen Esports</li>
-        <li>Auspicios y entrevistas patrocinadas</li>
-        <li>Transmisión en vivo de eventos</li>
-      </ul>
-      <p class="s-para">Para quien quiere mirar, y para marcas que quieren estar donde la gente mira.</p>
-      <div class="s-acts"><a href="tv.html" class="s-btn">Entrar a ORIGEN TV →</a><a href="tv.html#auspicios" class="s-link">Ver auspicios</a></div>
-    </div>
-  </section>
-
-  <!-- 03 · ORIGEN TECH -->
-  <section id="tech" class="sector s-tech" aria-labelledby="tech-h">
-    <div class="s-img"><img src="pexels-danielzh1-14596555.jpg" alt="" loading="lazy" width="1600" height="1067"><span class="s-big" aria-hidden="true">03</span></div>
-    <div class="s-body">
-      <div class="s-num">Sector 03</div>
-      <h2 id="tech-h">ORIGEN <em>Tech</em></h2>
-      <p class="s-lead">Tecnología para tu casa o tu negocio: seguridad, automatización, conectividad y sistemas a medida.</p>
-      <ul class="s-list">
-        <li>Cámaras de seguridad y videovigilancia</li>
-        <li>Alarmas inteligentes</li>
-        <li>Domótica: casa y negocio inteligente</li>
-        <li>Rastreo GPS de vehículos</li>
-        <li>Instalación y optimización de redes</li>
-        <li>Sistemas y automatizaciones a medida</li>
-      </ul>
-      <p class="s-para">Para hogares y comercios que buscan control, seguridad y eficiencia.</p>
-      <div class="s-acts"><a href="planes.html?ir=tech" class="s-btn">Ver planes de seguridad →</a><a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20soluciones%20de%20tecnolog%C3%ADa%20%28c%C3%A1maras%2C%20alarmas%2C%20dom%C3%B3tica%2C%20GPS%20o%20sistemas%29." target="_blank" rel="noopener" class="s-link">Consultar por WhatsApp</a></div>
-    </div>
-  </section>
-</div>
+  </div>
+</section>
 
 <!-- ══════ NOSOTROS ══════ -->
 <section id="nosotros" class="nos">
@@ -618,7 +609,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
           <h5>Explorar</h5>
           <a href="marketing.html">Marketing Digital</a>
           <a href="tv.html">ORIGEN TV</a>
-          <a href="#tech">ORIGEN Tech</a>
+          <a href="tech.html">ORIGEN Tech</a>
           <a href="planes.html">Planes</a>
           <a href="#nosotros">Nosotros</a>
           <a href="#proceso">Cómo trabajamos</a>
@@ -693,7 +684,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   document.querySelectorAll('.mainnav .links a').forEach(function(a){
     a.addEventListener('click',function(){ if(toggle) toggle.checked=false; });
   });
-  var map=['marketing','tv','tech','nosotros','contacto'];
+  var map=['sectores','nosotros','contacto'];
   var links={};
   map.forEach(function(id){var l=document.querySelector('.mainnav .links a[href="#'+id+'"]');if(l)links[id]=l;});
   var secs=map.map(function(id){return document.getElementById(id);}).filter(Boolean);
