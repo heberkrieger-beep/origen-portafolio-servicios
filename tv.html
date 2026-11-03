@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<!-- ORIGEN · tv.html · v1.0 · 2026-11-02 · Origen TV: programación + auspicios -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORIGEN TV · Productora digital de Puerto Iguazú</title>
+<link rel="canonical" href="https://agencia-origen.online/tv.html">
+<meta name="description" content="ORIGEN TV, la productora digital de Puerto Iguazú: Café de Ideas, Heberdá en vivo, concursos y esports. Programación, dónde vernos y paquetes de auspicio para marcas.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ORIGEN TV · Productora digital">
+<meta property="og:description" content="Programas, transmisiones en vivo y auspicios para marcas. Puerto Iguazú, Misiones.">
+<meta property="og:image" content="https://agencia-origen.online/og-preview.jpg">
+<meta property="og:url" content="https://agencia-origen.online/tv.html">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "name": "ORIGEN TV",
+ "url": "https://agencia-origen.online/tv.html",
+ "parentOrganization": {"@id": "https://agencia-origen.online/#negocio"},
+ "sameAs": ["https://www.youtube.com/@Agencia-Origen-Tv","https://instagram.com/tvorigen"]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* mismo sistema que index, con acento amarillo Origen TV */
+  --b:#0E0E0D; --n:#0A0A0A; --tx:#F1ECE0; --p:#A79F92; --d:#FFC800; --dk:#FFD23F;
+  --l:rgba(255,255,255,0.10); --cream:#1A1917;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{max-width:100%;overflow-x:clip;background:var(--b)}
+body{font-family:'Jost',sans-serif;font-weight:300;color:var(--tx);line-height:1.6;-webkit-font-smoothing:antialiased}
+em{font-family:'Cormorant',serif;font-style:italic}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:2px solid var(--d);outline-offset:3px}
+h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.skip{position:absolute;left:-999px;top:0;background:var(--d);color:var(--n);padding:10px 16px;z-index:2000}
+.skip:focus{left:10px}
+
+/* ── NAV (igual que index) ── */
+.mainnav{position:sticky;top:0;z-index:1000;background:rgba(14,14,13,0.88);backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--l);display:flex;align-items:center;justify-content:space-between;padding:16px 40px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand-logo{height:44px;width:auto;display:block}
+.brand-tv{font-size:10px;letter-spacing:3px;font-weight:500;background:var(--d);color:var(--n);padding:4px 8px}
+.mainnav .links{display:flex;gap:30px;align-items:center}
+.mainnav .links a{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);text-decoration:none;padding:6px 0;position:relative;transition:color .25s}
+.mainnav .links a:hover{color:var(--tx)}
+.mainnav .links a:not(.nav-cta)::after{content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--d);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.mainnav .links a:not(.nav-cta):hover::after{transform:scaleX(1)}
+.nav-cta{background:var(--d);color:var(--n)!important;padding:9px 20px!important;letter-spacing:2px;font-weight:400;transition:background .25s}
+.nav-cta:hover{background:var(--tx)}
+.navtoggle,.navburger{display:none}
+section{padding:100px 0;border-top:1px solid var(--l);scroll-margin-top:74px}
+
+/* ── HERO con cubo 3D ── */
+.hero{padding:90px 0;background:radial-gradient(circle at 75% 45%,rgba(255,200,0,.10),transparent 55%),var(--n);border-top:none}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.eyebrow{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--dk);margin-bottom:22px}
+.hero h1{font-size:clamp(36px,5vw,66px);margin-bottom:22px}
+.hero h1 em,.sec-h em{color:var(--dk)}
+.hero-sub{font-size:clamp(16px,1.6vw,20px);color:var(--p);max-width:46ch}
+.actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:36px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 32px;font-size:12px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;transition:.3s}
+.btn-y{background:var(--d);color:var(--n);font-weight:400}
+.btn-y:hover{background:var(--tx)}
+.btn-o{border:1px solid var(--l);color:var(--tx)}
+.btn-o:hover{border-color:var(--d);color:var(--d)}
+
+.cubo-esc{height:340px;display:flex;align-items:center;justify-content:center;perspective:900px}
+.cubo{--s:170px;width:var(--s);height:var(--s);position:relative;transform-style:preserve-3d;animation:gira 16s linear infinite}
+.cubo span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Jost';font-weight:500;letter-spacing:4px;font-size:22px;
+  border:2px solid var(--d)}
+.cubo .y{background:var(--d);color:var(--n)}
+.cubo .k{background:#0A0A0A;color:var(--d)}
+.cubo span:nth-child(1){transform:translateZ(calc(var(--s)/2))}
+.cubo span:nth-child(2){transform:rotateY(180deg) translateZ(calc(var(--s)/2))}
+.cubo span:nth-child(3){transform:rotateY(90deg) translateZ(calc(var(--s)/2))}
+.cubo span:nth-child(4){transform:rotateY(-90deg) translateZ(calc(var(--s)/2))}
+.cubo span:nth-child(5){transform:rotateX(90deg) translateZ(calc(var(--s)/2))}
+.cubo span:nth-child(6){transform:rotateX(-90deg) translateZ(calc(var(--s)/2))}
+@keyframes gira{from{transform:rotateX(-22deg) rotateY(0)}to{transform:rotateX(-22deg) rotateY(360deg)}}
+@media(prefers-reduced-motion:reduce){.cubo{animation:none;transform:rotateX(-22deg) rotateY(-35deg)}}
+
+/* ── comunes ── */
+.sec-eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--dk);margin-bottom:18px}
+.sec-h{font-size:clamp(30px,4.5vw,52px);margin-bottom:22px}
+.sec-lead{font-size:18px;color:var(--p);max-width:62ch;line-height:1.7}
+.nota{font-size:12px;color:var(--p);margin-top:18px;letter-spacing:.5px}
+
+/* ── métricas ── */
+.met{background:var(--cream)}
+.met-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:40px}
+.m{padding:30px 26px;border:1px solid var(--l);margin:-.5px}
+.m b{display:block;font-family:'Cormorant',serif;font-weight:400;font-size:46px;color:var(--dk);line-height:1}
+.m span{display:block;font-size:13.5px;color:var(--p);margin-top:10px}
+
+/* ── programación ── */
+.prog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:50px}
+.pg{padding:40px 38px;border:1px solid var(--l);margin:-.5px;transition:background .3s}
+.pg:hover{background:var(--cream)}
+.pg-when{display:inline-block;font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;color:var(--n);background:var(--d);padding:5px 10px;margin-bottom:20px;font-weight:400}
+.pg-when.off{background:transparent;color:var(--p);border:1px solid var(--l)}
+.pg h3{font-size:34px;margin-bottom:12px}
+.pg p{font-size:15px;color:var(--p);line-height:1.7}
+.vivo{display:inline-flex;align-items:center;gap:6px;margin-left:8px}
+.vivo::before{content:'';width:7px;height:7px;border-radius:50%;background:#E5322D}
+.ver{display:flex;gap:14px;flex-wrap:wrap;margin-top:40px}
+
+/* ── auspicios ── */
+.aus{background:var(--cream)}
+.pk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:46px}
+.pk{padding:34px 30px;border:1px solid var(--l);margin:-.5px;display:flex;flex-direction:column;background:var(--b)}
+.pk-prog{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--dk);margin-bottom:12px}
+.pk h3{font-size:26px;margin-bottom:6px}
+.pk-precio{font-family:'Cormorant',serif;font-size:30px;color:var(--tx);margin:10px 0 4px}
+.pk-per{font-size:12px;color:var(--p)}
+.pk-cupo{font-size:12px;color:var(--p);margin:14px 0 22px;flex:1}
+.pk a{align-self:flex-start;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;color:var(--tx);border-bottom:1px solid var(--tx);padding-bottom:5px;transition:.25s}
+.pk a:hover{color:var(--d);border-color:var(--d)}
+.pk.top{outline:1px solid var(--d);outline-offset:-1px;z-index:1}
+@media(min-width:861px){.pk.top{grid-column:span 2}}
+.pk.top .pk-prog::after{content:' · Más completo';color:var(--tx)}
+.lugares{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;list-style:none}
+.lugares li{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;border:1px solid var(--l);padding:8px 14px;color:var(--tx)}
+.sub-h{font-family:'Cormorant',serif;font-size:28px;font-weight:400;margin-top:70px}
+.cond{list-style:none;margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+.cond li{font-size:14.5px;color:var(--p);padding:12px 0 12px 22px;border-top:1px solid var(--l);position:relative}
+.cond li::before{content:'';position:absolute;left:0;top:20px;width:6px;height:6px;background:var(--d)}
+
+/* ── producción para terceros ── */
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+
+/* ── CTA + footer ── */
+.cta-final{text-align:center}
+.cta-final h2{font-size:clamp(32px,5vw,58px);margin-bottom:20px}
+.cta-final h2 em{color:var(--dk)}
+.cta-final p{font-size:18px;color:var(--p);max-width:52ch;margin:0 auto 36px}
+footer{background:var(--n);padding:50px 0 36px;border-top:1px solid var(--l)}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:center}
+.foot a{font-size:13px;color:rgba(255,255,255,.75);text-decoration:none;margin-right:22px}
+.foot a:hover{color:var(--d)}
+.foot span{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+/* ── responsive ── */
+@media(max-width:860px){
+  .hero-grid,.prod-grid{grid-template-columns:1fr;gap:30px}
+  .cubo-esc{height:260px;order:-1}
+  .cubo{--s:130px}
+  .met-grid{grid-template-columns:1fr 1fr}
+  .prog-grid,.pk-grid{grid-template-columns:1fr}
+  .pk-grid{grid-template-columns:1fr 1fr}
+  .cond{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .wrap{padding:0 24px}
+  section{padding:64px 0}
+  .hero{padding:50px 0 64px}
+  .pk-grid{grid-template-columns:1fr}
+  .m b{font-size:38px}
+  .pg{padding:32px 26px}
+  .mainnav{padding:14px 22px;flex-wrap:wrap}
+  .navburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+  .navburger span{display:block;width:24px;height:2px;background:var(--tx);transition:.3s}
+  .mainnav .links{display:none;flex-direction:column;width:100%;gap:0;order:3;margin-top:8px}
+  .navtoggle:checked ~ .links{display:flex}
+  .mainnav .links a{font-size:12px;letter-spacing:2px;padding:14px 0;border-top:1px solid var(--l);width:100%}
+  .mainnav .nav-cta{text-align:center;margin-top:10px;padding:14px!important;border-top:none!important}
+  .actions{flex-direction:column;align-items:stretch}
+  .btn{justify-content:center}
+}
+</style>
+</head>
+<body>
+<a href="#prog" class="skip">Saltar al contenido</a>
+
+<nav class="mainnav" aria-label="Principal">
+  <a href="index.html" class="brand" aria-label="Volver a ORIGEN"><img src="logo-origen.png" alt="ORIGEN" class="brand-logo"><span class="brand-tv">TV</span></a>
+  <input type="checkbox" id="navtoggle" class="navtoggle" aria-label="Abrir menú">
+  <label for="navtoggle" class="navburger" aria-hidden="true"><span></span><span></span><span></span></label>
+  <div class="links">
+    <a href="#prog">Programación</a>
+    <a href="#ver">Dónde vernos</a>
+    <a href="#auspicios">Auspicios</a>
+    <a href="index.html">ORIGEN</a>
+    <a href="https://wa.me/5493757656783?text=Hola%20Origen%20TV%2C%20quiero%20consultar%20por%20auspicios." target="_blank" rel="noopener" class="nav-cta">Quiero auspiciar</a>
+  </div>
+</nav>
+
+<!-- ══════ HERO ══════ -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">ORIGEN TV · Productora digital</div>
+      <h1>Lo que pasa en Iguazú, <em>contado desde acá</em>.</h1>
+      <p class="hero-sub">Programas, transmisiones en vivo y contenido local en YouTube e Instagram. Y un lugar para que tu marca esté donde la gente mira.</p>
+      <div class="actions">
+        <a href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener" class="btn btn-y">Ver en YouTube ▶</a>
+        <a href="#auspicios" class="btn btn-o">Auspiciá un programa</a>
+      </div>
+    </div>
+    <!-- PENDIENTE: reemplazar por el logo del cubo de Origen TV cuando esté -->
+    <div class="cubo-esc" aria-hidden="true">
+      <div class="cubo"><span class="y">ORIGEN</span><span class="k">TV</span><span class="k">TV</span><span class="y">ORIGEN</span><span class="y">TV</span><span class="k">ORIGEN</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════ MÉTRICAS ══════ -->
+<section class="met" aria-labelledby="met-h">
+  <div class="wrap">
+    <div class="sec-eyebrow">Alcance real</div>
+    <h2 class="sec-h" id="met-h">La gente <em>ya está mirando</em>.</h2>
+    <div class="met-grid">
+      <div class="m"><b>33,6 mil</b><span>visualizaciones</span></div>
+      <div class="m"><b>11,8 mil</b><span>cuentas alcanzadas</span></div>
+      <div class="m"><b>75%</b><span>del alcance llega a personas que todavía no nos siguen</span></div>
+      <div class="m"><b>+242</b><span>seguidores nuevos</span></div>
+    </div>
+    <p class="nota">Instagram @tvorigen · últimos 30 días al 1/11/2026.</p>
+  </div>
+</section>
+
+<!-- ══════ PROGRAMACIÓN ══════ -->
+<section id="prog" aria-labelledby="prog-h">
+  <div class="wrap">
+    <div class="sec-eyebrow">Programación</div>
+    <h2 class="sec-h" id="prog-h">Nuestros <em>programas</em>.</h2>
+    <div class="prog-grid">
+      <article class="pg">
+        <div class="pg-when">Miércoles y domingos · 19 hs</div>
+        <h3>Café de Ideas</h3>
+        <p>Conversaciones con referentes de Iguazú: política, empresa y comunidad.</p>
+      </article>
+      <article class="pg">
+        <div class="pg-when">Viernes · 10 hs <span class="vivo">En vivo</span></div>
+        <h3>Heberdá</h3>
+        <p>El vivo de los viernes por la mañana: actualidad, invitados y lo que se habla en la ciudad.</p>
+      </article>
+      <article class="pg">
+        <div class="pg-when off">Próxima temporada</div>
+        <h3>Concurso de canto</h3>
+        <p>Voces de la región compitiendo en el estudio, con público, jurado y final presencial.</p>
+      </article>
+      <article class="pg">
+        <div class="pg-when off">Torneos</div>
+        <h3>Origen Esports</h3>
+        <p>Torneos de videojuegos transmitidos en vivo, con relatos y premios para los jugadores.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DÓNDE VER ══════ -->
+<section id="ver" class="met" aria-labelledby="ver-h">
+  <div class="wrap">
+    <div class="sec-eyebrow">Dónde vernos</div>
+    <h2 class="sec-h" id="ver-h">En vivo y <em>cuando quieras</em>.</h2>
+    <p class="sec-lead">Los programas completos y los vivos están en YouTube. Los mejores momentos, en Reels e historias.</p>
+    <div class="ver">
+      <a href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener" class="btn btn-y">YouTube · @Agencia-Origen-Tv</a>
+      <a href="https://instagram.com/tvorigen" target="_blank" rel="noopener" class="btn btn-o">Instagram · @tvorigen</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ AUSPICIOS ══════ -->
+<section id="auspicios" class="aus" aria-labelledby="aus-h">
+  <div class="wrap">
+    <div class="sec-eyebrow">Auspicios</div>
+    <h2 class="sec-h" id="aus-h">Tu marca, <em>donde la gente mira</em>.</h2>
+    <p class="sec-lead">Elegí el programa y el nivel de presencia. Cupos limitados por programa para que cada marca se vea.</p>
+
+    <div class="pk-grid">
+      <div class="pk"><div class="pk-prog">Café de Ideas</div><h3>Principal</h3><div class="pk-precio">$220.000</div><div class="pk-per">por mes</div><div class="pk-cupo">1 cupo</div><a href="#" data-pack="Café de Ideas · Principal ($220.000/mes)">Consultar →</a></div>
+      <div class="pk"><div class="pk-prog">Café de Ideas</div><h3>Colaborador</h3><div class="pk-precio">$75.000</div><div class="pk-per">por mes</div><div class="pk-cupo">3 cupos</div><a href="#" data-pack="Café de Ideas · Colaborador ($75.000/mes)">Consultar →</a></div>
+      <div class="pk"><div class="pk-prog">Heberdá · Viernes en vivo</div><h3>Auspicio del vivo</h3><div class="pk-precio">$180.000</div><div class="pk-per">por mes</div><div class="pk-cupo">1 cupo</div><a href="#" data-pack="Heberdá · Auspicio del vivo ($180.000/mes)">Consultar →</a></div>
+      <div class="pk"><div class="pk-prog">Concurso de canto</div><h3>Presentador</h3><div class="pk-precio">$1.800.000</div><div class="pk-per">por temporada</div><div class="pk-cupo">1 cupo · incluye entrevista patrocinada</div><a href="#" data-pack="Concurso de canto · Presentador ($1.800.000/temporada)">Consultar →</a></div>
+      <div class="pk"><div class="pk-prog">Concurso de canto</div><h3>Oro · Plata · Bronce</h3><div class="pk-precio">$900.000 · $450.000</div><div class="pk-per">por temporada · Bronce por canje</div><div class="pk-cupo">2 Oro · 4 Plata · 6 Bronce</div><a href="#" data-pack="Concurso de canto · Oro / Plata / Bronce">Consultar →</a></div>
+      <div class="pk"><div class="pk-prog">Origen Esports</div><h3>Torneo presentado por</h3><div class="pk-precio">$375.000</div><div class="pk-per">por torneo · Colaborador $120.000</div><div class="pk-cupo">1 presentador · 4 colaboradores</div><a href="#" data-pack="Origen Esports · Torneo">Consultar →</a></div>
+      <div class="pk top"><div class="pk-prog">Origen TV 360</div><h3>Toda la programación</h3><div class="pk-precio">$450.000</div><div class="pk-per">por mes · mínimo 3 meses</div><div class="pk-cupo">Presencia en todos los programas que elijas · incluye entrevista patrocinada</div><a href="#" data-pack="Origen TV 360 ($450.000/mes)">Consultar →</a></div>
+      <div class="pk"><div class="pk-prog">Formato aparte</div><h3>Entrevista patrocinada</h3><div class="pk-precio">$200.000</div><div class="pk-per">pago único</div><div class="pk-cupo">Entrevista de 20–30 min a tu empresa + 3 Reels + historias. Señalada como contenido patrocinado. Solo marcas y empresas.</div><a href="#" data-pack="Entrevista patrocinada ($200.000)">Consultar →</a></div>
+    </div>
+
+    <h3 class="sub-h">Dónde aparece tu marca</h3>
+    <ul class="lugares">
+      <li>Naming</li><li>Mención en cámara</li><li>Gráfica en pantalla</li><li>Set</li><li>Spot</li><li>Reels y Shorts</li><li>Historias</li><li>Evento presencial</li>
+    </ul>
+
+    <h3 class="sub-h">Condiciones</h3>
+    <ul class="cond">
+      <li>Planes mensuales: mínimo 3 meses, pago en los primeros 5 días de cada mes.</li>
+      <li>Concurso: 50% al firmar y 50% al comenzar la temporada.</li>
+      <li>Esports: pago al confirmar el torneo.</li>
+      <li>Valores en pesos, con actualización trimestral.</li>
+      <li>Cada marca elige en qué programas aparece y en cuáles no.</li>
+      <li>Independencia editorial: el auspicio no define el contenido de los programas.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════ PRODUCCIÓN PARA TERCEROS ══════ -->
+<section aria-labelledby="prod-h">
+  <div class="wrap prod-grid">
+    <div>
+      <div class="sec-eyebrow">También producimos</div>
+      <h2 class="sec-h" id="prod-h">Tu evento, <em>en vivo</em>.</h2>
+    </div>
+    <div>
+      <p class="sec-lead">Transmitimos en vivo eventos, presentaciones y torneos, con cámaras, sonido y gráfica, desde nuestro estudio o donde se haga.</p>
+      <div class="actions"><a href="https://wa.me/5493757656783?text=Hola%20Origen%20TV%2C%20quiero%20consultar%20por%20la%20transmisi%C3%B3n%20de%20un%20evento." target="_blank" rel="noopener" class="btn btn-o">Consultar transmisión</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ CTA ══════ -->
+<section class="cta-final met" aria-labelledby="cta-h">
+  <div class="wrap">
+    <h2 id="cta-h">Sumá tu marca a <em>ORIGEN TV</em>.</h2>
+    <p>Te mandamos la propuesta completa con métricas y te ayudamos a elegir el programa que mejor le va a tu público.</p>
+    <a href="https://wa.me/5493757656783?text=Hola%20Origen%20TV%2C%20quiero%20recibir%20la%20propuesta%20de%20auspicios." target="_blank" rel="noopener" class="btn btn-y">Pedir propuesta por WhatsApp</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <nav aria-label="Pie de página">
+      <a href="index.html">ORIGEN</a><a href="marketing.html">Marketing Digital</a><a href="planes.html">Planes</a><a href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener">YouTube</a><a href="https://instagram.com/tvorigen" target="_blank" rel="noopener">Instagram</a>
+    </nav>
+    <span>© 2026 ORIGEN TV · Jangadero 233 · Puerto Iguazú</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Cada paquete abre WhatsApp con el paquete elegido ya escrito
+  var base='https://wa.me/5493757656783?text=';
+  document.querySelectorAll('[data-pack]').forEach(function(a){
+    a.href=base+encodeURIComponent('Hola Origen TV, quiero consultar por el auspicio: '+a.dataset.pack+'.');
+    a.target='_blank'; a.rel='noopener';
+    a.setAttribute('aria-label','Consultar por '+a.dataset.pack);
+  });
+  var t=document.getElementById('navtoggle');
+  document.querySelectorAll('.mainnav .links a').forEach(function(a){a.addEventListener('click',function(){t.checked=false;});});
+})();
+</script>
+</body>
+</html>

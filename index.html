@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · index.html · v3.3 · 2026-10-04 · carrusel 3D + Google + selector ES/PT -->
+<!-- ORIGEN · index.html · v3.4 · 2026-11-02 · tres sectores: Marketing Digital · Origen TV · Tech -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -86,6 +86,7 @@ h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
 .brand-logo{height:44px;width:auto;display:block}
 .nav-planes{color:var(--dk)!important;font-weight:400}
 .nav-planes:hover{color:var(--d)!important}
+.nav-tv{color:#FFC800!important}
 .mainnav .links{display:flex;gap:30px;align-items:center}
 .mainnav .links a{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);
   text-decoration:none;padding:6px 0;position:relative;transition:color .25s}
@@ -186,7 +187,11 @@ section{padding:100px 0;border-top:1px solid var(--l)}
 .vstat p{font-size:14.5px;color:var(--p)}
 
 /* ── ÁREAS ── */
-.areas-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:50px}
+.areas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:50px}
+.area-tv .area-num,.area-tv h3 em{color:#FFC800}
+.area-tv .area-list li::before{border-color:#FFC800}
+.area-tv .area-cta:hover{color:#FFC800;border-color:#FFC800}
+@media(max-width:1100px) and (min-width:861px){.area{padding:40px 28px}}
 .area{padding:46px 42px;border:1px solid var(--l);margin:-0.5px;position:relative;transition:background .3s}
 .area:hover{background:var(--cream)}
 .area-num{font-family:'Cormorant',serif;font-style:italic;font-size:20px;color:var(--dk);margin-bottom:18px}
@@ -312,8 +317,8 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
     <a href="#areas">Servicios</a>
     <a href="planes.html" class="nav-planes">Planes ✦</a>
     <a href="#nosotros">Nosotros</a>
-    <a href="#proceso">Cómo trabajamos</a>
     <a href="marketing.html">Portafolio</a>
+    <a href="tv.html" class="nav-tv">Origen TV</a>
     <span class="lang-sw" aria-label="Idioma"><a href="index.html" hreflang="es" lang="es" aria-current="page">ES</a><a href="pt.html" hreflang="pt-BR" lang="pt-BR">PT</a></span>
     <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20pedir%20una%20propuesta." target="_blank" rel="noopener" class="nav-cta">Pedí una propuesta</a>
   </div>
@@ -372,19 +377,20 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 <section id="areas">
   <div class="wrap">
     <div class="sec-eyebrow">Nuestras áreas</div>
-    <h2 class="sec-h">Dos frentes, un mismo <em>criterio</em>.</h2>
-    <p class="sec-lead">ORIGEN trabaja hoy en dos grandes áreas. Cada una resuelve un lado de tu negocio — y juntas, lo hacen crecer.</p>
+    <h2 class="sec-h">Tres frentes, un mismo <em>criterio</em>.</h2>
+    <p class="sec-lead">ORIGEN trabaja en tres áreas: tu presencia digital, nuestra productora y la tecnología de tu negocio.</p>
 
     <div class="areas-grid">
       <!-- MARKETING -->
       <div class="area">
         <div class="area-num">Área 01</div>
-        <h3>Marketing <em>& Contenido</em></h3>
+        <h3>Marketing <em>Digital</em></h3>
         <p class="area-desc">Todo lo que tu marca necesita para comunicar con claridad y vender más: presencia en redes, contenido que conecta, publicidad que rinde y una identidad que te representa.</p>
         <ul class="area-list">
           <li>Gestión de redes y community management</li>
           <li>Estrategia y creación de contenido</li>
-          <li>Fotografía y video profesional</li>
+          <li>Sesiones de foto y video profesional</li>
+          <li>Set de estudio propio (alquiler por hora)</li>
           <li>Branding e identidad de marca</li>
           <li>Publicidad y campañas (Meta Ads)</li>
           <li>Diseño de páginas web y landing pages</li>
@@ -395,9 +401,26 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
         <a href="marketing.html" class="area-cta">Explorar Marketing →</a>
       </div>
 
+      <!-- ORIGEN TV -->
+      <div class="area area-tv">
+        <div class="area-num">Área 02</div>
+        <h3>ORIGEN <em>TV</em></h3>
+        <p class="area-desc">Nuestra productora digital: programas propios, transmisiones en vivo y contenido local en YouTube e Instagram. Y espacios para que las marcas auspicien.</p>
+        <ul class="area-list">
+          <li>Café de Ideas · miércoles y domingos 19 hs</li>
+          <li>Heberdá · viernes 10 hs en vivo</li>
+          <li>Concurso de canto y Origen Esports</li>
+          <li>Auspicios y entrevistas patrocinadas</li>
+          <li>Transmisión en vivo de eventos</li>
+        </ul>
+        <div class="area-for">Para quien quiere mirar, y para marcas que quieren estar donde la gente mira.</div>
+        <br>
+        <a href="tv.html" class="area-cta">Entrar a Origen TV →</a>
+      </div>
+
       <!-- TECH -->
       <div class="area">
-        <div class="area-num">Área 02</div>
+        <div class="area-num">Área 03</div>
         <h3>Tecnología <em>& Sistemas</em></h3>
         <p class="area-desc">Soluciones tecnológicas para tu casa o tu negocio: automatización, seguridad, conectividad y software a medida. La tecnología que hace que todo funcione mejor y más seguro.</p>
         <ul class="area-list">
@@ -415,8 +438,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
       </div>
     </div>
 
-    <p class="sec-lead" style="margin-top:44px;font-size:15px;font-style:italic;font-family:'Cormorant',serif;">Próximamente sumamos nuevas áreas a ORIGEN.</p>
-  </div>
+      </div>
 </section>
 
 <!-- ══════ NOSOTROS ══════ -->
@@ -430,7 +452,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
         <div class="nos-datos">
           <div class="nd"><span class="nd-l">Local propio</span><span class="nd-v">Jangadero 233 · Puerto Iguazú</span></div>
           <div class="nd"><span class="nd-l">Estudio propio</span><span class="nd-v">Podcast y producción de contenido</span></div>
-          <div class="nd"><span class="nd-l">Dos áreas</span><span class="nd-v">ORIGEN Studio · ORIGEN Tech</span></div>
+          <div class="nd"><span class="nd-l">Tres áreas</span><span class="nd-v">Marketing Digital · ORIGEN TV · ORIGEN Tech</span></div>
         </div>
       </div>
       <div class="nos-points">
@@ -490,6 +512,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
           <a href="#nosotros">Nosotros</a>
           <a href="#proceso">Cómo trabajamos</a>
           <a href="marketing.html">Marketing & Portafolio</a>
+          <a href="tv.html">Origen TV</a>
         </div>
         <div class="foot-col">
           <h5>Contacto</h5>
@@ -505,7 +528,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
     </div>
     <div class="foot-bottom">
       <span>© 2026 ORIGEN · Puerto Iguazú</span>
-      <span>Marketing · Tecnología</span>
+      <span>Marketing Digital · Origen TV · Tecnología</span>
     </div>
   </div>
 </footer>
@@ -519,7 +542,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
       {label:'Redes Sociales', sub:'Gestión y contenido', img:'pexels-magnus-mueller-1398178-2818118.jpg', href:'planes.html?ir=redes'},
       {label:'Producción de Contenido', sub:'Foto y video', img:'pexels-amar-39285064.jpg', href:'planes.html?ir=contenido'},
       {label:'Página Web', sub:'Suscripción o a medida', img:'pexels-dimkidama-15115560.jpg', href:'planes.html?ir=web'},
-      {label:'Streaming', sub:'Consultar propuesta', img:'pexels-rubaitulazad-15838208.jpg', href:'https://wa.me/5493757656783?text=Hola%20ORIGEN%2C%20quiero%20consultar%20por%20streaming.', blank:true},
+      {label:'Origen TV', sub:'Programas, vivos y auspicios', img:'pexels-rubaitulazad-15838208.jpg', href:'tv.html'},
       {label:'Seguridad, Alarmas y Domótica', sub:'Cámaras · redes · automatización', img:'pexels-danielzh1-14596555.jpg', href:'planes.html?ir=tech'},
     ];
     var idx=0;
