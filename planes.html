@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · planes.html · v3.4 · 2026-10-04 · demo + webs + datos para Google -->
+<!-- ORIGEN · planes.html · v3.5 · 2026-11-02 · revisión: preguntas sin texto cortado, menú con sectores, números legibles -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -395,7 +395,8 @@ select.df-in option{background:#1A1917;color:#F1ECE0}
 .faq-ic{font-family:'Cormorant',serif;font-size:26px;color:var(--d);flex-shrink:0;transition:transform .3s;line-height:1}
 .faq-item.open .faq-ic{transform:rotate(45deg)}
 .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
-.faq-a p{overflow:hidden;font-size:15px;color:rgba(255,255,255,0.66);line-height:1.7;padding:0 40px 24px 0}
+.faq-a p{overflow:hidden;min-height:0;font-size:15px;color:rgba(255,255,255,0.66);line-height:1.7;padding:0 40px 0 0;transition:padding .35s}
+.faq-item.open .faq-a p{padding-bottom:24px}
 .faq-item.open .faq-a{grid-template-rows:1fr}
 .faq-cta{text-align:center;margin-top:48px}
 .faq-cta p{font-family:'Cormorant',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,0.6);margin-bottom:14px}
@@ -535,6 +536,7 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
 }
 
 .tilt3d{transform-style:preserve-3d;will-change:transform}
+body{font-variant-numeric:lining-nums}
 </style>
 </head>
 <body>
@@ -542,8 +544,9 @@ table.doc-tbl caption{caption-side:top;text-align:left;font-size:9px;letter-spac
 <nav class="mainnav">
   <a href="index.html" class="brand"><img src="logo-origen.png" alt="ORIGEN" class="brand-logo"></a>
   <div class="links">
-    <a href="index.html">Inicio</a>
-    <a href="marketing.html">Portafolio</a>
+    <a href="index.html">← ORIGEN</a>
+    <a href="marketing.html">Marketing Digital</a>
+    <a href="tech.html">ORIGEN Tech</a>
     <a href="https://wa.me/5493757656783" target="_blank" rel="noopener" class="nav-cta">Contactar</a>
   </div>
 </nav>

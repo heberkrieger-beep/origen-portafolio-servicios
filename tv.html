@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · tv.html · v2.3 · 2026-11-02 · logo de Café de Ideas + primeros invitados · link a ORIGEN Tech -->
+<!-- ORIGEN · tv.html · v2.5 · enlace al ranking de Juiced en Origen Esports · revisión: acentos de títulos, grilla de auspicios completa · 2026-11-02 · logo de Café de Ideas + primeros invitados · link a ORIGEN Tech -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -50,7 +50,7 @@ img{display:block;max-width:100%}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 section{padding:110px 0;scroll-margin-top:70px;position:relative}
 .eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--lime);margin-bottom:18px;font-weight:400}
-.h2{font-size:clamp(44px,7vw,96px)}
+.h2{font-size:clamp(44px,7vw,96px);line-height:1.02}
 .h2 span{color:var(--lime)}
 .lead{font-size:18px;color:var(--p);max-width:56ch;margin-top:22px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 30px;font-size:13px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;font-weight:500;transition:transform .2s,background .2s,color .2s}
@@ -152,6 +152,9 @@ section{padding:110px 0;scroll-margin-top:70px;position:relative}
 .p-dep{background-image:repeating-linear-gradient(90deg,transparent 0 48%,rgba(228,246,22,.08) 48% 52%,transparent 52%),linear-gradient(180deg,transparent 60%,rgba(36,51,255,.18))}
 .p-esp{background-image:linear-gradient(rgba(228,246,22,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(228,246,22,.07) 1px,transparent 1px);background-size:28px 28px}
 .p-ver{display:flex;gap:14px;flex-wrap:wrap;margin-top:40px}
+.p-juiced{align-self:flex-start;margin-top:18px;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;color:var(--lime);text-decoration:none;border-bottom:2px solid var(--lime);padding-bottom:4px}
+.p-juiced:hover{color:#fff;border-color:#fff}
+.p-sm .p-desc b{color:var(--tx);font-weight:400}
 .p-logo{width:min(380px,90%);height:auto;margin-bottom:4px;filter:drop-shadow(6px 6px 0 rgba(11,11,10,.35))}
 .invit{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:50px;align-items:center;margin-top:60px;padding:34px;border:2px solid var(--cafe);background:var(--ink2)}
 .invit img{width:100%;height:auto}
@@ -254,7 +257,7 @@ section{padding:110px 0;scroll-margin-top:70px;position:relative}
 .pk-inc{font-size:14px;color:var(--p);margin:16px 0 24px;flex:1}
 .pk-inc strong{color:var(--tx);font-weight:400}
 .pk a{align-self:flex-start;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;color:var(--lime);border-bottom:2px solid var(--lime);padding-bottom:4px;font-weight:500}
-.pk.top{background:var(--lime);color:var(--ink);border-color:var(--lime);grid-column:span 2}
+.pk.top{background:var(--lime);color:var(--ink);border-color:var(--lime);grid-column:1/-1}
 .pk.top .pk-prog,.pk.top .pk-per,.pk.top .pk-inc,.pk.top .pk-precio{color:var(--ink)}
 .pk.top .pk-inc strong{color:var(--ink);font-weight:500}
 .pk.top a{color:var(--ink);border-color:var(--ink)}
@@ -434,7 +437,8 @@ footer{padding:40px 0;border-top:1px solid var(--l)}
         <svg viewBox="0 0 64 64" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" d="M14 22h36a10 10 0 0 1 10 10l2 14a6 6 0 0 1-11 4l-6-8H19l-6 8a6 6 0 0 1-11-4l2-14a10 10 0 0 1 10-10zM20 30v10M15 35h10M44 32h.1M50 38h.1"/></svg>
         <div class="p-cuando d">Torneos</div>
         <h3 class="p-tit d">Origen Esports</h3>
-        <p class="p-desc">Torneos de videojuegos transmitidos en vivo, con relatos y premios.</p>
+        <p class="p-desc">Torneos de videojuegos transmitidos en vivo, con relatos y premios. Nuestra liga de carreras: <b>Juiced Online Evolution</b>.</p>
+        <a class="p-juiced" href="juiced.html">Ver el ranking de Juiced →</a>
       </div>
     </div>
     <div class="invit">

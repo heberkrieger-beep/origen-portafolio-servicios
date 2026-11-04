@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Juiced Online Evolution — Ranking</title>
+<style>
+  :root {
+    --bg: #0b0d12; --panel: #141821; --line: #262c3a; --text: #eef1f7; --muted: #9aa3b5;
+    --accent: #ff7a1a; --accent-2: #3d8bff; --gold: #ffd23f; --silver: #c9d1dc; --bronze: #d38a52;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: system-ui, "Segoe UI", Roboto, sans-serif; color: var(--text);
+    background: radial-gradient(1200px 600px at 80% -10%, #2a1a10 0%, transparent 60%), var(--bg);
+    min-height: 100vh;
+  }
+  header { padding: 48px 24px 24px; max-width: 1100px; margin: 0 auto; }
+  .kicker { color: var(--accent); font-weight: 700; letter-spacing: .2em; text-transform: uppercase; font-size: .8rem; }
+  h1 { margin: .3em 0 .2em; font-size: clamp(2rem, 6vw, 3.6rem); line-height: 1; font-weight: 900; font-style: italic; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--muted); margin: 0; }
+  main { max-width: 1100px; margin: 0 auto; padding: 0 24px 64px; }
+  .tabs { display: flex; gap: 8px; margin: 24px 0 16px; flex-wrap: wrap; }
+  .tabs button {
+    background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 999px;
+    padding: 10px 18px; font-weight: 700; cursor: pointer; font-size: .95rem;
+  }
+  .tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #140a02; }
+  .tabs button:focus-visible { outline: 3px solid var(--accent-2); outline-offset: 2px; }
+  section[hidden] { display: none; }
+  .table-wrap { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  caption { text-align: left; padding: 16px 18px 0; color: var(--muted); font-size: .9rem; }
+  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { color: var(--muted); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: right; }
+  .pos { font-weight: 900; width: 3.5em; }
+  tr:nth-child(1) .pos { color: var(--gold); } tr:nth-child(2) .pos { color: var(--silver); }
+  tr:nth-child(3) .pos { color: var(--bronze); }
+  .name { font-weight: 700; }
+  .tag { color: var(--accent-2); font-weight: 700; margin-left: 6px; }
+  .level { display: inline-block; min-width: 2.2em; text-align: center; padding: 2px 8px; border-radius: 8px;
+           background: #24180c; color: var(--accent); font-weight: 800; }
+  .state { padding: 28px 18px; color: var(--muted); }
+  footer { color: var(--muted); font-size: .85rem; text-align: center; padding: 0 24px 32px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">Juiced Online Evolution</div>
+  <h1>Ranking <span>online</span></h1>
+  <p class="sub">Pilotos, bandas y campeonatos de la liga. Se actualiza solo con cada carrera.</p>
+</header>
+<main>
+  <div class="tabs" role="tablist" aria-label="Ranking">
+    <button role="tab" id="tab-pilots" aria-controls="pilots" aria-selected="true">Pilotos</button>
+    <button role="tab" id="tab-crews" aria-controls="crews" aria-selected="false" tabindex="-1">Bandas</button>
+    <button role="tab" id="tab-champs" aria-controls="champs" aria-selected="false" tabindex="-1">Campeonatos</button>
+  </div>
+
+  <section id="pilots" role="tabpanel" aria-labelledby="tab-pilots">
+    <div class="table-wrap">
+      <table>
+        <caption>Por experiencia: 20 por carrera, 100 por victoria, 500 por campeonato ganado.</caption>
+        <thead><tr><th>#</th><th>Piloto</th><th class="num">Nivel</th><th class="num">Carreras</th>
+          <th class="num">Victorias</th><th class="num">Podios</th><th class="num">Títulos</th>
+          <th class="num">Premios</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="state" role="status">Cargando…</div>
+    </div>
+  </section>
+
+  <section id="crews" role="tabpanel" aria-labelledby="tab-crews" hidden>
+    <div class="table-wrap">
+      <table>
+        <caption>La experiencia de una banda es la suma de la de sus pilotos.</caption>
+        <thead><tr><th>#</th><th>Banda</th><th>Líder</th><th class="num">Miembros</th>
+          <th class="num">Victorias</th><th class="num">Títulos</th><th class="num">Premios</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="state" role="status">Cargando…</div>
+    </div>
+  </section>
+
+  <section id="champs" role="tabpanel" aria-labelledby="tab-champs" hidden>
+    <div class="table-wrap">
+      <table>
+        <caption>Los últimos campeonatos terminados.</caption>
+        <thead><tr><th>Fecha</th><th>Campeón</th><th>Nivel</th><th class="num">Fechas</th>
+          <th class="num">Inscripción</th><th class="num">Pozo</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="state" role="status">Cargando…</div>
+    </div>
+  </section>
+</main>
+<footer>Juiced Online Evolution · datos de la liga en vivo</footer>
+
+<script>
+  // The league's project: its address and publishable key (the same as the game's [League] in OpenJuice.ini). The
+  // key only reads what is public; writing goes through the game's checked functions.
+  const URL_BASE = "https://anlaafvbapijuvfmaklg.supabase.co/rest/v1/";
+  const KEY = "sb_publishable_VWQs6FPxfBMCfImmoG9iqg_78lJVqW3";
+
+  const money = n => "$" + Number(n || 0).toLocaleString("es-AR");
+  const levels = { corto: "Corto", medio: "Medio", largo: "Largo", a_medida: "A medida" };
+
+  async function read(path) {
+    const answer = await fetch(URL_BASE + path, { headers: { apikey: KEY, Accept: "application/json" } });
+    if (!answer.ok) throw new Error(answer.status);
+    return answer.json();
+  }
+
+  // A row of cells; every text goes in as text (nothing from the league is read as HTML).
+  function row(cells) {
+    const tr = document.createElement("tr");
+    for (const [value, cls, extra] of cells) {
+      const td = document.createElement("td");
+      if (cls) td.className = cls;
+      if (extra) {
+        const name = document.createElement("span");
+        name.className = "name";
+        name.textContent = value;
+        td.append(name);
+        if (extra.tag) {
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = "[" + extra.tag + "]";
+          td.append(tag);
+        }
+        if (extra.level) {
+          td.textContent = "";
+          const level = document.createElement("span");
+          level.className = "level";
+          level.textContent = value;
+          td.append(level);
+        }
+      } else {
+        td.textContent = value;
+      }
+      tr.append(td);
+    }
+    return tr;
+  }
+
+  async function fill(sectionId, path, toCells, empty) {
+    const section = document.getElementById(sectionId);
+    const body = section.querySelector("tbody");
+    const state = section.querySelector(".state");
+    try {
+      const rows = await read(path);
+      body.replaceChildren(...rows.map((r, i) => row(toCells(r, i))));
+      state.textContent = rows.length ? "" : empty;
+      state.hidden = rows.length > 0;
+    } catch (e) {
+      state.textContent = "No se pudo leer la liga ahora (" + e.message + "). Probá de nuevo en un rato.";
+    }
+  }
+
+  fill("pilots",
+       "pilot_ranking?select=name,crew_tag,level,races,wins,podiums,championships_won,prize_total&limit=50",
+       (p, i) => [[String(i + 1), "pos"], [p.name, "", { tag: p.crew_tag }], [String(p.level), "num", { level: true }],
+                  [String(p.races), "num"], [String(p.wins), "num"], [String(p.podiums), "num"],
+                  [String(p.championships_won), "num"], [money(p.prize_total), "num"]],
+       "Todavía no hay pilotos: jugá una carrera online.");
+  fill("crews",
+       "crew_ranking?select=name,tag,leader,members,wins,championships_won,prize_total&limit=50",
+       (c, i) => [[String(i + 1), "pos"], [c.name, "", { tag: c.tag }], [c.leader || "-"],
+                  [String(c.members), "num"], [String(c.wins), "num"], [String(c.championships_won), "num"],
+                  [money(c.prize_total), "num"]],
+       "Todavía no hay bandas: creá una desde el juego (F2 en la sala, página Bandas).");
+  fill("champs",
+       "championships?select=finished_at,champion_team,level,rounds,entry_fee,pool&order=finished_at.desc&limit=30",
+       c => [[new Date(c.finished_at).toLocaleDateString("es-AR")], [c.champion_team || "-", "", {}],
+             [levels[c.level] || c.level], [String(c.rounds), "num"], [money(c.entry_fee), "num"],
+             [money(c.pool), "num"]],
+       "Todavía no terminó ningún campeonato.");
+
+  // The tabs: click or the arrow keys between them.
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  function show(tab) {
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute("aria-selected", String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    }
+    tab.focus();
+  }
+  tabs.forEach((tab, i) => {
+    tab.addEventListener("click", () => show(tab));
+    tab.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight") show(tabs[(i + 1) % tabs.length]);
+      if (e.key === "ArrowLeft") show(tabs[(i + tabs.length - 1) % tabs.length]);
+    });
+  });
+</script>
+</body>
+</html>

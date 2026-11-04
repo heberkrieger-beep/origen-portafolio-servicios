@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · marketing.html · v4.0 · 2026-11-02 · página del sector Marketing Digital: carrusel 3D + Redes, Web, Fotografía + Y además -->
+<!-- ORIGEN · marketing.html · v4.1 · 2026-11-02 · revisión: números legibles, método visible, pie con sectores -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -464,14 +464,14 @@ body{font-family:'Jost',sans-serif;font-weight:300;-webkit-font-smoothing:antial
 }
 #svc .paso:last-child { border-right: none; }
 #svc .paso:hover { background: var(--n); }
-#svc .paso:hover .paso-n { color: rgba(255,255,255,0.06); }
+#svc .paso:hover .paso-n { color: #C9B37A; }
 #svc .paso:hover .paso-tit { color: #fff; }
 #svc .paso:hover .paso-desc { color: rgba(255,255,255,0.45); }
 
 #svc .paso-n {
   font-family: 'Cormorant', serif;
   font-size: 52px; font-weight: 300;
-  color: var(--lf); line-height: 1;
+  color: var(--d); opacity:.75; line-height: 1;
   margin-bottom: 16px;
   transition: color 0.3s;
 }
@@ -909,6 +909,10 @@ body{padding-bottom:56px}
   #svc .hcar-arrow{width:34px;height:34px}
 }
 @media(prefers-reduced-motion:reduce){#svc .hcard{transition:none}#svc .hc-glare{display:none}}
+body{font-variant-numeric:lining-nums}
+.f-sect{display:flex;gap:20px;flex-wrap:wrap;justify-content:center}
+.f-sect a{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#6B6760;text-decoration:none}
+.f-sect a:hover{color:#8A6E3A}
 </style>
 </head>
 <body>
@@ -1390,6 +1394,7 @@ body{padding-bottom:56px}
 <footer>
   <div class="f-logo"><img src="logo-origen.png" alt="ORIGEN" style="height:40px;width:auto;display:block"></div>
   <div class="f-frase">Marcas que conectan.</div>
+  <nav class="f-sect" aria-label="Otros sectores"><a href="index.html">ORIGEN</a><a href="tv.html">ORIGEN TV</a><a href="tech.html">ORIGEN Tech</a><a href="planes.html">Planes</a></nav>
   <div class="f-copy">© 2026 ORIGEN · Puerto Iguazú</div>
 </footer>
 

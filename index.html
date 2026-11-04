@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · index.html · v5.0 · 2026-11-02 · inicio = puerta a 3 páginas: Marketing Digital · ORIGEN TV · ORIGEN Tech -->
+<!-- ORIGEN · index.html · v5.2 · enlace a Juiced · 2026-11-02 · revisión: un solo título, botones de sector sin cortes, textos unificados -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -104,21 +104,7 @@ section,.block{scroll-margin-top:74px}
 /* ── HERO: 100% carrusel, sin texto ── */
 
 /* ── Intro (título/CTA, debajo del hero) ── */
-.hero-intro{padding:90px 0}
-.hero-intro-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
-.hero-eyebrow{font-size:11px;letter-spacing:5px;text-transform:uppercase;color:var(--dk);margin-bottom:24px}
-.hero-intro h1{font-size:clamp(32px,4.2vw,58px);margin-bottom:22px;line-height:1.08}
-.hero-intro h1 em{color:var(--dk)}
-.hero-sub{font-size:clamp(16px,1.6vw,20px);color:var(--p);max-width:46ch;font-weight:300}
-.hero-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-self:end}
-.hero-cta{display:inline-flex;align-items:center;gap:12px;padding:17px 38px;background:var(--n);color:#fff;
-  text-decoration:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;transition:background .3s}
-.hero-cta:hover{background:var(--d);color:var(--n)}
-.hero-cta2{display:inline-flex;align-items:center;gap:10px;padding:16px 30px;background:transparent;color:var(--tx);
-  text-decoration:none;font-size:12px;letter-spacing:3px;text-transform:uppercase;border:1px solid var(--l);transition:.3s}
-.hero-cta2:hover{border-color:var(--tx)}
 /* ═══ 3D de las placas ═══ */
-.hero-scroll{margin-top:44px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--p);text-align:center}
 
 /* ── SECCIONES ── */
 section{padding:100px 0;border-top:1px solid var(--l)}
@@ -217,8 +203,6 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   .valor-grid,.nos-grid{grid-template-columns:1fr;gap:40px}
   .areas-grid{grid-template-columns:1fr}
   .proc-grid{grid-template-columns:1fr 1fr}
-  .hero-intro-grid{grid-template-columns:1fr;gap:28px}
-  .hero-actions{justify-self:start}
 }
 @media(max-width:600px){
   .wrap{padding:0 24px}
@@ -236,8 +220,6 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   .navtoggle:checked ~ .navburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .proc-grid{grid-template-columns:1fr}
   .cta-info{gap:28px}
-  .hero-actions{flex-direction:column;align-items:stretch}
-  .hero-cta,.hero-cta2{justify-content:center}
 }
 .tilt3d{transform-style:preserve-3d;will-change:transform}
 .lang-sw{display:inline-flex;align-items:center;gap:2px;border:1px solid var(--l);padding:2px}
@@ -248,13 +230,6 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 
 /* ═══ v4.0 · tres sectores ═══ */
 .s-mk{--ac:#C9B37A}.s-tv{--ac:#E4F616}.s-tech{--ac:#7FD6E8}
-.hero-intro h1{max-width:18ch}
-.s-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
-.s-chip{display:grid;grid-template-columns:auto 1fr;gap:2px 16px;align-items:baseline;padding:22px 24px;border:1px solid var(--l);border-top:3px solid var(--ac);text-decoration:none;transition:background .25s}
-.s-chip:hover{background:var(--cream)}
-.s-chip span{grid-row:span 2;font-family:'Cormorant',serif;font-style:italic;font-size:34px;color:var(--ac);line-height:1}
-.s-chip b{font-family:'Cormorant',serif;font-weight:400;font-size:24px;color:var(--tx)}
-.s-chip small{font-size:13px;color:var(--p)}
 .s-num{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
 .s-btn{display:inline-flex;padding:15px 28px;background:var(--ac);color:#111;text-decoration:none;font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;transition:background .25s}
 .s-btn:hover{background:var(--tx)}
@@ -263,7 +238,6 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 .cs span{font-family:'Cormorant',serif;font-style:italic;font-size:22px;letter-spacing:0;color:var(--ac);text-transform:none}
 .cs:hover{background:var(--n)}
 @media(max-width:860px){
-  .s-chips{grid-template-columns:1fr}
 }
 
 /* ═══ v4.1 · escenas del hero (una por sector) ═══ */
@@ -372,15 +346,17 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 .door-list a{display:block;padding:10px 0 10px 18px;font-size:14.5px;color:var(--tx);text-decoration:none;position:relative;transition:color .2s,padding .2s}
 .door-list a::before{content:'';position:absolute;left:0;top:18px;width:6px;height:6px;background:var(--ac);transform:rotate(45deg)}
 .door-list a:hover{color:var(--ac);padding-left:24px}
-.door .s-btn{align-self:flex-start}
+.door .s-btn{align-self:stretch;justify-content:center;white-space:nowrap;letter-spacing:1.6px}
+.dir-h1{font-size:clamp(38px,5.2vw,64px)}
 @media(max-width:960px){.dir-grid{grid-template-columns:1fr}}
+body{font-variant-numeric:lining-nums}
 </style>
 </head>
 <body>
 
 <!-- ══════ NAV ══════ -->
 <nav class="mainnav">
-  <a href="#top" class="brand"><img src="logo-origen.png" alt="ORIGEN" class="brand-logo"></a>
+  <a href="#top" class="brand"><img src="logo-origen-light.png" alt="ORIGEN" class="brand-logo"></a>
   <input type="checkbox" id="navtoggle" class="navtoggle">
   <label for="navtoggle" class="navburger" aria-label="Menú"><span></span><span></span><span></span></label>
   <div class="links">
@@ -465,25 +441,12 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   </div>
 </header>
 
-<!-- ══════ INTRO ══════ -->
-<section class="hero-intro">
-  <div class="wrap">
-    <div class="hero-eyebrow">Puerto Iguazú · Misiones</div>
-    <h1>Una empresa, <em>tres sectores</em>.</h1>
-    <p class="hero-sub">ORIGEN reúne en un mismo lugar tu marketing digital, una productora audiovisual y la tecnología de tu negocio. Elegí por dónde empezar.</p>
-    <nav class="s-chips" aria-label="Sectores de ORIGEN">
-      <a href="marketing.html" class="s-chip s-mk"><span>01</span><b>Marketing Digital</b><small>Redes, contenido, web y apps</small></a>
-      <a href="tv.html" class="s-chip s-tv"><span>02</span><b>ORIGEN TV</b><small>Programas, vivos y auspicios</small></a>
-      <a href="tech.html" class="s-chip s-tech"><span>03</span><b>ORIGEN Tech</b><small>Seguridad, domótica y sistemas</small></a>
-    </nav>
-  </div>
-</section>
-
 <!-- ══════ TODO LO QUE HACEMOS: un directorio, tres puertas ══════ -->
 <section id="sectores" class="dir" aria-labelledby="dir-h">
   <div class="wrap">
-    <div class="sec-eyebrow">Todo lo que hacemos</div>
-    <h2 class="sec-h" id="dir-h">Elegí lo que te <em>interesa</em>.</h2>
+    <div class="sec-eyebrow">ORIGEN · Puerto Iguazú · Misiones</div>
+    <h1 class="sec-h dir-h1" id="dir-h">Una empresa, <em>tres sectores</em>.</h1>
+    <p class="sec-lead">Todo lo que hacemos, en un solo lugar. Elegí lo que te interesa y entrá a cada sector.</p>
     <div class="dir-grid">
       <article class="door s-mk">
         <a class="door-img" href="marketing.html" tabindex="-1" aria-hidden="true"><img src="pexels-magnus-mueller-1398178-2818118.jpg" alt="" loading="lazy" width="1136" height="900"><span>01</span></a>
@@ -498,7 +461,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
             <li><a href="marketing.html#ademas">Meta Ads y Google Maps</a></li>
             <li><a href="marketing.html#ademas">Branding y aplicaciones</a></li>
           </ul>
-          <a href="marketing.html" class="s-btn">Entrar a Marketing Digital →</a>
+          <a href="marketing.html" class="s-btn">Entrar a Marketing →</a>
         </div>
       </article>
       <article class="door s-tv">
@@ -509,7 +472,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
           <ul class="door-list">
             <li><a href="tv.html#programas">Café de Ideas · mié y dom 19 hs</a></li>
             <li><a href="tv.html#programas">Heberdá · viernes 10 hs en vivo</a></li>
-            <li><a href="tv.html#programas">Origen Esports</a></li>
+            <li><a href="juiced.html">Origen Esports · ranking de Juiced</a></li>
             <li><a href="tv.html#programas">Origen Deportes · pádel en vivo</a></li>
             <li><a href="tv.html#auspicios">Auspicios para marcas</a></li>
             <li><a href="tv.html#set">Transmisión de eventos</a></li>
@@ -628,7 +591,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
     </div>
     <div class="foot-bottom">
       <span>© 2026 ORIGEN · Puerto Iguazú</span>
-      <span>Marketing Digital · Origen TV · Tecnología</span>
+      <span>Marketing Digital · ORIGEN TV · ORIGEN Tech</span>
     </div>
   </div>
 </footer>
