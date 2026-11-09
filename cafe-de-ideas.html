@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<!-- ORIGEN · cafe-de-ideas.html · v1.0 · 2026-11-09 · página nueva para Google -->
+<!-- ORIGEN · cafe-de-ideas.html · v1.1 · 2026-11-09 · los 5 episodios con enlace a YouTube -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Café de Ideas · Podcast de Puerto Iguazú · ORIGEN TV</title>
 <link rel="canonical" href="https://agencia-origen.online/cafe-de-ideas.html">
-<meta name="description" content="Café de Ideas, el podcast de ORIGEN TV: conversaciones con referentes de Puerto Iguazú sobre empresa, comunidad y política. Miércoles y domingos, 19 hs.">
+<meta name="description" content="Café de Ideas, el podcast de Puerto Iguazú: episodios con Marina González, Mario Antonowicz, Harry Foos, Alejandro Verón y Ursula Waidelich.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Café de Ideas · Podcast de Puerto Iguazú · ORIGEN TV">
-<meta property="og:description" content="Café de Ideas, el podcast de ORIGEN TV: conversaciones con referentes de Puerto Iguazú sobre empresa, comunidad y política. Miércoles y domingos, 19 hs.">
+<meta property="og:description" content="Café de Ideas, el podcast de Puerto Iguazú: episodios con Marina González, Mario Antonowicz, Harry Foos, Alejandro Verón y Ursula Waidelich.">
 <meta property="og:image" content="https://agencia-origen.online/og-cafe.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -22,16 +22,97 @@
 {
  "@context": "https://schema.org",
  "@type": "PodcastSeries",
+ "@id": "https://agencia-origen.online/cafe-de-ideas.html#serie",
  "name": "Café de Ideas",
  "description": "Conversaciones con referentes de Puerto Iguazú sobre empresa, comunidad y política.",
  "url": "https://agencia-origen.online/cafe-de-ideas.html",
  "webFeed": "https://www.youtube.com/@Agencia-Origen-Tv",
+ "inLanguage": "es",
  "publisher": {
   "@type": "Organization",
   "name": "ORIGEN TV",
   "url": "https://agencia-origen.online/tv.html"
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "PodcastEpisode",
+ "episodeNumber": 5,
+ "name": "Café de Ideas · Episodio 5 · Ursula Waidelich",
+ "url": "https://agencia-origen.online/cafe-de-ideas.html#ursula-waidelich",
+ "partOfSeries": {
+  "@id": "https://agencia-origen.online/cafe-de-ideas.html#serie"
  },
- "inLanguage": "es"
+ "associatedMedia": {
+  "@type": "MediaObject",
+  "contentUrl": "https://www.youtube.com/watch?v=_2FNbYjKAKY"
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "PodcastEpisode",
+ "episodeNumber": 4,
+ "name": "Café de Ideas · Episodio 4 · Alejandro Verón",
+ "url": "https://agencia-origen.online/cafe-de-ideas.html#alejandro-veron",
+ "partOfSeries": {
+  "@id": "https://agencia-origen.online/cafe-de-ideas.html#serie"
+ },
+ "associatedMedia": {
+  "@type": "MediaObject",
+  "contentUrl": "https://www.youtube.com/watch?v=k8VgGldVeZk"
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "PodcastEpisode",
+ "episodeNumber": 3,
+ "name": "Café de Ideas · Episodio 3 · Harry Foos",
+ "url": "https://agencia-origen.online/cafe-de-ideas.html#harry-foos",
+ "partOfSeries": {
+  "@id": "https://agencia-origen.online/cafe-de-ideas.html#serie"
+ },
+ "associatedMedia": {
+  "@type": "MediaObject",
+  "contentUrl": "https://www.youtube.com/watch?v=tqjEDvnZm6c"
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "PodcastEpisode",
+ "episodeNumber": 2,
+ "name": "Café de Ideas · Episodio 2 · Mario Antonowicz",
+ "url": "https://agencia-origen.online/cafe-de-ideas.html#mario-antonowicz",
+ "partOfSeries": {
+  "@id": "https://agencia-origen.online/cafe-de-ideas.html#serie"
+ },
+ "associatedMedia": {
+  "@type": "MediaObject",
+  "contentUrl": "https://www.youtube.com/watch?v=J_Tu-6KCS0o"
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "PodcastEpisode",
+ "episodeNumber": 1,
+ "name": "Café de Ideas · Episodio 1 · Lic. Marina González",
+ "url": "https://agencia-origen.online/cafe-de-ideas.html#marina-gonzalez",
+ "partOfSeries": {
+  "@id": "https://agencia-origen.online/cafe-de-ideas.html#serie"
+ },
+ "associatedMedia": {
+  "@type": "MediaObject",
+  "contentUrl": "https://www.youtube.com/watch?v=6dBXeU9op8E"
+ }
 }
 </script>
 <style>
@@ -85,6 +166,15 @@ h2{font-size:clamp(32px,4.2vw,52px);margin-bottom:20px}
 .faq summary::after{content:'+';position:absolute;right:6px;top:14px;font-family:'Cormorant',serif;font-size:30px;color:var(--ac);transition:transform .3s}
 .faq details[open] summary::after{transform:rotate(45deg)}
 .faq p{font-size:15.5px;color:var(--p);padding:0 40px 20px 0}
+.eps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:40px}
+.ep{border:1px solid var(--l);background:var(--cream);display:flex;flex-direction:column}
+.ep-img{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;background:#000}
+.ep-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.ep-img:hover img{transform:scale(1.04)}
+.ep-img span{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:var(--ac);color:#111;display:flex;align-items:center;justify-content:center;font-size:22px;padding-left:4px}
+.ep-t{padding:22px 24px 26px}
+.ep-t h3{font-size:30px;margin-bottom:12px}
+@media(max-width:900px){.eps{grid-template-columns:minmax(0,1fr)}}
 .fin{text-align:center}
 .fin .lead{margin:0 auto}
 .fin .acts{justify-content:center}
@@ -116,13 +206,29 @@ footer{padding:44px 0}
 </header>
 <main id="main">
 <section aria-labelledby="ep-h"><div class="wrap">
-  <div class="eb">Episodios</div><h2 id="ep-h">Nuestros primeros <em>invitados</em>.</h2>
-  <div class="g2">
-    <article class="card" id="alejandro-veron"><div class="eb">Episodio</div><h3>Alejandro Verón</h3><p>Conversación en Café de Ideas, el podcast de ORIGEN TV.</p><a href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener" class="lnk">Ver en YouTube →</a></article>
-    <article class="card" id="harry-foos"><div class="eb">Episodio</div><h3>Harry Foos</h3><p>Conversación en Café de Ideas, el podcast de ORIGEN TV.</p><a href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener" class="lnk">Ver en YouTube →</a></article>
-    <article class="card" id="mario-antonowicz"><div class="eb">Episodio</div><h3>Mario Antonowicz</h3><p>Conversación en Café de Ideas, el podcast de ORIGEN TV.</p><a href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener" class="lnk">Ver en YouTube →</a></article>
-    <article class="card" id="marina-gonzalez"><div class="eb">Episodio</div><h3>Lic. Marina González</h3><p>Conversación en Café de Ideas, el podcast de ORIGEN TV.</p><a href="https://www.youtube.com/@Agencia-Origen-Tv" target="_blank" rel="noopener" class="lnk">Ver en YouTube →</a></article>
-    <!-- PLANTILLA para cada episodio nuevo: copiá un <article> de arriba, cambiá id, nombre, una frase sobre el tema y el enlace al video -->
+  <div class="eb">Episodios</div><h2 id="ep-h">Todos los <em>episodios</em>.</h2>
+  <div class="eps">
+    <article class="ep" id="ursula-waidelich">
+      <a href="https://www.youtube.com/watch?v=_2FNbYjKAKY" target="_blank" rel="noopener" class="ep-img" aria-label="Ver episodio 5 con Ursula Waidelich en YouTube"><img src="https://i.ytimg.com/vi/_2FNbYjKAKY/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><span aria-hidden="true">▶</span></a>
+      <div class="ep-t"><div class="eb">Episodio 5</div><h3>Ursula Waidelich</h3><a href="https://www.youtube.com/watch?v=_2FNbYjKAKY" target="_blank" rel="noopener" class="lnk">Ver en YouTube →</a></div>
+    </article>
+    <article class="ep" id="alejandro-veron">
+      <a href="https://www.youtube.com/watch?v=k8VgGldVeZk" target="_blank" rel="noopener" class="ep-img" aria-label="Ver episodio 4 con Alejandro Verón en YouTube"><img src="https://i.ytimg.com/vi/k8VgGldVeZk/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><span aria-hidden="true">▶</span></a>
+      <div class="ep-t"><div class="eb">Episodio 4</div><h3>Alejandro Verón</h3><a href="https://www.youtube.com/watch?v=k8VgGldVeZk" target="_blank" rel="noopener" class="lnk">Ver en YouTube →</a></div>
+    </article>
+    <article class="ep" id="harry-foos">
+      <a href="https://www.youtube.com/watch?v=tqjEDvnZm6c" target="_blank" rel="noopener" class="ep-img" aria-label="Ver episodio 3 con Harry Foos en YouTube"><img src="https://i.ytimg.com/vi/tqjEDvnZm6c/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><span aria-hidden="true">▶</span></a>
+      <div class="ep-t"><div class="eb">Episodio 3</div><h3>Harry Foos</h3><a href="https://www.youtube.com/watch?v=tqjEDvnZm6c" target="_blank" rel="noopener" class="lnk">Ver en YouTube →</a></div>
+    </article>
+    <article class="ep" id="mario-antonowicz">
+      <a href="https://www.youtube.com/watch?v=J_Tu-6KCS0o" target="_blank" rel="noopener" class="ep-img" aria-label="Ver episodio 2 con Mario Antonowicz en YouTube"><img src="https://i.ytimg.com/vi/J_Tu-6KCS0o/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><span aria-hidden="true">▶</span></a>
+      <div class="ep-t"><div class="eb">Episodio 2</div><h3>Mario Antonowicz</h3><a href="https://www.youtube.com/watch?v=J_Tu-6KCS0o" target="_blank" rel="noopener" class="lnk">Ver en YouTube →</a></div>
+    </article>
+    <article class="ep" id="marina-gonzalez">
+      <a href="https://www.youtube.com/watch?v=6dBXeU9op8E" target="_blank" rel="noopener" class="ep-img" aria-label="Ver episodio 1 con Lic. Marina González en YouTube"><img src="https://i.ytimg.com/vi/6dBXeU9op8E/hqdefault.jpg" alt="" width="480" height="360" loading="lazy"><span aria-hidden="true">▶</span></a>
+      <div class="ep-t"><div class="eb">Episodio 1</div><h3>Lic. Marina González</h3><a href="https://www.youtube.com/watch?v=6dBXeU9op8E" target="_blank" rel="noopener" class="lnk">Ver en YouTube →</a></div>
+    </article>
+    <!-- EPISODIO NUEVO: copiá un <article class="ep"> de arriba, ponelo primero y cambiá id, número, nombre y el código del video (lo que va después de watch?v=) en los 3 lugares -->
   </div>
   <img src="cafe-invitados.webp" alt="Primeros invitados de Café de Ideas: Alejandro Verón, Harry Foos, Mario Antonowicz y Lic. Marina González" width="900" height="900" loading="lazy" style="max-width:520px;width:100%;margin-top:40px;border:3px solid var(--ac)">
 </div></section>
