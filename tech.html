@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<!-- ORIGEN · tech.html · v1.1 · revisión: números legibles · 2026-11-02 · página del sector ORIGEN Tech: cámaras, alarmas, domótica, WiFi y GPS -->
+<!-- ORIGEN · tech.html · v1.2 · SEO: H1, preguntas frecuentes, datos del servicio · revisión: números legibles · 2026-11-02 · página del sector ORIGEN Tech: cámaras, alarmas, domótica, WiFi y GPS -->
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ORIGEN Tech · Cámaras, alarmas y domótica en Puerto Iguazú</title>
+<title>Cámaras de seguridad y alarmas en Puerto Iguazú · ORIGEN Tech</title>
 <link rel="canonical" href="https://agencia-origen.online/tech.html">
-<meta name="description" content="ORIGEN Tech: cámaras de seguridad desde $30.000 por mes con equipos incluidos, alarmas con aviso al celular, domótica, redes WiFi y rastreo GPS en Puerto Iguazú.">
+<meta name="description" content="Cámaras de seguridad en Puerto Iguazú desde $30.000/mes, con equipos e instalación incluidos. Alarmas, domótica, WiFi y GPS. Visita técnica sin cargo.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ORIGEN Tech · Tu casa, segura">
 <meta property="og:description" content="Cámaras, alarmas, domótica, WiFi y GPS para tu casa o tu negocio. Puerto Iguazú, Misiones.">
-<meta property="og:image" content="https://agencia-origen.online/og-preview.jpg">
+<meta property="og:image" content="https://agencia-origen.online/og-tech.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta property="og:url" content="https://agencia-origen.online/tech.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#0E0E0D;--ink2:#161615;--tx:#F1ECE0;--p:#A79F92;--l:rgba(255,255,255,.10);--ac:#7FD6E8;--ac2:#0A6577;--hielo:#EEF4F5}
@@ -61,6 +64,7 @@ section{padding:100px 0;border-top:1px solid var(--l);scroll-margin-top:72px}
 .h-txt .eb{color:var(--ac2)}
 .h-txt h1{font-size:clamp(64px,8.6vw,132px);margin-bottom:22px}
 .h-txt h1 span{color:var(--ac2);display:block}
+.h1-kw{display:block;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--ac2);font-weight:500;line-height:1.6;margin-bottom:18px}
 .h-txt p{font-size:clamp(16px,1.4vw,19px);max-width:42ch;line-height:1.6}
 .h-acts{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-top:30px}
 .h-acts .lnk{color:#0D1A1E;border-color:var(--ac2)}
@@ -118,6 +122,15 @@ section{padding:100px 0;border-top:1px solid var(--l);scroll-margin-top:72px}
 .para{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;list-style:none}
 .para li{font-family:'Cormorant',serif;font-size:22px;border:1px solid var(--l);padding:12px 20px}
 
+/* PREGUNTAS */
+.faq{max-width:820px;margin-top:30px;border-top:1px solid var(--l)}
+.faq details{border-bottom:1px solid var(--l)}
+.faq summary{cursor:pointer;list-style:none;padding:22px 40px 22px 0;font-size:18px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:6px;top:16px;font-family:'Cormorant',serif;font-size:30px;color:var(--ac);transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq summary:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+.faq p{font-size:15.5px;color:var(--p);line-height:1.7;padding:0 40px 22px 0}
 /* CTA */
 .cta{background:var(--hielo);color:#0D1A1E;text-align:center}
 .cta h2{font-size:clamp(40px,6vw,76px);margin-bottom:16px}
@@ -164,20 +177,116 @@ footer{padding:44px 0;border-top:1px solid var(--l)}
 @media(prefers-reduced-motion:reduce){.obj,.fl{animation:none}.btn,.sv{transition:none}}
 body{font-variant-numeric:lining-nums}
 </style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Service",
+ "name": "Plan Cámaras de seguridad",
+ "serviceType": "Instalación y monitoreo de cámaras de seguridad",
+ "provider": {
+  "@type": "ProfessionalService",
+  "@id": "https://agencia-origen.online/#negocio",
+  "name": "ORIGEN",
+  "url": "https://agencia-origen.online/"
+ },
+ "areaServed": {
+  "@type": "City",
+  "name": "Puerto Iguazú"
+ },
+ "url": "https://agencia-origen.online/tech.html",
+ "description": "2 cámaras HD provistas e instaladas, grabador y disco, grabación 24 horas, acceso desde el celular, mantenimiento y soporte. Equipos incluidos, sin inversión inicial.",
+ "offers": {
+  "@type": "Offer",
+  "price": "30000",
+  "priceCurrency": "ARS",
+  "priceSpecification": {
+   "@type": "UnitPriceSpecification",
+   "price": "30000",
+   "priceCurrency": "ARS",
+   "unitText": "MONTH"
+  }
+ }
+}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "¿Cuánto cuesta poner cámaras de seguridad en Puerto Iguazú?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "El Plan Cámaras cuesta $30.000 por mes e incluye 2 cámaras HD, grabador, disco, instalación, mantenimiento y soporte por WhatsApp. Cada cámara adicional suma $10.000 por mes. No pagás los equipos por adelantado."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Los equipos quedan míos?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No: en el plan mensual los equipos son nuestros y quedan instalados mientras dure el plan. Por eso no pagás nada al principio y la reposición por falla está incluida. Si preferís ser dueño de los equipos, pedinos un presupuesto de instalación a medida y quedan tuyos con garantía."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Hay un plazo mínimo?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí: el Plan Cámaras tiene un mínimo de 6 meses, porque los equipos los ponemos e instalamos nosotros sin costo inicial."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Cobran la visita técnica?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No, es sin cargo y no te compromete a nada. Vamos, miramos el lugar y te decimos qué se puede hacer y cuánto sale. Si hace falta obra adicional, te lo decimos antes de empezar."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Puedo ver las cámaras desde el celular?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sí. Ves las cámaras en vivo desde tu celular, estés donde estés, y la grabación es continua las 24 horas."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Cómo se paga?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Con Mercado Pago (tarjeta, débito, efectivo o cuotas) o por transferencia bancaria."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "¿Trabajan fuera de Puerto Iguazú?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Estamos en Puerto Iguazú y coordinamos instalaciones en la zona. Consultanos por WhatsApp para tu ubicación."
+   }
+  }
+ ]
+}
+</script>
 </head>
 <body>
 <a href="#camaras" class="skip">Saltar al contenido</a>
 
 <nav class="nav" aria-label="Principal">
-  <a href="index.html" class="brand" aria-label="Volver a ORIGEN"><img src="logo-origen-light.png" alt="ORIGEN"><span>TECH</span></a>
+  <a href="./" class="brand" aria-label="Volver a ORIGEN"><img src="logo-origen-light.png" alt="ORIGEN"><span>TECH</span></a>
   <input type="checkbox" id="navtoggle" class="navtoggle" aria-label="Abrir menú">
   <label for="navtoggle" class="navburger" aria-hidden="true"><span></span><span></span><span></span></label>
   <div class="links">
-    <a href="index.html">← ORIGEN</a>
+    <a href="./">← ORIGEN</a>
     <a href="#camaras">Cámaras y alarmas</a>
     <a href="#domotica">Domótica</a>
     <a href="#wifi">WiFi</a>
     <a href="#gps">GPS</a>
+    <a href="#preguntas">Preguntas</a>
     <a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%20Tech%2C%20quiero%20pedir%20una%20visita%20t%C3%A9cnica%20sin%20cargo." target="_blank" rel="noopener" class="btn btn-a">Pedí una visita</a>
   </div>
 </nav>
@@ -186,8 +295,7 @@ body{font-variant-numeric:lining-nums}
 <header class="hero" id="hero">
   <span class="word d" aria-hidden="true">SEGURIDAD</span>
   <div class="h-txt">
-    <div class="eb">ORIGEN Tech · Sector 03</div>
-    <h1 class="d">Tu casa,<span>segura.</span></h1>
+    <h1 class="d"><small class="h1-kw">ORIGEN Tech · Cámaras de seguridad y alarmas en Puerto Iguazú</small>Tu casa,<span>segura.</span></h1>
     <p>Cámaras, alarmas, domótica, WiFi y GPS para tu casa o tu negocio. Instalamos, configuramos y te acompañamos. Todo se ve desde tu celular.</p>
     <div class="h-acts"><a href="#camaras" class="btn btn-k">Ver el plan de cámaras</a><a href="https://wa.me/5493757656783?text=Hola%20ORIGEN%20Tech%2C%20quiero%20pedir%20una%20visita%20t%C3%A9cnica%20sin%20cargo." target="_blank" rel="noopener" class="lnk">Pedí una visita sin cargo →</a></div>
   </div>
@@ -285,8 +393,25 @@ body{font-variant-numeric:lining-nums}
     </div>
     <div class="eb" style="margin-top:70px">Para quién</div>
     <ul class="para">
-      <li>Hogares</li><li>Comercios</li><li>Alquileres temporarios</li><li>Hoteles y restaurantes</li><li>Transfers y excursiones</li>
+      <li>Hogares</li><li>Comercios</li><li><a href="hoteles.html" style="text-decoration:none">Alquileres temporarios</a></li><li><a href="hoteles.html" style="text-decoration:none">Hoteles y restaurantes</a></li><li>Transfers y excursiones</li>
     </ul>
+  </div>
+</section>
+
+<!-- PREGUNTAS FRECUENTES -->
+<section id="preguntas" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="eb">Preguntas frecuentes</div>
+    <h2 class="h2" id="faq-h">Lo que todos <em>preguntan</em>.</h2>
+    <div class="faq">
+      <details><summary>¿Cuánto cuesta poner cámaras de seguridad en Puerto Iguazú?</summary><p>El Plan Cámaras cuesta $30.000 por mes e incluye 2 cámaras HD, grabador, disco, instalación, mantenimiento y soporte por WhatsApp. Cada cámara adicional suma $10.000 por mes. No pagás los equipos por adelantado.</p></details>
+      <details><summary>¿Los equipos quedan míos?</summary><p>No: en el plan mensual los equipos son nuestros y quedan instalados mientras dure el plan. Por eso no pagás nada al principio y la reposición por falla está incluida. Si preferís ser dueño de los equipos, pedinos un presupuesto de instalación a medida y quedan tuyos con garantía.</p></details>
+      <details><summary>¿Hay un plazo mínimo?</summary><p>Sí: el Plan Cámaras tiene un mínimo de 6 meses, porque los equipos los ponemos e instalamos nosotros sin costo inicial.</p></details>
+      <details><summary>¿Cobran la visita técnica?</summary><p>No, es sin cargo y no te compromete a nada. Vamos, miramos el lugar y te decimos qué se puede hacer y cuánto sale. Si hace falta obra adicional, te lo decimos antes de empezar.</p></details>
+      <details><summary>¿Puedo ver las cámaras desde el celular?</summary><p>Sí. Ves las cámaras en vivo desde tu celular, estés donde estés, y la grabación es continua las 24 horas.</p></details>
+      <details><summary>¿Cómo se paga?</summary><p>Con Mercado Pago (tarjeta, débito, efectivo o cuotas) o por transferencia bancaria.</p></details>
+      <details><summary>¿Trabajan fuera de Puerto Iguazú?</summary><p>Estamos en Puerto Iguazú y coordinamos instalaciones en la zona. Consultanos por WhatsApp para tu ubicación.</p></details>
+    </div>
   </div>
 </section>
 
@@ -302,7 +427,7 @@ body{font-variant-numeric:lining-nums}
 <footer>
   <div class="wrap foot">
     <nav aria-label="Otros sectores">
-      <a href="index.html">ORIGEN</a><a href="marketing.html">Marketing Digital</a><a href="tv.html">ORIGEN TV</a><a href="planes.html">Planes</a>
+      <a href="./">ORIGEN</a><a href="marketing.html">Marketing Digital</a><a href="tv.html">ORIGEN TV</a><a href="planes.html">Planes</a>
     </nav>
     <span>© 2026 ORIGEN Tech · Jangadero 233 · Puerto Iguazú</span>
   </div>
