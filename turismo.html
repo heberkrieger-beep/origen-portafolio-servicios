@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<!-- ORIGEN · turismo.html · v1.0 · 2026-11-10 · sector ORIGEN Turismo: gestión de alojamientos y alquileres temporarios (planes, equipamiento, gestor, calculadora) -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión de alojamientos y Airbnb en Puerto Iguazú · ORIGEN Turismo</title>
+<link rel="canonical" href="https://agencia-origen.online/turismo.html">
+<meta name="description" content="Gestionamos tu cabaña, departamento o casa en Airbnb, Booking y Expedia: reservas, cobranzas, limpieza y mantenimiento. 7% por reserva. Puerto Iguazú, Misiones.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ORIGEN Turismo · Vos cobrás, nosotros nos ocupamos de todo">
+<meta property="og:description" content="Gestión de alojamientos y alquileres temporarios en Puerto Iguazú: reservas, cobranzas, limpieza y gestor de reservas.">
+<meta property="og:image" content="https://agencia-origen.online/og-turismo.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://agencia-origen.online/turismo.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="logo-origen.png" type="image/png">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Service",
+   "name": "Gestión de alojamientos y alquileres temporarios",
+   "serviceType": "Gestión de alquileres temporarios (Airbnb, Booking, Expedia)",
+   "url": "https://agencia-origen.online/turismo.html",
+   "areaServed": "Puerto Iguazú, Misiones, Argentina",
+   "provider": {"@id": "https://agencia-origen.online/#negocio"},
+   "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Planes de ORIGEN Turismo", "itemListElement": [
+    {"@type": "Offer", "name": "Plan Reservas", "description": "Marketing y ventas + administración. 7% por reserva."},
+    {"@type": "Offer", "name": "Plan Integral", "description": "Plan Reservas + limpieza y mantenimiento."},
+    {"@type": "Offer", "name": "Gestor de reservas", "description": "Calendario unificado de todos los canales, para quien gestiona por su cuenta."}
+   ]}
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {"@type": "Question", "name": "¿Tengo que dejar Airbnb o Booking?", "acceptedAnswer": {"@type": "Answer", "text": "No. Seguís en todos los canales; nosotros los manejamos y los conectamos a un solo calendario para que no haya dobles reservas."}},
+    {"@type": "Question", "name": "¿Puedo usar mi alojamiento cuando quiera?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Bloqueás las fechas que quieras desde tu panel y quedan cerradas en todos los canales."}},
+    {"@type": "Question", "name": "¿Cómo veo mis reservas y lo que cobro?", "acceptedAnswer": {"@type": "Answer", "text": "Tenés un panel con usuario y contraseña donde ves el calendario, cada reserva y la liquidación del mes."}},
+    {"@type": "Question", "name": "¿La limpieza la pago yo?", "acceptedAnswer": {"@type": "Answer", "text": "La limpieza se cobra por salida según el tamaño del alojamiento y se carga como tarifa de limpieza en la reserva, así la paga el huésped."}},
+    {"@type": "Question", "name": "Ya tengo quien limpie, ¿puedo contratar solo las reservas?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. El Plan Reservas incluye marketing, ventas y administración, sin limpieza."}},
+    {"@type": "Question", "name": "¿Trabajan con hoteles?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Los hoteles suelen usar solo el gestor de reservas o un plan a medida. Escribinos y lo vemos."}}
+   ]
+  }
+ ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant:ital,wght@0,400;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--selva:#0F2419;--selva2:#24503A;--arena:#F3ECDD;--arena2:#E6DAC2;--tx:#F3EEE2;--ink:#14201A;--p:#5C6A60;--pc:#B9C2B6;--oro:#E9B872;--oro2:#8A5E1E;--l:rgba(255,255,255,.14);--l2:rgba(20,32,26,.14)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{max-width:100%;overflow-x:clip}
+body{font-family:'Jost',sans-serif;font-weight:300;color:var(--ink);background:var(--arena);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--oro);outline-offset:3px}
+img{display:block;max-width:100%;height:auto}
+.d{font-family:'Anton',Impact,'Arial Narrow',sans-serif;font-weight:400;text-transform:uppercase;line-height:.95;letter-spacing:.5px}
+.c{font-family:'Cormorant',Georgia,serif;font-style:italic;font-weight:500}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+.skip{position:absolute;left:-999px;top:0;background:var(--oro);color:var(--ink);padding:10px 16px;z-index:3000}
+.skip:focus{left:10px}
+section{padding:110px 0;scroll-margin-top:70px}
+.eb{font-size:11px;letter-spacing:4px;text-transform:uppercase;font-weight:500;color:var(--oro2);margin-bottom:18px}
+.h2{font-size:clamp(42px,6.4vw,88px)}
+.h2 .c{text-transform:none;font-size:1.08em;color:var(--oro2);letter-spacing:0}
+.lead{font-size:18px;color:var(--p);max-width:58ch;margin-top:22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 28px;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;font-weight:500;border:0;cursor:pointer;font-family:inherit;transition:transform .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-o{background:var(--oro);color:var(--ink)}.btn-o:hover{background:#fff}
+.btn-l{border:1.5px solid currentColor;background:transparent;color:inherit}
+.btn-v{background:var(--selva);color:var(--tx)}.btn-v:hover{background:#000}
+.acts{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
+.oscuro{background:var(--selva);color:var(--tx)}
+.oscuro .eb{color:var(--oro)}
+.oscuro .h2 .c{color:var(--oro)}
+.oscuro .lead{color:var(--pc)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 40px;background:rgba(15,36,25,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--tx);border-bottom:1px solid var(--l)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{height:40px;width:auto}
+.brand span{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--oro)}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;text-decoration:none;color:var(--pc)}
+.nav-links a:hover{color:var(--oro)}
+.nav-links .btn{padding:10px 18px;color:var(--ink)}
+
+/* 1 · escena principal */
+.hero{--mx:0;--my:0;position:relative;overflow:hidden;min-height:calc(100svh - 65px);display:flex;align-items:center;color:var(--tx);background-color:var(--selva);
+  background-image:radial-gradient(circle at 72% 55%,var(--selva2),var(--selva) 62%)}
+.hero-word{position:absolute;left:50%;top:50%;transform:translate(calc(-50% + var(--mx)*-30px),calc(-55% + var(--my)*-20px));font-size:clamp(110px,19vw,300px);white-space:nowrap;color:transparent;-webkit-text-stroke:2px var(--oro);opacity:.22;pointer-events:none}
+.hero-in{position:relative;z-index:5;width:100%}
+.hero-txt{max-width:560px}
+.h1-kw{display:block;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--oro);font-weight:500;line-height:1.6;margin-bottom:22px}
+.hero h1{font-size:clamp(58px,8vw,124px)}
+.hero h1 .c{display:block;text-transform:none;color:var(--oro);font-size:.62em;letter-spacing:0;line-height:1.05;margin-top:10px}
+.hero-sub{font-size:clamp(17px,1.5vw,20px);color:var(--pc);max-width:44ch;margin-top:24px}
+.hero-obj{position:absolute;z-index:3;right:max(6%,calc((100% - 1200px)/2 + 60px));top:50%;height:min(78%,640px);width:auto;
+  transform:translate(calc(var(--mx)*16px),calc(-50% + var(--my)*12px)) rotate(calc(var(--mx)*3deg));filter:drop-shadow(0 0 70px rgba(233,184,114,.35)) drop-shadow(0 40px 50px rgba(0,0,0,.5));animation:entra 1.1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes entra{from{opacity:0;translate:0 80px;scale:.9}}
+.fls{position:absolute;inset:0;z-index:4;pointer-events:none}
+.fl{position:absolute;left:var(--x);top:var(--y);background:#fff;color:var(--ink);font-size:13px;font-weight:500;padding:9px 15px;border-radius:30px;white-space:nowrap;box-shadow:0 12px 28px rgba(0,0,0,.3);filter:blur(var(--b,0));
+  transform:translate(calc(var(--mx)*var(--z)*-46px),calc(var(--my)*var(--z)*-34px));animation:flota 6s ease-in-out infinite}
+.fl:nth-child(2n){animation-duration:7.5s;animation-direction:reverse}
+.fl b{font-weight:500;color:var(--oro2)}
+.fl.ok::before{content:'✓ ';color:#1d8a4a;font-weight:600}
+@keyframes flota{50%{translate:0 -14px}}
+
+/* 2 · problema */
+.prob-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:56px;border-top:2px solid var(--ink)}
+.prob-grid div{padding:28px 20px 10px 0}
+.prob-grid b{display:block;font-family:'Cormorant',serif;font-style:italic;font-size:54px;line-height:1;color:var(--oro2)}
+.prob-grid strong{display:block;font-weight:500;font-size:18px;margin:12px 0 6px}
+.prob-grid span{font-size:15px;color:var(--p)}
+
+/* 3 · cómo funciona */
+.pasos{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;margin-top:56px;counter-reset:p}
+.pasos li{border-top:1px solid var(--l);padding-top:26px;counter-increment:p}
+.pasos li::before{content:'0' counter(p);display:block;font-family:'Anton';font-size:64px;color:var(--oro);line-height:1;margin-bottom:16px}
+.pasos b{display:block;font-size:22px;font-weight:400;margin-bottom:8px}
+.pasos span{color:var(--pc)}
+
+/* 4 · sectores */
+.sec-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:56px}
+.sec{background:#fff;border:1px solid var(--l2);padding:34px 30px;position:relative;overflow:hidden}
+.sec .n{position:absolute;right:16px;top:-4px;font-family:'Cormorant',serif;font-style:italic;font-size:84px;line-height:1;color:var(--arena2)}
+.sec h3{position:relative;font-size:32px;margin-bottom:6px;padding-right:64px}
+.sec .q{position:relative;font-size:14px;color:var(--oro2);font-weight:500;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
+.sec ul{list-style:none;position:relative}
+.sec li{padding:9px 0 9px 22px;border-top:1px solid var(--l2);font-size:15px;color:var(--p);position:relative}
+.sec li::before{content:'';position:absolute;left:0;top:18px;width:8px;height:8px;background:var(--oro);transform:rotate(45deg)}
+
+/* 5 · planes */
+.planes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:56px;align-items:stretch}
+.plan{border:1px solid var(--l);padding:36px 32px;display:flex;flex-direction:column;background:rgba(255,255,255,.03)}
+.plan .tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--oro);font-weight:500}
+.plan h3{font-size:38px;margin:12px 0 4px}
+.plan .pr{font-size:58px;font-family:'Anton';line-height:1;margin-top:14px}
+.plan .pr small{font-family:'Jost';font-size:15px;font-weight:400;color:var(--pc);margin-left:8px;letter-spacing:0;text-transform:none}
+.plan .per{font-size:14px;color:var(--pc);margin-top:6px}
+.plan ul{list-style:none;margin:24px 0 28px;flex:1}
+.plan li{padding:10px 0 10px 24px;border-top:1px solid var(--l);font-size:15px;color:var(--pc);position:relative}
+.plan li::before{content:'✓';position:absolute;left:0;color:var(--oro)}
+.plan li b{color:var(--tx);font-weight:400}
+.plan .btn{align-self:flex-start}
+.plan.top{background:var(--oro);color:var(--ink);border-color:var(--oro);transform:translateY(-14px)}
+.plan.top .tag,.plan.top .per,.plan.top li,.plan.top .pr small{color:var(--ink)}
+.plan.top li{border-color:rgba(20,32,26,.2)}
+.plan.top li::before{color:var(--ink)}
+.plan.top li b{color:var(--ink);font-weight:500}
+.nota{font-size:14px;color:var(--pc);margin-top:30px;max-width:80ch}
+
+/* 6 · equipamiento */
+.eq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:60px;align-items:center;margin-top:10px}
+.eq-vis{background-color:var(--selva);background-image:radial-gradient(circle at 50% 45%,var(--selva2),var(--selva) 70%);aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.eq-vis img{height:82%;width:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.5))}
+.eq-vis span{position:absolute;left:22px;bottom:18px;color:var(--oro);font-size:12px;letter-spacing:3px;text-transform:uppercase}
+.eq-list{list-style:none;margin-top:30px}
+.eq-list li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:4px 16px;padding:20px 0;border-top:1px solid var(--l2)}
+.eq-list i{grid-row:span 2;width:44px;height:44px;border-radius:50%;background:var(--selva);color:var(--oro);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:20px}
+.eq-list b{font-size:19px;font-weight:500}
+.eq-list span{font-size:15px;color:var(--p)}
+
+/* 7 · panel */
+.panel-img{margin-top:50px;border:1px solid var(--l);box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+.panel-pts{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:36px}
+.panel-pts li{border-top:2px solid var(--oro);padding-top:14px;color:var(--pc);font-size:15px}
+.panel-pts b{display:block;color:var(--tx);font-weight:400;font-size:18px;margin-bottom:4px}
+
+/* 8 · calculadora */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;margin-top:50px;border:1px solid var(--l2);background:#fff}
+.calc form{padding:36px;display:grid;gap:20px;align-content:start}
+.calc label{display:grid;gap:8px;font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--p)}
+.calc input,.calc select,.lead-f input,.lead-f select{font:inherit;font-size:18px;text-transform:none;letter-spacing:0;color:var(--ink);padding:12px 14px;border:1px solid #c9bfa9;background:var(--arena);border-radius:0;width:100%}
+.calc input:invalid{border-color:#b3261e}
+.res{background:var(--selva);color:var(--tx);padding:36px;display:grid;gap:4px;align-content:center}
+.res div{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--l)}
+.res span{color:var(--pc);font-size:15px}
+.res b{font-family:'Anton';font-weight:400;font-size:30px;font-variant-numeric:tabular-nums}
+.res .total b{font-size:46px;color:var(--oro)}
+.res p{font-size:13px;color:var(--pc);margin-top:12px}
+
+/* 9 · faq */
+.faq{margin-top:40px;border-top:1px solid var(--l2)}
+.faq details{border-bottom:1px solid var(--l2)}
+.faq summary{cursor:pointer;list-style:none;padding:22px 40px 22px 0;font-size:20px;font-weight:400;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';position:absolute;right:6px;top:16px;font-size:28px;color:var(--oro2);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{padding:0 0 22px;color:var(--p);max-width:70ch}
+
+/* 10 · cierre */
+.fin{text-align:center}
+.fin h2{font-size:clamp(54px,9vw,140px)}
+.fin h2 .c{display:block;text-transform:none;color:var(--oro);font-size:.6em}
+.lead-f{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:40px auto 0;max-width:820px}
+.lead-f label{display:grid;gap:6px;text-align:left;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--pc);flex:1 1 200px}
+.lead-f input,.lead-f select{background:rgba(255,255,255,.06);color:var(--tx);border-color:var(--l)}
+.lead-f select option{color:var(--ink)}
+.lead-f .btn{align-self:flex-end;padding:16px 26px}
+.err{color:#ffb4ab;font-size:14px;min-height:1.4em;margin-top:12px}
+footer{background:#0A1912;color:var(--pc);padding:40px 0}
+.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.foot nav a{font-size:13px;text-decoration:none;margin-right:20px}
+.foot nav a:hover{color:var(--oro)}
+.foot span{font-size:11px;letter-spacing:1.5px;text-transform:uppercase}
+
+@media(max-width:1000px){
+  .prob-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sec-grid,.planes,.pasos{grid-template-columns:minmax(0,1fr)}
+  .plan.top{transform:none}
+  .eq-grid,.calc{grid-template-columns:minmax(0,1fr)}
+  .eq-vis{aspect-ratio:16/10}
+  .panel-pts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .wrap{padding:0 22px}
+  .nav{padding:10px 20px}
+  .brand img{height:34px}
+  .nav-links a:not(.btn){display:none}
+  section{padding:76px 0}
+  .hero{flex-direction:column;align-items:stretch;padding:46px 0 0;min-height:auto}
+  .hero-in{order:-1}
+  .hero-txt{max-width:none}
+  .hero-obj{position:relative;right:auto;top:auto;transform:none;height:340px;margin:36px auto 0;animation:none}
+  .fls{display:none}
+  .hero-word{top:72%}
+  .prob-grid{grid-template-columns:minmax(0,1fr)}
+  .panel-pts{grid-template-columns:minmax(0,1fr)}
+  .calc form,.res{padding:26px 22px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero-obj,.fl{animation:none!important}
+  .btn{transition:none}
+}
+</style>
+</head>
+<body>
+<a href="#problema" class="skip">Saltar al contenido</a>
+
+<nav class="nav" aria-label="Principal">
+  <a href="./" class="brand"><img src="logo-origen-light.png" alt="ORIGEN" width="309" height="200"><span>Turismo</span></a>
+  <div class="nav-links">
+    <a href="#como">Cómo funciona</a>
+    <a href="#planes">Planes</a>
+    <a href="#panel">Gestor</a>
+    <a href="#calculadora">Calculadora</a>
+    <a href="#contacto" class="btn btn-o">Relevamiento gratis</a>
+  </div>
+</nav>
+
+<main>
+<!-- 1 · ESCENA PRINCIPAL -->
+<header class="hero" id="hero">
+  <div class="hero-word d" aria-hidden="true">Reservas</div>
+  <img class="hero-obj" src="esc-cerradura.svg" alt="" width="360" height="640">
+  <div class="fls" aria-hidden="true">
+    <span class="fl ok" style="--x:56%;--y:16%;--z:.6">Reserva confirmada · <b>Booking</b></span>
+    <span class="fl" style="--x:84%;--y:26%;--z:1.4">Airbnb · <b>3 noches</b></span>
+    <span class="fl" style="--x:52%;--y:70%;--z:1">Check-in 15:00 · código <b>4821</b></span>
+    <span class="fl ok" style="--x:80%;--y:80%;--z:.5;--b:1px">Limpieza lista</span>
+    <span class="fl" style="--x:62%;--y:44%;--z:1.8;--b:2px">★ <b>4,9</b></span>
+  </div>
+  <div class="hero-in wrap">
+    <div class="hero-txt">
+      <h1 class="d"><span class="h1-kw">ORIGEN Turismo · Gestión de alojamientos en Puerto Iguazú</span>Vos cobrás.<span class="c">Nosotros nos ocupamos de todo.</span></h1>
+      <p class="hero-sub">Cabañas, departamentos y casas en Airbnb, Booking y Expedia: reservas, huéspedes, cobranzas, limpieza y mantenimiento. Un solo equipo, un solo calendario.</p>
+      <div class="acts">
+        <a href="#contacto" class="btn btn-o">Quiero que gestionen mi alojamiento</a>
+        <a href="#planes" class="btn btn-l">Ver planes</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 2 · EL PROBLEMA -->
+<section id="problema" aria-labelledby="prob-h">
+  <div class="wrap">
+    <div class="eb">Si alquilás por temporada</div>
+    <h2 class="h2 d" id="prob-h">¿Te suena <span class="c">esto?</span></h2>
+    <div class="prob-grid">
+      <div><b>5</b><strong>Calendarios distintos</strong><span>Airbnb, Booking, Expedia, WhatsApp y el cuaderno.</span></div>
+      <div><b>2×</b><strong>Dobles reservas</strong><span>Dos huéspedes para la misma noche y un problema enorme.</span></div>
+      <div><b>3 am</b><strong>Mensajes a toda hora</strong><span>Consultas, llegadas tarde, "¿cuál es la clave del wifi?".</span></div>
+      <div><b>$?</b><strong>Cobros que no cierran</strong><span>Señas, transferencias y comisiones de cada plataforma.</span></div>
+      <div><b>🔑</b><strong>Llaves y limpieza</strong><span>Alguien tiene que estar entre un huésped y el siguiente.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · CÓMO FUNCIONA -->
+<section class="oscuro" id="como" aria-labelledby="como-h">
+  <div class="wrap">
+    <div class="eb">Cómo funciona</div>
+    <h2 class="h2 d" id="como-h">Tres pasos y <span class="c">te olvidás</span></h2>
+    <ol class="pasos">
+      <li><b>Relevamos tu alojamiento</b><span>Vamos, lo vemos, sacamos fotos y te decimos cuánto puede rendir. Gratis.</span></li>
+      <li><b>Lo publicamos y lo gestionamos</b><span>Anuncios en todos los canales, un solo calendario, atención a huéspedes y limpieza entre estadías.</span></li>
+      <li><b>Cobrás cada mes</b><span>Recibís la liquidación con el detalle de cada reserva, y ves todo en tu panel.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 4 · EL EQUIPO: TRES SECTORES -->
+<section id="equipo" aria-labelledby="eq-h">
+  <div class="wrap">
+    <div class="eb">Quién hace qué</div>
+    <h2 class="h2 d" id="eq-h">Un equipo, <span class="c">tres sectores</span></h2>
+    <div class="sec-grid">
+      <article class="sec"><span class="n" aria-hidden="true">01</span><h3 class="d">Marketing y ventas</h3><div class="q">Que se llene</div>
+        <ul><li>Anuncios en Airbnb, Booking y Expedia</li><li>Fotos y textos que venden</li><li>Redes sociales y reservas directas</li><li>Respuesta a consultas y huéspedes</li><li>Gestor de reservas con un solo calendario</li></ul></article>
+      <article class="sec"><span class="n" aria-hidden="true">02</span><h3 class="d">Administración</h3><div class="q">Que cierren las cuentas</div>
+        <ul><li>Cobranzas y señas</li><li>Pagos y comisiones de cada plataforma</li><li>Liquidación mensual con el detalle</li><li>Panel del propietario</li><li>Incluida en el 7%</li></ul></article>
+      <article class="sec"><span class="n" aria-hidden="true">03</span><h3 class="d">Limpieza y mantenimiento</h3><div class="q">Que esté impecable</div>
+        <ul><li>Limpieza y ropa blanca entre huéspedes</li><li>Revisión antes de cada llegada</li><li>Arreglos chicos y reposición</li><li>Aviso inmediato si algo se rompe</li><li>Según el tamaño del alojamiento</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · PLANES -->
+<section class="oscuro" id="planes" aria-labelledby="pl-h">
+  <div class="wrap">
+    <div class="eb">Planes</div>
+    <h2 class="h2 d" id="pl-h">Elegí cuánto <span class="c">querés delegar</span></h2>
+    <div class="planes">
+      <article class="plan">
+        <div class="tag">Sectores 01 + 02</div>
+        <h3 class="d">Plan Reservas</h3>
+        <div class="pr">7%<small>por reserva</small></div>
+        <div class="per">Sin abono fijo: si no hay reservas, no pagás.</div>
+        <ul><li><b>Marketing y ventas</b> en todos los canales</li><li><b>Administración:</b> cobranzas, pagos y liquidación</li><li>Gestor de reservas y panel del propietario</li><li>Atención a huéspedes</li></ul>
+        <a href="#contacto" class="btn btn-l" data-plan="Plan Reservas">Lo quiero</a>
+      </article>
+      <article class="plan top">
+        <div class="tag">El más elegido · 01 + 02 + 03</div>
+        <h3 class="d">Plan Integral</h3>
+        <div class="pr">7%<small>+ limpieza</small></div>
+        <div class="per">Limpieza por salida, según el tamaño. La paga el huésped.</div>
+        <ul><li><b>Todo el Plan Reservas</b></li><li><b>Limpieza y ropa blanca</b> entre estadías</li><li><b>Mantenimiento</b> y arreglos chicos</li><li>Check-in sin entregar llaves</li></ul>
+        <a href="#contacto" class="btn btn-v" data-plan="Plan Integral">Lo quiero</a>
+      </article>
+      <article class="plan">
+        <div class="tag">Para hoteles o dueños que se manejan solos</div>
+        <h3 class="d">Solo el gestor</h3>
+        <div class="pr" style="font-size:44px">A consultar</div>
+        <div class="per">Abono mensual según la cantidad de unidades.</div>
+        <ul><li>Un calendario para todos los canales</li><li>Aviso de dobles reservas</li><li>Reservas directas y bloqueos</li><li>Liquidación por propiedad</li></ul>
+        <a href="#contacto" class="btn btn-l" data-plan="Solo el gestor">Consultar</a>
+      </article>
+    </div>
+    <p class="nota">La limpieza se cobra por cada salida según el tamaño del alojamiento y se carga como tarifa de limpieza en la reserva. Las comisiones de cada plataforma van aparte.</p>
+  </div>
+</section>
+
+<!-- 6 · EQUIPAMIENTO -->
+<section id="equipa" aria-labelledby="eqp-h">
+  <div class="wrap">
+    <div class="eq-grid">
+      <div class="eq-vis"><img src="esc-cerradura.svg" alt="Cerradura con clave para alojamientos" width="360" height="640" loading="lazy"><span>Con ORIGEN Tech</span></div>
+      <div>
+        <div class="eb">Se suma a cualquier plan</div>
+        <h2 class="h2 d" id="eqp-h">Equipá tu <span class="c">alojamiento</span></h2>
+        <p class="lead">Lo instala nuestro equipo de ORIGEN Tech. Pago único con instalación.</p>
+        <ul class="eq-list">
+          <li><i aria-hidden="true">🔢</i><b>Cerradura con clave</b><span>Cada huésped recibe su código y entra a cualquier hora. Nadie tiene que entregar llaves.</span></li>
+          <li><i aria-hidden="true">📷</i><b>Cámaras exteriores</b><span>Accesos y estacionamiento a la vista desde el celular. Solo afuera y avisadas en el anuncio, como piden las plataformas.</span></li>
+          <li><i aria-hidden="true">📶</i><b>Wifi que funciona</b><span>Red estable en todo el alojamiento: es de lo primero que miran las reseñas.</span></li>
+          <li><i aria-hidden="true">🌐</i><b>Web de reserva directa</b><span>Tu propia página para que el huésped reserve sin pasar por la comisión de las plataformas.</span></li>
+        </ul>
+        <div class="acts"><a href="#contacto" class="btn btn-v" data-plan="Equipamiento (cerradura, cámaras, wifi o web)">Consultar equipamiento</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · PANEL DEL PROPIETARIO -->
+<section class="oscuro" id="panel" aria-labelledby="pan-h">
+  <div class="wrap">
+    <div class="eb">Gestor de reservas</div>
+    <h2 class="h2 d" id="pan-h">Todo en <span class="c">un solo calendario</span></h2>
+    <p class="lead">Airbnb, Booking, Expedia y las reservas directas en una sola pantalla. Si dos canales se pisan, el gestor lo marca en rojo antes de que sea un problema.</p>
+    <img class="panel-img" src="gestor-panel.webp" alt="Gestor de reservas de ORIGEN: calendario de tres cabañas con reservas de Airbnb, Booking, Expedia y directas, y un aviso de doble reserva" width="1300" height="505" loading="lazy">
+    <ul class="panel-pts">
+      <li><b>Un calendario</b>Todos los canales sincronizados.</li>
+      <li><b>Sin dobles reservas</b>Rechaza fechas ocupadas y avisa los cruces.</li>
+      <li><b>Tu panel</b>Con usuario y contraseña: ves tus reservas.</li>
+      <li><b>Liquidación</b>Lo facturado, la comisión y lo que te queda.</li>
+    </ul>
+    <div class="acts"><a href="gestor-demo.html" class="btn btn-o">Probá la demo</a></div>
+  </div>
+</section>
+
+<!-- 8 · CALCULADORA -->
+<section id="calculadora" aria-labelledby="calc-h">
+  <div class="wrap">
+    <div class="eb">Calculadora</div>
+    <h2 class="h2 d" id="calc-h">¿Cuánto <span class="c">te queda?</span></h2>
+    <p class="lead">Poné el precio por noche y cuántas noches se alquila por mes. Es una estimación para que tengas una idea.</p>
+    <div class="calc">
+      <form id="calcF" novalidate>
+        <label>Precio por noche ($)<input id="cPrecio" type="number" inputmode="numeric" min="1000" max="10000000" step="1000" value="80000" required></label>
+        <label>Noches alquiladas por mes<input id="cNoches" type="number" inputmode="numeric" min="1" max="31" step="1" value="18" required></label>
+        <label>Unidades<input id="cUni" type="number" inputmode="numeric" min="1" max="200" step="1" value="1" required></label>
+      </form>
+      <div class="res" aria-live="polite">
+        <div><span>Facturación por mes</span><b id="rFac">—</b></div>
+        <div><span>Comisión ORIGEN (7%)</span><b id="rCom">—</b></div>
+        <div class="total"><span>Te queda</span><b id="rTe">—</b></div>
+        <p id="rNota">Antes de las comisiones de cada plataforma. La limpieza la paga el huésped.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · PREGUNTAS -->
+<section id="faq" aria-labelledby="faq-h" style="padding-top:0">
+  <div class="wrap">
+    <div class="eb">Preguntas frecuentes</div>
+    <h2 class="h2 d" id="faq-h">Lo que nos <span class="c">preguntan</span></h2>
+    <div class="faq">
+      <details><summary>¿Tengo que dejar Airbnb o Booking?</summary><p>No. Seguís en todos los canales; nosotros los manejamos y los conectamos a un solo calendario para que no haya dobles reservas.</p></details>
+      <details><summary>¿Puedo usar mi alojamiento cuando quiera?</summary><p>Sí. Bloqueás las fechas que quieras desde tu panel y quedan cerradas en todos los canales.</p></details>
+      <details><summary>¿Cómo veo mis reservas y lo que cobro?</summary><p>Tenés un panel con usuario y contraseña donde ves el calendario, cada reserva y la liquidación del mes.</p></details>
+      <details><summary>¿La limpieza la pago yo?</summary><p>La limpieza se cobra por salida según el tamaño del alojamiento y se carga como tarifa de limpieza en la reserva, así la paga el huésped.</p></details>
+      <details><summary>Ya tengo quien limpie, ¿puedo contratar solo las reservas?</summary><p>Sí. El Plan Reservas incluye marketing, ventas y administración, sin limpieza.</p></details>
+      <details><summary>¿Trabajan con hoteles?</summary><p>Sí. Los hoteles suelen usar solo el gestor de reservas o un plan a medida. Escribinos y lo vemos. También tenemos <a href="hoteles.html">marketing para hoteles y cabañas</a>.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · CIERRE -->
+<section class="oscuro fin" id="contacto" aria-labelledby="fin-h">
+  <div class="wrap">
+    <h2 class="d" id="fin-h">Relevamiento<span class="c">gratis de tu alojamiento</span></h2>
+    <p class="lead" style="margin:22px auto 0">Contanos qué tenés y te decimos cuánto puede rendir. Te respondemos por WhatsApp.</p>
+    <form class="lead-f" id="leadF" novalidate>
+      <label>Tipo<select name="tipo" required><option value="">Elegí</option><option>Cabaña</option><option>Departamento</option><option>Casa</option><option>Hotel</option><option>Otro</option></select></label>
+      <label>Unidades<input name="uni" type="number" inputmode="numeric" min="1" max="200" step="1" placeholder="1" required></label>
+      <label>Me interesa<select name="plan" id="planSel"><option>Plan Integral</option><option>Plan Reservas</option><option>Solo el gestor</option><option>Equipamiento (cerradura, cámaras, wifi o web)</option><option>Todavía no sé</option></select></label>
+      <button class="btn btn-o" type="submit">Pedir relevamiento</button>
+    </form>
+    <p class="err" id="leadErr" role="alert"></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <nav aria-label="Pie de página"><a href="./">ORIGEN</a><a href="marketing.html">Marketing Digital</a><a href="tv.html">ORIGEN TV</a><a href="tech.html">ORIGEN Tech</a><a href="hoteles.html">Marketing para hoteles</a></nav>
+    <span>© 2026 ORIGEN · Jangadero 233 · Puerto Iguazú</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var WA='https://wa.me/5493757656783?text=';
+
+  // ── Calculadora (solo números validados) ──
+  var fmt=function(n){return '$ '+Math.round(n).toLocaleString('es-AR');};
+  var cP=document.getElementById('cPrecio'),cN=document.getElementById('cNoches'),cU=document.getElementById('cUni');
+  function calc(){
+    var ok=[cP,cN,cU].every(function(i){return i.checkValidity()&&i.value!=='';});
+    if(!ok){['rFac','rCom','rTe'].forEach(function(id){document.getElementById(id).textContent='—';});
+      document.getElementById('rNota').textContent='Revisá los valores: precio desde $1.000, de 1 a 31 noches y de 1 a 200 unidades.';return;}
+    var fac=+cP.value*+cN.value*+cU.value,com=fac*.07;
+    document.getElementById('rFac').textContent=fmt(fac);
+    document.getElementById('rCom').textContent=fmt(com);
+    document.getElementById('rTe').textContent=fmt(fac-com);
+    document.getElementById('rNota').textContent='Antes de las comisiones de cada plataforma. La limpieza la paga el huésped.';
+  }
+  document.getElementById('calcF').addEventListener('input',calc);
+  document.getElementById('calcF').addEventListener('submit',function(e){e.preventDefault();});
+  calc();
+
+  // ── Los botones de cada plan eligen el plan en el formulario ──
+  var sel=document.getElementById('planSel');
+  document.querySelectorAll('[data-plan]').forEach(function(a){
+    a.addEventListener('click',function(){
+      for(var i=0;i<sel.options.length;i++) if(sel.options[i].text===a.dataset.plan) sel.selectedIndex=i;
+    });
+  });
+
+  // ── Formulario a WhatsApp (validado; el texto viaja codificado) ──
+  var f=document.getElementById('leadF'),err=document.getElementById('leadErr');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!f.checkValidity()){err.textContent=!f.tipo.value?'Elegí el tipo de alojamiento.':'Poné cuántas unidades tenés (de 1 a 200).';(!f.tipo.value?f.tipo:f.uni).focus();return;}
+    err.textContent='';
+    var msg='Hola ORIGEN Turismo, quiero un relevamiento gratis. Tipo: '+f.tipo.value+'. Unidades: '+parseInt(f.uni.value,10)+'. Me interesa: '+f.plan.value+'.';
+    window.open(WA+encodeURIComponent(msg),'_blank','noopener');
+  });
+
+  // ── Profundidad con el mouse (solo puntero fino y sin movimiento reducido) ──
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+  var h=document.getElementById('hero'),pend=false,mx=0,my=0;
+  h.addEventListener('pointermove',function(e){
+    var r=h.getBoundingClientRect(); mx=(e.clientX-r.left)/r.width-.5; my=(e.clientY-r.top)/r.height-.5;
+    if(!pend){pend=true;requestAnimationFrame(function(){pend=false;h.style.setProperty('--mx',mx.toFixed(3));h.style.setProperty('--my',my.toFixed(3));});}
+  });
+  h.addEventListener('pointerleave',function(){h.style.setProperty('--mx',0);h.style.setProperty('--my',0);});
+})();
+</script>
+</body>
+</html>

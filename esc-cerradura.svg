@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 640" width="360" height="640">
+<defs>
+<linearGradient id="cuerpo" x1="0" x2="1"><stop offset="0" stop-color="#2a2a2c"/><stop offset=".5" stop-color="#151516"/><stop offset="1" stop-color="#0b0b0c"/></linearGradient>
+<linearGradient id="vidrio" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d1f22"/><stop offset="1" stop-color="#08090a"/></linearGradient>
+<linearGradient id="manija" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1e6cf"/><stop offset=".45" stop-color="#c9a86a"/><stop offset="1" stop-color="#7d6233"/></linearGradient>
+<linearGradient id="brillo" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4"/></filter>
+</defs>
+<!-- cuerpo -->
+<rect x="40" y="10" width="170" height="620" rx="34" fill="url(#cuerpo)"/>
+<rect x="40" y="10" width="170" height="620" rx="34" fill="url(#brillo)"/>
+<rect x="58" y="60" width="134" height="250" rx="18" fill="url(#vidrio)" stroke="#2f3134"/>
+<!-- teclado -->
+<g font-family="Jost,Arial,sans-serif" font-size="26" fill="#E9B872" text-anchor="middle">
+<g filter="url(#glow)" opacity=".7"><text x="88" y="112">1</text><text x="125" y="112">2</text><text x="162" y="112">3</text><text x="88" y="168">4</text><text x="125" y="168">5</text><text x="162" y="168">6</text><text x="88" y="224">7</text><text x="125" y="224">8</text><text x="162" y="224">9</text><text x="125" y="280">0</text></g>
+<text x="88" y="112">1</text><text x="125" y="112">2</text><text x="162" y="112">3</text><text x="88" y="168">4</text><text x="125" y="168">5</text><text x="162" y="168">6</text><text x="88" y="224">7</text><text x="125" y="224">8</text><text x="162" y="224">9</text><text x="88" y="280" font-size="20">✱</text><text x="125" y="280">0</text><text x="162" y="280" font-size="20">#</text>
+</g>
+<!-- led -->
+<circle cx="125" cy="38" r="7" fill="#5BE38B" filter="url(#glow)"/><circle cx="125" cy="38" r="4" fill="#C8FFD9"/>
+<!-- manija -->
+<circle cx="125" cy="400" r="40" fill="#0c0c0d" stroke="#2f3134" stroke-width="2"/>
+<path d="M125 372 h200 a22 22 0 0 1 0 44 h-200 a28 28 0 0 1 0-44z" fill="url(#manija)"/>
+<circle cx="125" cy="394" r="26" fill="url(#manija)"/>
+<!-- lector de llave de emergencia -->
+<rect x="112" y="520" width="26" height="54" rx="13" fill="#0c0c0d" stroke="#2f3134"/>
+<rect x="122" y="532" width="6" height="30" rx="3" fill="#2f3134"/>
+</svg>

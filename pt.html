@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<!-- ORIGEN · pt.html · v2.0 · 2026-11-09 · portugués con los tres sectores (sin precios) -->
+<!-- ORIGEN · pt.html · v2.3 · 2026-11-10 · quarto setor: ORIGEN Turismo · v2.2 · 2026-11-10 · Café de Ideas quartas e domingos · 2026-11-09 · programação nova e link para auspicios.html · 2026-11-09 · portugués con los tres sectores (sin precios) -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ORIGEN · Marketing, produtora e tecnologia em Puerto Iguazú</title>
+<title>ORIGEN · Marketing, produtora, tecnologia e turismo em Puerto Iguazú</title>
 <link rel="canonical" href="https://agencia-origen.online/pt.html">
 <link rel="alternate" hreflang="es" href="https://agencia-origen.online/">
 <link rel="alternate" hreflang="pt-BR" href="https://agencia-origen.online/pt.html">
 <link rel="alternate" hreflang="x-default" href="https://agencia-origen.online/">
-<meta name="description" content="ORIGEN em Puerto Iguazú, a 15 minutos de Foz do Iguaçu: marketing digital, redes sociais e sites; ORIGEN TV, produtora e streaming; e ORIGEN Tech, segurança.">
+<meta name="description" content="ORIGEN em Puerto Iguazú, a 15 minutos de Foz do Iguaçu: marketing digital, redes sociais e sites; ORIGEN TV, produtora e streaming; ORIGEN Tech, segurança; e ORIGEN Turismo, gestão de imóveis.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ORIGEN · Marketing, produtora e tecnologia">
 <meta property="og:description" content="Marketing digital, produtora audiovisual e tecnologia em Puerto Iguazú, na Tríplice Fronteira.">
@@ -188,7 +188,9 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 @media(max-width:600px){.mainnav .links .lang-sw{width:auto;margin-top:12px;align-self:flex-start}.mainnav .links .lang-sw a{width:auto!important;border-top:none!important;padding:8px 14px!important}}
 
 /* ═══ v4.0 · três setores ═══ */
-.s-mk{--ac:#C9B37A}.s-tv{--ac:#E4F616}.s-tech{--ac:#7FD6E8}
+.s-mk{--ac:#C9B37A}.s-tv{--ac:#E4F616}.s-tech{--ac:#7FD6E8}.s-tur{--ac:#E9B872}
+.s-tur .door-img{background:radial-gradient(circle at 50% 45%,#2F5A3E,#0F2419 70%)}
+.s-tur .door-img img{object-fit:contain;filter:none;padding:7% 0}
 .s-num{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--ac);margin-bottom:16px}
 .s-btn{display:inline-flex;padding:15px 28px;background:var(--ac);color:#111;text-decoration:none;font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;transition:background .25s}
 .s-btn:hover{background:var(--tx)}
@@ -236,6 +238,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 .esc.on .o-cel{transform:translate(calc(var(--mx)*14px),calc(var(--my)*10px)) rotate(-8deg)}
 .o-set{height:86%;bottom:0}
 .o-cam{height:62%;bottom:16%;right:max(10%,calc((100% - 1180px)/2 + 90px))}
+.o-lock{height:74%;bottom:12%;right:max(12%,calc((100% - 1180px)/2 + 120px));filter:drop-shadow(0 0 70px rgba(233,184,114,.35)) drop-shadow(0 40px 50px rgba(0,0,0,.5))}
 /* elementos flotantes con profundidad (--z: 0.4 lejos · 2 muy cerca y desenfocado) */
 .esc-fl{position:absolute;inset:0;pointer-events:none;z-index:4}
 .fl{position:absolute;left:var(--x);top:var(--y);width:var(--s,auto);height:auto;filter:blur(var(--b,0));opacity:0;
@@ -274,6 +277,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
   .o-cel{height:36%;margin-right:-20%}
   .o-set{height:44%;bottom:70px;margin-right:-34%}
   .o-cam{height:30%;bottom:96px;margin-right:-22%}
+  .o-lock{height:36%;bottom:80px;margin-right:-14%}
   .esc-word{top:72%;font-size:clamp(90px,30vw,150px)}
   .fl.m-no{display:none}
   .fl{left:calc(var(--x)*.82);top:calc(50% + var(--y)*.44)}
@@ -288,7 +292,7 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 }
 
 /* ═══ v5.0 · directorio de sectores ═══ */
-.dir-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:46px}
+.dir-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:46px}
 .door{display:flex;flex-direction:column;border:1px solid var(--l);border-top:3px solid var(--ac);background:var(--n);transition:transform .3s,box-shadow .3s}
 .door:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
 .door-img{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:#000}
@@ -308,7 +312,8 @@ footer{background:var(--n);color:#fff;padding:60px 0 40px}
 .door .s-btn{align-self:stretch;justify-content:center;white-space:nowrap;letter-spacing:1.6px}
 .dir-h1{font-size:clamp(38px,5.2vw,64px)}
 .h1-kw{display:block;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--dk);font-weight:400;line-height:1.6;margin-bottom:18px}
-@media(max-width:960px){.dir-grid{grid-template-columns:1fr}}
+@media(max-width:1100px){.dir-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.dir-grid{grid-template-columns:minmax(0,1fr)}}
 body{font-variant-numeric:lining-nums}
 </style>
 </head>
@@ -332,11 +337,11 @@ body{font-variant-numeric:lining-nums}
 <span id="top"></span>
 
 <!-- ══════ ESCENAS: un sector por escena ══════ -->
-<header class="esc-hero" id="esc" aria-roledescription="carrusel" aria-label="Los três setores de ORIGEN">
+<header class="esc-hero" id="esc" aria-roledescription="carrusel" aria-label="Os quatro setores da ORIGEN">
   <span class="esc-word d" id="escWord" aria-hidden="true">REDES</span>
 
   <!-- 01 · MARKETING DIGITAL -->
-  <article class="esc on" id="esc0" data-word="REDES" style="--bg1:#1B130B;--bg2:#6A4720;--fg:#F6EEDF;--ac:#E8C77E;--btn:#111" aria-roledescription="escena" aria-label="1 de 3: Marketing Digital">
+  <article class="esc on" id="esc0" data-word="REDES" style="--bg1:#1B130B;--bg2:#6A4720;--fg:#F6EEDF;--ac:#E8C77E;--btn:#111" aria-roledescription="escena" aria-label="1 de 4: Marketing Digital">
     <div class="esc-txt">
       <div class="esc-eb">Setor 01 · Marketing Digital</div>
       <p class="esc-t d"><span class="ln"><span>A sua marca</span></span><span class="ln"><span class="ac">nas redes</span></span></p>
@@ -355,12 +360,12 @@ body{font-variant-numeric:lining-nums}
   </article>
 
   <!-- 02 · ORIGEN TV -->
-  <article class="esc" id="esc1" data-word="AO VIVO" style="--bg1:#04050F;--bg2:#1B25C9;--fg:#F3F1E8;--ac:#E4F616;--btn:#0B0B0A" aria-roledescription="escena" aria-label="2 de 3: ORIGEN TV">
+  <article class="esc" id="esc1" data-word="AO VIVO" style="--bg1:#04050F;--bg2:#1B25C9;--fg:#F3F1E8;--ac:#E4F616;--btn:#0B0B0A" aria-roledescription="escena" aria-label="2 de 4: ORIGEN TV">
     <div class="esc-txt">
       <div class="esc-eb">Setor 02 · ORIGEN TV</div>
       <p class="esc-t d"><span class="ln"><span>Origen</span></span><span class="ln"><span class="ac">TV</span></span></p>
-      <p class="esc-s">A nossa produtora: Café de Ideas, quartas e domingos 19h · Heberdá, sextas 10h ao vivo. E patrocínio para marcas.</p>
-      <div class="esc-acts"><a class="esc-btn" href="tv.html">Entrar na ORIGEN TV</a><a class="esc-lnk" href="tv.html#auspicios">Ver patrocínios →</a></div>
+      <p class="esc-s">A nossa produtora: Café de Ideas, quartas e domingos 19h · Heberdá, quartas 10h ao vivo. E patrocínio para marcas.</p>
+      <div class="esc-acts"><a class="esc-btn" href="tv.html">Entrar na ORIGEN TV</a><a class="esc-lnk" href="auspicios.html">Ver patrocínios →</a></div>
     </div>
     <img class="esc-obj o-set" src="esc-set.webp" alt="" width="900" height="1142">
     <div class="esc-fl" aria-hidden="true">
@@ -373,7 +378,7 @@ body{font-variant-numeric:lining-nums}
   </article>
 
   <!-- 03 · ORIGEN TECH -->
-  <article class="esc luz" id="esc2" data-word="SEGURANÇA" style="--bg1:#EEF4F5;--bg2:#8CCAD8;--fg:#0D1A1E;--ac:#0A6577;--btn:#fff" aria-roledescription="escena" aria-label="3 de 3: ORIGEN Tech">
+  <article class="esc luz" id="esc2" data-word="SEGURANÇA" style="--bg1:#EEF4F5;--bg2:#8CCAD8;--fg:#0D1A1E;--ac:#0A6577;--btn:#fff" aria-roledescription="escena" aria-label="3 de 4: ORIGEN Tech">
     <div class="esc-txt">
       <div class="esc-eb">Setor 03 · ORIGEN Tech</div>
       <p class="esc-t d"><span class="ln"><span>A sua casa,</span></span><span class="ln"><span class="ac">segura</span></span></p>
@@ -390,12 +395,30 @@ body{font-variant-numeric:lining-nums}
     </div>
   </article>
 
+  <!-- 04 · ORIGEN TURISMO -->
+  <article class="esc" id="esc3" data-word="RESERVAS" style="--bg1:#0F2419;--bg2:#2F5A3E;--fg:#F3EEE2;--ac:#E9B872;--btn:#14201A" aria-roledescription="escena" aria-label="4 de 4: ORIGEN Turismo">
+    <div class="esc-txt">
+      <div class="esc-eb">Setor 04 · ORIGEN Turismo</div>
+      <p class="esc-t d"><span class="ln"><span>Seu aluguel,</span></span><span class="ln"><span class="ac">resolvido</span></span></p>
+      <p class="esc-s">Gerenciamos a sua cabana, apartamento ou casa no Airbnb, Booking e Expedia: reservas, cobranças, limpeza e manutenção.</p>
+      <div class="esc-acts"><a class="esc-btn" href="turismo.html">Entrar na ORIGEN Turismo</a><a class="esc-lnk" href="https://wa.me/5493757656783?text=Ol%C3%A1%20ORIGEN%2C%20quero%20consultar%20sobre%20a%20gest%C3%A3o%20do%20meu%20im%C3%B3vel." target="_blank" rel="noopener">Consultar →</a></div>
+    </div>
+    <img class="esc-obj o-lock" src="esc-cerradura.svg" alt="" width="360" height="640">
+    <div class="esc-fl" aria-hidden="true">
+      <span class="fl tag" style="--x:56%;--y:16%;--z:.7">✓ Reserva confirmada</span>
+      <span class="fl tag" style="--x:86%;--y:26%;--z:1.3">Airbnb · 3 noites</span>
+      <span class="fl tag m-no" style="--x:52%;--y:72%;--z:1">Check-in · código 4821</span>
+      <svg class="fl" style="--x:90%;--y:72%;--z:1.8;--s:80px;--b:4px" viewBox="0 0 24 24"><path fill="#E9B872" d="M12 2l2.6 6.9L22 9.3l-5.6 4.8L18.2 22 12 17.8 5.8 22l1.8-7.9L2 9.3l7.4-.4z"/></svg>
+    </div>
+  </article>
+
   <div class="esc-ctrl">
     <button class="esc-ar" id="escPrev" aria-label="Cena anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-8 6 8 6"/></svg></button>
     <div class="esc-tabs" role="group" aria-label="Escolha um setor">
       <button class="esc-tab" data-go="0" aria-current="true"><b>01</b> Marketing Digital<i></i></button>
       <button class="esc-tab" data-go="1"><b>02</b> ORIGEN TV<i></i></button>
       <button class="esc-tab" data-go="2"><b>03</b> ORIGEN Tech<i></i></button>
+      <button class="esc-tab" data-go="3"><b>04</b> Turismo<i></i></button>
     </div>
     <button class="esc-ar" id="escNext" aria-label="Próxima cena"><svg viewBox="0 0 24 24"><path d="M9 6l8 6-8 6"/></svg></button>
   </div>
@@ -404,7 +427,7 @@ body{font-variant-numeric:lining-nums}
 <!-- ══════ TODO LO QUE HACEMOS: un directorio, tres puertas ══════ -->
 <section id="sectores" class="dir" aria-labelledby="dir-h">
   <div class="wrap">
-    <h1 class="sec-h dir-h1" id="dir-h"><span class="h1-kw">Marketing digital, produtora e tecnologia em Puerto Iguazú</span>Uma empresa, <em>três setores</em>.</h1>
+    <h1 class="sec-h dir-h1" id="dir-h"><span class="h1-kw">Marketing digital, produtora, tecnologia e turismo em Puerto Iguazú</span>Uma empresa, <em>quatro setores</em>.</h1>
     <p class="sec-lead">Tudo o que fazemos, num só lugar. A 15 minutos de Foz do Iguaçu. Escolha o que te interessa e entre em cada setor.</p>
     <div class="dir-grid">
       <article class="door s-mk">
@@ -430,10 +453,10 @@ body{font-variant-numeric:lining-nums}
           <h3>ORIGEN <em>TV</em></h3>
           <ul class="door-list">
             <li><a href="cafe-de-ideas.html">Café de Ideas · qua e dom 19h</a></li>
-            <li><a href="tv.html#programas">Heberdá · sexta 10h ao vivo</a></li>
+            <li><a href="tv.html#programas">Heberdá · quarta 10h ao vivo</a></li>
             <li><a href="juiced.html">Origen Esports · ranking de Juiced</a></li>
             <li><a href="tv.html#programas">Origen Deportes · padel ao vivo</a></li>
-            <li><a href="tv.html#auspicios">Patrocínio para marcas</a></li>
+            <li><a href="auspicios.html">Patrocínio para marcas</a></li>
             <li><a href="tv.html#set">Transmissão de eventos</a></li>
           </ul>
           <a href="tv.html" class="s-btn">Entrar na ORIGEN TV →</a>
@@ -453,6 +476,21 @@ body{font-variant-numeric:lining-nums}
             <li><a href="tech.html">Visita técnica sem custo</a></li>
           </ul>
           <a href="tech.html" class="s-btn">Entrar na ORIGEN Tech →</a>
+        </div>
+      </article>
+      <article class="door s-tur">
+        <a class="door-img" href="turismo.html" tabindex="-1" aria-hidden="true"><img src="esc-cerradura.svg" alt="" loading="lazy" width="360" height="640"><span>04</span></a>
+        <div class="door-body">
+          <div class="s-num">Setor 04</div>
+          <h3>ORIGEN <em>Turismo</em></h3>
+          <ul class="door-list">
+            <li><a href="turismo.html#planes">Gestão de imóveis · 7%</a></li>
+            <li><a href="turismo.html#equipo">Reservas, cobranças e limpeza</a></li>
+            <li><a href="turismo.html#panel">Gestor de reservas</a></li>
+            <li><a href="turismo.html#equipa">Fechaduras com senha e câmeras</a></li>
+            <li><a href="turismo.html#contacto">Avaliação grátis</a></li>
+          </ul>
+          <a href="turismo.html" class="s-btn">Entrar no Turismo →</a>
         </div>
       </article>
     </div>
