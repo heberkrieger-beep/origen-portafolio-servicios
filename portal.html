@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v3.0 · 2026-11-17 · clientes (alta y edición), presupuestos, cobros, presencia digital/SEO y catálogo de servicios para el cliente -->
+<!-- Portal ORIGEN — v3.2 · 2026-11-18 · planes de la web y rubro, calendario en grilla en el celular, aviso para instalar la app, Números (gastos, avance) y alertas -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -144,12 +144,24 @@ ul.tasks{list-style:none;margin:0;padding:0}
 .add:hover,.add:focus-visible{opacity:1;background:var(--s3);color:var(--gold)}
 .chip{display:block;width:100%;text-align:left;font-size:.74rem;line-height:1.3;border:0;border-radius:6px;padding:.22rem .4rem;background:var(--s3);color:var(--tx);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-left:3px solid var(--c,var(--mut))}
 .chip.hecho{opacity:.55;text-decoration:line-through}
+.dnum{border:0;background:none;color:inherit;font:inherit;padding:0 4px;cursor:pointer;min-width:26px;min-height:26px;border-radius:8px}
+.day.today .dnum{color:var(--gold);font-weight:700}
+.dots,.dia-panel{display:none}
 @media(max-width:760px){
-  .cal{grid-template-columns:1fr;gap:8px}.cal .dw,.day.out,.day.vacio-d{display:none}
-  .day{min-height:0;padding:10px}.day-h{font-size:.9rem;color:var(--tx);text-transform:capitalize}.day-h .wd{display:inline}
-  .add{opacity:1}
-  .chip{font-size:.92rem;white-space:normal;padding:.45rem .6rem}
+  .cal{gap:3px}.cal .dw{font-size:.62rem;letter-spacing:0}
+  .day{min-height:56px;padding:4px 2px;border-radius:10px;cursor:pointer;align-items:center;gap:2px}
+  .day-h{justify-content:center;font-size:.85rem;min-height:0;padding:0}
+  .day .chip,.day .add,.solo-pc{display:none}
+  .dots{display:flex;gap:3px;flex-wrap:wrap;justify-content:center;margin-top:auto;padding-bottom:3px}
+  .dots i{width:7px;height:7px;border-radius:50%;background:var(--c)}.dots b{font-size:.62rem;line-height:7px;color:var(--mut)}
+  .day.sel{background:var(--s3);border-color:var(--gold)}
+  .dia-panel{display:block;margin-top:12px}
 }
+.inst{display:flex;align-items:center;gap:12px}.inst img{border-radius:12px;flex:0 0 auto}
+.alerta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:.65rem .8rem;border-radius:12px;margin-bottom:6px;background:var(--s2);border-left:3px solid var(--warn)}
+.alerta.bad{border-left-color:var(--bad)}.alerta span{flex:1}
+.av{display:flex;justify-content:space-between;gap:10px;margin:.7rem 0 .3rem;font-size:.92rem}.av span{color:var(--mut)}
+.barra{height:8px;border-radius:999px;background:var(--s3);overflow:hidden}.barra i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:999px}
 .leyenda{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:12px}
 
 /* clientes */
@@ -386,10 +398,20 @@ $('f-login').addEventListener('submit', async e => {
 async function salir(){ await sb.auth.signOut(); location.replace(location.pathname); }
 $('salir').addEventListener('click', salir);
 
+// Link personal de acceso (lo genera el equipo): se activa recién acá, al abrirlo en el navegador
+const acceso = new URLSearchParams(location.search);
+let verificando = !!acceso.get('acceso');
+if (acceso.get('acceso')){
+  const tipo = acceso.get('tipo') === 'invite' ? 'invite' : 'magiclink';
+  sb.auth.verifyOtp({ token_hash:acceso.get('acceso'), type:tipo }).then(({ error }) => {
+    history.replaceState(null, '', location.pathname); verificando = false;
+    if (error){ pantalla('login'); $('login-msg').textContent = 'Ese link ya se usó o venció. Poné tu email y te mandamos uno nuevo, o pedile otro a ORIGEN.'; }
+  });
+}
 let arrancado = null;
 sb.auth.onAuthStateChange((ev, session) => {
   if (session?.user && arrancado !== session.user.id){ arrancado = session.user.id; setTimeout(() => entrar(session.user)); }
-  if (!session){ arrancado = null; pantalla('login'); }
+  if (!session){ arrancado = null; if (!verificando) pantalla('login'); }
 });
 function pantalla(id){ for (const s of ['login','shell','cargando']) $(s).hidden = s !== id; }
 
@@ -448,7 +470,8 @@ $('cuenta').addEventListener('click', () => abrirHoja('Mi cuenta',
   h('button',{type:'button',class:'btn ol',style:'width:100%',onclick:salir}, 'Salir')));
 
 /* instalar como app */
-window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); S.instalar = e; $('instalar').hidden = false; });
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); S.instalar = e; $('instalar').hidden = false; if (!$('shell').hidden && document.activeElement === document.body) render(); });
+window.addEventListener('appinstalled', () => { S.instalar = null; $('instalar').hidden = true; toast('¡App instalada! Ya la tenés en tu pantalla de inicio.'); });
 async function instalarApp(){ if (!S.instalar) return; S.instalar.prompt(); await S.instalar.userChoice; S.instalar = null; $('instalar').hidden = true; cerrarHoja(); }
 $('instalar').addEventListener('click', instalarApp);
 function ayudaIOS(){
@@ -465,22 +488,23 @@ const pillCli = id => { const c = cliDe(id); return c ? pill(c.nombre, '', c.col
 async function cargarEquipo(centro){
   const c = centro || new Date(), ahora = new Date();
   const desde = iso(new Date(c.getFullYear(), c.getMonth() - 2, 1)), hasta = iso(new Date(c.getFullYear(), c.getMonth() + 5, 0));
-  const [cl, us, ta, co, pr, ev, so, dg, pp, pg] = await Promise.all([
+  const [cl, us, ta, co, pr, ev, so, dg, pp, pg, ga] = await Promise.all([
     q(sb.from('clientes').select('*').order('negocio',{nullsFirst:false})),
     q(sb.from('usuarios').select('id,nombre,rol,auth_id,activo')),
-    q(sb.from('tareas').select('*').or(`hecha.eq.false,hecha.is.null,creado_en.gte.${masDias(-30)}`).order('fecha_limite',{nullsFirst:false}).limit(600)),
+    q(sb.from('tareas').select('*').or(`hecha.eq.false,hecha.is.null,creado_en.gte.${masDias(-30)},hecha_en.gte.${masDias(-190)}`).order('fecha_limite',{nullsFirst:false}).limit(600)),
     q(sb.from('contenidos').select('id,cliente_id,fecha,titulo,idea,copy,red,formato,estado,archivos,aprobacion,comentario_cliente,visible_cliente').gte('fecha',desde).lte('fecha',hasta).order('fecha')),
     q(sb.from('producciones').select('id,cliente_id,fecha,hora,duracion_min,ubicacion,notas,visible_cliente').gte('fecha',desde).lte('fecha',hasta).order('fecha')),
     q(sb.from('eventos').select('id,cliente_id,fecha,hora,duracion_min,titulo,tipo,notas,visible_cliente').gte('fecha',desde).lte('fecha',hasta).order('fecha')),
     q(sb.from('solicitudes').select('*').neq('estado','resuelta').order('creado_en',{ascending:false})),
     q(sb.from('diagnosticos').select('cliente_id,tiene_web,web_url,seo_puntaje,google_ficha,aparece_ia,actualizado_en')),
     q(sb.from('presupuestos').select('*').order('creado_en',{ascending:false}).limit(300)),
-    q(sb.from('pagos').select('id,cliente_id,fecha,monto,nota').gte('fecha', iso(new Date(ahora.getFullYear(), ahora.getMonth() - 6, 1))).order('fecha',{ascending:false}))
+    q(sb.from('pagos').select('id,cliente_id,fecha,monto,nota').gte('fecha', iso(new Date(ahora.getFullYear(), ahora.getMonth() - 6, 1))).order('fecha',{ascending:false})),
+    q(sb.from('gastos').select('*').gte('fecha', iso(new Date(ahora.getFullYear(), ahora.getMonth() - 6, 1))).order('fecha',{ascending:false}))
   ]);
   const todos = cl.map((x, i) => ({ id:String(x.id), nombre:x.negocio || x.nombre || 'Sin nombre', plan:x.plan_nombre, pausado:!!x.pausado, baja:x.estado === 'baja', prospecto:x.estado === 'prospecto',
     abono:Number(x.mensual_con_desc ?? x.precio_acordado ?? x.precio_lista) || 0, color:COLORES[i % COLORES.length], raw:x }));
   S.E = { desde, hasta, todos, clientes:todos.filter(x => !x.baja), mapa:new Map(todos.map(x => [x.id, x])), usuarios:us.filter(u => u.activo !== false),
-    tareas:ta, contenidos:co, producciones:pr, eventos:ev, solicitudes:so, diag:new Map(dg.map(d => [String(d.cliente_id), d])), presupuestos:pp, pagos:pg };
+    tareas:ta, contenidos:co, producciones:pr, eventos:ev, solicitudes:so, diag:new Map(dg.map(d => [String(d.cliente_id), d])), presupuestos:pp, pagos:pg, gastos:ga };
   S.yo = us.find(u => u.auth_id === S.user.id) || null;
 }
 async function recargar(){ await cargarEquipo(S.mes); render(); }
@@ -537,13 +561,17 @@ const FORMS = {
     nuevo: () => ({ tipo:'reunion', visible_cliente:false }) }
 };
 
+const PLANES = [['Gestión de redes · Arranque',250000],['Gestión de redes · Crecimiento',350000],['Gestión de redes · Full',500000],['Gestión de redes · Solo Contenido',100000],
+  ['Web por suscripción · Profesional',20000],['Web por suscripción · Recomendado',30000],['Web por suscripción · Tienda Online',45000],['Plan Cámaras',30000],['A medida',0]];
+const RUBROS = ['Gastronomía','Alojamiento','Turismo y excursiones','Transporte','Salud','Belleza y estética','Deportes','Comercio','Servicios profesionales','Educación','Inmobiliaria','Construcción','Eventos','Tecnología','Institución / ONG'];
 FORMS.cliente = { tabla:'clientes', nombre:'Cliente', nuevoT:'Nuevo cliente', okT:'Cliente creado.', sinBorrar:true, campos:[
-  {k:'negocio', l:'Nombre del negocio', req:1, max:120, full:1},
+  {k:'negocio', l:'Nombre del negocio', req:1, max:120},
+  {k:'rubro', l:'Rubro', t:'list', op:RUBROS, max:60},
   {k:'contacto_nombre', l:'Persona de contacto', max:120},
   {k:'whatsapp', l:'WhatsApp', t:'tel', max:30},
   {k:'email', l:'Email', t:'email', max:160},
   {k:'estado', l:'Estado', t:'select', op:[['activo','Activo'],['prospecto','Prospecto'],['baja','Dado de baja']]},
-  {k:'plan_nombre', l:'Plan', max:80},
+  {k:'plan_nombre', l:'Plan (los de la web)', t:'select', full:1, op:[['','Sin plan todavía'], ...PLANES.map(([n,p]) => [n, p ? `${n} — ${pesos(p)}/mes` : n])]},
   {k:'mensual_con_desc', l:'Abono mensual ($)', t:'number', min:0},
   {k:'dia_cobro', l:'Día de cobro (1 a 31)', t:'number', min:1, maxv:31},
   {k:'fecha_inicio', l:'Cliente desde', t:'date'},
@@ -555,13 +583,18 @@ FORMS.cliente = { tabla:'clientes', nombre:'Cliente', nuevoT:'Nuevo cliente', ok
   {k:'objetivo_principal', l:'Objetivo principal', t:'textarea', max:600, full:1},
   {k:'pausado', l:'En pausa (no se cobra ni se publica)', t:'check'}],
   nuevo: () => ({ estado:'activo' }),
+  // Al elegir un plan, sugiere el abono de la web (si no había uno puesto a mano)
+  armar: form => { const pl = form.elements.plan_nombre, ab = form.elements.mensual_con_desc; let previo = PLANES.find(p => p[0] === pl.value)?.[1];
+    pl.addEventListener('change', () => { const nuevo = PLANES.find(p => p[0] === pl.value)?.[1]; if (nuevo && (ab.value === '' || +ab.value === previo)) ab.value = nuevo; previo = nuevo; }); },
   antes: (v, nuevo) => { if (nuevo) v.nombre = v.negocio; } };
 
 function campo(f, val){
   if (f.t === 'check'){ const el = h('input',{type:'checkbox', name:f.k}); el.checked = !!val; return h('label',{class:'chk'}, el, f.l); }
   let el;
   if (f.t === 'textarea') el = h('textarea',{name:f.k, maxlength:f.max, required:!!f.req});
-  else if (f.t === 'select') el = h('select',{name:f.k, required:!!f.req}, (typeof f.op === 'function' ? f.op() : f.op).map(([v,t]) => h('option',{value:v}, t)));
+  else if (f.t === 'select'){ const ops = (typeof f.op === 'function' ? f.op() : f.op).slice(); if (val != null && val !== '' && !ops.some(o => o[0] === String(val))) ops.push([String(val), String(val)]);
+    el = h('select',{name:f.k, required:!!f.req}, ops.map(([v,t]) => h('option',{value:v}, t))); }
+  else if (f.t === 'list'){ el = h('input',{name:f.k, maxlength:f.max, list:`dl-${f.k}`, autocomplete:'off'}); el.value = val ?? ''; return h('label',{class:f.full ? 'full' : null}, f.l, el, h('datalist',{id:`dl-${f.k}`}, f.op.map(o => h('option',{value:o})))); }
   else el = h('input',{type:f.t || 'text', name:f.k, maxlength:f.max, min:f.min, required:!!f.req, inputmode: f.t === 'number' ? 'numeric' : null, max:f.maxv, placeholder: f.t === 'url' ? 'https://' : null});
   if (val != null) el.value = f.t === 'time' ? hhmm(val) : String(val);
   return h('label',{class:f.full ? 'full' : null}, f.l + (f.req ? ' *' : ''), el);
@@ -589,6 +622,7 @@ function editar(tipo, obj, preset){
   const F = FORMS[tipo], nuevo = !obj?.id;
   const base = nuevo ? { ...F.nuevo(), ...(preset || {}) } : (F.cargar ? F.cargar(obj) : obj);
   const form = h('form',{class:'form', novalidate:true}, F.campos.map(f => campo(f, base[f.k])));
+  F.armar?.(form, base);
   const guardar = async (btn, extra) => {
     if (!validar(form)) return;
     await ocupado(btn, async () => {
@@ -671,6 +705,117 @@ function agendaAgrupada(items, msjVacio){
   return out;
 }
 
+/* ================= instalar la app (aviso en el celular) ================= */
+const esApp = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+function bannerInstalar(){
+  let oculto = false; try { oculto = localStorage.getItem('portal_sin_banner') === '1'; } catch {}
+  if (esApp() || oculto || !matchMedia('(pointer:coarse)').matches) return null;
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const card = h('section',{class:'card asis inst','aria-label':'Instalar la app'},
+    h('img',{src:'portal-192.png',alt:'',width:'44',height:'44'}),
+    h('div',{style:'flex:1;min-width:0'}, h('b',{}, 'Instalá ORIGEN en tu celular'),
+      h('p',{class:'mut',style:'margin:.2rem 0 0;font-size:.88rem'}, S.instalar ? 'Queda como una app, con el ícono en tu pantalla de inicio.'
+        : ios ? 'Tocá Compartir (el cuadrado con la flecha) y después “Agregar a inicio”.' : 'Abrí el menú ⋮ del navegador y tocá “Instalar app” o “Agregar a pantalla de inicio”.')),
+    S.instalar ? h('button',{type:'button',class:'btn sm',onclick:instalarApp}, 'Instalar') : null,
+    h('button',{type:'button',class:'btn ghost sm','aria-label':'Ocultar este aviso',onclick:() => { try { localStorage.setItem('portal_sin_banner','1'); } catch {} card.remove(); }}, '✕'));
+  return card;
+}
+
+/* ================= alertas: lo que se está acumulando ================= */
+function cobrosDelMes(y, mm){
+  const hoy = new Date(), actual = y === hoy.getFullYear() && mm === hoy.getMonth(), pasado = new Date(y, mm + 1, 0) < hoy;
+  return S.E.clientes.filter(c => !c.pausado && !c.prospecto && c.abono > 0).map(c => {
+    const pagado = S.E.pagos.filter(p => String(p.cliente_id) === c.id && enMes(p.fecha, y, mm)).reduce((s,p) => s + Number(p.monto || 0), 0);
+    const dia = Number(c.raw.dia_cobro) || null, falta = Math.max(0, c.abono - pagado);
+    return { c, pagado, falta, dia, vencido: falta > 0 && (pasado || (actual && dia && hoy.getDate() > dia)) };
+  });
+}
+function alertas(){
+  const hoy = hoyISO(), a = [], ab = S.E.tareas.filter(t => !t.hecha), venc = ab.filter(t => t.fecha_limite && t.fecha_limite < hoy);
+  if (venc.length >= 5 || ab.length >= 25) a.push(['bad', `Hay muchas tareas pendientes: ${ab.length} abiertas${venc.length ? ` y ${venc.length} vencidas` : ''}.`, '✦ Ordenar', () => abrirAsistente('Hay muchas tareas pendientes. Ordename el trabajo: priorizá, reprogramá lo vencido y repartí entre el equipo.')]);
+  else if (venc.length) a.push(['warn', `${venc.length} ${venc.length === 1 ? 'tarea vencida' : 'tareas vencidas'}.`, 'Ver', () => { S.soloMias = false; location.hash = '#/tareas'; }]);
+  for (const u of S.E.usuarios){ const n = ab.filter(t => String(t.responsable_id) === String(u.id)).length; if (n >= 12) a.push(['warn', `${u.nombre.split(' ')[0]} tiene ${n} tareas abiertas.`, 'Repartir', () => { S.soloMias = false; location.hash = '#/tareas'; }]); }
+  const conRedes = S.E.clientes.filter(c => !c.pausado && !c.prospecto && /redes|contenido/i.test(c.plan || ''));
+  const sinPub = conRedes.filter(c => !S.E.contenidos.some(x => String(x.cliente_id) === c.id && x.fecha >= hoy && x.fecha <= masDias(7)));
+  if (sinPub.length) a.push(['warn', `Sin publicaciones esta semana: ${sinPub.map(c => c.nombre).join(', ')}.`, '✦ Planificar', () => abrirAsistente(`Armá las publicaciones de esta semana para ${sinPub[0].nombre}`)]);
+  const ahora = new Date(), vc = cobrosDelMes(ahora.getFullYear(), ahora.getMonth()).filter(f => f.vencido);
+  if (vc.length) a.push(['bad', `${vc.length} ${vc.length === 1 ? 'cobro vencido' : 'cobros vencidos'} este mes: ${pesos(vc.reduce((s,f) => s + f.falta, 0))}.`, 'Ver cobros', () => { S.mesCobro = null; location.hash = '#/clientes/cobros'; }]);
+  const preV = S.E.presupuestos.filter(p => p.estado === 'enviado' && p.validez && p.validez <= masDias(3));
+  if (preV.length) a.push(['warn', `${preV.length} ${preV.length === 1 ? 'presupuesto enviado vence' : 'presupuestos enviados vencen'} pronto o ya vencieron. Conviene llamar.`, 'Ver', () => { S.filtroPre = 'enviado'; location.hash = '#/clientes/presupuestos'; }]);
+  const viejos = S.E.solicitudes.filter(s => s.estado === 'nueva' && String(s.creado_en).slice(0,10) < masDias(-2));
+  if (viejos.length) a.push(['warn', `${viejos.length} ${viejos.length === 1 ? 'pedido de cliente' : 'pedidos de clientes'} sin responder hace más de 2 días.`, 'Ver', () => { location.hash = `#/clientes/${viejos[0].cliente_id}`; }]);
+  return a;
+}
+function cardAlertas(){
+  const a = alertas();
+  if (!a.length) return null;
+  return h('section',{class:'card','aria-labelledby':'h-al'}, h('h2',{id:'h-al'}, 'Ojo con esto', h('small',{}, a.length)),
+    a.map(([cls, t, b, fn]) => h('div',{class:'alerta ' + cls}, h('span',{}, t), h('button',{type:'button',class:'btn ol sm',onclick:fn}, b))));
+}
+const barra = (pct, label) => h('div',{class:'barra',role:'progressbar','aria-valuenow':String(pct),'aria-valuemin':'0','aria-valuemax':'100','aria-label':label}, h('i',{style:`width:${Math.min(100, pct)}%`}));
+
+/* ================= números del mes ================= */
+const CAT_GASTO = { equipo:'Equipo / sueldos', publicidad:'Publicidad', software:'Software y apps', produccion:'Producción', movilidad:'Movilidad', oficina:'Oficina / servicios', impuestos:'Impuestos', otros:'Otros' };
+function vistaNumeros(){
+  const m = S.mesNum || new Date(), y = m.getFullYear(), mm = m.getMonth(), enM = f => enMes(String(f || '').slice(0,10), y, mm);
+  titulo('Números', `${MESES[mm]} ${y}`);
+  const sum = (l, k) => l.reduce((s,x) => s + Number(x[k] || 0), 0);
+  const cobros = cobrosDelMes(y, mm), esperado = sum(cobros.map(f => f.c), 'abono'), cobradoAbonos = cobros.reduce((s,f) => s + Math.min(f.pagado, f.c.abono), 0);
+  const cobrado = sum(S.E.pagos.filter(p => enM(p.fecha)), 'monto');
+  const gastos = S.E.gastos.filter(g => enM(g.fecha)), totG = sum(gastos, 'monto'), resultado = cobrado - totG;
+  const acepMes = S.E.presupuestos.filter(p => p.estado === 'aceptado' && enM(p.respondido_en)), enviados = S.E.presupuestos.filter(p => p.estado === 'enviado');
+  const decididos = S.E.presupuestos.filter(p => ['aceptado','rechazado'].includes(p.estado)), conv = decididos.length ? Math.round(decididos.filter(p => p.estado === 'aceptado').length / decididos.length * 100) : null;
+  const hoy = hoyISO(), ab = S.E.tareas.filter(t => !t.hecha), venc = ab.filter(t => t.fecha_limite && t.fecha_limite < hoy), hechas = S.E.tareas.filter(t => t.hecha && enM(t.hecha_en || t.creado_en));
+  const pubPlan = S.E.contenidos.filter(c => enM(c.fecha)), pubHechas = pubPlan.filter(c => c.estado === 'publicado');
+  const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
+  const ir = d => { S.mesNum = new Date(y, mm + d, 1); render(); };
+  const f = h('form',{class:'row',novalidate:true},
+    h('label',{style:'flex:1 1 130px'}, 'Fecha', h('input',{type:'date',name:'fecha',required:true,value:enMes(hoy, y, mm) ? hoy : iso(new Date(y, mm, 1))})),
+    h('label',{style:'flex:3 1 200px'}, 'Concepto', h('input',{name:'concepto',required:true,maxlength:'200',placeholder:'Ej.: Canva, nafta, pauta Meta'})),
+    h('label',{style:'flex:1 1 150px'}, 'Categoría', h('select',{name:'categoria'}, Object.entries(CAT_GASTO).map(([k,t]) => h('option',{value:k}, t)))),
+    h('label',{style:'flex:1 1 120px'}, 'Monto ($)', h('input',{type:'number',name:'monto',min:'1',step:'1',required:true,inputmode:'numeric'})),
+    h('label',{style:'flex:1 1 150px'}, 'Cliente (opcional)', h('select',{name:'cliente_id'}, opCli(false)().map(([v,t]) => h('option',{value:v}, v ? t : 'General de ORIGEN')))),
+    h('button',{class:'btn',type:'submit'}, 'Agregar gasto'));
+  f.addEventListener('submit', async e => {
+    e.preventDefault(); if (!validar(f)) return;
+    await ocupado(e.submitter, async () => {
+      await q(sb.from('gastos').insert({ fecha:f.fecha.value, concepto:f.concepto.value.trim(), categoria:f.categoria.value, monto:Math.round(+f.monto.value), cliente_id:f.cliente_id.value || null }));
+      toast('Gasto agregado.'); await recargar();
+    });
+  });
+  const porCat = Object.entries(gastos.reduce((o,g) => (o[g.categoria] = (o[g.categoria] || 0) + Number(g.monto), o), {})).sort((a,b) => b[1] - a[1]);
+  fill($('view'), subnavClientes('numeros'),
+    h('div',{class:'calbar'}, h('h2',{}, `${MESES[mm]} ${y}`),
+      h('button',{type:'button',class:'btn ol sm','aria-label':'Mes anterior',onclick:() => ir(-1)}, '‹'),
+      h('button',{type:'button',class:'btn ol sm',onclick:() => { S.mesNum = null; render(); }}, 'Este mes'),
+      h('button',{type:'button',class:'btn ol sm','aria-label':'Mes siguiente',onclick:() => ir(1)}, '›')),
+    h('div',{class:'stats'},
+      h('div',{class:'stat oro'}, h('b',{}, pesos(cobrado)), h('span',{}, `cobrado · de ${pesos(esperado)} en abonos`)),
+      h('div',{class:'stat'}, h('b',{}, pesos(totG)), h('span',{}, 'gastos')),
+      h('div',{class:'stat' + (resultado < 0 ? ' alerta' : '')}, h('b',{class:resultado >= 0 ? 'up' : null}, pesos(resultado)), h('span',{}, 'resultado (cobrado − gastos)')),
+      h('div',{class:'stat'}, h('b',{}, pesos(sum(acepMes, 'total'))), h('span',{}, `presupuestos aceptados (${acepMes.length})`))),
+    cardAlertas(),
+    h('div',{class:'grid g2'},
+      h('section',{class:'card'}, h('h2',{}, 'Avance del mes'),
+        h('p',{class:'av'}, h('span',{}, 'Cobros de abonos'), h('b',{}, `${pesos(cobradoAbonos)} / ${pesos(esperado)}`)), barra(pct(cobradoAbonos, esperado), 'Cobros'),
+        h('p',{class:'av'}, h('span',{}, 'Publicaciones'), h('b',{}, `${pubHechas.length} de ${pubPlan.length} publicadas`)), barra(pct(pubHechas.length, pubPlan.length), 'Publicaciones'),
+        h('p',{class:'av'}, h('span',{}, 'Tareas'), h('b',{}, `${hechas.length} hechas · ${ab.length} abiertas${venc.length ? ` · ${venc.length} vencidas` : ''}`)), barra(pct(hechas.length, hechas.length + ab.length), 'Tareas')),
+      h('section',{class:'card tbl'}, h('h2',{}, 'Equipo'),
+        h('table',{}, h('thead',{}, h('tr',{}, h('th',{scope:'col'}, 'Persona'), h('th',{scope:'col',class:'num'}, 'Abiertas'), h('th',{scope:'col',class:'num'}, 'Vencidas'), h('th',{scope:'col',class:'num'}, 'Hechas'))),
+          h('tbody',{}, [...S.E.usuarios.map(u => [u.nombre.split(' ')[0], x => String(x.responsable_id) === String(u.id)]), ['Sin asignar', x => !x.responsable_id]].map(([n, de]) =>
+            h('tr',{}, h('th',{scope:'row'}, n), h('td',{class:'num'}, ab.filter(de).length), h('td',{class:'num' + (venc.filter(de).length ? ' down' : '')}, venc.filter(de).length), h('td',{class:'num'}, hechas.filter(de).length)))))),
+      h('section',{class:'card'}, h('h2',{}, 'Presupuestos'),
+        h('p',{class:'av'}, h('span',{}, 'Esperando respuesta'), h('b',{}, `${enviados.length} · ${pesos(sum(enviados, 'total'))}`)),
+        h('p',{class:'av'}, h('span',{}, 'Tasa de aceptación'), h('b',{}, conv == null ? '—' : `${conv}%`)),
+        h('a',{href:'#/clientes/presupuestos'}, 'Ver presupuestos →')),
+      h('section',{class:'card'}, h('h2',{}, 'Gastos por categoría'), porCat.length ? porCat.map(([k,v]) => [h('p',{class:'av'}, h('span',{}, CAT_GASTO[k] || k), h('b',{}, pesos(v))), barra(pct(v, totG), CAT_GASTO[k] || k)]) : vacio('Sin gastos cargados este mes.'))),
+    h('section',{class:'card'}, h('h2',{}, 'Gastos del mes'), f,
+      gastos.length ? h('div',{class:'tbl',style:'margin-top:12px'}, h('table',{}, h('tbody',{}, gastos.sort((a,b) => String(b.fecha).localeCompare(String(a.fecha))).map(g => h('tr',{},
+        h('td',{}, fCorta(g.fecha)), h('td',{}, g.concepto, g.cliente_id ? h('span',{class:'mut'}, ' · ', cliDe(g.cliente_id)?.nombre || '') : null), h('td',{}, pill(CAT_GASTO[g.categoria] || g.categoria)), h('td',{class:'num'}, pesos(g.monto)),
+        h('td',{class:'num'}, h('button',{type:'button',class:'btn ghost sm','aria-label':`Borrar gasto ${g.concepto}`,onclick:async e => { if (!confirm('¿Borrar este gasto?')) return;
+          await ocupado(e.currentTarget, async () => { await q(sb.from('gastos').delete().eq('id', g.id)); toast('Gasto borrado.'); await recargar(); }); }}, '✕'))))))) : null));
+}
+
 /* ================= VISTAS DEL EQUIPO ================= */
 VE.hoy = () => {
   const hr = new Date().getHours(), nom = (S.yo?.nombre || '').split(' ')[0];
@@ -682,7 +827,9 @@ VE.hoy = () => {
   const pedidos = S.E.solicitudes.filter(s => s.estado === 'nueva');
   const aceptados = S.E.presupuestos.filter(p => p.estado === 'aceptado' && p.respondido_en && p.respondido_en >= masDias(-10));
   fill($('view'),
+    bannerInstalar(),
     asistenteCard(),
+    cardAlertas(),
     h('div',{class:'stats'},
       h('a',{class:'stat' + (venc.length ? ' alerta' : ''),href:'#/tareas'}, h('b',{}, venc.length), h('span',{}, 'tareas vencidas')),
       h('a',{class:'stat oro',href:'#/tareas'}, h('b',{}, deHoy.length), h('span',{}, 'para hoy')),
@@ -706,30 +853,49 @@ VE.hoy = () => {
         agendaAgrupada(itemsAgenda(hoy, masDias(7), false), 'Nada agendado esta semana.'))));
 };
 
+const movil = () => matchMedia('(max-width:760px)').matches;
+// Grilla del mes. En el celular: puntitos por día y, abajo, el detalle del día tocado.
+function grillaMes(y, m, porDia, conAgregar){
+  const off = (new Date(y, m, 1).getDay() + 6) % 7, hoy = hoyISO();
+  if (!S.diaSel || !enMes(S.diaSel, y, m)) S.diaSel = enMes(hoy, y, m) ? hoy : iso(new Date(y, m, 1));
+  const celdas = ['lun','mar','mié','jue','vie','sáb','dom'].map(d => h('div',{class:'dw','aria-hidden':'true'}, d));
+  for (let i = 0; i < 42; i++){
+    const d = new Date(y, m, 1 - off + i), k = iso(d), it = porDia[k] || [], sel = k === S.diaSel;
+    if (i >= 35 && d.getMonth() !== m) break;
+    const elegir = () => { S.diaSel = k; if (d.getMonth() !== m) S.mes = new Date(d.getFullYear(), d.getMonth(), 1); render(); };
+    celdas.push(h('div',{class:'day' + (d.getMonth() !== m ? ' out' : '') + (k === hoy ? ' today' : '') + (sel ? ' sel' : ''), onclick:e => { if (movil() && !e.target.closest('button')) elegir(); }},
+      h('div',{class:'day-h'},
+        h('button',{type:'button',class:'dnum','aria-pressed':String(sel),'aria-label':`${fLarga(k)}${it.length ? ` · ${it.length} ${it.length === 1 ? 'cosa' : 'cosas'}` : ''}`,onclick:elegir}, d.getDate()),
+        conAgregar ? h('button',{type:'button',class:'add','aria-label':`Agregar el ${d.getDate()} de ${MESES[d.getMonth()]}`,onclick:() => nuevoAlgo({ fecha:k })}, '+') : null),
+      it.map(x => x.chip),
+      it.length ? h('div',{class:'dots','aria-hidden':'true'}, it.slice(0, 4).map(x => h('i',{style:`--c:${x.color}`})), it.length > 4 ? h('b',{}, '+') : null) : null));
+  }
+  const it = porDia[S.diaSel] || [];
+  const panel = h('section',{class:'card dia-panel','aria-live':'polite'},
+    h('h2',{}, fLarga(S.diaSel).replace(/^./, c => c.toUpperCase()), conAgregar ? h('button',{type:'button',class:'btn ol sm',onclick:() => nuevoAlgo({ fecha:S.diaSel })}, '+ Agregar') : null),
+    it.length ? it.map(x => h(x.abrir ? 'button' : 'div',{type:x.abrir ? 'button' : null,class:'item',style:`--c:${x.color}`,onclick:x.abrir || null},
+      h('span',{class:'ico','aria-hidden':'true'}, x.ico), h('span',{class:'tx'}, x.t, x.sub ? h('small',{}, x.sub) : null))) : vacio('Nada agendado este día.'));
+  return [h('div',{class:'cal'}, celdas), panel];
+}
+
 VE.calendario = () => {
   const y = S.mes.getFullYear(), m = S.mes.getMonth();
   titulo('Calendario', 'Todos los clientes');
-  const ir = d => { S.mes = new Date(y, m + d, 1); if (iso(S.mes) < S.E.desde || iso(new Date(y, m + d + 1, 0)) > S.E.hasta) ocupado(null, recargar); else render(); };
-  const items = itemsAgenda(iso(new Date(y, m - 1, 20)), iso(new Date(y, m + 1, 12)), true).filter(filtraCli), porDia = {};
-  for (const i of items) (porDia[i.f] ||= []).push(i);
-  const off = (new Date(y, m, 1).getDay() + 6) % 7, hoy = hoyISO();
-  const celdas = ['lun','mar','mié','jue','vie','sáb','dom'].map(d => h('div',{class:'dw','aria-hidden':'true'}, d));
-  for (let i = 0; i < 42; i++){
-    const d = new Date(y, m, 1 - off + i), k = iso(d), it = porDia[k] || [];
-    if (i >= 35 && d.getMonth() !== m) break;
-    celdas.push(h('div',{class:'day' + (d.getMonth() !== m ? ' out' : '') + (k === hoy ? ' today' : '') + (it.length || k === hoy ? '' : ' vacio-d')},
-      h('div',{class:'day-h'}, h('span',{}, h('span',{class:'wd'}, d.toLocaleDateString('es-AR',{weekday:'long'}) + ' '), d.getDate()),
-        h('button',{type:'button',class:'add','aria-label':`Agregar el ${d.getDate()} de ${MESES[d.getMonth()]}`,onclick:() => nuevoAlgo({ fecha:k })}, '+')),
-      it.map(x => { const c = cliDe(x.cid); return h('button',{type:'button',class:'chip' + (x.hecho ? ' hecho' : ''),style:`--c:${c?.color || '#6b6559'}`,onclick:x.abrir,title:`${c?.nombre || 'Interna'} · ${x.t}`},
-        `${x.ico} ${x.h ? hhmm(x.h) + ' ' : ''}${x.t}`, h('span',{class:'sr'}, ` · ${c?.nombre || 'Interna'}`)); })));
+  const ir = d => { S.mes = new Date(y, m + d, 1); S.diaSel = null; if (iso(S.mes) < S.E.desde || iso(new Date(y, m + d + 1, 0)) > S.E.hasta) ocupado(null, recargar); else render(); };
+  const porDia = {};
+  for (const x of itemsAgenda(iso(new Date(y, m - 1, 20)), iso(new Date(y, m + 1, 12)), true).filter(filtraCli)){
+    const c = cliDe(x.cid), color = c?.color || '#6b6559';
+    (porDia[x.f] ||= []).push({ color, ico:x.ico, t:x.t, sub:[c?.nombre || 'Interna', x.h ? hhmm(x.h) : null, x.sub].filter(Boolean).join(' · '), abrir:x.abrir,
+      chip:h('button',{type:'button',class:'chip' + (x.hecho ? ' hecho' : ''),style:`--c:${color}`,onclick:x.abrir,title:`${c?.nombre || 'Interna'} · ${x.t}`},
+        `${x.ico} ${x.h ? hhmm(x.h) + ' ' : ''}${x.t}`, h('span',{class:'sr'}, ` · ${c?.nombre || 'Interna'}`)) });
   }
   fill($('view'),
     h('div',{class:'calbar'}, h('h2',{'aria-live':'polite'}, `${MESES[m]} ${y}`), selCli(),
       h('button',{type:'button',class:'btn ol sm','aria-label':'Mes anterior',onclick:() => ir(-1)}, '‹'),
-      h('button',{type:'button',class:'btn ol sm',onclick:() => { S.mes = new Date(); render(); }}, 'Hoy'),
+      h('button',{type:'button',class:'btn ol sm',onclick:() => { S.mes = new Date(); S.diaSel = null; render(); }}, 'Hoy'),
       h('button',{type:'button',class:'btn ol sm','aria-label':'Mes siguiente',onclick:() => ir(1)}, '›'),
-      h('button',{type:'button',class:'btn sm',onclick:() => nuevoAlgo({ fecha: y === new Date().getFullYear() && m === new Date().getMonth() ? hoy : iso(new Date(y, m, 1)), cliente_id:S.filtroCli || undefined })}, '+ Agregar')),
-    h('div',{class:'cal'}, celdas),
+      h('button',{type:'button',class:'btn sm solo-pc',onclick:() => nuevoAlgo({ fecha:S.diaSel || hoyISO(), cliente_id:S.filtroCli || undefined })}, '+ Agregar')),
+    grillaMes(y, m, porDia, true),
     h('div',{class:'leyenda'}, S.E.clientes.map(c => pill(c.nombre, '', c.color)), pill('▣ publicación'), pill('📷 producción'), pill('◷ reunión'), pill('✓ tarea')));
 };
 
@@ -783,7 +949,7 @@ const primerNombre = c => (c?.raw?.contacto_nombre || '').split(' ')[0];
 
 function subnavClientes(act){
   return h('div',{class:'seg',role:'group','aria-label':'Sección de clientes',style:'margin-bottom:14px'},
-    [['','Clientes'],['presupuestos','Presupuestos'],['cobros','Cobros']].map(([k,t]) => h('button',{type:'button','aria-pressed':String(act === k),onclick:() => { location.hash = '#/clientes' + (k ? '/' + k : ''); }}, t)));
+    [['','Clientes'],['presupuestos','Presupuestos'],['cobros','Cobros'],['numeros','Números']].map(([k,t]) => h('button',{type:'button','aria-pressed':String(act === k),onclick:() => { location.hash = '#/clientes' + (k ? '/' + k : ''); }}, t)));
 }
 function pillPresencia(id){
   const d = S.E.diag.get(id);
@@ -796,6 +962,7 @@ function pillPresencia(id){
 VE.clientes = arg => {
   if (arg === 'presupuestos') return vistaPresupuestos();
   if (arg === 'cobros') return vistaCobros();
+  if (arg === 'numeros') return vistaNumeros();
   if (arg) return detalleCliente(arg);
   titulo('Clientes', `${S.E.clientes.length} marcas`);
   fill($('top-extra'), h('button',{type:'button',class:'btn sm',onclick:() => editar('cliente', null)}, '+ Nuevo cliente'));
@@ -808,7 +975,7 @@ VE.clientes = arg => {
     const cam = S.E.contenidos.filter(x => de(x) && x.aprobacion === 'cambios' && x.estado !== 'publicado').length;
     const pre = S.E.presupuestos.filter(p => de(p) && p.estado === 'enviado').length;
     return h('a',{class:'cli',href:`#/clientes/${c.id}`,style:`--c:${c.color}`},
-      h('h3',{}, c.nombre), h('span',{class:'mut',style:'font-size:.88rem'}, c.prospecto ? 'Prospecto' : (c.plan || 'Sin plan cargado'), c.abono ? ` · ${pesos(c.abono)}/mes` : '', c.pausado ? ' · en pausa' : ''),
+      h('h3',{}, c.nombre), h('span',{class:'mut',style:'font-size:.88rem'}, c.raw.rubro ? c.raw.rubro + ' · ' : '', c.prospecto ? 'Prospecto' : (c.plan || 'Sin plan cargado'), c.abono ? ` · ${pesos(c.abono)}/mes` : '', c.pausado ? ' · en pausa' : ''),
       h('div',{class:'task-meta'}, pill(`${ab.length} tareas`, venc ? 'bad' : ''), pillPresencia(c.id), ped ? pill(`${ped} pedidos`, 'warn') : null,
         esp ? pill(`${esp} esperando OK`, 'oro') : null, cam ? pill(`${cam} con cambios`, 'bad') : null, pre ? pill(`${pre} presupuesto enviado`, 'oro') : null));
   })),
@@ -976,7 +1143,7 @@ function registrarPago(c, sugerido, y, mm){
 async function detalleCliente(id){
   const c = cliDe(id);
   if (!c){ location.hash = '#/clientes'; return; }
-  titulo(c.nombre, [c.baja ? 'Dado de baja' : c.prospecto ? 'Prospecto' : c.plan || 'Cliente', c.abono ? `${pesos(c.abono)}/mes` : null].filter(Boolean).join(' · '));
+  titulo(c.nombre, [c.raw.rubro, c.baja ? 'Dado de baja' : c.prospecto ? 'Prospecto' : c.plan || 'Cliente', c.abono ? `${pesos(c.abono)}/mes` : null].filter(Boolean).join(' · '));
   fill($('top-extra'), h('button',{type:'button',class:'btn ol sm',onclick:() => verComoCliente(id)}, 'Ver como el cliente'));
   fill($('view'), vacio('Cargando…'));
   try {
@@ -1144,23 +1311,36 @@ function boxReportes(id, rep){
 }
 
 function boxAccesos(id, acc){
+  const c = cliDe(id);
   const f = h('form',{class:'row',novalidate:true},
     h('label',{style:'flex:3 1 240px'}, 'Email del cliente', h('input',{type:'email',name:'email',required:true,maxlength:'160',autocomplete:'off'})),
-    h('button',{class:'btn',type:'submit'}, 'Dar acceso'));
-  f.addEventListener('submit', async e => {
-    e.preventDefault(); if (!validar(f)) return;
-    await ocupado(e.submitter, async () => {
-      const { error } = await sb.from('cliente_accesos').insert({ cliente_id:id, email:f.email.value.trim().toLowerCase() });
-      if (error) throw (error.code === '23505' ? aviso('Ese email ya tiene acceso.') : error);
-      toast('Listo. Pasale el link: agencia-origen.online/portal.html'); render();
-    });
-  });
+    h('button',{class:'btn',type:'submit'}, 'Dar acceso y generar link'));
+  f.addEventListener('submit', e => { e.preventDefault(); if (validar(f)) generarLink(id, f.email.value.trim().toLowerCase(), e.submitter); });
   return h('details',{class:'box',open:!acc.length}, h('summary',{}, h('span',{}, 'Acceso del cliente al portal'), pill(acc.length ? `${acc.length} email${acc.length > 1 ? 's' : ''}` : 'sin acceso', acc.length ? 'ok' : 'warn')),
-    h('div',{}, f, h('p',{class:'mut',style:'font-size:.88rem'}, 'Después pasale el link ', h('b',{}, 'agencia-origen.online/portal.html'), ': pone su email, le llega un enlace y entra. Lo puede instalar como app.'),
+    h('div',{}, f, h('p',{class:'mut',style:'font-size:.88rem'}, 'Se genera un link personal de un solo uso para que se lo mandes por WhatsApp. Lo toca y entra directo. Después puede volver a entrar con su email desde ', h('b',{}, 'agencia-origen.online/portal.html'), ' o instalar la app.'),
       acc.map(a => h('div',{class:'li row',style:'justify-content:space-between;align-items:center'},
-        h('span',{}, a.email, ' ', pill(a.user_id ? 'ya entró' : 'todavía no entró', a.user_id ? 'ok' : 'warn')),
-        h('button',{type:'button',class:'btn peligro sm',onclick:e => { if (!confirm(`¿Quitarle el acceso a ${a.email}?`)) return;
-          ocupado(e.currentTarget, async () => { await q(sb.from('cliente_accesos').delete().eq('id', a.id)); toast('Acceso quitado.'); render(); }); }}, 'Quitar')))));
+        h('span',{style:'overflow-wrap:anywhere'}, a.email, ' ', pill(a.user_id ? 'ya entró' : 'todavía no entró', a.user_id ? 'ok' : 'warn')),
+        h('span',{class:'row',style:'gap:6px'},
+          h('button',{type:'button',class:'btn ol sm',onclick:e => generarLink(id, a.email, e.currentTarget)}, 'Link de acceso'),
+          h('button',{type:'button',class:'btn peligro sm',onclick:e => { if (!confirm(`¿Quitarle el acceso a ${a.email}?`)) return;
+            ocupado(e.currentTarget, async () => { await q(sb.from('cliente_accesos').delete().eq('id', a.id)); toast('Acceso quitado.'); render(); }); }}, 'Quitar'))))));
+}
+async function generarLink(id, email, btn){
+  const c = cliDe(id);
+  await ocupado(btn, async () => {
+    const { data, error } = await sb.functions.invoke('invitar', { body:{ cliente_id:id, email } });
+    if (error){ let m = 'No se pudo generar el link.'; try { m = (await error.context.json()).error || m; } catch {} throw aviso(m); }
+    const n = primerNombre(c), tel = telWA(c?.raw?.whatsapp);
+    const texto = `¡Hola${n ? ' ' + n : ''}! Te paso tu acceso al portal de ORIGEN, donde vas a ver el calendario, las métricas y todo lo que hacemos por ${c?.nombre || 'tu marca'}. Tocá este link para entrar (es personal, no lo compartas): ${data.link}`;
+    const inp = h('input',{readonly:true,'aria-label':'Link de acceso',value:data.link,onfocus:e => e.target.select()});
+    abrirHoja('Link de acceso listo',
+      h('p',{class:'mut',style:'margin-top:0'}, `Para ${email}. Sirve una sola vez y vence pronto: mandáselo ahora.`), inp,
+      h('div',{class:'row',style:'margin-top:12px'},
+        h('a',{class:'btn',href:`https://wa.me/${tel}?text=${encodeURIComponent(texto)}`,target:'_blank',rel:'noopener'}, 'Mandar por WhatsApp'),
+        h('button',{type:'button',class:'btn ol',onclick:async () => { try { await navigator.clipboard.writeText(texto); toast('Mensaje copiado.'); } catch { inp.select(); toast('Copialo con Ctrl+C.', true); } }}, 'Copiar mensaje')),
+      h('p',{class:'mut',style:'font-size:.85rem;margin-top:12px'}, 'Si no lo usa a tiempo, generá otro desde acá.'));
+    if (S.modo === 'equipo') setTimeout(() => cargarEquipo(S.mes).catch(() => {}), 0);
+  });
 }
 
 function boxADN(id, adn){
@@ -1334,6 +1514,7 @@ VC.inicio = () => {
   ].filter(i => i.f && i.txt).sort((a,b) => String(b.f).localeCompare(String(a.f))).slice(0, 12);
   const preEnv = C.pre.filter(p => p.estado === 'enviado');
   fill($('view'),
+    bannerInstalar(),
     preEnv.length ? h('button',{type:'button',class:'card asis',onclick:() => verPresupuesto(preEnv[0]),style:'display:flex;width:100%;font:inherit;text-align:left;justify-content:space-between;align-items:center;gap:1rem;color:var(--tx);cursor:pointer'},
       h('span',{}, h('b',{}, preEnv.length === 1 ? `Tenés un presupuesto para revisar: ${preEnv[0].titulo}` : `Tenés ${preEnv.length} presupuestos para revisar`), h('br'), h('span',{class:'mut'}, 'Miralo y aceptalo desde acá.')), h('span',{class:'btn sm'}, 'Ver')) : null,
     pend.length ? h('a',{class:'card asis',href:'#/calendario',style:'display:flex;justify-content:space-between;align-items:center;gap:1rem;text-decoration:none;color:var(--tx)'},
@@ -1357,30 +1538,24 @@ VC.inicio = () => {
 VC.calendario = () => {
   const C = S.C, y = S.mes.getFullYear(), m = S.mes.getMonth();
   titulo('Calendario', 'Tus publicaciones y producciones'); selectorNegocio();
-  const porDia = {}, add = (f, el) => (porDia[f] ||= []).push(el);
+  const porDia = {}, add = (f, x) => (porDia[f] ||= []).push(x);
   const col = { pendiente:'#E9B872', aprobado:'#8FCB9B', cambios:'#F08A80' };
-  for (const c of C.cont) add(c.fecha, h('button',{type:'button',class:'chip',style:`--c:${col[c.aprobacion]}`,onclick:() => verContenido(c)}, c.titulo || c.formato || 'Publicación', h('span',{class:'sr'}, ` (${APROB[c.aprobacion][0]})`)));
-  for (const p of C.prod) add(p.fecha, h('span',{class:'chip',style:'--c:#7FD6E8;cursor:default'}, `📷 ${p.hora ? hhmm(p.hora) + ' ' : ''}Producción`));
-  for (const e of C.ev) add(e.fecha, h('span',{class:'chip',style:'--c:#B59CF0;cursor:default'}, `◷ ${e.hora ? hhmm(e.hora) + ' ' : ''}${e.titulo || 'Reunión'}`));
-  const off = (new Date(y, m, 1).getDay() + 6) % 7, hoy = hoyISO(), celdas = ['lun','mar','mié','jue','vie','sáb','dom'].map(d => h('div',{class:'dw','aria-hidden':'true'}, d));
-  for (let i = 0; i < 42; i++){
-    const d = new Date(y, m, 1 - off + i), k = iso(d), it = porDia[k] || [];
-    if (i >= 35 && d.getMonth() !== m) break;
-    celdas.push(h('div',{class:'day' + (d.getMonth() !== m ? ' out' : '') + (k === hoy ? ' today' : '') + (it.length ? '' : ' vacio-d')},
-      h('div',{class:'day-h'}, h('span',{}, h('span',{class:'wd'}, d.toLocaleDateString('es-AR',{weekday:'long'}) + ' '), d.getDate())), it));
-  }
+  for (const c of C.cont){ const abrir = () => verContenido(c); add(c.fecha, { color:col[c.aprobacion], ico:'▣', t:c.titulo || c.formato || 'Publicación', sub:[APROB[c.aprobacion][0], c.red, c.formato].filter(Boolean).join(' · '), abrir,
+    chip:h('button',{type:'button',class:'chip',style:`--c:${col[c.aprobacion]}`,onclick:abrir}, c.titulo || c.formato || 'Publicación', h('span',{class:'sr'}, ` (${APROB[c.aprobacion][0]})`)) }); }
+  for (const p of C.prod) add(p.fecha, { color:'#7FD6E8', ico:'📷', t:'Sesión de producción', sub:[hhmm(p.hora), p.ubicacion].filter(Boolean).join(' · '),
+    chip:h('span',{class:'chip',style:'--c:#7FD6E8;cursor:default'}, `📷 ${p.hora ? hhmm(p.hora) + ' ' : ''}Producción`) });
+  for (const e of C.ev) add(e.fecha, { color:'#B59CF0', ico:'◷', t:e.titulo || 'Reunión', sub:hhmm(e.hora),
+    chip:h('span',{class:'chip',style:'--c:#B59CF0;cursor:default'}, `◷ ${e.hora ? hhmm(e.hora) + ' ' : ''}${e.titulo || 'Reunión'}`) });
   const pend = C.cont.filter(c => c.aprobacion === 'pendiente' && c.estado === 'revision');
-  const algo = Object.keys(porDia).some(k => enMes(k, y, m));
   fill($('view'),
     pend.length ? h('section',{class:'card asis'}, h('h2',{}, 'Para aprobar', h('small',{}, pend.length)),
       pend.map(c => h('button',{type:'button',class:'item',style:'--c:#E9B872',onclick:() => verContenido(c)}, h('span',{class:'ico','aria-hidden':'true'}, '▣'),
         h('span',{class:'tx'}, c.titulo || 'Publicación', h('small',{}, [fLarga(c.fecha), c.red, c.formato].filter(Boolean).join(' · '))), h('span',{class:'btn sm'}, 'Ver')))) : null,
     h('div',{class:'calbar'}, h('h2',{'aria-live':'polite'}, `${MESES[m]} ${y}`),
-      h('button',{type:'button',class:'btn ol sm','aria-label':'Mes anterior',onclick:() => { S.mes = new Date(y, m - 1, 1); render(); }}, '‹'),
-      h('button',{type:'button',class:'btn ol sm',onclick:() => { S.mes = new Date(); render(); }}, 'Hoy'),
-      h('button',{type:'button',class:'btn ol sm','aria-label':'Mes siguiente',onclick:() => { S.mes = new Date(y, m + 1, 1); render(); }}, '›')),
-    h('div',{class:'cal'}, celdas),
-    !algo ? vacio('Todavía no hay nada agendado para este mes.') : null,
+      h('button',{type:'button',class:'btn ol sm','aria-label':'Mes anterior',onclick:() => { S.mes = new Date(y, m - 1, 1); S.diaSel = null; render(); }}, '‹'),
+      h('button',{type:'button',class:'btn ol sm',onclick:() => { S.mes = new Date(); S.diaSel = null; render(); }}, 'Hoy'),
+      h('button',{type:'button',class:'btn ol sm','aria-label':'Mes siguiente',onclick:() => { S.mes = new Date(y, m + 1, 1); S.diaSel = null; render(); }}, '›')),
+    grillaMes(y, m, porDia, false),
     h('div',{class:'leyenda'}, pill('Para aprobar','',col.pendiente), pill('Aprobado','',col.aprobado), pill('Pediste cambios','',col.cambios), pill('Producción','','#7FD6E8'), pill('Reunión','','#B59CF0')));
 };
 
