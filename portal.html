@@ -332,7 +332,7 @@ const enMes = (s, y, m) => s && String(s).startsWith(`${y}-${String(m+1).padStar
 const aviso = m => Object.assign(new Error(m), { propio:true });
 let toastT;
 function toast(msg, bad){ const t = $('toast'); t.textContent = msg; t.className = bad ? 'bad' : ''; clearTimeout(toastT); toastT = setTimeout(() => t.textContent = '', 4500); }
-function err(e){ console.error(e); toast(e?.propio ? e.message : 'Algo falló' + (e?.message ? `: ${e.message}` : '. Probá de nuevo.'), true); }
+function err(e){ if (!e?.propio) console.error(e); toast(e?.propio ? e.message : 'Algo falló' + (e?.message ? `: ${e.message}` : '. Probá de nuevo.'), true); }
 async function q(p){ const {data, error} = await p; if (error) throw error; return data; }
 async function ocupado(btn, fn){ if (btn) btn.disabled = true; try { await fn(); } catch(e){ err(e); } finally { if (btn) btn.disabled = false; } }
 
@@ -916,7 +916,8 @@ function propuesta(data, out, ta){
   const contar = () => { const n = acc.filter(a => a.ok).length; guardarBtn.textContent = `Guardar ${n} ${n === 1 ? 'cosa' : 'cosas'}`; guardarBtn.disabled = !n; };
   const tarjetas = acc.map(a => {
     const cb = h('input',{type:'checkbox','aria-label':`Incluir ${NOMBRE_ACC[a.tipo]}`}); cb.checked = true;
-    const t = h('input',{'aria-label':'Texto',maxlength: a.tipo === 'avance' ? '200' : '140'}); t.value = a.texto || a.titulo || '';
+    const t = h('input',{'aria-label': a.tipo === 'produccion' ? 'Lugar' : 'Texto', maxlength: a.tipo === 'avance' ? '200' : '140', placeholder: a.tipo === 'produccion' ? 'Lugar (opcional)' : null});
+    t.value = (a.tipo === 'produccion' ? a.ubicacion : a.texto || a.titulo) || '';
     const cli = h('select',{'aria-label':'Cliente'}, opCli(a.tipo === 'contenido' || a.tipo === 'produccion')().map(([v,n]) => h('option',{value:v}, n))); cli.value = a.cliente_id || '';
     const fKey = a.tipo === 'tarea' ? 'fecha_limite' : a.tipo === 'avance' ? null : 'fecha';
     const fe = fKey ? h('input',{type:'date','aria-label':'Fecha'}) : null; if (fe) fe.value = a[fKey] || '';
@@ -925,7 +926,7 @@ function propuesta(data, out, ta){
       t, a.idea ? h('span',{class:'mut',style:'font-size:.85rem'}, a.idea) : null,
       h('div',{class:'row'}, cli, fe)));
     cb.addEventListener('change', () => { a.ok = cb.checked; card.classList.toggle('off', !cb.checked); contar(); });
-    a.leer = () => { a.cliente_id = cli.value || null; if (a.tipo === 'avance') a.texto = t.value.trim(); else a.titulo = t.value.trim(); if (fKey) a[fKey] = fe.value || null; };
+    a.leer = () => { a.cliente_id = cli.value || null; const v = t.value.trim(); if (a.tipo === 'avance') a.texto = v; else if (a.tipo === 'produccion') a.ubicacion = v || null; else a.titulo = v; if (fKey) a[fKey] = fe.value || null; };
     return card;
   });
   contar();
