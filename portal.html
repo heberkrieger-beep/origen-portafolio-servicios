@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v2.0 · 2026-11-17 · app instalable (PWA), panel de equipo (Hoy, Calendario, Tareas, Clientes), asistente DeepSeek y vista de cliente -->
+<!-- Portal ORIGEN — v3.0 · 2026-11-17 · clientes (alta y edición), presupuestos, cobros, presencia digital/SEO y catálogo de servicios para el cliente -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -180,6 +180,7 @@ details.box>div{padding:0 18px 18px}
 .acc .campos{display:grid;gap:6px;min-width:0}
 .acc .row>*{flex:1 1 140px}
 .acc input:not([type=checkbox]),.acc select{min-height:38px;padding:.35rem .6rem;font-size:.92rem}
+.acc .pill{white-space:normal}
 .tipo-t{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gold)}
 .mic[aria-pressed=true]{background:var(--bad);color:#111;border-color:var(--bad)}
 
@@ -212,6 +213,30 @@ dialog::backdrop{background:rgba(0,0,0,.65);backdrop-filter:blur(3px)}
 @media(max-width:600px){
   dialog{width:100%;max-width:100%;margin:auto 0 0;border-radius:22px 22px 0 0;max-height:92dvh;padding-bottom:var(--safe)}
   .form{grid-template-columns:1fr}
+}
+
+.fila-item{display:grid;grid-template-columns:1fr 72px 110px auto;gap:6px;margin-bottom:6px;align-items:center}
+@media(max-width:600px){.fila-item{grid-template-columns:1fr 58px 92px auto}}
+.servs{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px}
+.servs button{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;text-align:left;background:var(--s2);border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--tx);cursor:pointer;font-weight:500}
+.servs button:hover{border-color:var(--gold)}.servs .si{font-size:1.4rem}.servs small{color:var(--mut);font-size:.8rem;font-weight:400}
+.score{width:84px;height:84px;border-radius:50%;background:conic-gradient(var(--c) calc(var(--p) * 1%),var(--s3) 0);display:grid;place-items:center;flex:0 0 auto}
+.score span{width:66px;height:66px;border-radius:50%;background:var(--s1);display:grid;place-items:center;font-family:Anton,sans-serif;font-size:1.6rem}
+ul.checks{list-style:none;margin:.2rem 0 .6rem;padding:0;display:grid;gap:7px}
+ul.checks li{display:grid;gap:.1rem;padding-left:1.4rem;position:relative}
+ul.checks li::before{position:absolute;left:0;top:0}ul.checks li.no::before{content:"✗";color:var(--bad)}ul.checks li.si::before{content:"✓";color:var(--ok)}
+ul.checks li span{color:var(--mut);font-size:.88rem}
+#print{display:none}
+@media print{
+  @page{margin:16mm}
+  html,body{background:#fff!important;color:#111}
+  body>*:not(#print){display:none!important}
+  #print{display:block!important;font:11pt/1.5 Jost,system-ui,sans-serif;color:#111}
+  #print h1{font-family:Anton,sans-serif;font-weight:400;font-size:24pt;margin:.2em 0 .6em;letter-spacing:.02em}
+  #print table{width:100%;border-collapse:collapse}#print th,#print td{border-bottom:1px solid #ddd;padding:7px 6px;color:#111;text-transform:none;letter-spacing:0;font-size:10.5pt}
+  #print thead th{color:#666;font-size:9pt}#print tfoot td{border:0}#print .pr-tot td{font-weight:700;font-size:13pt;border-top:2px solid #C9B37A}
+  .pr-h{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #C9B37A;padding-bottom:12px;margin-bottom:14px}
+  .pr-notas{white-space:pre-wrap;background:#f6f3ec;padding:10px 12px;border-radius:8px;margin-top:16px}.pr-f{margin-top:34px;color:#444}
 }
 
 /* login */
@@ -274,6 +299,7 @@ dialog::backdrop{background:rgba(0,0,0,.65);backdrop-filter:blur(3px)}
   <div class="sh-b" id="sh-b"></div>
 </dialog>
 <div id="toast" role="status" aria-live="polite"></div>
+<div id="print" aria-hidden="true"></div>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -289,7 +315,7 @@ const sb = window.supabase.createClient(SB_URL, SB_KEY);
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 const ESTADOS = {idea:'Idea',produccion:'En producción',revision:'Para aprobar',programado:'Programado',publicado:'Publicado'};
 const APROB = {pendiente:['Esperando OK','warn'],aprobado:['Aprobado','ok'],cambios:['Pidió cambios','bad']};
-const TIPOS_SOL = {pedido:'Pedido',material:'Material',dato:'Dato',consulta:'Consulta'};
+const TIPOS_SOL = {pedido:'Pedido',material:'Material',dato:'Dato',consulta:'Consulta',servicio:'Pedido de servicio'};
 const SOL_EST = {nueva:['Nuevo','warn'],en_curso:['En curso','oro'],resuelta:['Resuelto','ok']};
 const COLORES = ['#C9B37A','#7FD6E8','#F2A6C8','#B59CF0','#8FCB9B','#E9B872','#6FA8FF','#F08A80','#9FE0C9','#D6C1F5'];
 const ICO = {
@@ -394,7 +420,7 @@ async function entrar(user){
 
 /* ================= navegación ================= */
 const RUTAS_E = [['hoy','Hoy','home'],['calendario','Calendario','cal'],['tareas','Tareas','check'],['clientes','Clientes','users']];
-const RUTAS_C = [['inicio','Inicio','home'],['calendario','Calendario','cal'],['metricas','Métricas','chart'],['enviar','Enviar','send'],['mas','Más','more']];
+const RUTAS_C = [['inicio','Inicio','home'],['calendario','Calendario','cal'],['metricas','Métricas','chart'],['pedir','Pedir','send'],['mas','Más','more']];
 const rutas = () => S.modo === 'equipo' ? RUTAS_E : RUTAS_C;
 function ruta(){ const [v, arg] = location.hash.replace(/^#\/?/,'').split('/'); return { v: rutas().some(r => r[0] === v) ? v : rutas()[0][0], arg }; }
 window.addEventListener('hashchange', () => { if (!$('shell').hidden) render(); });
@@ -437,19 +463,24 @@ const usrDe = id => S.E?.usuarios.find(u => String(u.id) === String(id)) || null
 const pillCli = id => { const c = cliDe(id); return c ? pill(c.nombre, '', c.color) : pill('Interna', '', '#6b6559'); };
 
 async function cargarEquipo(centro){
-  const c = centro || new Date();
+  const c = centro || new Date(), ahora = new Date();
   const desde = iso(new Date(c.getFullYear(), c.getMonth() - 2, 1)), hasta = iso(new Date(c.getFullYear(), c.getMonth() + 5, 0));
-  const [cl, us, ta, co, pr, ev, so] = await Promise.all([
-    q(sb.from('clientes').select('id,nombre,negocio,plan_nombre,pausado').order('negocio',{nullsFirst:false})),
+  const [cl, us, ta, co, pr, ev, so, dg, pp, pg] = await Promise.all([
+    q(sb.from('clientes').select('*').order('negocio',{nullsFirst:false})),
     q(sb.from('usuarios').select('id,nombre,rol,auth_id,activo')),
     q(sb.from('tareas').select('*').or(`hecha.eq.false,hecha.is.null,creado_en.gte.${masDias(-30)}`).order('fecha_limite',{nullsFirst:false}).limit(600)),
     q(sb.from('contenidos').select('id,cliente_id,fecha,titulo,idea,copy,red,formato,estado,archivos,aprobacion,comentario_cliente,visible_cliente').gte('fecha',desde).lte('fecha',hasta).order('fecha')),
     q(sb.from('producciones').select('id,cliente_id,fecha,hora,duracion_min,ubicacion,notas,visible_cliente').gte('fecha',desde).lte('fecha',hasta).order('fecha')),
     q(sb.from('eventos').select('id,cliente_id,fecha,hora,duracion_min,titulo,tipo,notas,visible_cliente').gte('fecha',desde).lte('fecha',hasta).order('fecha')),
-    q(sb.from('solicitudes').select('*').neq('estado','resuelta').order('creado_en',{ascending:false}))
+    q(sb.from('solicitudes').select('*').neq('estado','resuelta').order('creado_en',{ascending:false})),
+    q(sb.from('diagnosticos').select('cliente_id,tiene_web,web_url,seo_puntaje,google_ficha,aparece_ia,actualizado_en')),
+    q(sb.from('presupuestos').select('*').order('creado_en',{ascending:false}).limit(300)),
+    q(sb.from('pagos').select('id,cliente_id,fecha,monto,nota').gte('fecha', iso(new Date(ahora.getFullYear(), ahora.getMonth() - 6, 1))).order('fecha',{ascending:false}))
   ]);
-  const clientes = cl.map((x, i) => ({ id:String(x.id), nombre:x.negocio || x.nombre || 'Sin nombre', plan:x.plan_nombre, pausado:x.pausado, color:COLORES[i % COLORES.length] }));
-  S.E = { desde, hasta, clientes, mapa:new Map(clientes.map(x => [x.id, x])), usuarios:us.filter(u => u.activo !== false), tareas:ta, contenidos:co, producciones:pr, eventos:ev, solicitudes:so };
+  const todos = cl.map((x, i) => ({ id:String(x.id), nombre:x.negocio || x.nombre || 'Sin nombre', plan:x.plan_nombre, pausado:!!x.pausado, baja:x.estado === 'baja', prospecto:x.estado === 'prospecto',
+    abono:Number(x.mensual_con_desc ?? x.precio_acordado ?? x.precio_lista) || 0, color:COLORES[i % COLORES.length], raw:x }));
+  S.E = { desde, hasta, todos, clientes:todos.filter(x => !x.baja), mapa:new Map(todos.map(x => [x.id, x])), usuarios:us.filter(u => u.activo !== false),
+    tareas:ta, contenidos:co, producciones:pr, eventos:ev, solicitudes:so, diag:new Map(dg.map(d => [String(d.cliente_id), d])), presupuestos:pp, pagos:pg };
   S.yo = us.find(u => u.auth_id === S.user.id) || null;
 }
 async function recargar(){ await cargarEquipo(S.mes); render(); }
@@ -506,12 +537,32 @@ const FORMS = {
     nuevo: () => ({ tipo:'reunion', visible_cliente:false }) }
 };
 
+FORMS.cliente = { tabla:'clientes', nombre:'Cliente', nuevoT:'Nuevo cliente', okT:'Cliente creado.', sinBorrar:true, campos:[
+  {k:'negocio', l:'Nombre del negocio', req:1, max:120, full:1},
+  {k:'contacto_nombre', l:'Persona de contacto', max:120},
+  {k:'whatsapp', l:'WhatsApp', t:'tel', max:30},
+  {k:'email', l:'Email', t:'email', max:160},
+  {k:'estado', l:'Estado', t:'select', op:[['activo','Activo'],['prospecto','Prospecto'],['baja','Dado de baja']]},
+  {k:'plan_nombre', l:'Plan', max:80},
+  {k:'mensual_con_desc', l:'Abono mensual ($)', t:'number', min:0},
+  {k:'dia_cobro', l:'Día de cobro (1 a 31)', t:'number', min:1, maxv:31},
+  {k:'fecha_inicio', l:'Cliente desde', t:'date'},
+  {k:'instagram', l:'Instagram', max:120},
+  {k:'facebook', l:'Facebook', max:200},
+  {k:'tiktok', l:'TikTok', max:120},
+  {k:'web', l:'Página web', max:200},
+  {k:'google_maps', l:'Google Maps (link)', max:300, full:1},
+  {k:'objetivo_principal', l:'Objetivo principal', t:'textarea', max:600, full:1},
+  {k:'pausado', l:'En pausa (no se cobra ni se publica)', t:'check'}],
+  nuevo: () => ({ estado:'activo' }),
+  antes: (v, nuevo) => { if (nuevo) v.nombre = v.negocio; } };
+
 function campo(f, val){
   if (f.t === 'check'){ const el = h('input',{type:'checkbox', name:f.k}); el.checked = !!val; return h('label',{class:'chk'}, el, f.l); }
   let el;
   if (f.t === 'textarea') el = h('textarea',{name:f.k, maxlength:f.max, required:!!f.req});
   else if (f.t === 'select') el = h('select',{name:f.k, required:!!f.req}, (typeof f.op === 'function' ? f.op() : f.op).map(([v,t]) => h('option',{value:v}, t)));
-  else el = h('input',{type:f.t || 'text', name:f.k, maxlength:f.max, min:f.min, required:!!f.req, inputmode: f.t === 'number' ? 'numeric' : null, placeholder: f.t === 'url' ? 'https://' : null});
+  else el = h('input',{type:f.t || 'text', name:f.k, maxlength:f.max, min:f.min, required:!!f.req, inputmode: f.t === 'number' ? 'numeric' : null, max:f.maxv, placeholder: f.t === 'url' ? 'https://' : null});
   if (val != null) el.value = f.t === 'time' ? hhmm(val) : String(val);
   return h('label',{class:f.full ? 'full' : null}, f.l + (f.req ? ' *' : ''), el);
 }
@@ -542,7 +593,7 @@ function editar(tipo, obj, preset){
     if (!validar(form)) return;
     await ocupado(btn, async () => {
       const v = { ...valores(form, F.campos), ...(extra || {}) };
-      F.antes?.(v);
+      F.antes?.(v, nuevo);
       if (nuevo) await q(sb.from(F.tabla).insert(v));
       else await q(sb.from(F.tabla).update(v).eq('id', obj.id));
       cerrarHoja(); toast(extra ? 'Enviado al cliente para aprobar.' : nuevo ? F.okT : 'Cambios guardados.');
@@ -553,7 +604,7 @@ function editar(tipo, obj, preset){
   form.append(h('div',{class:'form-acc full'},
     h('button',{class:'btn',type:'submit'}, nuevo ? 'Agregar' : 'Guardar'),
     tipo === 'contenido' && obj?.aprobacion !== 'aprobado' ? h('button',{class:'btn ol',type:'button',onclick:e => guardar(e.currentTarget, { estado:'revision', visible_cliente:true, aprobacion:'pendiente' })}, 'Mandar al cliente para aprobar') : null,
-    !nuevo ? h('button',{class:'btn peligro',type:'button',style:'margin-left:auto',onclick:async e => {
+    !nuevo && !F.sinBorrar ? h('button',{class:'btn peligro',type:'button',style:'margin-left:auto',onclick:async e => {
       if (!confirm(`¿Borrar “${obj.titulo || F.nombre}”? No se puede deshacer.`)) return;
       await ocupado(e.currentTarget, async () => { await q(sb.from(F.tabla).delete().eq('id', obj.id)); cerrarHoja(); toast('Borrado.'); await recargar(); });
     }}, 'Borrar') : null));
@@ -629,6 +680,7 @@ VE.hoy = () => {
   const cambios = S.E.contenidos.filter(c => c.aprobacion === 'cambios' && c.estado !== 'publicado');
   const esperando = S.E.contenidos.filter(c => c.estado === 'revision' && c.aprobacion === 'pendiente');
   const pedidos = S.E.solicitudes.filter(s => s.estado === 'nueva');
+  const aceptados = S.E.presupuestos.filter(p => p.estado === 'aceptado' && p.respondido_en && p.respondido_en >= masDias(-10));
   fill($('view'),
     asistenteCard(),
     h('div',{class:'stats'},
@@ -644,9 +696,10 @@ VE.hoy = () => {
           deHoy.length ? [venc.length ? h('p',{class:'grupo'}, 'Hoy') : null, h('ul',{class:'tasks'}, deHoy.map(itemTarea))] : null,
           !venc.length && !deHoy.length ? vacio('Nada pendiente para hoy. 🙌') : null,
           h('p',{style:'margin:.8rem 0 0'}, h('a',{href:'#/tareas'}, 'Ver todas las tareas →'))),
-        (cambios.length || pedidos.length) ? h('section',{class:'card','aria-labelledby':'h-at'},
+        (cambios.length || pedidos.length || aceptados.length) ? h('section',{class:'card','aria-labelledby':'h-at'},
           h('h2',{id:'h-at'}, 'Necesita atención'),
-          pedidos.map(s => itemBtn({ cid:s.cliente_id, ico:'✉', t:`${TIPOS_SOL[s.tipo]}: ${s.mensaje.slice(0,80)}`, sub:fCorta(s.creado_en), abrir:() => { location.hash = `#/clientes/${s.cliente_id}`; } })),
+          aceptados.map(p => itemBtn({ cid:p.cliente_id, ico:'✓', t:`¡Aceptó el presupuesto! ${p.titulo}`, sub:pesos(p.total), abrir:() => editarPresupuesto(p) })),
+          pedidos.map(s => itemBtn({ cid:s.cliente_id, ico:s.servicio ? '★' : '✉', t:`${s.servicio || TIPOS_SOL[s.tipo]}: ${s.mensaje.slice(0,80)}`, sub:fCorta(s.creado_en), abrir:() => { location.hash = `#/clientes/${s.cliente_id}`; } })),
           cambios.map(c => itemBtn({ cid:c.cliente_id, ico:'↺', t:`Pidió cambios: ${c.titulo || 'publicación'}`, sub:(c.comentario_cliente || '').slice(0,70), abrir:() => editar('contenido', c) }))) : null),
       h('section',{class:'card','aria-labelledby':'h-sem'},
         h('h2',{id:'h-sem'}, 'Próximos 7 días', h('button',{type:'button',class:'btn ol sm',onclick:() => nuevoAlgo({ fecha:hoy })}, '+ Agregar')),
@@ -713,49 +766,244 @@ VE.tareas = () => {
       hechas.length ? h('details',{style:'margin-top:1rem'}, h('summary',{class:'grupo',style:'cursor:pointer'}, `Hechas (últimos 30 días) · ${hechas.length}`), h('ul',{class:'tasks'}, hechas.slice(0,60).map(itemTarea))) : null));
 };
 
+const PRE_EST = { borrador:['Borrador',''], enviado:['Enviado','oro'], aceptado:['Aceptado','ok'], rechazado:['Rechazado','bad'] };
+const SERVICIOS = [
+  ['📸','Sesión de fotos','Producto, local, equipo o platos.'],
+  ['🎬','Video y reels extra','Grabación y edición para redes.'],
+  ['🌐','Página web','Web profesional que aparece en Google y en la IA.'],
+  ['🔎','Aparecer en Google y en la IA','Ficha de Google, SEO y optimización para ChatGPT.'],
+  ['📺','Publicidad en ORIGEN TV','Tu marca en Café de Ideas, Heberdá y Esports.'],
+  ['📣','Publicidad paga','Campañas en Instagram, Facebook y Google.'],
+  ['🎨','Diseño y branding','Logo, menú, carteles, identidad.'],
+  ['🎙','Entrevista en nuestro estudio','Contá tu historia en video y podcast.'],
+  ['🏡','Gestión de alquileres','Airbnb y Booking con ORIGEN Turismo.'],
+  ['🔐','Cámaras y tecnología','Seguridad, domótica y sistemas a medida.']];
+const telWA = n => { let d = String(n || '').replace(/\D/g,''); if (d.startsWith('0')) d = d.slice(1); if (d.length === 10) d = '549' + d; return d; };
+const primerNombre = c => (c?.raw?.contacto_nombre || '').split(' ')[0];
+
+function subnavClientes(act){
+  return h('div',{class:'seg',role:'group','aria-label':'Sección de clientes',style:'margin-bottom:14px'},
+    [['','Clientes'],['presupuestos','Presupuestos'],['cobros','Cobros']].map(([k,t]) => h('button',{type:'button','aria-pressed':String(act === k),onclick:() => { location.hash = '#/clientes' + (k ? '/' + k : ''); }}, t)));
+}
+function pillPresencia(id){
+  const d = S.E.diag.get(id);
+  if (!d) return pill('Sin diagnóstico');
+  if (d.tiene_web === false) return pill('Sin web', 'warn');
+  if (d.seo_puntaje != null) return pill(`Web ${d.seo_puntaje}/100`, d.seo_puntaje >= 70 ? 'ok' : d.seo_puntaje >= 45 ? 'warn' : 'bad');
+  return null;
+}
+
 VE.clientes = arg => {
+  if (arg === 'presupuestos') return vistaPresupuestos();
+  if (arg === 'cobros') return vistaCobros();
   if (arg) return detalleCliente(arg);
   titulo('Clientes', `${S.E.clientes.length} marcas`);
-  const hoy = hoyISO();
-  fill($('view'), h('div',{class:'clis'}, S.E.clientes.map(c => {
+  fill($('top-extra'), h('button',{type:'button',class:'btn sm',onclick:() => editar('cliente', null)}, '+ Nuevo cliente'));
+  const hoy = hoyISO(), bajas = S.E.todos.filter(c => c.baja);
+  fill($('view'), subnavClientes(''), h('div',{class:'clis'}, S.E.clientes.map(c => {
     const de = x => String(x.cliente_id) === c.id;
     const ab = S.E.tareas.filter(t => !t.hecha && de(t)), venc = ab.filter(t => t.fecha_limite && t.fecha_limite < hoy).length;
     const ped = S.E.solicitudes.filter(s => de(s) && s.estado === 'nueva').length;
     const esp = S.E.contenidos.filter(x => de(x) && x.estado === 'revision' && x.aprobacion === 'pendiente').length;
     const cam = S.E.contenidos.filter(x => de(x) && x.aprobacion === 'cambios' && x.estado !== 'publicado').length;
-    const prox = S.E.contenidos.filter(x => de(x) && x.fecha >= hoy && x.estado !== 'publicado').length;
+    const pre = S.E.presupuestos.filter(p => de(p) && p.estado === 'enviado').length;
     return h('a',{class:'cli',href:`#/clientes/${c.id}`,style:`--c:${c.color}`},
-      h('h3',{}, c.nombre), h('span',{class:'mut',style:'font-size:.88rem'}, c.plan || 'Sin plan cargado', c.pausado ? ' · en pausa' : ''),
-      h('div',{class:'task-meta'}, pill(`${ab.length} tareas`, venc ? 'bad' : ''), pill(`${prox} publicaciones`), ped ? pill(`${ped} pedidos`, 'warn') : null, esp ? pill(`${esp} esperando OK`, 'oro') : null, cam ? pill(`${cam} con cambios`, 'bad') : null));
-  })));
+      h('h3',{}, c.nombre), h('span',{class:'mut',style:'font-size:.88rem'}, c.prospecto ? 'Prospecto' : (c.plan || 'Sin plan cargado'), c.abono ? ` · ${pesos(c.abono)}/mes` : '', c.pausado ? ' · en pausa' : ''),
+      h('div',{class:'task-meta'}, pill(`${ab.length} tareas`, venc ? 'bad' : ''), pillPresencia(c.id), ped ? pill(`${ped} pedidos`, 'warn') : null,
+        esp ? pill(`${esp} esperando OK`, 'oro') : null, cam ? pill(`${cam} con cambios`, 'bad') : null, pre ? pill(`${pre} presupuesto enviado`, 'oro') : null));
+  })),
+  bajas.length ? h('details',{style:'margin-top:16px'}, h('summary',{class:'grupo',style:'cursor:pointer'}, `Dados de baja · ${bajas.length}`),
+    bajas.map(c => h('a',{class:'item',href:`#/clientes/${c.id}`,style:`--c:${c.color}`}, h('span',{class:'tx'}, c.nombre)))) : null);
 };
+
+function itemPresupuesto(p){
+  const c = cliDe(p.cliente_id);
+  return h('button',{type:'button',class:'item',style:`--c:${c?.color || '#6b6559'}`,onclick:() => editarPresupuesto(p)},
+    h('span',{class:'ico','aria-hidden':'true'}, '$'),
+    h('span',{class:'tx'}, p.titulo, h('small',{}, [c?.nombre || `Prospecto: ${p.prospecto}`, fCorta(p.creado_en), p.validez ? `válido hasta ${fCorta(p.validez)}` : null].filter(Boolean).join(' · '))),
+    h('b',{style:'white-space:nowrap'}, pesos(p.total)), pill(...PRE_EST[p.estado]));
+}
+function vistaPresupuestos(){
+  titulo('Presupuestos', 'Clientes y prospectos');
+  fill($('top-extra'), h('button',{type:'button',class:'btn sm',onclick:() => editarPresupuesto(null)}, '+ Nuevo presupuesto'));
+  const est = S.filtroPre || '', lista = S.E.presupuestos.filter(p => !est || p.estado === est);
+  const suma = e => S.E.presupuestos.filter(p => p.estado === e);
+  const stat = (e, t, cls) => { const l = suma(e); return h('button',{type:'button',class:'stat ' + (cls || ''),style:'text-align:left;cursor:pointer;font:inherit',onclick:() => { S.filtroPre = S.filtroPre === e ? '' : e; render(); }},
+    h('b',{}, l.length), h('span',{}, `${t} · ${pesos(l.reduce((s,p) => s + Number(p.total || 0), 0))}`)); };
+  fill($('view'), subnavClientes('presupuestos'),
+    h('div',{class:'stats'}, stat('enviado','esperando respuesta','oro'), stat('aceptado','aceptados'), stat('borrador','borradores'), stat('rechazado','rechazados')),
+    est ? h('p',{}, pill(`Filtrando: ${PRE_EST[est][0]}`, PRE_EST[est][1]), ' ', h('button',{type:'button',class:'btn ghost sm',onclick:() => { S.filtroPre = ''; render(); }}, 'Ver todos')) : null,
+    h('div',{class:'card'}, lista.length ? lista.map(itemPresupuesto) : vacio('Todavía no hay presupuestos. Armá el primero con “+ Nuevo presupuesto”.')));
+}
+
+function editarPresupuesto(p, preset){
+  const nuevo = !p?.id;
+  const b = nuevo ? { cliente_id:'', prospecto:'', titulo:'', items:[], descuento:0, validez:masDias(15), notas:'', firma:'Marina González', estado:'borrador', ...(preset || {}) }
+                  : { ...p, items:(p.items || []).map(x => ({ ...x })) };
+  const items = b.items.length ? b.items : [{ desc:'', cant:1, precio:0 }];
+  const form = h('form',{class:'form',novalidate:true});
+  const cli = h('select',{name:'cliente_id'}, h('option',{value:''}, 'Prospecto (todavía no es cliente)'), S.E.todos.map(c => h('option',{value:c.id}, c.nombre))); cli.value = b.cliente_id || '';
+  const pros = h('input',{name:'prospecto',maxlength:'120',placeholder:'Nombre del negocio o persona'}); pros.value = b.prospecto || '';
+  const labPros = h('label',{class:'full'}, 'Nombre del prospecto *', pros);
+  const syncPros = () => { labPros.hidden = !!cli.value; pros.required = !cli.value; }; cli.addEventListener('change', syncPros); syncPros();
+  const tit = h('input',{name:'titulo',required:true,maxlength:'160',placeholder:'Ej.: Página web + ficha de Google'}); tit.value = b.titulo || '';
+  const desc = h('input',{type:'number',name:'descuento',min:'0',max:'100',step:'1',inputmode:'numeric'}); desc.value = b.descuento || 0;
+  const val = h('input',{type:'date',name:'validez'}); val.value = b.validez || '';
+  const notas = h('textarea',{name:'notas',maxlength:'2000',style:'min-height:70px',placeholder:'Qué incluye, forma de pago, plazos de entrega'}); notas.value = b.notas || '';
+  const firma = h('input',{name:'firma',maxlength:'80'}); firma.value = b.firma || '';
+  const estado = h('select',{name:'estado'}, Object.entries(PRE_EST).map(([k,[t]]) => h('option',{value:k}, t))); estado.value = b.estado || 'borrador';
+  const totalEl = h('b',{}), filas = h('div',{});
+  const calcular = () => { const sub = items.reduce((s,i) => s + (+i.cant || 0) * (+i.precio || 0), 0); const tot = Math.round(sub * (1 - Math.min(100, Math.max(0, +desc.value || 0)) / 100)); totalEl.textContent = pesos(tot); return tot; };
+  const pintarFilas = () => fill(filas, items.map((it, ix) => {
+    const d = h('input',{'aria-label':`Ítem ${ix+1}: descripción`,maxlength:'200',required:true,placeholder:'Descripción'}); d.value = it.desc || '';
+    const c = h('input',{type:'number','aria-label':`Ítem ${ix+1}: cantidad`,min:'1',step:'1',inputmode:'numeric'}); c.value = it.cant ?? 1;
+    const pr = h('input',{type:'number','aria-label':`Ítem ${ix+1}: precio unitario`,min:'0',step:'1',inputmode:'numeric',placeholder:'$'}); pr.value = it.precio || '';
+    d.addEventListener('input', () => { it.desc = d.value; });
+    c.addEventListener('input', () => { it.cant = +c.value; calcular(); });
+    pr.addEventListener('input', () => { it.precio = +pr.value; calcular(); });
+    return h('div',{class:'fila-item'}, d, c, pr, h('button',{type:'button',class:'btn ghost sm','aria-label':`Quitar ítem ${ix+1}`,onclick:() => { items.splice(ix, 1); if (!items.length) items.push({ desc:'', cant:1, precio:0 }); pintarFilas(); calcular(); }}, '✕'));
+  }));
+  desc.addEventListener('input', calcular);
+  const chips = h('div',{class:'chips'}, SERVICIOS.map(([,n]) => h('button',{type:'button',onclick:() => { const v = items.find(i => !i.desc); if (v) v.desc = n; else items.push({ desc:n, cant:1, precio:0 }); if (!tit.value) tit.value = n; pintarFilas(); calcular(); }}, '+ ' + n)));
+  pintarFilas(); calcular();
+  const leer = () => ({ cliente_id:cli.value || null, prospecto:cli.value ? null : pros.value.trim() || null, titulo:tit.value.trim(),
+    items:items.filter(i => i.desc?.trim()).map(i => ({ desc:i.desc.trim().slice(0,200), cant:Math.max(1, Math.round(+i.cant || 1)), precio:Math.max(0, Math.round(+i.precio || 0)) })),
+    descuento:Math.min(100, Math.max(0, +desc.value || 0)), total:calcular(), validez:val.value || null, notas:notas.value.trim() || null,
+    firma:firma.value.trim() || null, estado:estado.value, solicitud_id:b.solicitud_id || null });
+  const guardar = async (btn, extra) => {
+    if (!validar(form)) return;
+    const v = { ...leer(), ...(extra || {}) };
+    if (!v.items.length) return toast('Agregá al menos un ítem.', true);
+    if (v.estado === 'enviado' && !v.cliente_id) return toast('Por el portal solo se le manda a un cliente. A un prospecto mandáselo por WhatsApp o en PDF.', true);
+    await ocupado(btn, async () => {
+      if (nuevo) await q(sb.from('presupuestos').insert(v)); else await q(sb.from('presupuestos').update(v).eq('id', p.id));
+      cerrarHoja(); toast(extra?.estado === 'enviado' ? 'Enviado: el cliente ya lo ve en su portal.' : 'Presupuesto guardado.'); await recargar();
+    });
+  };
+  form.addEventListener('submit', e => { e.preventDefault(); guardar(e.submitter); });
+  form.append(
+    h('label',{class:'full'}, 'Para', cli), labPros,
+    h('label',{class:'full'}, 'Título *', tit),
+    h('div',{class:'full'}, h('p',{class:'grupo',style:'margin:.2rem 0 .4rem'}, 'Ítems · descripción · cantidad · precio unitario'), filas,
+      h('button',{type:'button',class:'btn ol sm',style:'margin-top:6px',onclick:() => { items.push({ desc:'', cant:1, precio:0 }); pintarFilas(); }}, '+ Ítem'), chips),
+    h('label',{}, 'Descuento (%)', desc), h('label',{}, 'Válido hasta', val),
+    h('label',{class:'full'}, 'Notas', notas),
+    h('label',{}, 'Firma', firma), h('label',{}, 'Estado', estado),
+    h('p',{class:'full',style:'font-size:1.15rem;margin:.3rem 0 0'}, 'Total: ', totalEl),
+    h('div',{class:'form-acc full'},
+      h('button',{class:'btn',type:'submit'}, 'Guardar'),
+      h('button',{class:'btn ol',type:'button',onclick:e => guardar(e.currentTarget, { estado:'enviado' })}, 'Enviar por el portal'),
+      h('button',{class:'btn ol',type:'button',onclick:() => { if (validar(form)) imprimirPresupuesto({ ...leer(), creado_en:b.creado_en }); }}, 'PDF'),
+      h('button',{class:'btn ol',type:'button',onclick:() => { if (validar(form)) window.open(linkWAPresupuesto(leer()), '_blank', 'noopener'); }}, 'WhatsApp'),
+      !nuevo ? h('button',{class:'btn peligro',type:'button',style:'margin-left:auto',onclick:async e => { if (!confirm('¿Borrar este presupuesto? No se puede deshacer.')) return;
+        await ocupado(e.currentTarget, async () => { await q(sb.from('presupuestos').delete().eq('id', p.id)); cerrarHoja(); toast('Borrado.'); await recargar(); }); }}, 'Borrar') : null));
+  abrirHoja(nuevo ? 'Nuevo presupuesto' : 'Presupuesto', form);
+}
+function linkWAPresupuesto(v){
+  const c = cliDe(v.cliente_id), n = primerNombre(c);
+  const t = `¡Hola${n ? ' ' + n : ''}! Te comparto el presupuesto de ORIGEN “${v.titulo}”: ${pesos(v.total)}.` + (v.cliente_id ? ' Lo podés ver y aceptar en tu portal: https://agencia-origen.online/portal.html' : '');
+  return `https://wa.me/${telWA(c?.raw?.whatsapp)}?text=${encodeURIComponent(t)}`;
+}
+function imprimirPresupuesto(v, nombre){
+  const c = cliDe(v.cliente_id), sub = (v.items || []).reduce((s,i) => s + i.cant * i.precio, 0);
+  fill($('print'),
+    h('div',{class:'pr-h'}, h('img',{src:'logo-origen.png',alt:'ORIGEN',width:'140'}),
+      h('div',{style:'text-align:right'}, h('b',{style:'font-size:14pt'}, 'Presupuesto'), h('br'), new Date(v.creado_en || Date.now()).toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}),
+        v.validez ? h('div',{}, 'Válido hasta el ', dLocal(v.validez).toLocaleDateString('es-AR',{day:'numeric',month:'long'})) : null)),
+    h('p',{}, 'Para: ', h('b',{}, nombre || c?.nombre || v.prospecto || '')),
+    h('h1',{}, v.titulo),
+    h('table',{}, h('thead',{}, h('tr',{}, h('th',{}, 'Descripción'), h('th',{class:'num'}, 'Cant.'), h('th',{class:'num'}, 'Precio'), h('th',{class:'num'}, 'Subtotal'))),
+      h('tbody',{}, (v.items || []).map(i => h('tr',{}, h('td',{}, i.desc), h('td',{class:'num'}, i.cant), h('td',{class:'num'}, pesos(i.precio)), h('td',{class:'num'}, pesos(i.cant * i.precio))))),
+      h('tfoot',{}, v.descuento ? [h('tr',{}, h('td',{colspan:'3',class:'num'}, 'Subtotal'), h('td',{class:'num'}, pesos(sub))), h('tr',{}, h('td',{colspan:'3',class:'num'}, `Descuento ${v.descuento}%`), h('td',{class:'num'}, '− ' + pesos(sub - v.total)))] : null,
+        h('tr',{class:'pr-tot'}, h('td',{colspan:'3',class:'num'}, 'Total'), h('td',{class:'num'}, pesos(v.total))))),
+    v.notas ? h('div',{class:'pr-notas'}, v.notas) : null,
+    h('div',{class:'pr-f'}, v.firma ? h('p',{}, v.firma, h('br'), 'ORIGEN Studio Iguazú') : null, h('p',{}, 'agencia-origen.online · WhatsApp 375 765-6783 · Alias: OrigenStudioIguazu')));
+  cerrarHoja(); setTimeout(() => window.print(), 80);
+}
+
+function vistaCobros(){
+  const m = S.mesCobro || new Date(), y = m.getFullYear(), mm = m.getMonth(), hoy = new Date();
+  const actual = y === hoy.getFullYear() && mm === hoy.getMonth(), pasado = new Date(y, mm + 1, 0) < hoy;
+  titulo('Cobros', `${MESES[mm]} ${y}`);
+  const conAbono = S.E.clientes.filter(c => !c.pausado && !c.prospecto && c.abono > 0);
+  const sinAbono = S.E.clientes.filter(c => !c.pausado && !c.prospecto && !c.abono);
+  const filas = conAbono.map(c => {
+    const pagos = S.E.pagos.filter(p => String(p.cliente_id) === c.id && enMes(p.fecha, y, mm)), pagado = pagos.reduce((s,p) => s + Number(p.monto || 0), 0);
+    const dia = Number(c.raw.dia_cobro) || null, falta = Math.max(0, c.abono - pagado);
+    const est = !falta ? ['Pagado','ok',3] : pagado ? ['Parcial','warn',1] : (pasado || (actual && dia && hoy.getDate() > dia)) ? ['Vencido','bad',0] : ['Pendiente','',2];
+    return { c, pagado, falta, dia, est };
+  }).sort((a,b) => a.est[2] - b.est[2] || (a.dia || 99) - (b.dia || 99));
+  const esperado = conAbono.reduce((s,c) => s + c.abono, 0), cobrado = filas.reduce((s,f) => s + Math.min(f.pagado, f.c.abono), 0);
+  const ir = d => { S.mesCobro = new Date(y, mm + d, 1); render(); };
+  fill($('view'), subnavClientes('cobros'),
+    h('div',{class:'calbar'}, h('h2',{}, `${MESES[mm]} ${y}`),
+      h('button',{type:'button',class:'btn ol sm','aria-label':'Mes anterior',onclick:() => ir(-1)}, '‹'),
+      h('button',{type:'button',class:'btn ol sm',onclick:() => { S.mesCobro = new Date(); render(); }}, 'Este mes'),
+      h('button',{type:'button',class:'btn ol sm','aria-label':'Mes siguiente',onclick:() => ir(1)}, '›')),
+    h('div',{class:'stats'},
+      h('div',{class:'stat'}, h('b',{}, pesos(esperado)), h('span',{}, 'a cobrar en el mes')),
+      h('div',{class:'stat oro'}, h('b',{}, pesos(cobrado)), h('span',{}, 'cobrado')),
+      h('div',{class:'stat' + (esperado - cobrado ? ' alerta' : '')}, h('b',{}, pesos(esperado - cobrado)), h('span',{}, 'falta cobrar'))),
+    h('section',{class:'card'}, filas.length ? filas.map(f => {
+      const n = primerNombre(f.c), tel = telWA(f.c.raw.whatsapp);
+      const recordar = `¡Hola${n ? ' ' + n : ''}! Te recuerdo el abono de ${MESES[mm]} de ORIGEN: ${pesos(f.falta)}. Alias: OrigenStudioIguazu. ¡Gracias!`;
+      return h('div',{class:'li row',style:'justify-content:space-between;align-items:center'},
+        h('span',{style:'flex:1 1 220px'}, h('b',{}, f.c.nombre), h('br'), h('span',{class:'mut',style:'font-size:.85rem'}, `${pesos(f.c.abono)}${f.dia ? ` · día ${f.dia}` : ''}${f.pagado ? ` · pagó ${pesos(f.pagado)}` : ''}`)),
+        pill(f.est[0], f.est[1]),
+        f.falta ? h('span',{class:'row',style:'gap:6px'},
+          tel ? h('a',{class:'btn ol sm',href:`https://wa.me/${tel}?text=${encodeURIComponent(recordar)}`,target:'_blank',rel:'noopener'}, 'Recordar') : null,
+          h('button',{type:'button',class:'btn sm',onclick:() => registrarPago(f.c, f.falta, y, mm)}, 'Registrar pago')) : null);
+    }) : vacio('No hay clientes con abono cargado. Cargalo en cada cliente con “Editar datos”.'),
+      sinAbono.length ? h('p',{class:'mut',style:'font-size:.88rem;margin:.8rem 0 0'}, `Sin abono cargado: ${sinAbono.map(c => c.nombre).join(', ')}.`) : null));
+}
+function registrarPago(c, sugerido, y, mm){
+  const hoy = new Date(), mismo = y === hoy.getFullYear() && mm === hoy.getMonth();
+  const f = h('form',{class:'form',novalidate:true},
+    h('label',{}, 'Monto ($) *', h('input',{type:'number',name:'monto',min:'1',step:'1',required:true,inputmode:'numeric',value:String(sugerido || c.abono || '')})),
+    h('label',{}, 'Fecha *', h('input',{type:'date',name:'fecha',required:true,value: mismo ? hoyISO() : iso(new Date(y, mm, Math.min(Number(c.raw.dia_cobro) || 1, 28)))})),
+    h('label',{class:'full'}, 'Detalle', h('input',{name:'nota',maxlength:'200',value:`Abono ${MESES[mm]} ${y}`})),
+    h('div',{class:'form-acc full'}, h('button',{class:'btn',type:'submit'}, 'Registrar')));
+  f.addEventListener('submit', async e => {
+    e.preventDefault(); if (!validar(f)) return;
+    await ocupado(e.submitter, async () => {
+      await q(sb.from('pagos').insert({ cliente_id:c.id, monto:Math.round(+f.monto.value), fecha:f.fecha.value, nota:f.nota.value.trim() || null }));
+      cerrarHoja(); toast('Pago registrado. El cliente lo ve en su portal.'); await recargar();
+    });
+  });
+  abrirHoja(`Pago de ${c.nombre}`, f);
+}
 
 async function detalleCliente(id){
   const c = cliDe(id);
   if (!c){ location.hash = '#/clientes'; return; }
-  titulo(c.nombre, c.plan || 'Cliente');
+  titulo(c.nombre, [c.baja ? 'Dado de baja' : c.prospecto ? 'Prospecto' : c.plan || 'Cliente', c.abono ? `${pesos(c.abono)}/mes` : null].filter(Boolean).join(' · '));
   fill($('top-extra'), h('button',{type:'button',class:'btn ol sm',onclick:() => verComoCliente(id)}, 'Ver como el cliente'));
   fill($('view'), vacio('Cargando…'));
   try {
-    const [sol, acc, adn, rep, met] = await Promise.all([
+    const [sol, acc, adn, rep, met, dg] = await Promise.all([
       q(sb.from('solicitudes').select('*').eq('cliente_id', id).order('creado_en',{ascending:false}).limit(30)),
       q(sb.from('cliente_accesos').select('id,email,user_id').eq('cliente_id', id).order('creado_en')),
       q(sb.from('marca_adn').select('*').eq('cliente_id', id).maybeSingle()),
       q(sb.from('reportes').select('id,anio,mes,titulo,archivo_path').eq('cliente_id', id).order('anio',{ascending:false}).order('mes',{ascending:false})),
-      q(sb.from('metricas_mensuales').select('*').eq('cliente_id', id).order('anio',{ascending:false}).order('mes',{ascending:false}).limit(24))]);
+      q(sb.from('metricas_mensuales').select('*').eq('cliente_id', id).order('anio',{ascending:false}).order('mes',{ascending:false}).limit(24)),
+      q(sb.from('diagnosticos').select('*').eq('cliente_id', id).maybeSingle())]);
     if (ruta().arg !== id || S.modo !== 'equipo') return;
     const hoy = hoyISO(), ab = S.E.tareas.filter(t => !t.hecha && String(t.cliente_id) === id);
     const prox = itemsAgenda(hoy, masDias(45), false).filter(i => String(i.cid) === id);
     const abiertas = sol.filter(s => s.estado !== 'resuelta').length;
+    const r = c.raw, wa = telWA(r.whatsapp);
     fill($('view'),
       h('div',{class:'row',style:'margin-bottom:12px'},
         h('button',{type:'button',class:'btn',onclick:() => nuevoAlgo({ cliente_id:id, fecha:hoy })}, '+ Agregar'),
         h('button',{type:'button',class:'btn ol',onclick:() => abrirAsistente(`${c.nombre}: `)}, '✦ Asistente'),
-        h('a',{class:'btn ghost',href:'#/clientes'}, '← Todos los clientes')),
+        h('button',{type:'button',class:'btn ol',onclick:() => editar('cliente', r)}, 'Editar datos'),
+        wa ? h('a',{class:'btn ol',href:`https://wa.me/${wa}`,target:'_blank',rel:'noopener'}, 'WhatsApp') : null,
+        h('a',{class:'btn ghost',href:'#/clientes'}, '← Clientes')),
       h('div',{class:'grid g2'},
         h('section',{class:'card'}, h('h2',{}, 'Tareas abiertas', h('small',{}, ab.length)), ab.length ? h('ul',{class:'tasks'}, ab.map(itemTarea)) : vacio('Sin tareas abiertas.')),
         h('section',{class:'card'}, h('h2',{}, 'Lo que viene'), agendaAgrupada(prox, `Nada agendado. Probá con el asistente: “armá el calendario del mes para ${c.nombre}”.`))),
-      boxPedidos(sol, abiertas), boxMetricas(id, met), boxReportes(id, rep), boxAccesos(id, acc), boxADN(id, adn));
+      boxPedidos(sol, abiertas), boxPresencia(id, dg), boxPresupCli(id), boxPagos(id),
+      boxMetricas(id, met), boxReportes(id, rep), boxAccesos(id, acc), boxADN(id, adn));
   } catch(e){ err(e); }
 }
 
@@ -765,12 +1013,81 @@ function boxPedidos(sol, abiertas){
       const est = h('select',{'aria-label':'Estado'}, Object.entries(SOL_EST).map(([k,[t]]) => h('option',{value:k, selected:k === s.estado}, t)));
       const resp = h('textarea',{maxlength:'1500','aria-label':'Respuesta al cliente',style:'min-height:60px',placeholder:'Respuesta que ve el cliente'}); resp.value = s.respuesta || '';
       return h('div',{class:'li'},
-        h('div',{class:'row',style:'justify-content:space-between;align-items:center'}, h('b',{}, `${TIPOS_SOL[s.tipo]} · ${fCorta(s.creado_en)}`), pill(...SOL_EST[s.estado])),
+        h('div',{class:'row',style:'justify-content:space-between;align-items:center'}, h('b',{}, `${s.servicio ? '★ ' + s.servicio : TIPOS_SOL[s.tipo]} · ${fCorta(s.creado_en)}`), pill(...SOL_EST[s.estado])),
+        s.fecha_preferida ? h('p',{class:'mut',style:'margin:.2rem 0'}, 'Fecha que prefiere: ', fLarga(s.fecha_preferida)) : null,
         h('div',{class:'pre'}, s.mensaje), archivosDe(s),
+        s.tipo === 'servicio' ? h('button',{type:'button',class:'btn sm',style:'margin-bottom:6px',onclick:() => editarPresupuesto(null, { cliente_id:String(s.cliente_id), titulo:s.servicio || 'Presupuesto', items:[{ desc:s.servicio || '', cant:1, precio:0 }], solicitud_id:s.id })}, 'Armar presupuesto') : null,
         h('div',{class:'row',style:'margin-top:8px'}, h('label',{style:'flex:0 1 150px'}, 'Estado', est), h('label',{style:'flex:3 1 220px'}, 'Respuesta', resp),
           h('button',{type:'button',class:'btn sm',onclick:e => ocupado(e.currentTarget, async () => {
             await q(sb.from('solicitudes').update({ estado:est.value, respuesta:resp.value.trim() || null }).eq('id', s.id)); toast('Guardado.'); await recargar(); })}, 'Guardar')));
     }) : vacio('Este cliente todavía no mandó nada.')));
+}
+
+function anillo(p){ const col = p >= 70 ? 'var(--ok)' : p >= 45 ? 'var(--warn)' : 'var(--bad)'; return h('div',{class:'score',style:`--p:${p};--c:${col}`,role:'img','aria-label':`Puntaje ${p} de 100`}, h('span',{}, p)); }
+function checklist(det){
+  const malos = (det || []).filter(d => !d.ok), buenos = (det || []).filter(d => d.ok);
+  return h('div',{},
+    malos.length ? [h('p',{class:'grupo bad'}, `Para mejorar · ${malos.length}`), h('ul',{class:'checks'}, malos.map(d => h('li',{class:'no'}, h('b',{}, d.texto), d.consejo ? h('span',{}, d.consejo) : null)))] : null,
+    buenos.length ? h('details',{}, h('summary',{class:'grupo',style:'cursor:pointer'}, `Bien · ${buenos.length}`), h('ul',{class:'checks'}, buenos.map(d => h('li',{class:'si'}, d.texto)))) : null);
+}
+function boxPresencia(id, d){
+  const c = cliDe(id), dd = d || {};
+  const sn = (k, l) => { const s = h('select',{name:k}, [['','—'],['si','Sí'],['no','No']].map(([v,t]) => h('option',{value:v}, t))); s.value = dd[k] === true ? 'si' : dd[k] === false ? 'no' : ''; return h('label',{}, l, s); };
+  const url = h('input',{name:'web_url',maxlength:'300',placeholder:'www.sunegocio.com'}); url.value = dd.web_url || c.raw.web || '';
+  const est = h('input',{type:'number',name:'google_estrellas',min:'0',max:'5',step:'0.1',inputmode:'decimal'}); est.value = dd.google_estrellas ?? '';
+  const res = h('input',{type:'number',name:'google_resenas',min:'0',step:'1',inputmode:'numeric'}); res.value = dd.google_resenas ?? '';
+  const rec = h('textarea',{name:'recomendaciones',maxlength:'2000',style:'min-height:80px',placeholder:'Lo que le recomendamos (lo ve el cliente)'}); rec.value = dd.recomendaciones || '';
+  const out = h('div',{'aria-live':'polite'}, dd.seo_puntaje != null ? resultado(dd) : null);
+  const f = h('form',{class:'form',novalidate:true}, sn('tiene_web','¿Tiene web?'), h('label',{}, 'Dirección de la web', url),
+    sn('google_ficha','¿Tiene ficha de Google Maps?'), sn('aparece_ia','¿Aparece en ChatGPT / Google IA?'),
+    h('label',{}, 'Estrellas en Google', est), h('label',{}, 'Cantidad de reseñas', res),
+    h('label',{class:'full'}, 'Recomendaciones para el cliente', rec),
+    h('div',{class:'form-acc full'}, h('button',{type:'button',class:'btn ol',onclick:e => analizar(e.currentTarget)}, '🔎 Analizar web ahora'), h('button',{class:'btn',type:'submit'}, 'Guardar'),
+      h('button',{type:'button',class:'btn ol',onclick:() => presupuestoMejoras()}, 'Armar presupuesto de mejoras')));
+  const bool = v => v === 'si' ? true : v === 'no' ? false : null;
+  const fila = () => ({ cliente_id:id, tiene_web:bool(f.tiene_web.value), web_url:url.value.trim() || null, google_ficha:bool(f.google_ficha.value), aparece_ia:bool(f.aparece_ia.value),
+    google_estrellas:est.value === '' ? null : Math.min(5, Math.max(0, +est.value)), google_resenas:res.value === '' ? null : Math.max(0, Math.round(+res.value)), recomendaciones:rec.value.trim() || null, actualizado_en:new Date().toISOString() });
+  function resultado(x){ return h('div',{class:'row',style:'align-items:flex-start;gap:16px;margin:.4rem 0 1rem'}, anillo(x.seo_puntaje),
+    h('div',{style:'flex:1 1 260px'}, h('p',{style:'margin:0 0 .3rem'}, h('b',{}, 'Puntaje de la web: ', x.seo_puntaje, '/100'), x.web_url ? h('span',{class:'mut'}, ' · ', x.web_url) : null), checklist(x.seo_detalle))); }
+  async function analizar(btn){
+    if (!url.value.trim()){ url.setAttribute('aria-invalid','true'); url.focus(); return toast('Poné la dirección de la web.', true); }
+    url.removeAttribute('aria-invalid'); fill(out, h('p',{class:'mut'}, 'Analizando… (hasta 20 segundos)'));
+    await ocupado(btn, async () => {
+      const { data, error } = await sb.functions.invoke('analizar-web', { body:{ url:url.value.trim() } });
+      if (error){ let m = 'No se pudo analizar.'; try { m = (await error.context.json()).error || m; } catch {} fill(out, h('p',{class:'pre'}, m)); return; }
+      f.tiene_web.value = 'si'; url.value = data.url;
+      if (!rec.value.trim()) rec.value = data.detalle.filter(d => !d.ok).slice(0, 6).map(d => '• ' + d.consejo).join('\n');
+      const row = { ...fila(), seo_puntaje:data.puntaje, seo_detalle:data.detalle };
+      await q(sb.from('diagnosticos').upsert(row, { onConflict:'cliente_id' }));
+      Object.assign(dd, row); S.E.diag.set(id, row); fill(out, resultado(row)); toast(`Listo: ${data.puntaje}/100. Quedó guardado.`);
+    });
+  }
+  function presupuestoMejoras(){
+    const v = fila(), malos = (dd.seo_detalle || []).filter(x => !x.ok), items = [];
+    if (v.tiene_web === false) items.push('Página web profesional (diseño, textos, hosting y dominio)');
+    else if (malos.length) items.push(`Optimización SEO técnica de la web (${malos.length} mejoras)`);
+    if (malos.some(x => ['schema','llms','ia_bots'].includes(x.clave)) || v.aparece_ia === false) items.push('Optimización para IA: llms.txt, datos estructurados y robots');
+    if (v.google_ficha === false) items.push('Creación y optimización de la ficha de Google Maps');
+    else if (v.google_resenas != null && v.google_resenas < 30) items.push('Plan de reseñas en Google');
+    if (!items.length) items.push('Mantenimiento de presencia digital');
+    editarPresupuesto(null, { cliente_id:id, titulo:'Mejoras de presencia digital', items:items.map(d => ({ desc:d, cant:1, precio:0 })) });
+  }
+  f.addEventListener('submit', async e => { e.preventDefault(); if (!validar(f)) return;
+    await ocupado(e.submitter, async () => { const row = fila(); await q(sb.from('diagnosticos').upsert(row, { onConflict:'cliente_id' })); S.E.diag.set(id, { ...dd, ...row }); toast('Guardado. El cliente lo ve en su portal.'); }); });
+  return h('details',{class:'box',open:!d}, h('summary',{}, h('span',{}, 'Presencia digital (web, Google, IA)'), pillPresencia(id) || pill('sin datos','warn')), h('div',{}, out, f));
+}
+function boxPresupCli(id){
+  const l = S.E.presupuestos.filter(p => String(p.cliente_id) === id);
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Presupuestos'), pill(String(l.length))),
+    h('div',{}, h('button',{type:'button',class:'btn sm',style:'margin-bottom:8px',onclick:() => editarPresupuesto(null, { cliente_id:id })}, '+ Nuevo presupuesto'), l.length ? l.map(itemPresupuesto) : vacio('Sin presupuestos.')));
+}
+function boxPagos(id){
+  const c = cliDe(id), l = S.E.pagos.filter(p => String(p.cliente_id) === id), hoy = new Date();
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Pagos'), pill(c.abono ? `${pesos(c.abono)}/mes` : 'sin abono')),
+    h('div',{}, h('button',{type:'button',class:'btn sm',style:'margin-bottom:8px',onclick:() => registrarPago(c, c.abono, hoy.getFullYear(), hoy.getMonth())}, '+ Registrar pago'),
+      l.length ? h('table',{}, h('tbody',{}, l.map(p => h('tr',{}, h('td',{}, fCorta(p.fecha)), h('td',{class:'num'}, pesos(p.monto)), h('td',{}, p.nota || ''),
+        h('td',{class:'num'}, h('button',{type:'button',class:'btn ghost sm','aria-label':`Borrar pago del ${fCorta(p.fecha)}`,onclick:async e => { if (!confirm('¿Borrar este pago?')) return;
+          await ocupado(e.currentTarget, async () => { await q(sb.from('pagos').delete().eq('id', p.id)); toast('Pago borrado.'); await recargar(); }); }}, '✕')))))) : vacio('Sin pagos en los últimos 6 meses.')));
 }
 
 function boxMetricas(id, met){
@@ -864,7 +1181,7 @@ function cajaAsistente(pre){
   ta.value = pre || '';
   const out = h('div',{'aria-live':'polite'});
   const c1 = S.E.clientes[0]?.nombre || 'un cliente', prox = MESES[(new Date().getMonth() + 1) % 12];
-  const chips = h('div',{class:'chips'}, [`Hoy hicimos la sesión de fotos en ${c1}`, `Armá el calendario de ${prox} para ${c1}: 3 publicaciones por semana`, 'Mañana a las 10 reunión con un cliente nuevo'].map(t =>
+  const chips = h('div',{class:'chips'}, ['Ordename el día: ¿qué hago primero?', `Ya terminé de editar las fotos de ${c1}`, `Recomendame contenido para ${c1} para las próximas 2 semanas`, `Hoy hicimos la sesión de fotos en ${c1}`, `Armá el calendario de ${prox} para ${c1}`].map(t =>
     h('button',{type:'button',onclick:() => { ta.value = t; ta.focus(); }}, t)));
   return { ta, out, nodos:[ta, chips, h('div',{class:'row'}, micBtn(ta), h('button',{type:'button',class:'btn',onclick:e => ordenar(ta, out, e.currentTarget)}, 'Ordenar con IA')), out] };
 }
@@ -908,47 +1225,68 @@ async function ordenar(ta, out, btn){
     propuesta(data, out, ta);
   });
 }
-const NOMBRE_ACC = { avance:'Avance · lo ve el cliente', tarea:'Tarea', contenido:'Publicación', produccion:'Producción', evento:'Reunión' };
+const NOMBRE_ACC = { avance:'Avance · lo ve el cliente', tarea:'Tarea nueva', completar:'Marcar como hecha', reprogramar:'Cambiar tarea', contenido:'Publicación', produccion:'Producción', evento:'Reunión' };
+const PRIO_T = { baja:'baja', media:'media', alta:'alta' }, EST_T = { pendiente:'pendiente', en_curso:'en curso' };
+function cambiosTexto(a){
+  const c = a.cambios || {}, out = [];
+  if ('fecha_limite' in c) out.push(`fecha: ${a.antes.fecha_limite ? fCorta(a.antes.fecha_limite) : 'sin fecha'} → ${fCorta(c.fecha_limite)}`);
+  if ('prioridad' in c) out.push(`prioridad: ${PRIO_T[a.antes.prioridad] || 'media'} → ${PRIO_T[c.prioridad]}`);
+  if ('responsable_id' in c) out.push(`responsable: ${usrDe(a.antes.responsable_id)?.nombre || 'sin asignar'} → ${usrDe(c.responsable_id)?.nombre || '—'}`);
+  if ('estado' in c) out.push(`estado: ${EST_T[c.estado]}`);
+  return out.join(' · ');
+}
 function propuesta(data, out, ta){
   const acc = (data?.acciones || []).map(a => ({ ...a, ok:true }));
-  if (!acc.length){ fill(out, h('p',{class:'pre'}, data?.dudas || data?.resumen || 'No encontré nada para registrar. Probá con más detalle.')); return; }
+  const planNodo = data?.plan?.length ? h('div',{class:'card',style:'background:var(--s2);margin:.7rem 0'}, h('h2',{}, 'Plan sugerido'), h('ol',{style:'margin:0;padding-left:1.2rem;display:grid;gap:.35rem'}, data.plan.map(p => h('li',{}, p)))) : null;
+  if (!acc.length){ fill(out, data?.resumen ? h('p',{style:'margin:.9rem 0 .2rem'}, data.resumen) : null, planNodo, h('p',{class:'pre'}, data?.dudas || (planNodo ? 'No hay cambios para guardar.' : 'No encontré nada para registrar. Probá con más detalle.'))); return; }
   const guardarBtn = h('button',{type:'button',class:'btn'});
-  const contar = () => { const n = acc.filter(a => a.ok).length; guardarBtn.textContent = `Guardar ${n} ${n === 1 ? 'cosa' : 'cosas'}`; guardarBtn.disabled = !n; };
+  const contar = () => { const n = acc.filter(a => a.ok).length; guardarBtn.textContent = `Guardar ${n} ${n === 1 ? 'cambio' : 'cambios'}`; guardarBtn.disabled = !n; };
   const tarjetas = acc.map(a => {
-    const cb = h('input',{type:'checkbox','aria-label':`Incluir ${NOMBRE_ACC[a.tipo]}`}); cb.checked = true;
-    const t = h('input',{'aria-label': a.tipo === 'produccion' ? 'Lugar' : 'Texto', maxlength: a.tipo === 'avance' ? '200' : '140', placeholder: a.tipo === 'produccion' ? 'Lugar (opcional)' : null});
-    t.value = (a.tipo === 'produccion' ? a.ubicacion : a.texto || a.titulo) || '';
-    const cli = h('select',{'aria-label':'Cliente'}, opCli(a.tipo === 'contenido' || a.tipo === 'produccion')().map(([v,n]) => h('option',{value:v}, n))); cli.value = a.cliente_id || '';
-    const fKey = a.tipo === 'tarea' ? 'fecha_limite' : a.tipo === 'avance' ? null : 'fecha';
-    const fe = fKey ? h('input',{type:'date','aria-label':'Fecha'}) : null; if (fe) fe.value = a[fKey] || '';
+    const cb = h('input',{type:'checkbox','aria-label':`Incluir: ${NOMBRE_ACC[a.tipo]}`}); cb.checked = true;
+    let cuerpo, leer = () => {};
+    if (a.tipo === 'completar' || a.tipo === 'reprogramar'){
+      const av = a.tipo === 'completar' && a.cliente_id ? h('input',{'aria-label':'Texto para el cliente (opcional)',maxlength:'200',placeholder:'Qué ve el cliente (opcional)'}) : null;
+      if (av) av.value = a.avance || '';
+      cuerpo = [h('span',{class:'tt'}, a.titulo), h('span',{class:'task-meta'}, pillCli(a.cliente_id), a.tipo === 'reprogramar' ? pill(cambiosTexto(a), 'oro') : null), av];
+      leer = () => { if (av) a.avance = av.value.trim() || null; };
+    } else {
+      const t = h('input',{'aria-label': a.tipo === 'produccion' ? 'Lugar' : 'Texto', maxlength: a.tipo === 'avance' ? '200' : '140', placeholder: a.tipo === 'produccion' ? 'Lugar (opcional)' : null});
+      t.value = (a.tipo === 'produccion' ? a.ubicacion : a.texto || a.titulo) || '';
+      const cli = h('select',{'aria-label':'Cliente'}, opCli(a.tipo === 'contenido' || a.tipo === 'produccion')().map(([v,n]) => h('option',{value:v}, n))); cli.value = a.cliente_id || '';
+      const fKey = a.tipo === 'tarea' ? 'fecha_limite' : a.tipo === 'avance' ? null : 'fecha';
+      const fe = fKey ? h('input',{type:'date','aria-label':'Fecha'}) : null; if (fe) fe.value = a[fKey] || '';
+      cuerpo = [t, a.idea ? h('span',{class:'mut',style:'font-size:.85rem'}, a.idea) : null, h('div',{class:'row'}, cli, fe)];
+      leer = () => { a.cliente_id = cli.value || null; const v = t.value.trim(); if (a.tipo === 'avance') a.texto = v; else if (a.tipo === 'produccion') a.ubicacion = v || null; else a.titulo = v; if (fKey) a[fKey] = fe.value || null; };
+    }
     const card = h('div',{class:'acc'}, cb, h('div',{class:'campos'},
-      h('span',{class:'tipo-t'}, NOMBRE_ACC[a.tipo], a.tipo === 'contenido' ? ` · ${a.red} · ${a.formato}` : '', a.hora ? ` · ${a.hora}` : ''),
-      t, a.idea ? h('span',{class:'mut',style:'font-size:.85rem'}, a.idea) : null,
-      h('div',{class:'row'}, cli, fe)));
+      h('span',{class:'tipo-t'}, NOMBRE_ACC[a.tipo], a.tipo === 'contenido' ? ` · ${a.red} · ${a.formato}` : '', a.hora ? ` · ${a.hora}` : ''), cuerpo));
     cb.addEventListener('change', () => { a.ok = cb.checked; card.classList.toggle('off', !cb.checked); contar(); });
-    a.leer = () => { a.cliente_id = cli.value || null; const v = t.value.trim(); if (a.tipo === 'avance') a.texto = v; else if (a.tipo === 'produccion') a.ubicacion = v || null; else a.titulo = v; if (fKey) a[fKey] = fe.value || null; };
+    a.leer = leer;
     return card;
   });
   contar();
   guardarBtn.addEventListener('click', () => ocupado(guardarBtn, async () => {
     const sel = acc.filter(a => a.ok); sel.forEach(a => a.leer());
-    const falta = sel.find(a => (['contenido','produccion'].includes(a.tipo) && !a.cliente_id) || (a.tipo === 'avance' ? !a.texto : !a.titulo && a.tipo !== 'produccion') || (['contenido','produccion','evento'].includes(a.tipo) && !a.fecha));
+    const falta = sel.find(a => (['contenido','produccion'].includes(a.tipo) && !a.cliente_id) || (a.tipo === 'avance' && !a.texto) || (['tarea','contenido','evento'].includes(a.tipo) && !a.titulo) || (['contenido','produccion','evento'].includes(a.tipo) && !a.fecha));
     if (falta) throw aviso(`Completá cliente, texto y fecha en “${NOMBRE_ACC[falta.tipo]}”.`);
-    const yo = S.yo?.id || null, ins = { tareas:[], contenidos:[], producciones:[], eventos:[] };
+    const yo = S.yo?.id || null, ins = { tareas:[], contenidos:[], producciones:[], eventos:[] }, upd = [];
     for (const a of sel){
       if (a.tipo === 'avance') ins.tareas.push({ cliente_id:a.cliente_id, titulo:a.texto, texto:a.texto, texto_cliente:a.texto, hecha:true, estado:'hecha', visible_cliente:!!a.cliente_id, responsable_id:yo, prioridad:'media' });
       if (a.tipo === 'tarea') ins.tareas.push({ cliente_id:a.cliente_id, titulo:a.titulo, texto:a.titulo, fecha_limite:a.fecha_limite, responsable_id:a.responsable_id || yo, prioridad:a.prioridad || 'media', estado:'pendiente', hecha:false, visible_cliente:false });
+      if (a.tipo === 'completar') upd.push([a.tarea_id, { hecha:true, estado:'hecha', ...(a.avance ? { visible_cliente:true, texto_cliente:a.avance } : {}) }]);
+      if (a.tipo === 'reprogramar') upd.push([a.tarea_id, { ...a.cambios }]);
       if (a.tipo === 'contenido') ins.contenidos.push({ cliente_id:a.cliente_id, fecha:a.fecha, red:a.red, formato:a.formato, titulo:a.titulo, idea:a.idea || null, estado:'idea', visible_cliente:false });
       if (a.tipo === 'produccion') ins.producciones.push({ cliente_id:a.cliente_id, fecha:a.fecha, hora:a.hora || null, ubicacion:a.ubicacion || null, visible_cliente:true });
       if (a.tipo === 'evento') ins.eventos.push({ cliente_id:a.cliente_id, titulo:a.titulo, fecha:a.fecha, hora:a.hora || null, tipo:a.tipo_evento || 'reunion', visible_cliente:false });
     }
+    for (const [id, cambios] of upd) await q(sb.from('tareas').update(cambios).eq('id', id));
     for (const [tabla, filas] of Object.entries(ins)) if (filas.length) await q(sb.from(tabla).insert(filas));
     ta.value = '';
-    toast(`¡Listo! Guardé ${sel.length} ${sel.length === 1 ? 'cosa' : 'cosas'}.`);
+    toast(`¡Listo! Guardé ${sel.length} ${sel.length === 1 ? 'cambio' : 'cambios'}.`);
     cerrarHoja();
     await recargar();
   }));
-  fill(out, data.resumen ? h('p',{style:'margin:.9rem 0 .2rem'}, data.resumen) : null, data.dudas ? h('p',{class:'pre'}, '❓ ', data.dudas) : null,
+  fill(out, data.resumen ? h('p',{style:'margin:.9rem 0 .2rem'}, data.resumen) : null, planNodo, data.dudas ? h('p',{class:'pre'}, '❓ ', data.dudas) : null,
     h('div',{class:'prop'}, tarjetas),
     h('div',{class:'row',style:'margin-top:12px'}, guardarBtn, h('button',{type:'button',class:'btn ghost',onclick:() => fill(out)}, 'Descartar')));
 }
@@ -956,7 +1294,7 @@ function propuesta(data, out, ta){
 /* ================= datos y vistas del CLIENTE ================= */
 async function cargarCliente(cid){
   const y = new Date().getFullYear(), m = new Date().getMonth() + 1, desde = iso(new Date(y, m - 4, 1));
-  const [ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan] = await Promise.all([
+  const [ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan, diag, pre] = await Promise.all([
     q(sb.rpc('mi_ficha',{p_cliente:cid})),
     q(sb.from('contenidos').select('id,fecha,titulo,idea,copy,formato,red,estado,archivos,aprobacion,comentario_cliente').eq('cliente_id',cid).eq('visible_cliente',true).gte('fecha',desde).order('fecha')),
     q(sb.from('tareas').select('id,titulo,texto,texto_cliente,hecha,creado_en').eq('cliente_id',cid).eq('visible_cliente',true).order('creado_en',{ascending:false}).limit(40)),
@@ -967,8 +1305,10 @@ async function cargarCliente(cid){
     q(sb.from('solicitudes').select('*').eq('cliente_id',cid).order('creado_en',{ascending:false}).limit(30)),
     q(sb.from('servicios_cliente').select('nombre,frecuencia,descripcion,activo').eq('cliente_id',cid)),
     q(sb.from('pagos').select('fecha,monto,nota').eq('cliente_id',cid).order('fecha',{ascending:false}).limit(24)),
-    q(sb.from('planificaciones_mensuales').select('objetivos,resultados').eq('cliente_id',cid).eq('anio',y).eq('mes',m))]);
-  S.C = { ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan:plan[0] };
+    q(sb.from('planificaciones_mensuales').select('objetivos,resultados').eq('cliente_id',cid).eq('anio',y).eq('mes',m)),
+    q(sb.from('diagnosticos').select('*').eq('cliente_id',cid).maybeSingle()),
+    q(sb.from('presupuestos').select('*').eq('cliente_id',cid).neq('estado','borrador').order('creado_en',{ascending:false}))]);
+  S.C = { ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan:plan[0], diag, pre };
 }
 function selectorNegocio(){
   if (S.equipo || S.misClientes.length < 2) return;
@@ -992,7 +1332,10 @@ VC.inicio = () => {
     ...C.prod.filter(p => p.fecha <= hoy).map(p => ({ f:p.fecha, ok:true, txt:'Sesión de producción' + (p.ubicacion ? ` en ${p.ubicacion}` : ''), sub:'Producción' })),
     ...C.sol.filter(s => s.estado === 'resuelta').map(s => ({ f:s.creado_en, ok:true, txt:`Resolvimos tu ${TIPOS_SOL[s.tipo].toLowerCase()}`, sub:s.respuesta }))
   ].filter(i => i.f && i.txt).sort((a,b) => String(b.f).localeCompare(String(a.f))).slice(0, 12);
+  const preEnv = C.pre.filter(p => p.estado === 'enviado');
   fill($('view'),
+    preEnv.length ? h('button',{type:'button',class:'card asis',onclick:() => verPresupuesto(preEnv[0]),style:'display:flex;width:100%;font:inherit;text-align:left;justify-content:space-between;align-items:center;gap:1rem;color:var(--tx);cursor:pointer'},
+      h('span',{}, h('b',{}, preEnv.length === 1 ? `Tenés un presupuesto para revisar: ${preEnv[0].titulo}` : `Tenés ${preEnv.length} presupuestos para revisar`), h('br'), h('span',{class:'mut'}, 'Miralo y aceptalo desde acá.')), h('span',{class:'btn sm'}, 'Ver')) : null,
     pend.length ? h('a',{class:'card asis',href:'#/calendario',style:'display:flex;justify-content:space-between;align-items:center;gap:1rem;text-decoration:none;color:var(--tx)'},
       h('span',{}, h('b',{}, `Tenés ${pend.length} ${pend.length === 1 ? 'publicación' : 'publicaciones'} para aprobar`), h('br'), h('span',{class:'mut'}, 'Revisalas y danos el OK o pedí cambios.')), h('span',{class:'btn sm'}, 'Ver')) : null,
     h('div',{class:'stats'},
@@ -1105,8 +1448,8 @@ async function abrirArchivo(path, btn){
 }
 function archivosDe(s){ return (Array.isArray(s.archivos) ? s.archivos : []).filter(a => a?.path).map(a => h('button',{type:'button',class:'btn ol sm',style:'margin:4px 6px 0 0',onclick:e => abrirArchivo(a.path, e.currentTarget)}, '📎 ' + (a.nombre || 'archivo'))); }
 
-VC.enviar = () => {
-  titulo('Mandanos algo', 'Pedidos, fotos, datos o consultas'); selectorNegocio();
+VC.pedir = () => {
+  titulo('Pedir', 'Servicios, material, datos o consultas'); selectorNegocio();
   const f = h('form',{novalidate:true},
     h('label',{}, '¿Qué nos mandás?', h('select',{name:'tipo'}, [['pedido','Un pedido (post, historia, cambio)'],['material','Material (fotos, videos, logo)'],['dato','Un dato (promo, horario, precio)'],['consulta','Una consulta']].map(([v,t]) => h('option',{value:v}, t)))),
     h('label',{style:'margin-top:10px'}, 'Mensaje *', h('textarea',{name:'mensaje',required:true,maxlength:'2000','aria-describedby':'env-cnt'})),
@@ -1125,22 +1468,79 @@ VC.enviar = () => {
       const paths = [];
       for (const x of files){ const path = `${S.cid}/material/${Date.now()}-${limpio(x.name)}`; await q(sb.storage.from(BUCKET).upload(path, x, { contentType:x.type || 'application/octet-stream' })); paths.push({ path, nombre:x.name.slice(0,120) }); }
       await q(sb.from('solicitudes').insert({ cliente_id:S.cid, tipo:f.tipo.value, mensaje:msj, archivos:paths }));
-      toast('¡Recibido! Te respondemos por acá.');
-      S.C.sol = await q(sb.from('solicitudes').select('*').eq('cliente_id',S.cid).order('creado_en',{ascending:false}).limit(30));
-      render();
+      toast('¡Recibido! Te respondemos por acá.'); await refrescarSol();
     });
   });
-  fill($('view'), h('div',{class:'grid g2'}, h('section',{class:'card'}, f),
-    h('section',{class:'card'}, h('h2',{}, 'Lo que nos mandaste'), S.C.sol.length ? S.C.sol.map(s => h('div',{class:'li'},
-      h('div',{class:'row',style:'justify-content:space-between;align-items:center'}, h('b',{}, TIPOS_SOL[s.tipo]), pill(...SOL_EST[s.estado])),
-      h('div',{class:'mut',style:'font-size:.82rem'}, fCorta(s.creado_en)), h('div',{class:'pre'}, s.mensaje), archivosDe(s),
-      s.respuesta ? h('p',{style:'margin:.4rem 0 0'}, h('b',{}, 'ORIGEN: '), s.respuesta) : null)) : vacio('Todavía no nos mandaste nada.'))));
+  fill($('view'),
+    h('section',{class:'card asis'}, h('h2',{}, 'Sumá más a tu marca', h('small',{}, 'tocá y te armamos un presupuesto')),
+      h('div',{class:'servs'}, SERVICIOS.map(s => h('button',{type:'button',onclick:() => pedirServicio(s)}, h('span',{class:'si','aria-hidden':'true'}, s[0]), h('b',{}, s[1]), h('small',{}, s[2]))))),
+    h('div',{class:'grid g2'}, h('section',{class:'card'}, h('h2',{}, 'Mandanos algo'), f),
+      h('section',{class:'card'}, h('h2',{}, 'Lo que nos pediste'), S.C.sol.length ? S.C.sol.map(s => h('div',{class:'li'},
+        h('div',{class:'row',style:'justify-content:space-between;align-items:center'}, h('b',{}, s.servicio || TIPOS_SOL[s.tipo]), pill(...SOL_EST[s.estado])),
+        h('div',{class:'mut',style:'font-size:.82rem'}, fCorta(s.creado_en)), h('div',{class:'pre'}, s.mensaje), archivosDe(s),
+        s.respuesta ? h('p',{style:'margin:.4rem 0 0'}, h('b',{}, 'ORIGEN: '), s.respuesta) : null)) : vacio('Todavía no nos pediste nada.'))));
 };
+async function refrescarSol(){ S.C.sol = await q(sb.from('solicitudes').select('*').eq('cliente_id',S.cid).order('creado_en',{ascending:false}).limit(30)); render(); }
+function pedirServicio(s, pre){
+  if (S.equipo) return toast('Vista del equipo: el cliente lo pide desde su cuenta.', true);
+  const f = h('form',{novalidate:true},
+    h('p',{class:'mut',style:'margin-top:0'}, s[2]),
+    h('label',{}, 'Contanos qué necesitás *', h('textarea',{name:'mensaje',required:true,maxlength:'2000',placeholder:'Ej.: fotos de los platos nuevos para la carta y redes'})),
+    h('label',{style:'margin-top:10px'}, '¿Para cuándo? (opcional)', h('input',{type:'date',name:'fecha',min:hoyISO()})),
+    h('button',{class:'btn',type:'submit',style:'margin-top:14px;width:100%'}, 'Pedir presupuesto'));
+  if (pre) f.mensaje.value = pre;
+  f.addEventListener('submit', async e => {
+    e.preventDefault(); if (!validar(f)) return;
+    await ocupado(e.submitter, async () => {
+      await q(sb.from('solicitudes').insert({ cliente_id:S.cid, tipo:'servicio', servicio:s[1], mensaje:f.mensaje.value.trim(), fecha_preferida:f.fecha.value || null, archivos:[] }));
+      cerrarHoja(); toast('¡Listo! Te armamos el presupuesto y te avisamos.'); await refrescarSol();
+    });
+  });
+  abrirHoja(`${s[0]} ${s[1]}`, f);
+}
+function verPresupuesto(p){
+  const sub = (p.items || []).reduce((s,i) => s + i.cant * i.precio, 0), nombre = S.C.ficha?.negocio;
+  const responder = async (btn, acepta) => {
+    if (!acepta && !confirm('¿Rechazar este presupuesto?')) return;
+    await ocupado(btn, async () => {
+      await q(sb.rpc('responder_presupuesto',{ p_id:p.id, p_acepta:acepta }));
+      p.estado = acepta ? 'aceptado' : 'rechazado'; cerrarHoja();
+      toast(acepta ? '¡Gracias! Ya le avisamos al equipo 🙌' : 'Listo, quedó registrado.'); render();
+    });
+  };
+  abrirHoja(p.titulo,
+    h('p',{class:'mut',style:'margin-top:0'}, fCorta(p.creado_en), p.validez ? ` · válido hasta el ${fCorta(p.validez)}` : '', ' ', pill(...PRE_EST[p.estado])),
+    h('div',{class:'tbl'}, h('table',{}, h('thead',{}, h('tr',{}, h('th',{scope:'col'}, 'Detalle'), h('th',{scope:'col',class:'num'}, 'Cant.'), h('th',{scope:'col',class:'num'}, 'Subtotal'))),
+      h('tbody',{}, (p.items || []).map(i => h('tr',{}, h('td',{}, i.desc), h('td',{class:'num'}, i.cant), h('td',{class:'num'}, pesos(i.cant * i.precio))))))),
+    p.descuento ? h('p',{class:'mut',style:'text-align:right;margin:.5rem 0 0'}, `Subtotal ${pesos(sub)} · descuento ${p.descuento}%`) : null,
+    h('p',{style:'text-align:right;font-size:1.3rem;margin:.4rem 0'}, 'Total ', h('b',{}, pesos(p.total))),
+    p.notas ? h('div',{class:'pre'}, p.notas) : null,
+    h('div',{class:'row',style:'margin-top:12px'},
+      p.estado === 'enviado' && !S.equipo ? [h('button',{type:'button',class:'btn',onclick:e => responder(e.currentTarget, true)}, '✓ Acepto'), h('button',{type:'button',class:'btn ol',onclick:e => responder(e.currentTarget, false)}, 'No por ahora')] : null,
+      h('button',{type:'button',class:'btn ghost',onclick:() => imprimirPresupuesto(p, nombre)}, 'Descargar PDF')));
+}
+function cardPresencia(d){
+  if (!d) return null;
+  const malos = (d.seo_detalle || []).filter(x => !x.ok).slice(0, 5);
+  const sn = v => v === true ? pill('Sí','ok') : v === false ? pill('No','bad') : pill('—');
+  return h('section',{class:'card'}, h('h2',{}, 'Tu presencia digital', d.actualizado_en ? h('small',{}, `revisado el ${fCorta(d.actualizado_en)}`) : null),
+    h('div',{class:'row',style:'align-items:flex-start;gap:16px'}, d.seo_puntaje != null ? anillo(d.seo_puntaje) : null,
+      h('div',{style:'flex:1 1 220px;display:grid;gap:6px'},
+        h('span',{}, 'Página web: ', sn(d.tiene_web), d.web_url && httpUrl(d.web_url) ? [' ', h('a',{href:httpUrl(d.web_url),target:'_blank',rel:'noopener'}, 'ver')] : null),
+        h('span',{}, 'Ficha de Google: ', sn(d.google_ficha), d.google_estrellas != null ? ` ${d.google_estrellas}★` : '', d.google_resenas != null ? ` · ${d.google_resenas} reseñas` : ''),
+        h('span',{}, 'Te recomienda la IA (ChatGPT, Google): ', sn(d.aparece_ia)))),
+    malos.length ? [h('p',{class:'grupo'}, 'Lo que podemos mejorar'), h('ul',{class:'checks'}, malos.map(x => h('li',{class:'no'}, h('b',{}, x.texto), x.consejo ? h('span',{}, x.consejo) : null)))] : null,
+    d.recomendaciones ? h('div',{class:'pre'}, d.recomendaciones) : null,
+    h('button',{type:'button',class:'btn',style:'margin-top:6px',onclick:() => pedirServicio(SERVICIOS[3], 'Quiero mejorar mi presencia digital según el diagnóstico.')}, 'Quiero mejorarlo'));
+}
 
 VC.mas = () => {
-  titulo('Más', 'Reportes, tu plan y la app'); selectorNegocio();
+  titulo('Más', 'Presupuestos, reportes y tu plan'); selectorNegocio();
   const C = S.C, sv = C.serv.filter(x => x.activo !== false);
   fill($('view'),
+    C.pre.length ? h('section',{class:'card'}, h('h2',{}, 'Presupuestos'), C.pre.map(p => h('button',{type:'button',class:'item',style:'--c:var(--gold)',onclick:() => verPresupuesto(p)},
+      h('span',{class:'ico','aria-hidden':'true'}, '$'), h('span',{class:'tx'}, p.titulo, h('small',{}, fCorta(p.creado_en))), h('b',{style:'white-space:nowrap'}, pesos(p.total)), pill(...PRE_EST[p.estado])))) : null,
+    cardPresencia(C.diag),
     h('section',{class:'card'}, h('h2',{}, 'Reportes mensuales'), C.rep.length ? C.rep.map(r => h('div',{class:'li row',style:'justify-content:space-between;align-items:center'},
       h('span',{}, h('b',{}, r.titulo || `Reporte de ${MESES[r.mes-1]}`), h('br'), h('span',{class:'mut',style:'font-size:.85rem'}, `${MESES[r.mes-1]} ${r.anio}`)),
       h('button',{type:'button',class:'btn sm',onclick:e => abrirArchivo(r.archivo_path, e.currentTarget)}, 'Abrir PDF'))) : vacio('El primer reporte llega al cerrar el mes.')),
