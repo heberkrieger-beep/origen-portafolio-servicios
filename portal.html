@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v3.2 · 2026-11-18 · planes de la web y rubro, calendario en grilla en el celular, aviso para instalar la app, Números (gastos, avance) y alertas -->
+<!-- Portal ORIGEN — v3.4 · 2026-11-18 · diseño de vidrio oscuro con dorado, acceso con usuario y clave creados por el equipo, métricas cargadas visibles -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -261,6 +261,30 @@ ul.checks li span{color:var(--mut);font-size:.88rem}
 #toast.bad{background:var(--bad)}
 #toast:empty{display:none}
 #cargando{display:grid;place-items:center;min-height:100dvh;color:var(--mut);margin:0}
+/* ---------- estilo vidrio (mismos colores ORIGEN: negro y dorado) ---------- */
+:root{--s1:rgba(255,255,255,.04);--s2:rgba(255,255,255,.07);--s3:rgba(255,255,255,.11);--line:rgba(255,255,255,.09);--glass:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.022));--sombra:0 14px 44px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07)}
+body{background:radial-gradient(55% 42% at 90% -6%,rgba(201,179,122,.17),transparent 65%),radial-gradient(42% 36% at -6% 34%,rgba(226,204,146,.08),transparent 65%),radial-gradient(38% 32% at 100% 104%,rgba(201,179,122,.11),transparent 62%),var(--bg);background-attachment:fixed}
+.card,.stat,details.box,.cli{background:var(--glass);border-color:var(--line);box-shadow:var(--sombra);-webkit-backdrop-filter:blur(16px) saturate(130%);backdrop-filter:blur(16px) saturate(130%)}
+.asis{background:radial-gradient(120% 140% at 0% 0%,rgba(201,179,122,.2),transparent 58%),var(--glass);border-color:rgba(201,179,122,.3)}
+.card h2{font-size:.74rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--mut)}
+.card h2 small{letter-spacing:0;text-transform:none}
+.stat b{background:linear-gradient(135deg,#fff 30%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat.alerta b{background:none;color:var(--bad)}.stat.oro b{background:none;color:var(--gold)}
+.side{background:rgba(11,11,10,.55);-webkit-backdrop-filter:blur(22px) saturate(130%);backdrop-filter:blur(22px) saturate(130%);border-right-color:var(--line)}
+#nav a[aria-current=page]{background:linear-gradient(90deg,rgba(201,179,122,.2),rgba(201,179,122,.04));box-shadow:inset 2px 0 0 var(--gold)}
+.btn:not(.ol):not(.ghost):not(.peligro){background:linear-gradient(135deg,var(--gold2),var(--gold));box-shadow:0 6px 22px rgba(201,179,122,.22)}
+.btn.ol{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.14)}
+.day{background:var(--glass);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.pill{background:rgba(255,255,255,.08)}
+input,select,textarea{background:rgba(0,0,0,.28);border-color:rgba(255,255,255,.12)}
+.barra{background:rgba(255,255,255,.1)}.barra i{box-shadow:0 0 12px rgba(201,179,122,.45)}
+dialog{background:linear-gradient(180deg,#1b1a15,#100f0c);border-color:rgba(255,255,255,.12);box-shadow:0 30px 80px rgba(0,0,0,.65)}
+.sh-h{background:#1a1913}
+.login-in .card{padding:22px}
+.login{background:radial-gradient(70% 55% at 50% -5%,rgba(201,179,122,.24),transparent 68%),radial-gradient(40% 35% at 100% 100%,rgba(201,179,122,.1),transparent 65%)}
+@media(max-width:899px){.side{background:rgba(11,11,10,.78)}}
+@media (prefers-reduced-motion:no-preference){.card,.stat,.cli,.btn{transition:transform .18s ease,border-color .18s ease,background .18s ease}a.stat:hover,.cli:hover{transform:translateY(-2px);border-color:rgba(201,179,122,.4)}}
+
 @media (prefers-reduced-motion:no-preference){#view>*{animation:in .28s ease both}@keyframes in{from{opacity:0;transform:translateY(5px)}}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js" integrity="sha384-TcHRA3zBbn+Lexh5n+Oil4guNPOS3rjNDpGRAN46u/s/mB2IZ50ceC6TYDU2yvgK" crossorigin="anonymous" defer></script>
@@ -274,14 +298,24 @@ ul.checks li span{color:var(--mut);font-size:.88rem}
     <img src="portal-192.png" alt="" width="64" height="64">
     <h1 id="t-login">Tu portal ORIGEN</h1>
     <p class="mut">Calendario, métricas, reportes y todo lo que estamos haciendo por tu marca. En tu celular, como una app.</p>
-    <form id="f-login" class="card" novalidate style="margin-top:18px">
-      <label>Tu email
-        <input type="email" name="email" id="email" autocomplete="email" required maxlength="160" inputmode="email">
+    <form id="f-clave" class="card" novalidate style="margin-top:18px">
+      <label>Usuario
+        <input name="usuario" autocomplete="username" required maxlength="160" autocapitalize="none" autocorrect="off" spellcheck="false">
       </label>
-      <button class="btn" type="submit" style="width:100%;margin-top:12px">Enviarme el enlace para entrar</button>
+      <label style="margin-top:10px">Clave
+        <input type="password" name="clave" autocomplete="current-password" required maxlength="72">
+      </label>
+      <button class="btn" type="submit" style="width:100%;margin-top:14px">Entrar</button>
       <p id="login-msg" role="status" aria-live="polite" style="margin:.8rem 0 0;font-size:.92rem"></p>
     </form>
-    <p class="mut" style="font-size:.85rem">Sin contraseñas: te llega un enlace por email. ¿No tenés acceso? <a href="https://wa.me/5493757656783" rel="noopener">Escribinos</a>.</p>
+    <p class="mut" style="font-size:.85rem">Tu usuario y tu clave te los pasa ORIGEN. ¿No los tenés o no te funcionan? <a href="https://wa.me/5493757656783" rel="noopener">Escribinos</a>.</p>
+    <details style="margin-top:14px;font-size:.88rem" class="mut">
+      <summary style="cursor:pointer">Soy del equipo de ORIGEN</summary>
+      <form id="f-login" novalidate style="margin-top:10px">
+        <label>Tu email <input type="email" name="email" id="email" autocomplete="email" required maxlength="160" inputmode="email"></label>
+        <button class="btn ol" type="submit" style="width:100%;margin-top:10px">Enviarme el enlace para entrar</button>
+      </form>
+    </details>
   </div>
 </section>
 
@@ -292,6 +326,7 @@ ul.checks li span{color:var(--mut);font-size:.88rem}
     <div class="side-foot">
       <button class="btn ol sm" id="instalar" type="button" hidden>Instalar app</button>
       <span id="who"></span>
+      <button class="btn ghost sm" id="clave-lado" type="button" style="justify-content:flex-start;padding-left:0">Cambiar mi clave</button>
       <button class="btn ghost sm" id="salir" type="button" style="justify-content:flex-start;padding-left:0">Salir</button>
     </div>
   </aside>
@@ -384,6 +419,19 @@ sheet.addEventListener('click', e => { if (e.target === sheet) cerrarHoja(); });
 /* ================= estado + login ================= */
 const S = { user:null, equipo:false, modo:'cliente', yo:null, E:null, C:null, cid:null, misClientes:[], mes:new Date(), filtroCli:'', soloMias:true, red:null, instalar:null };
 
+const DOMINIO = 'clientes.agencia-origen.online';
+$('f-clave').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target, msg = $('login-msg'), u = f.usuario.value.trim().toLowerCase(), c = f.clave.value;
+  if (!u || !c){ for (const i of [f.usuario, f.clave]) i.toggleAttribute('aria-invalid', !i.value.trim()); msg.textContent = 'Escribí tu usuario y tu clave.'; return; }
+  f.usuario.removeAttribute('aria-invalid'); f.clave.removeAttribute('aria-invalid');
+  e.submitter.disabled = true; msg.textContent = 'Entrando…';
+  const { error } = await sb.auth.signInWithPassword({ email: u.includes('@') ? u : `${u}@${DOMINIO}`, password: c });
+  e.submitter.disabled = false;
+  msg.textContent = !error ? '' : /rate|too many|seconds/i.test(error.message) ? 'Demasiados intentos. Esperá un minuto y probá de nuevo.' : 'Usuario o clave incorrectos.';
+  if (error) f.clave.select();
+});
+// Solo equipo: entrar con un enlace al email
 $('f-login').addEventListener('submit', async e => {
   e.preventDefault();
   const inp = $('email'), msg = $('login-msg'), btn = e.submitter, email = inp.value.trim().toLowerCase();
@@ -392,34 +440,25 @@ $('f-login').addEventListener('submit', async e => {
   const { error } = await sb.auth.signInWithOtp({ email, options:{ emailRedirectTo: location.origin + location.pathname } });
   btn.disabled = false;
   msg.textContent = !error ? 'Listo. Revisá tu email (y spam) y tocá el enlace.'
-    : /not authorized|no autorizado|database error|not allowed/i.test(error.message) ? 'Ese email no tiene acceso todavía. Pedíselo a ORIGEN.'
+    : /not authorized|no autorizado|database error|not allowed/i.test(error.message) ? 'Ese email no tiene acceso.'
     : /rate|seconds/i.test(error.message) ? 'Esperá un minuto antes de pedir otro enlace.' : 'No pudimos enviar el enlace. Probá de nuevo.';
 });
 async function salir(){ await sb.auth.signOut(); location.replace(location.pathname); }
 $('salir').addEventListener('click', salir);
 
-// Link personal de acceso (lo genera el equipo): se activa recién acá, al abrirlo en el navegador
-const acceso = new URLSearchParams(location.search);
-let verificando = !!acceso.get('acceso');
-if (acceso.get('acceso')){
-  const tipo = acceso.get('tipo') === 'invite' ? 'invite' : 'magiclink';
-  sb.auth.verifyOtp({ token_hash:acceso.get('acceso'), type:tipo }).then(({ error }) => {
-    history.replaceState(null, '', location.pathname); verificando = false;
-    if (error){ pantalla('login'); $('login-msg').textContent = 'Ese link ya se usó o venció. Poné tu email y te mandamos uno nuevo, o pedile otro a ORIGEN.'; }
-  });
-}
 let arrancado = null;
 sb.auth.onAuthStateChange((ev, session) => {
   if (session?.user && arrancado !== session.user.id){ arrancado = session.user.id; setTimeout(() => entrar(session.user)); }
-  if (!session){ arrancado = null; if (!verificando) pantalla('login'); }
+  if (!session){ arrancado = null; pantalla('login'); }
 });
 function pantalla(id){ for (const s of ['login','shell','cargando']) $(s).hidden = s !== id; }
 
 async function entrar(user){
   S.user = user;
   if (location.hash.includes('access_token')) history.replaceState(null, '', location.pathname);
-  $('who').textContent = user.email;
-  $('cuenta').textContent = (user.email || '?')[0].toUpperCase();
+  const nom = (user.email || '?').replace('@' + DOMINIO, '');
+  $('who').textContent = nom;
+  $('cuenta').textContent = nom[0].toUpperCase();
   try {
     S.equipo = (await q(sb.rpc('es_equipo'))) === true;
     if (S.equipo){ S.modo = 'equipo'; await cargarEquipo(); }
@@ -461,13 +500,26 @@ function render(){
 }
 window.addEventListener('hashchange', () => window.scrollTo(0, 0));
 function titulo(t, k){ $('titulo').textContent = t; $('kicker').textContent = k || ''; document.title = `${t} · ORIGEN`; }
-async function verComoCliente(id){ await ocupado(null, async () => { S.cid = id; await cargarCliente(id); S.modo = 'cliente'; S.mes = new Date(); location.hash = '#/inicio'; render(); }); }
+async function verComoCliente(id, destino = 'inicio'){ await ocupado(null, async () => { S.cid = id; await cargarCliente(id); S.modo = 'cliente'; S.mes = new Date(); S.red = null; location.hash = '#/' + destino; render(); }); }
 function volverEquipo(){ S.modo = 'equipo'; location.hash = `#/clientes/${S.cid}`; render(); }
 $('fab').addEventListener('click', () => abrirAsistente());
+function cambiarClave(){
+  const f = h('form',{novalidate:true},
+    h('label',{}, 'Clave nueva (mínimo 8 caracteres)', h('input',{type:'password',name:'c1',autocomplete:'new-password',required:true,minlength:'8',maxlength:'72'})),
+    h('label',{style:'margin-top:10px'}, 'Repetila', h('input',{type:'password',name:'c2',autocomplete:'new-password',required:true,maxlength:'72'})),
+    h('button',{class:'btn',type:'submit',style:'width:100%;margin-top:14px'}, 'Guardar clave nueva'));
+  f.addEventListener('submit', e => { e.preventDefault();
+    if (f.c1.value.length < 8){ f.c1.setAttribute('aria-invalid','true'); return toast('La clave tiene que tener al menos 8 caracteres.', true); }
+    if (f.c1.value !== f.c2.value){ f.c2.setAttribute('aria-invalid','true'); return toast('Las dos claves no coinciden.', true); }
+    ocupado(e.submitter, async () => { const { error } = await sb.auth.updateUser({ password:f.c1.value }); if (error) throw aviso('No se pudo cambiar la clave. Probá con otra.'); cerrarHoja(); toast('Clave cambiada.'); }); });
+  abrirHoja('Cambiar mi clave', f);
+}
 $('cuenta').addEventListener('click', () => abrirHoja('Mi cuenta',
-  h('p',{class:'mut',style:'margin-top:0'}, S.user?.email),
+  h('p',{class:'mut',style:'margin-top:0'}, S.user?.email?.replace('@' + DOMINIO, '')),
   S.instalar ? h('button',{type:'button',class:'btn',style:'width:100%;margin-bottom:10px',onclick:instalarApp}, 'Instalar la app') : ayudaIOS(),
+  h('button',{type:'button',class:'btn ol',style:'width:100%;margin-bottom:10px',onclick:cambiarClave}, 'Cambiar mi clave'),
   h('button',{type:'button',class:'btn ol',style:'width:100%',onclick:salir}, 'Salir')));
+$('clave-lado').addEventListener('click', cambiarClave);
 
 /* instalar como app */
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); S.instalar = e; $('instalar').hidden = false; if (!$('shell').hidden && document.activeElement === document.body) render(); });
@@ -1280,10 +1332,17 @@ function boxMetricas(id, met){
     await ocupado(e.submitter, async () => {
       await q(sb.from('metricas_mensuales').upsert(row, { onConflict:'cliente_id,anio,mes,red' }));
       met.splice(0, met.length, ...await q(sb.from('metricas_mensuales').select('*').eq('cliente_id', id)));
-      toast('Métricas guardadas. El cliente ya las ve.');
+      pintar(); toast('Métricas guardadas. El cliente ya las ve.');
     });
   });
-  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Métricas del mes'), met[0] ? pill(`última: ${MESES[met[0].mes-1]}`) : pill('sin cargar','warn')), h('div',{}, f));
+  const lista = h('div',{class:'tbl'}), cols = [['seguidores','Seg.'],['visualizaciones','Vistas']];
+  const pintar = () => fill(lista, met.length ? h('table',{}, h('caption',{class:'mut',style:'text-align:left'}, 'Ya cargado (tocá una fila para editarla)'),
+    h('thead',{}, h('tr',{}, h('th',{scope:'col'}, 'Mes'), h('th',{scope:'col'}, 'Red'), cols.map(([,t]) => h('th',{scope:'col',class:'num'}, t)))),
+    h('tbody',{}, [...met].sort((a, b) => b.anio - a.anio || b.mes - a.mes).map(r => h('tr',{}, h('th',{scope:'row'}, h('button',{type:'button',class:'btn ol sm',onclick:() => { f.anio.value = r.anio; f.mes.value = r.mes; f.red.value = r.red; precargar(); f.scrollIntoView({block:'center'}); }}, `${MESES[r.mes-1]} ${r.anio}`)),
+      h('td',{}, r.red), cols.map(([k]) => h('td',{class:'num'}, num(r[k]))))))) : h('p',{class:'mut'}, 'Todavía no hay métricas cargadas.'));
+  pintar();
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Métricas del mes'), met[0] ? pill(`última: ${MESES[met[0].mes-1]}`) : pill('sin cargar','warn')),
+    h('div',{}, lista, met.length ? h('button',{type:'button',class:'btn ol',style:'margin:10px 0',onclick:() => verComoCliente(id, 'metricas')}, 'Ver las métricas como las ve el cliente') : null, f));
 }
 
 function boxReportes(id, rep){
@@ -1311,34 +1370,39 @@ function boxReportes(id, rep){
 }
 
 function boxAccesos(id, acc){
-  const c = cliDe(id);
+  const c = cliDe(id), sug = (c?.nombre || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 30);
   const f = h('form',{class:'row',novalidate:true},
-    h('label',{style:'flex:3 1 240px'}, 'Email del cliente', h('input',{type:'email',name:'email',required:true,maxlength:'160',autocomplete:'off'})),
-    h('button',{class:'btn',type:'submit'}, 'Dar acceso y generar link'));
-  f.addEventListener('submit', e => { e.preventDefault(); if (validar(f)) generarLink(id, f.email.value.trim().toLowerCase(), e.submitter); });
-  return h('details',{class:'box',open:!acc.length}, h('summary',{}, h('span',{}, 'Acceso del cliente al portal'), pill(acc.length ? `${acc.length} email${acc.length > 1 ? 's' : ''}` : 'sin acceso', acc.length ? 'ok' : 'warn')),
-    h('div',{}, f, h('p',{class:'mut',style:'font-size:.88rem'}, 'Se genera un link personal de un solo uso para que se lo mandes por WhatsApp. Lo toca y entra directo. Después puede volver a entrar con su email desde ', h('b',{}, 'agencia-origen.online/portal.html'), ' o instalar la app.'),
+    h('label',{style:'flex:3 1 240px'}, 'Usuario del cliente (minúsculas, sin espacios)', h('input',{name:'usuario',required:true,minlength:'3',maxlength:'30',pattern:'[a-z0-9][a-z0-9._\\-]{2,29}',autocomplete:'off',autocapitalize:'none',value:sug})),
+    h('button',{class:'btn',type:'submit'}, 'Crear usuario y clave'));
+  f.addEventListener('submit', e => { e.preventDefault(); if (validar(f)) crearAcceso(id, f.usuario.value.trim().toLowerCase(), e.submitter); });
+  const propio = a => a.email.endsWith('@' + DOMINIO), nombre = a => a.email.replace('@' + DOMINIO, '');
+  return h('details',{class:'box',open:!acc.length}, h('summary',{}, h('span',{}, 'Acceso del cliente al portal'), pill(acc.length ? `${acc.length} acceso${acc.length > 1 ? 's' : ''}` : 'sin acceso', acc.length ? 'ok' : 'warn')),
+    h('div',{}, f, h('p',{class:'mut',style:'font-size:.88rem'}, 'Creás un usuario y una clave y se los mandás por WhatsApp. Entra desde ', h('b',{}, 'agencia-origen.online/portal.html'), ' y puede cambiar su clave cuando quiera. La clave se muestra una sola vez.'),
       acc.map(a => h('div',{class:'li row',style:'justify-content:space-between;align-items:center'},
-        h('span',{style:'overflow-wrap:anywhere'}, a.email, ' ', pill(a.user_id ? 'ya entró' : 'todavía no entró', a.user_id ? 'ok' : 'warn')),
+        h('span',{style:'overflow-wrap:anywhere'}, nombre(a), ' ', pill(a.user_id ? 'ya entró' : 'todavía no entró', a.user_id ? 'ok' : 'warn')),
         h('span',{class:'row',style:'gap:6px'},
-          h('button',{type:'button',class:'btn ol sm',onclick:e => generarLink(id, a.email, e.currentTarget)}, 'Link de acceso'),
-          h('button',{type:'button',class:'btn peligro sm',onclick:e => { if (!confirm(`¿Quitarle el acceso a ${a.email}?`)) return;
+          propio(a) ? h('button',{type:'button',class:'btn ol sm',onclick:e => { if (confirm(`¿Crear una clave nueva para ${nombre(a)}? La anterior deja de funcionar.`)) crearAcceso(id, nombre(a), e.currentTarget); }}, 'Clave nueva') : null,
+          h('button',{type:'button',class:'btn peligro sm',onclick:e => { if (!confirm(`¿Quitarle el acceso a ${nombre(a)}?`)) return;
             ocupado(e.currentTarget, async () => { await q(sb.from('cliente_accesos').delete().eq('id', a.id)); toast('Acceso quitado.'); render(); }); }}, 'Quitar'))))));
 }
-async function generarLink(id, email, btn){
+async function crearAcceso(id, usuario, btn, compartir = false){
   const c = cliDe(id);
   await ocupado(btn, async () => {
-    const { data, error } = await sb.functions.invoke('invitar', { body:{ cliente_id:id, email } });
-    if (error){ let m = 'No se pudo generar el link.'; try { m = (await error.context.json()).error || m; } catch {} throw aviso(m); }
-    const n = primerNombre(c), tel = telWA(c?.raw?.whatsapp);
-    const texto = `¡Hola${n ? ' ' + n : ''}! Te paso tu acceso al portal de ORIGEN, donde vas a ver el calendario, las métricas y todo lo que hacemos por ${c?.nombre || 'tu marca'}. Tocá este link para entrar (es personal, no lo compartas): ${data.link}`;
-    const inp = h('input',{readonly:true,'aria-label':'Link de acceso',value:data.link,onfocus:e => e.target.select()});
-    abrirHoja('Link de acceso listo',
-      h('p',{class:'mut',style:'margin-top:0'}, `Para ${email}. Sirve una sola vez y vence pronto: mandáselo ahora.`), inp,
+    const { data, error } = await sb.functions.invoke('invitar', { body:{ cliente_id:id, usuario, compartir } });
+    if (error){
+      let j = {}; try { j = await error.context.json(); } catch {}
+      if (j.ya_es_de){ if (confirm(`El usuario "${usuario}" ya existe y es de ${j.ya_es_de}. ¿Es el mismo dueño y querés que con ese usuario vea los dos negocios? (se le va a generar una clave nueva)`)) return crearAcceso(id, usuario, btn, true); return; }
+      throw aviso(j.error || 'No se pudo crear el usuario.');
+    }
+    const n = primerNombre(c), tel = telWA(c?.raw?.whatsapp), url = 'https://agencia-origen.online/portal.html';
+    const texto = `¡Hola${n ? ' ' + n : ''}! Te paso tu acceso al portal de ORIGEN, donde vas a ver el calendario, las métricas y todo lo que hacemos por ${c?.nombre || 'tu marca'}.\n\nEntrá acá: ${url}\nUsuario: ${data.usuario}\nClave: ${data.clave}\n\nEs personal, no lo compartas. Desde el menú podés cambiar tu clave y, en el celular, instalarlo como app.`;
+    const dato = (t, v) => h('label',{}, t, h('input',{readonly:true,value:v,onfocus:e => e.target.select()}));
+    abrirHoja('Usuario y clave listos',
+      h('p',{class:'mut',style:'margin-top:0'}, 'Mandáselos ahora: la clave no se vuelve a mostrar (si se pierde, generás una nueva).'),
+      h('div',{class:'row'}, dato('Usuario', data.usuario), dato('Clave', data.clave)),
       h('div',{class:'row',style:'margin-top:12px'},
         h('a',{class:'btn',href:`https://wa.me/${tel}?text=${encodeURIComponent(texto)}`,target:'_blank',rel:'noopener'}, 'Mandar por WhatsApp'),
-        h('button',{type:'button',class:'btn ol',onclick:async () => { try { await navigator.clipboard.writeText(texto); toast('Mensaje copiado.'); } catch { inp.select(); toast('Copialo con Ctrl+C.', true); } }}, 'Copiar mensaje')),
-      h('p',{class:'mut',style:'font-size:.85rem;margin-top:12px'}, 'Si no lo usa a tiempo, generá otro desde acá.'));
+        h('button',{type:'button',class:'btn ol',onclick:async () => { try { await navigator.clipboard.writeText(texto); toast('Mensaje copiado.'); } catch { toast('No se pudo copiar. Copiá usuario y clave a mano.', true); } }}, 'Copiar mensaje')));
     if (S.modo === 'equipo') setTimeout(() => cargarEquipo(S.mes).catch(() => {}), 0);
   });
 }
@@ -1599,7 +1663,7 @@ VC.metricas = () => {
   const svg = s('svg',{viewBox:`0 0 ${W} ${H}`,class:'chart',role:'img','aria-label':'Visualizaciones por mes: ' + rows.map(r => `${MESES[r.mes-1]} ${num(r.visualizaciones)}`).join(', ')});
   const def = s('defs',{}), gr = s('linearGradient',{id:'gbar',x1:0,y1:0,x2:0,y2:1}); gr.append(s('stop',{offset:'0','stop-color':'#E2CC92'}), s('stop',{offset:'1','stop-color':'#8a7849'})); def.append(gr); svg.append(def);
   rows.forEach((r, i) => { const v = r.visualizaciones || 0, bh = (H - pad * 2) * v / max, x = pad + i * bw + bw * .18, yb = H - pad - bh;
-    svg.append(s('rect',{x, y:yb, width:bw * .64, height:Math.max(bh, 2), rx:6, fill: i === rows.length - 1 ? 'url(#gbar)' : '#3a3730'}),
+    svg.append(s('rect',{x, y:yb, width:bw * .64, height:Math.max(bh, 2), rx:6, fill: i === rows.length - 1 ? 'url(#gbar)' : 'rgba(255,255,255,.16)'}),
       s('text',{x:x + bw * .32, y:H - 6, 'text-anchor':'middle'}, MESES[r.mes-1].slice(0,3)),
       s('text',{x:x + bw * .32, y:yb - 6, 'text-anchor':'middle'}, v >= 1000 ? Math.round(v / 1000) + 'k' : v)); });
   const sel = redes.length > 1 ? h('div',{class:'seg',role:'group','aria-label':'Red'}, redes.map(r => h('button',{type:'button','aria-pressed':String(r === S.red),onclick:() => { S.red = r; render(); }}, r[0].toUpperCase() + r.slice(1)))) : null;
