@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v3.4 · 2026-11-18 · diseño de vidrio oscuro con dorado, acceso con usuario y clave creados por el equipo, métricas cargadas visibles -->
+<!-- Portal ORIGEN — v3.5 · 2026-11-18 · métricas como dashboard (tarjetas con tendencia, evolución, reparto por red) -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -261,6 +261,15 @@ ul.checks li span{color:var(--mut);font-size:.88rem}
 #toast.bad{background:var(--bad)}
 #toast:empty{display:none}
 #cargando{display:grid;place-items:center;min-height:100dvh;color:var(--mut);margin:0}
+.spark{width:100%;height:34px;margin-top:8px;display:block}
+.stat{position:relative}.stat>span:first-child{display:block;margin-bottom:.15rem}
+.card h2 .seg{text-transform:none;letter-spacing:0;display:flex;flex-wrap:wrap;max-width:100%;border-radius:16px}.card h2 .seg button{padding:.2rem .6rem;font-size:.78rem;min-height:30px}
+.donut{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.donut svg{width:140px;height:140px;flex:0 0 auto}
+.donut text{fill:var(--mut);font:11px Jost,sans-serif}.donut text.dn{fill:var(--tx);font:400 22px Anton,sans-serif}
+ul.leg{list-style:none;margin:0;padding:0;display:grid;gap:8px;flex:1;min-width:150px}
+ul.leg li{display:grid;grid-template-columns:auto 1fr auto auto;gap:8px;align-items:center;font-size:.92rem}
+ul.leg i{width:10px;height:10px;border-radius:50%}ul.leg small{color:var(--mut)}
+ul.masl{margin:.2rem 0 .7rem}ul.masl li{grid-template-columns:1fr auto;border-top:1px solid var(--line);padding-top:6px}ul.masl span{color:var(--mut)}
 /* ---------- estilo vidrio (mismos colores ORIGEN: negro y dorado) ---------- */
 :root{--s1:rgba(255,255,255,.04);--s2:rgba(255,255,255,.07);--s3:rgba(255,255,255,.11);--line:rgba(255,255,255,.09);--glass:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.022));--sombra:0 14px 44px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07)}
 body{background:radial-gradient(55% 42% at 90% -6%,rgba(201,179,122,.17),transparent 65%),radial-gradient(42% 36% at -6% 34%,rgba(226,204,146,.08),transparent 65%),radial-gradient(38% 32% at 100% 104%,rgba(201,179,122,.11),transparent 62%),var(--bg);background-attachment:fixed}
@@ -1649,33 +1658,64 @@ function verContenido(c){
       : S.equipo ? h('p',{class:'mut'}, 'Vista del equipo: el cliente aprueba desde su cuenta.') : null);
 }
 
+const sv = (t, a, ...k) => { const e = document.createElementNS('http://www.w3.org/2000/svg', t); for (const x in a) e.setAttribute(x, a[x]); e.append(...k); return e; };
+const METS = [['visualizaciones','Visualizaciones'],['alcance','Alcance'],['interacciones','Interacciones'],['seguidores','Seguidores']];
+function linea(vals, W, H, pad){ // puntos de una serie, escala desde cero
+  const mx = Math.max(1, ...vals), n = vals.length;
+  return vals.map((v, i) => [n === 1 ? W / 2 : pad + i * (W - pad * 2) / (n - 1), H - pad - (H - pad * 2) * v / mx]);
+}
 VC.metricas = () => {
   titulo('Métricas', 'Cómo le va a tu marca'); selectorNegocio();
   const C = S.C, redes = [...new Set(C.met.map(x => x.red))];
   if (!S.red || !redes.includes(S.red)) S.red = redes[0];
+  if (!S.metrica) S.metrica = 'visualizaciones';
   const rows = C.met.filter(x => x.red === S.red).slice(-12);
   if (!rows.length){ fill($('view'), h('div',{class:'card'}, vacio('Las métricas aparecen acá apenas cerramos el primer mes.'))); return; }
-  const u = rows.at(-1), p = rows.at(-2);
-  const kp = (k, t) => { const d = p && u[k] != null && p[k] ? Math.round((u[k] - p[k]) / p[k] * 100) : null;
-    return h('div',{class:'stat'}, h('b',{}, num(u[k])), h('span',{}, t), d != null ? h('span',{class:d >= 0 ? 'up' : 'down',style:'display:block;font-size:.82rem'}, `${d >= 0 ? '▲' : '▼'} ${Math.abs(d)}% vs. mes anterior`) : null); };
-  const W = 640, H = 220, pad = 26, max = Math.max(1, ...rows.map(r => r.visualizaciones || 0)), bw = (W - pad * 2) / Math.max(rows.length, 6);
-  const NS = 'http://www.w3.org/2000/svg', s = (t, a, tx) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (tx != null) e.textContent = tx; return e; };
-  const svg = s('svg',{viewBox:`0 0 ${W} ${H}`,class:'chart',role:'img','aria-label':'Visualizaciones por mes: ' + rows.map(r => `${MESES[r.mes-1]} ${num(r.visualizaciones)}`).join(', ')});
-  const def = s('defs',{}), gr = s('linearGradient',{id:'gbar',x1:0,y1:0,x2:0,y2:1}); gr.append(s('stop',{offset:'0','stop-color':'#E2CC92'}), s('stop',{offset:'1','stop-color':'#8a7849'})); def.append(gr); svg.append(def);
-  rows.forEach((r, i) => { const v = r.visualizaciones || 0, bh = (H - pad * 2) * v / max, x = pad + i * bw + bw * .18, yb = H - pad - bh;
-    svg.append(s('rect',{x, y:yb, width:bw * .64, height:Math.max(bh, 2), rx:6, fill: i === rows.length - 1 ? 'url(#gbar)' : 'rgba(255,255,255,.16)'}),
-      s('text',{x:x + bw * .32, y:H - 6, 'text-anchor':'middle'}, MESES[r.mes-1].slice(0,3)),
-      s('text',{x:x + bw * .32, y:yb - 6, 'text-anchor':'middle'}, v >= 1000 ? Math.round(v / 1000) + 'k' : v)); });
-  const sel = redes.length > 1 ? h('div',{class:'seg',role:'group','aria-label':'Red'}, redes.map(r => h('button',{type:'button','aria-pressed':String(r === S.red),onclick:() => { S.red = r; render(); }}, r[0].toUpperCase() + r.slice(1)))) : null;
+  const u = rows.at(-1), p = rows.at(-2), mes = r => `${MESES[r.mes-1]} ${r.anio}`;
+  const delta = k => { const d = p && u[k] != null && p[k] ? Math.round((u[k] - p[k]) / p[k] * 100) : null;
+    return d != null ? h('span',{class:d >= 0 ? 'up' : 'down',style:'display:block;font-size:.82rem'}, `${d >= 0 ? '▲' : '▼'} ${Math.abs(d)}% vs. mes anterior`) : null; };
+  const spark = k => { const v = rows.map(r => r[k] || 0), pt = linea(v, 120, 34, 3);
+    return sv('svg',{viewBox:'0 0 120 34',class:'spark',role:'img','aria-label':`Tendencia de ${k}`}, sv('polyline',{points:pt.map(q => q.join(',')).join(' '),fill:'none',stroke:'var(--gold2)','stroke-width':'2','stroke-linecap':'round','stroke-linejoin':'round'}), sv('circle',{cx:pt.at(-1)[0],cy:pt.at(-1)[1],r:'2.6',fill:'var(--gold2)'})); };
+  const kpi = ([k, t]) => h('div',{class:'stat'}, h('span',{}, t), h('b',{}, num(u[k])), delta(k), rows.length > 1 ? spark(k) : null);
+
+  // evolución (área) de la métrica elegida
+  const W = 640, H = 230, pad = 28, m = S.metrica, vr = rows.filter(r => r[m] != null), pts = linea(vr.map(r => r[m]), W, H, pad);
+  const svg = sv('svg',{viewBox:`0 0 ${W} ${H}`,class:'chart',role:'img','aria-label':`${METS.find(x => x[0] === m)[1]} por mes: ` + vr.map(r => `${MESES[r.mes-1]} ${num(r[m])}`).join(', ')},
+    sv('defs',{}, (() => { const g = sv('linearGradient',{id:'garea',x1:0,y1:0,x2:0,y2:1}); g.append(sv('stop',{offset:'0','stop-color':'#E2CC92','stop-opacity':'.45'}), sv('stop',{offset:'1','stop-color':'#E2CC92','stop-opacity':'0'})); return g; })()));
+  for (const f of [0, .5, 1]) svg.append(sv('line',{x1:pad,x2:W - pad,y1:H - pad - (H - pad * 2) * f,y2:H - pad - (H - pad * 2) * f,stroke:'rgba(255,255,255,.08)'}));
+  if (pts.length > 1) svg.append(sv('path',{d:`M${pts[0][0]},${H - pad} L${pts.map(q => q.join(',')).join(' L')} L${pts.at(-1)[0]},${H - pad} Z`,fill:'url(#garea)'}),
+    sv('polyline',{points:pts.map(q => q.join(',')).join(' '),fill:'none',stroke:'var(--gold2)','stroke-width':'2.5','stroke-linejoin':'round','stroke-linecap':'round'}));
+  vr.forEach((r, i) => { const [x, y] = pts[i], v = r[m];
+    svg.append(sv('circle',{cx:x,cy:y,r:i === vr.length - 1 ? 5 : 3.5,fill:i === vr.length - 1 ? 'var(--gold2)' : 'var(--bg)',stroke:'var(--gold2)','stroke-width':'2'}),
+      sv('text',{x,y:y - 11,'text-anchor':'middle'}, v >= 1000 ? (v / 1000).toFixed(v >= 10000 ? 0 : 1).replace('.', ',') + 'k' : v),
+      sv('text',{x,y:H - 6,'text-anchor':'middle'}, MESES[r.mes-1].slice(0, 3))); });
+
+  // reparto por red (último mes cargado): solo si hay más de una red
+  const ult = C.met.reduce((a, r) => r.anio * 12 + r.mes > a ? r.anio * 12 + r.mes : a, 0), delMes = C.met.filter(r => r.anio * 12 + r.mes === ult && r.visualizaciones);
+  const tot = delMes.reduce((a, r) => a + r.visualizaciones, 0), COL = ['#E2CC92', '#8a7849', '#c9b37a', '#5b5440'], R = 50, L = 2 * Math.PI * R;
+  let acum = 0;
+  const donut = delMes.length > 1 ? h('section',{class:'card'}, h('h2',{}, 'Vistas por red', h('small',{}, `${MESES[(ult - 1) % 12]}`)),
+    h('div',{class:'donut'}, sv('svg',{viewBox:'0 0 140 140',role:'img','aria-label':'Reparto de visualizaciones por red: ' + delMes.map(r => `${r.red} ${Math.round(r.visualizaciones / tot * 100)}%`).join(', ')},
+      sv('circle',{cx:70,cy:70,r:R,fill:'none',stroke:'rgba(255,255,255,.08)','stroke-width':'16'}),
+      ...delMes.map((r, i) => { const f = r.visualizaciones / tot, e = sv('circle',{cx:70,cy:70,r:R,fill:'none',stroke:COL[i % 4],'stroke-width':'16','stroke-dasharray':`${f * L} ${L}`,'stroke-dashoffset':-acum * L,transform:'rotate(-90 70 70)'}); acum += f; return e; }),
+      sv('text',{x:70,y:68,'text-anchor':'middle',class:'dn'}, tot >= 1000 ? (tot / 1000).toFixed(1).replace('.', ',') + 'k' : tot), sv('text',{x:70,y:84,'text-anchor':'middle'}, 'vistas')),
+      h('ul',{class:'leg'}, delMes.map((r, i) => h('li',{}, h('i',{style:`background:${COL[i % 4]}`}), h('span',{}, r.red[0].toUpperCase() + r.red.slice(1)), h('b',{}, `${Math.round(r.visualizaciones / tot * 100)}%`), h('small',{}, num(r.visualizaciones))))))) : null;
+
+  const mas = [['nuevos','Seguidores nuevos'],['visitas_perfil','Visitas al perfil'],['clics_enlace','Clics en el enlace'],['mejor_post_vistas','Vistas del mejor post']].filter(([k]) => u[k] != null);
   const mejor = httpUrl(u.mejor_post_url);
+  const sel = redes.length > 1 ? h('div',{class:'seg',role:'group','aria-label':'Red'}, redes.map(r => h('button',{type:'button','aria-pressed':String(r === S.red),onclick:() => { S.red = r; render(); }}, r[0].toUpperCase() + r.slice(1)))) : null;
   const cols = [['seguidores','Seguidores'],['visualizaciones','Vistas'],['alcance','Alcance'],['interacciones','Interacc.'],['visitas_perfil','Visitas perfil'],['clics_enlace','Clics']];
-  fill($('view'), sel ? h('div',{style:'margin-bottom:12px'}, sel) : null,
-    h('div',{class:'stats'}, kp('visualizaciones','Visualizaciones'), kp('alcance','Cuentas alcanzadas'), kp('interacciones','Interacciones'), kp('seguidores','Seguidores')),
-    (u.notas || mejor) ? h('section',{class:'card asis'}, h('h2',{}, `Comentario de ORIGEN · ${MESES[u.mes-1]}`), u.notas ? h('p',{style:'margin:0 0 .5rem'}, u.notas) : null,
-      mejor ? h('a',{href:mejor,target:'_blank',rel:'noopener'}, `Ver el mejor post${u.mejor_post_vistas ? ` (${num(u.mejor_post_vistas)} vistas)` : ''} →`) : null) : null,
-    h('section',{class:'card'}, h('h2',{}, 'Visualizaciones por mes'), svg),
-    h('section',{class:'card tbl'}, h('h2',{}, 'Detalle'), h('table',{}, h('thead',{}, h('tr',{}, h('th',{scope:'col'}, 'Mes'), cols.map(([,t]) => h('th',{scope:'col',class:'num'}, t)))),
-      h('tbody',{}, [...rows].reverse().map(r => h('tr',{}, h('th',{scope:'row'}, `${MESES[r.mes-1]} ${r.anio}`), cols.map(([k]) => h('td',{class:'num'}, num(r[k])))))))));
+  fill($('view'),
+    h('div',{class:'row',style:'justify-content:space-between;align-items:center;margin-bottom:12px'}, sel || h('span',{class:'mut'}, 'Instagram'), h('span',{class:'mut',style:'font-size:.88rem'}, `Último mes cargado: ${mes(u)}`)),
+    h('div',{class:'stats'}, METS.map(kpi)),
+    h('div',{class:'grid g32'},
+      h('section',{class:'card'}, h('h2',{}, 'Evolución', h('span',{class:'seg',role:'group','aria-label':'Métrica'}, METS.map(([k, t]) => h('button',{type:'button','aria-pressed':String(k === m),onclick:() => { S.metrica = k; render(); }}, t)))), svg),
+      h('div',{}, donut,
+        (u.notas || mejor || mas.length) ? h('section',{class:'card asis'}, h('h2',{}, `Comentario de ORIGEN · ${MESES[u.mes-1]}`), u.notas ? h('p',{style:'margin:0 0 .6rem'}, u.notas) : null,
+          mas.length ? h('ul',{class:'leg masl'}, mas.map(([k, t]) => h('li',{}, h('span',{}, t), h('b',{}, num(u[k]))))) : null,
+          mejor ? h('a',{href:mejor,target:'_blank',rel:'noopener'}, 'Ver el mejor post →') : null) : null)),
+    h('section',{class:'card tbl'}, h('h2',{}, 'Detalle por mes'), h('table',{}, h('thead',{}, h('tr',{}, h('th',{scope:'col'}, 'Mes'), cols.map(([,t]) => h('th',{scope:'col',class:'num'}, t)))),
+      h('tbody',{}, [...rows].reverse().map(r => h('tr',{}, h('th',{scope:'row'}, mes(r)), cols.map(([k]) => h('td',{class:'num'}, num(r[k])))))))));
 };
 
 async function abrirArchivo(path, btn){
