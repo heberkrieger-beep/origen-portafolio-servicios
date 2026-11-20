@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v5.0.1 · 2026-11-20 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
+<!-- Portal ORIGEN — v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -343,6 +343,7 @@ dialog{background:#141412;border-color:var(--line);border-radius:12px;box-shadow
 .sh-h{background:#141412;border-bottom:1px solid var(--line);padding-bottom:12px}
 .sh-b{padding-top:14px}
 @media(max-width:600px){dialog{border-radius:12px 12px 0 0}}
+select option{background:#1b1a17;color:#F3EEE3}
 #toast{border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 #banner{background:rgba(201,179,122,.08);border:0;border-left:2px solid var(--gold);border-radius:0}
 .login{background:var(--bg)}
@@ -1547,17 +1548,25 @@ function panelBuffer(id, met, f, pintar){
         fill(lis, ''); toast('Canales guardados.'); estado();
       })}, 'Guardar canales') : null));
   });
-  const traer = async btn => ocupado(btn, async () => {
-    const d = await llamar({ accion:'sync', cliente_id:id, anio:+f.anio.value, mes:+f.mes.value });
+  const traer = async (btn, rango) => ocupado(btn, async () => {
+    const d = await llamar({ accion:'sync', rango, cliente_id:id, anio:+f.anio.value, mes:+f.mes.value });
+    if (d.resumen){
+      const n = v => v == null ? '–' : v.toLocaleString('es-AR');
+      fill(out, h('div',{}, h('p',{class:'mut'}, `Últimos ${rango} días (no se guarda, es para mirar):`), d.resumen.length ? d.resumen.map(r => h('p',{style:'margin:.2rem 0'}, `${r.red}: alcance ${n(r.alcance)} · vistas ${n(r.visualizaciones)} · interacciones ${n(r.interacciones)} · clics ${n(r.clics_enlace)}${r.posts ? ` · ${r.posts} posts` : ''}`)) : h('p',{class:'mut'}, 'Buffer no devolvió métricas para ese período.'), d.avisos.length ? h('p',{class:'mut'}, d.avisos.join(' · ')) : null));
+      return;
+    }
     met.splice(0, met.length, ...await q(sb.from('metricas_mensuales').select('*').eq('cliente_id', id)));
     pintar(); f.red.dispatchEvent(new Event('change'));
-    fill(out, h('p',{class:'mut'}, (d.guardadas.length ? `Se actualizó: ${d.guardadas.map(g => `${g.red} (${g.posts} posts)`).join(', ')}. ` : 'No se guardó nada. ') + (d.avisos.length ? d.avisos.join(' · ') : '')));
+    fill(out, h('p',{class:'mut'}, (d.guardadas.length ? (rango === 'todo' ? `Se guardaron ${new Set(d.guardadas.map(g => g.anio + '-' + g.mes)).size} meses con datos (${[...new Set(d.guardadas.map(g => g.red))].join(', ')}). ` : `Se actualizó: ${d.guardadas.map(g => `${g.red} (${g.posts} posts)`).join(', ')}. `) : 'No se guardó nada. ') + (d.avisos.length ? d.avisos.join(' · ') : '')));
     toast(d.guardadas.length ? 'Métricas traídas de Buffer.' : 'Buffer no devolvió métricas.', !d.guardadas.length);
   });
   return h('div',{style:'margin:0 0 14px'},
     h('div',{class:'row'}, h('button',{type:'button',class:'btn ol sm',onclick:e => vincular(e.currentTarget)}, 'Vincular canales de Buffer'),
-      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget)}, 'Traer métricas del mes elegido')),
-    h('p',{class:'mut',style:'font-size:.85rem'}, 'Trae alcance, vistas, interacciones y clics del mes y año de abajo. No pisa seguidores ni visitas al perfil.'), est, lis, out);
+      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget, '7')}, 'Últimos 7 días'),
+      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget, '30')}, 'Últimos 30 días'),
+      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget, 'mes')}, 'Mes elegido'),
+      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget, 'todo')}, 'Todo el historial')),
+    h('p',{class:'mut',style:'font-size:.85rem'}, '7 y 30 días se muestran acá para mirar. “Mes elegido” y “Todo el historial” (hasta 24 meses, lo que Buffer tenga) se guardan en las métricas del cliente. No pisan seguidores ni visitas al perfil.'), est, lis, out);
 }
 
 function boxReportes(id, rep){
