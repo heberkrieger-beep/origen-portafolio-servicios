@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · fotos-torneo.html · v1.1 · 2026-11-19 · galería y venta de fotos de un torneo, sin marca de cliente (noindex hasta tener fotos cargadas) -->
+<!-- ORIGEN · fotos-torneo.html · v2.0 · 2026-11-20 · compra sin login: carrito, Mercado Pago, vuelta automática y descarga · v1.1 · 2026-11-19 · sin marca de cliente (noindex hasta tener fotos cargadas) -->
 <html lang="es">
 <head>
 <!-- Google Tag Manager -->
@@ -21,7 +21,7 @@ html{scroll-behavior:smooth}
 html,body{max-width:100%;overflow-x:clip;background:var(--b)}
 body{font-family:'Jost',sans-serif;font-weight:300;color:var(--tx);line-height:1.6;-webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums}
 a{color:inherit}
-a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
 img{display:block;max-width:100%}
 [hidden]{display:none!important}
 h1,h2,h3{font-family:'Cormorant',serif;font-weight:300;line-height:1.08}
@@ -75,6 +75,27 @@ footer{padding:44px 0}
 .foot nav a{font-size:13px;color:var(--p);text-decoration:none;margin-right:20px}
 .foot nav a:hover{color:var(--ac)}
 .foot span{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--p)}
+
+.ph.sel{border-color:var(--ac);box-shadow:0 0 0 1px var(--ac)}
+.ph.sel span a,.ph.sel .ver{color:var(--ac)}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:900;background:rgba(14,14,13,.96);border-top:1px solid var(--ac);padding:12px max(16px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));display:flex;gap:16px;align-items:center;justify-content:center;flex-wrap:wrap}
+.bar p{font-size:15px}
+.bar .btn{padding:13px 24px}
+.msg{color:var(--p);font-size:15px;margin:14px 0}
+.msg.err{color:#e8a09a}
+.soporte{font-size:14px;color:var(--p);margin-top:18px}
+.soporte a{color:var(--ac)}
+.mis-l{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:20px}
+.mis-l div{border:1px solid var(--l);background:var(--cream)}
+.mis-l img{width:100%;aspect-ratio:3/2;object-fit:cover;background:#000}
+.mis-l a{display:flex;justify-content:center;padding:12px;background:var(--ac);color:#111;text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:500}
+.mis-l a:hover{background:var(--tx)}
+details.rec{margin-top:26px;border-top:1px solid var(--l);max-width:560px}
+details.rec summary{cursor:pointer;padding:16px 0;font-size:16px}
+details.rec form{display:flex;flex-direction:column;gap:12px;padding-bottom:16px}
+details.rec input{background:var(--cream);color:var(--tx);border:1px solid var(--l);padding:12px 14px;font:inherit;font-size:15px}
+details.rec label{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p);display:flex;flex-direction:column;gap:6px}
+main{padding-bottom:70px}
 @media(max-width:760px){.dlg{grid-template-columns:1fr}.dlg img{max-height:46vh}.count{margin-left:0;width:100%}}
 @media(max-width:620px){.wrap{padding:0 22px}section{padding:56px 0}.hero{padding:60px 0 40px}.nav{padding:12px 20px}.nav .links a:not(.cta-s){display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -92,9 +113,16 @@ footer{padding:44px 0}
 <header class="hero"><div class="wrap">
   <span class="kw" id="kw">Fotos del torneo · Puerto Iguazú</span>
   <h1>Tus fotos del <em>torneo</em>.</h1>
-  <p class="lead">Encontrá tu foto, elegila y comprala en alta resolución, sin marca de agua. Pagás con Mercado Pago y la recibís por WhatsApp.</p>
+  <p class="lead">Encontrá tu foto, elegila y comprala en alta resolución, sin marca de agua. Pagás con Mercado Pago, volvés a esta página y descargás tus fotos al instante. No hace falta crear cuenta.</p>
+  <p class="soporte">¿Problemas con tu compra? Escribinos al <a href="https://wa.me/5493757656783?text=Hola%2C%20tengo%20un%20problema%20con%20mi%20compra%20de%20fotos." target="_blank" rel="noopener">375 765-6783</a> y lo resolvemos.</p>
 </div></header>
 <main id="main">
+<section id="mis" aria-labelledby="mis-h" hidden><div class="wrap">
+  <div class="eb">Tus compras</div><h2 id="mis-h">Mis fotos <em>compradas</em>.</h2>
+  <p class="msg" id="mis-msg" role="status" aria-live="polite"></p>
+  <div class="mis-l" id="mis-l"></div>
+  <p class="soporte">¿Problemas con tu compra? Escribinos al <a href="https://wa.me/5493757656783?text=Hola%2C%20tengo%20un%20problema%20con%20mi%20compra%20de%20fotos." target="_blank" rel="noopener">375 765-6783</a> y lo resolvemos.</p>
+</div></section>
 <section aria-labelledby="gal-h"><div class="wrap">
   <div class="eb">Galería</div><h2 id="gal-h">Buscá tu <em>foto</em>.</h2>
   <div class="tools" id="tools" hidden>
@@ -108,12 +136,15 @@ footer{padding:44px 0}
     <p>Todavía no hay fotos cargadas del último torneo. Si jugaste y querés tus fotos, escribinos y te avisamos apenas estén.</p>
     <a class="btn" href="https://wa.me/5493757656783?text=Hola%2C%20quiero%20mis%20fotos%20del%20torneo." target="_blank" rel="noopener">Avisame por WhatsApp</a>
   </div>
+<details class="rec"><summary>¿Ya compraste y no ves tus fotos?</summary>
+    <form id="rec-f"><label>Número de operación de Mercado Pago<input id="rec-op" inputmode="numeric" autocomplete="off" required></label><label>Email con el que pagaste<input id="rec-em" type="email" autocomplete="email" required></label><button class="btn" type="submit">Recuperar mis fotos</button><p class="msg" id="rec-msg" role="status" aria-live="polite"></p></form></details>
 </div></section>
 <section aria-labelledby="como-h"><div class="wrap">
   <div class="eb">Cómo comprar</div><h2 id="como-h">Tres <em>pasos</em>.</h2>
-  <ol class="steps"><li>Elegí tu foto y anotá su código.</li><li>Pagala con Mercado Pago desde el botón de la foto.</li><li>Mandanos el comprobante y el código por WhatsApp: te enviamos la foto en alta resolución.</li></ol>
+  <ol class="steps"><li>Tocá tus fotos y agregalas al carrito.</li><li>Pagá con Mercado Pago.</li><li>Volvés automáticamente a esta página y descargás las fotos en alta resolución, sin marca de agua.</li></ol>
 </div></section>
 </main>
+<div class="bar" id="bar" hidden><p id="bar-t"></p><button class="btn" id="bar-b" type="button">Pagar con Mercado Pago</button><p class="msg err" id="bar-e" role="alert" hidden></p></div>
 <footer><div class="wrap foot">
   <nav aria-label="Sectores"><a href="./">ORIGEN</a><a href="marketing.html">Marketing Digital</a><a href="tv.html">ORIGEN TV</a></nav>
   <span>© 2026 ORIGEN · Puerto Iguazú</span>
@@ -127,36 +158,45 @@ footer{padding:44px 0}
       <h3 id="dlg-t">Foto</h3>
       <p id="dlg-m"></p>
       <p class="pr" id="dlg-p"></p>
-      <a class="btn" id="dlg-pay" target="_blank" rel="noopener">Pagar con Mercado Pago</a>
-      <a class="btn sec" id="dlg-wa" target="_blank" rel="noopener">Ya pagué: enviar comprobante</a>
-      <p>La foto que recibís es la original, sin marca de agua.</p>
+      <button class="btn" id="dlg-add" type="button">Agregar al carrito</button>
+      <a class="btn sec" id="dlg-wa" target="_blank" rel="noopener">Consultar por WhatsApp</a>
+      <p>La foto que descargás es la original, sin marca de agua.</p>
+      <p class="soporte" style="margin-top:0">¿Problemas? WhatsApp <a href="https://wa.me/5493757656783?text=Hola%2C%20tengo%20un%20problema%20con%20mi%20compra%20de%20fotos." target="_blank" rel="noopener">375 765-6783</a></p>
     </div>
   </div>
 </dialog>
 
 <script>
-/* CONFIG: completá estos tres valores. */
-var PRECIO = null;                 /* ej: 5000 (pesos por foto). null = "consultar precio" */
-var MP_LINK = '';                  /* link de pago de Mercado Pago, debe empezar con https:// */
-var WA = '5493757656783';
+/* CONFIG */
+var FN = 'https://cvxmmrfuwjefdovoakqw.supabase.co/functions/v1/fotos';  /* función de Supabase */
 var EVENTO = '';                   /* nombre del torneo, ej: Copa Triple Frontera */
-var DATA = 'fotos-torneo.json';     /* [{"id":"F-0001","torneo":"Día 1","categoria":"Mixto A","img":"fotos-torneo/f-0001.webp"}] */
+var WA = '5493757656783';
+var DATA = 'fotos-torneo.json';     /* [{"id":"F-0001","torneo":"Día 1","categoria":"Mixto A","img":"fotos-torneo/F-0001.webp"}]  (id = nombre del archivo original, sin extensión) */
 
 (function(){
   var $ = function(i){return document.getElementById(i);};
-  var gal=$('gal'), tools=$('tools'), empty=$('empty'), dlg=$('dlg'), fotos=[], ultimo=null;
-  var okImg=/^[\w\-\/.]+\.(webp|jpe?g|png)$/i;
-  var okPay=/^https:\/\/(mpago\.la|mpago\.li|www\.mercadopago\.com(\.ar)?)\//i;
+  var gal=$('gal'), tools=$('tools'), empty=$('empty'), dlg=$('dlg'), fotos=[], cart=[], precio=0, ultimo=null, actual=null;
+  var LS='ft_compras', okImg=/^[\w\-\/.]+\.(webp|jpe?g|png)$/i, okUUID=/^[0-9a-f-]{36}$/i, okPay=/^https:\/\/([\w.-]+\.)?mercadopago\.com(\.ar)?\//i;
+  var storage=FN.replace(/\/functions\/v1\/fotos$/,'')+'/storage/v1/';
+  var money=function(n){return '$'+Number(n).toLocaleString('es-AR');};
+
+  function api(accion,body){
+    return fetch(FN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({accion:accion},body||{}))})
+      .then(function(r){return r.json().catch(function(){return {};}).then(function(j){j._s=r.status;return j;});});
+  }
+  function tokens(){try{var t=JSON.parse(localStorage.getItem(LS)||'[]');return Array.isArray(t)?t.filter(function(x){return okUUID.test(x);}):[];}catch(e){return [];}}
+  function guarda(t){if(!okUUID.test(t)) return;try{var a=tokens();if(a.indexOf(t)<0){a.push(t);localStorage.setItem(LS,JSON.stringify(a.slice(-20)));}}catch(e){}}
 
   function limpia(f){
-    if(!f||typeof f.id!=='string'||typeof f.img!=='string'||!okImg.test(f.img)) return null;
-    return {id:f.id.slice(0,40),torneo:String(f.torneo||'').slice(0,60),categoria:String(f.categoria||'').slice(0,60),img:f.img,mp:(typeof f.mp==='string'&&okPay.test(f.mp))?f.mp:''};
+    if(!f||typeof f.id!=='string'||!/^[\w-]{1,60}$/.test(f.id)||typeof f.img!=='string'||!okImg.test(f.img)) return null;
+    return {id:f.id,torneo:String(f.torneo||'').slice(0,60),categoria:String(f.categoria||'').slice(0,60),img:f.img};
   }
   function opciones(sel,key){
-    var v=[],i; for(i=0;i<fotos.length;i++){ if(fotos[i][key]&&v.indexOf(fotos[i][key])<0) v.push(fotos[i][key]); }
+    var v=[];fotos.forEach(function(f){if(f[key]&&v.indexOf(f[key])<0) v.push(f[key]);});
     v.forEach(function(x){var o=document.createElement('option');o.value=x;o.textContent=x;sel.appendChild(o);});
     sel.parentNode.hidden=v.length<2;
   }
+  function enCarrito(id){return cart.indexOf(id)>=0;}
   function pinta(){
     var t=$('f-torneo').value,c=$('f-cat').value,n=0;
     gal.textContent='';
@@ -164,39 +204,101 @@ var DATA = 'fotos-torneo.json';     /* [{"id":"F-0001","torneo":"Día 1","catego
       if((t&&f.torneo!==t)||(c&&f.categoria!==c)) return;
       n++;
       var b=document.createElement('button'),im=document.createElement('img'),s=document.createElement('span'),a=document.createElement('span');
-      b.type='button';b.className='ph';
+      b.type='button';b.className='ph'+(enCarrito(f.id)?' sel':'');
       im.src=f.img;im.loading='lazy';im.decoding='async';im.alt='Foto '+f.id+(f.torneo?', '+f.torneo:'')+(f.categoria?', '+f.categoria:'');
-      s.textContent=f.id;a.textContent='Ver y comprar';
-      b.appendChild(im);b.appendChild(s);s.appendChild(a);
+      s.textContent=f.id;a.className='ver';a.textContent=enCarrito(f.id)?'En el carrito ✓':'Ver y comprar';
+      s.appendChild(a);b.appendChild(im);b.appendChild(s);
       b.addEventListener('click',function(){abre(f,b);});
       gal.appendChild(b);
     });
     $('count').textContent=n+(n===1?' foto':' fotos');
   }
+  function barra(){
+    var n=cart.length,bar=$('bar');
+    bar.hidden=!(precio&&n);
+    $('bar-t').textContent=n+(n===1?' foto · ':' fotos · ')+money(precio*n);
+    $('bar-e').hidden=true;
+  }
   function abre(f,btn){
-    ultimo=btn;
+    ultimo=btn;actual=f;
     $('dlg-img').src=f.img;$('dlg-img').alt='Foto '+f.id;
     $('dlg-t').textContent='Foto '+f.id;
     $('dlg-m').textContent=[f.torneo,f.categoria].filter(Boolean).join(' · ');
-    $('dlg-p').textContent=PRECIO?('$'+Number(PRECIO).toLocaleString('es-AR')):'Consultar precio';
-    var link=f.mp||(okPay.test(MP_LINK)?MP_LINK:''),pay=$('dlg-pay');
-    if(PRECIO&&link){pay.href=link;pay.hidden=false;}else{pay.removeAttribute('href');pay.hidden=true;}
-    $('dlg-wa').href='https://wa.me/'+WA+'?text='+encodeURIComponent((PRECIO&&link?'Hola, pagué la foto ':'Hola, quiero comprar la foto ')+f.id+' del torneo'+(EVENTO?' '+EVENTO:'')+'.'+(PRECIO&&link?' Te envío el comprobante.':''));
-    $('dlg-wa').textContent=PRECIO&&link?'Ya pagué: enviar comprobante':'Consultar por WhatsApp';
+    $('dlg-p').textContent=precio?money(precio):'Consultar precio';
+    var add=$('dlg-add');add.hidden=!precio;add.textContent=enCarrito(f.id)?'Quitar del carrito':'Agregar al carrito';
+    $('dlg-wa').href='https://wa.me/'+WA+'?text='+encodeURIComponent('Hola, quiero consultar por la foto '+f.id+' del torneo'+(EVENTO?' '+EVENTO:'')+'.');
     dlg.showModal();
   }
+  $('dlg-add').addEventListener('click',function(){
+    var i=cart.indexOf(actual.id);if(i<0) cart.push(actual.id);else cart.splice(i,1);
+    dlg.close();pinta();barra();
+  });
   $('dlg-x').addEventListener('click',function(){dlg.close();});
   dlg.addEventListener('click',function(e){if(e.target===dlg) dlg.close();});
   dlg.addEventListener('close',function(){$('dlg-img').src='';if(ultimo) ultimo.focus();});
   $('f-torneo').addEventListener('change',pinta);$('f-cat').addEventListener('change',pinta);
 
+  $('bar-b').addEventListener('click',function(){
+    var b=$('bar-b'),e=$('bar-e');b.disabled=true;e.hidden=true;
+    api('crear',{fotos:cart}).then(function(j){
+      if(j.url&&okPay.test(j.url)){guarda(j.token);location.href=j.url;return;}
+      throw 0;
+    }).catch(function(){e.textContent='No pudimos iniciar el pago. Probá de nuevo o escribinos por WhatsApp.';e.hidden=false;b.disabled=false;});
+  });
+
+  /* ---- Mis fotos compradas ---- */
+  var vistos=0;
+  function muestra(fs){
+    var l=$('mis-l'),prev={};fotos.forEach(function(f){prev[f.id]=f.img;});
+    fs.forEach(function(f){
+      if(f.url.indexOf(storage)!==0) return;
+      var d=document.createElement('div'),a=document.createElement('a');
+      if(prev[f.id]){var im=document.createElement('img');im.src=prev[f.id];im.alt='Foto '+f.id;im.loading='lazy';d.appendChild(im);}
+      a.href=f.url;a.textContent='Descargar '+f.id;a.setAttribute('download','');
+      d.appendChild(a);l.appendChild(d);
+    });
+  }
+  function revisa(t,pid,n){
+    return api('estado',{c:t,payment_id:pid||undefined}).then(function(j){
+      if(j.estado==='pagado'){muestra(j.fotos||[]);return true;}
+      if(j.estado==='pendiente'&&pid&&n<12){
+        $('mis').hidden=false;$('mis-msg').textContent='Estamos confirmando tu pago…';
+        return new Promise(function(ok){setTimeout(function(){ok(revisa(t,pid,n+1));},2500);});
+      }
+      return false;
+    }).catch(function(){return false;});
+  }
+  function cargaMis(retorno){
+    var ts=tokens(),q=new URLSearchParams(location.search),c=q.get('c'),pid=q.get('payment_id')||q.get('collection_id');
+    if(c&&okUUID.test(c)){guarda(c);ts=tokens();}
+    if(!ts.length) return;
+    $('mis-l').textContent='';
+    Promise.all(ts.map(function(t){return revisa(t,t===c?pid:null,0);})).then(function(r){
+      var hay=r.some(Boolean),msg=$('mis-msg');
+      $('mis').hidden=!(hay||c);
+      msg.textContent=hay?(c?'¡Pago confirmado! Descargá tus fotos acá abajo. Los links duran 1 hora: si vencen, recargá esta página.':'Tus fotos compradas en este dispositivo.'):(c?'Tu pago todavía no figura como aprobado. Si ya pagaste, esperá unos minutos y recargá la página.':'');
+      if(hay&&c){$('mis').scrollIntoView();}
+      if(c&&history.replaceState) history.replaceState(null,'',location.pathname);
+    });
+  }
+  $('rec-f').addEventListener('submit',function(e){
+    e.preventDefault();var m=$('rec-msg');m.className='msg';m.textContent='Buscando…';
+    api('recuperar',{op:$('rec-op').value,email:$('rec-em').value}).then(function(j){
+      if(j.token){guarda(j.token);m.textContent='Listo, te mostramos tus fotos arriba.';cargaMis();}
+      else{m.className='msg err';m.textContent='No encontramos esa compra. Revisá el número y el email, o escribinos por WhatsApp.';}
+    }).catch(function(){m.className='msg err';m.textContent='No pudimos buscar ahora. Probá de nuevo.';});
+  });
+
+  /* ---- Inicio ---- */
   if(EVENTO){$('kw').textContent=EVENTO+' · Puerto Iguazú';document.title='Fotos de '+EVENTO+' · ORIGEN';}
-  fetch(DATA).then(function(r){if(!r.ok) throw 0;return r.json();}).then(function(j){
-    fotos=(Array.isArray(j)?j:[]).map(limpia).filter(Boolean);
-    if(!fotos.length) throw 0;
-    opciones($('f-torneo'),'torneo');opciones($('f-cat'),'categoria');
-    tools.hidden=false;pinta();
-  }).catch(function(){empty.hidden=false;});
+  api('config').then(function(j){precio=Number(j.precio)||0;}).catch(function(){}).then(function(){
+    return fetch(DATA).then(function(r){if(!r.ok) throw 0;return r.json();}).then(function(j){
+      fotos=(Array.isArray(j)?j:[]).map(limpia).filter(Boolean);
+      if(!fotos.length) throw 0;
+      opciones($('f-torneo'),'torneo');opciones($('f-cat'),'categoria');
+      tools.hidden=false;pinta();
+    }).catch(function(){empty.hidden=false;});
+  }).then(function(){cargaMis();});
 })();
 </script>
 </body>
