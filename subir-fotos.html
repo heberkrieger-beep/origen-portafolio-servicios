@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!-- ORIGEN · subir-fotos.html · v1.0 · 2026-11-20 · admin: sube miniaturas con marca de agua a Supabase y originales a Backblaze -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Subir fotos · ORIGEN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--b:#0E0E0D;--tx:#F1ECE0;--p:#A79F92;--ac:#C9B37A;--l:rgba(255,255,255,.12);--cream:#1A1917}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--b);color:var(--tx);font-family:'Jost',Arial,sans-serif;font-weight:300;line-height:1.6;padding:48px 20px}
+main{max-width:720px;margin:0 auto}
+h1{font-family:'Cormorant',Georgia,serif;font-weight:300;font-size:clamp(38px,6vw,56px);line-height:1.08;margin-bottom:12px}
+h1 em{color:var(--ac)}
+.lead{color:var(--p);font-size:17px;margin-bottom:30px}
+fieldset{border:1px solid var(--l);background:var(--cream);padding:22px;margin-bottom:18px;display:grid;gap:16px}
+legend{padding:0 8px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ac)}
+label{display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--p)}
+input[type=text],input[type=password]{background:var(--b);color:var(--tx);border:1px solid var(--l);padding:12px 14px;font:inherit;font-size:16px;letter-spacing:0;text-transform:none}
+button{font:inherit;cursor:pointer;padding:15px 26px;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;border:1px solid var(--ac);background:transparent;color:var(--tx)}
+button.pri{background:var(--ac);color:#111}
+button:disabled{opacity:.4;cursor:not-allowed}
+button:hover:not(:disabled){background:var(--tx);color:#111}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+.ok{color:var(--ac);font-size:14px;letter-spacing:0;text-transform:none}
+progress{width:100%;height:10px;accent-color:var(--ac)}
+#estado{margin:10px 0;color:var(--tx)}
+#log{list-style:none;font-size:14px;color:var(--p);border-top:1px solid var(--l);margin-top:14px}
+#log li{padding:8px 0;border-bottom:1px solid var(--l)}
+#log li.w{color:#e8c07a}
+input[type=file]{color:var(--p);font:inherit;font-size:14px}
+label.chk{flex-direction:row;align-items:center;gap:10px;text-transform:none;letter-spacing:0;font-size:15px;color:var(--tx)}
+.nota{font-size:14px;color:var(--p);margin-top:26px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1>Subir <em>fotos</em></h1>
+<p class="lead">Elegí la carpeta y tocá Subir. La página arma las miniaturas con marca de agua, las sube, y deja las originales en Backblaze. Las fotos aparecen solas en la galería.</p>
+
+<fieldset><legend>Acceso</legend>
+  <label>Clave de administrador<input type="password" id="clave" autocomplete="current-password"></label>
+</fieldset>
+
+<fieldset><legend>Datos</legend>
+  <label>Marca de agua<input type="text" id="marca" value="ORIGEN" maxlength="30" autocomplete="off"></label>
+  <label>Torneo o día (filtro de la galería)<input type="text" id="torneo" placeholder="Ej: Día 1" maxlength="60" autocomplete="off"></label>
+  <label>Categoría (opcional, para todas las de esta tanda)<input type="text" id="cat" placeholder="Ej: Mixto A" maxlength="60" autocomplete="off"></label>
+  <label class="chk"><input type="checkbox" id="yaorig"> Las originales ya están en Backblaze (subir solo las miniaturas)</label>
+</fieldset>
+
+<fieldset><legend>Fotos</legend>
+  <label>Carpeta con las fotos .jpg<input type="file" id="fs" accept=".jpg,image/jpeg" multiple webkitdirectory></label>
+  <label>…o elegir fotos sueltas<input type="file" id="fs2" accept=".jpg,image/jpeg" multiple></label>
+  <p id="cuenta" class="ok"></p>
+</fieldset>
+
+<button type="button" class="pri" id="b-go" disabled>Subir</button>
+<button type="button" id="b-stop" hidden>Cancelar</button>
+
+<div style="margin-top:22px">
+  <progress id="prog" value="0" max="1" hidden></progress>
+  <p id="estado" role="status" aria-live="polite"></p>
+  <ul id="log"></ul>
+</div>
+
+<p class="nota">Si se corta, volvé a subir la misma carpeta: lo que ya está se pisa sin duplicar. Los nombres deben ser solo letras, números, guion y guion bajo, con extensión .jpg en minúscula, y coincidir con el nombre de la original en Backblaze.</p>
+</main>
+
+<script>
+(function(){
+  var FN='https://cvxmmrfuwjefdovoakqw.supabase.co/functions/v1/fotos';
+  var $=function(i){return document.getElementById(i);};
+  var OK=/^[A-Za-z0-9_-]{1,60}$/, TH=480, VI=1200, parar=false, lista=[];
+  function marca(ctx,w,h,t){
+    var fs=Math.max(14,Math.round(w*0.055)),sx,sy,R,x,y,off;
+    ctx.save();ctx.font='500 '+fs+'px Jost, Arial, sans-serif';ctx.fillStyle='rgba(255,255,255,.34)';ctx.strokeStyle='rgba(0,0,0,.25)';ctx.lineWidth=Math.max(1,fs/14);
+    ctx.textAlign='center';ctx.textBaseline='middle';ctx.translate(w/2,h/2);ctx.rotate(-Math.PI/7);
+    sx=ctx.measureText(t).width+fs*2.2;sy=fs*3.2;R=Math.hypot(w,h)/2;
+    for(y=-R;y<=R;y+=sy){off=(Math.round(y/sy)%2)*sx/2;for(x=-R;x<=R;x+=sx){ctx.strokeText(t,x+off,y);ctx.fillText(t,x+off,y);}}
+    ctx.restore();
+  }
+  function blob(bmp,lado,t,q){
+    var k=Math.min(1,lado/Math.max(bmp.width,bmp.height)),w=Math.max(1,Math.round(bmp.width*k)),h=Math.max(1,Math.round(bmp.height*k));
+    var c=document.createElement('canvas');c.width=w;c.height=h;
+    var ctx=c.getContext('2d');ctx.imageSmoothingQuality='high';ctx.drawImage(bmp,0,0,w,h);marca(ctx,w,h,t);
+    return new Promise(function(ok,no){c.toBlob(function(b){b?ok(b):no(new Error('No se pudo generar la imagen'));},'image/webp',q);});
+  }
+
+  function api(accion,o){
+    return fetch(FN,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.assign({accion:accion,key:$('clave').value},o))})
+      .then(function(r){return r.json().catch(function(){return {};}).then(function(j){if(!r.ok) throw new Error(r.status===401?'Clave incorrecta':(j.error||'Error '+r.status));return j;});});
+  }
+  function sube(url,b){
+    var fd=new FormData();fd.append('cacheControl','31536000');fd.append('',b);
+    return fetch(url,{method:'PUT',body:fd}).then(function(r){if(!r.ok) throw new Error('No se pudo subir la miniatura ('+r.status+')');});
+  }
+  function subeOrig(url,f){
+    return fetch(url,{method:'PUT',body:f,headers:{'Content-Type':'image/jpeg'}}).then(function(r){if(!r.ok) throw new Error('No se pudo subir la original ('+r.status+')');});
+  }
+  function aviso(t,w){var li=document.createElement('li');li.textContent=t;if(w) li.className='w';$('log').appendChild(li);}
+  function elegir(e){
+    lista=[].slice.call(e.target.files).filter(function(f){return /\.jpe?g$/i.test(f.name);});
+    $('cuenta').textContent=lista.length?lista.length+' fotos elegidas':'No hay fotos .jpg en esa selección.';
+    $('b-go').disabled=!lista.length;
+  }
+  $('fs').addEventListener('change',elegir);$('fs2').addEventListener('change',elegir);
+  $('b-stop').addEventListener('click',function(){parar=true;});
+
+  async function una(f,o){
+    var id=f.name.replace(/\.[^.]+$/,'');
+    if(!OK.test(id)) throw new Error('nombre no válido (solo letras, números, guion y guion bajo)');
+    if(!/\.jpg$/.test(f.name)&&!o.yaorig) throw new Error('la extensión debe ser .jpg en minúscula');
+    var bmp;try{bmp=await createImageBitmap(f,{imageOrientation:'from-image'});}catch(e){throw new Error('no se pudo leer la imagen');}
+    try{
+      var th=await blob(bmp,TH,o.marca,.72),vi=await blob(bmp,VI,o.marca,.78);
+      var u=await api('admin_subir',{id:id,original:!o.yaorig});
+      await sube(u.th,th);await sube(u.v,vi);
+      if(u.original) await subeOrig(u.original,f);
+    }finally{bmp.close();}
+    return {id:id,torneo:o.torneo,categoria:o.cat,pareja:''};
+  }
+
+  $('b-go').addEventListener('click',async function(){
+    var go=$('b-go'),stop=$('b-stop'),pr=$('prog'),es=$('estado'),ok=[],mal=0,hechas=0,sig=0,pend=[];
+    var o={marca:$('marca').value.trim()||'ORIGEN',torneo:$('torneo').value.trim(),cat:$('cat').value.trim(),yaorig:$('yaorig').checked};
+    if(!$('clave').value){es.textContent='Poné la clave de administrador.';return;}
+    parar=false;$('log').textContent='';go.disabled=true;stop.hidden=false;pr.hidden=false;pr.max=lista.length;pr.value=0;
+    var fs=lista.slice().sort(function(a,b){return a.name.localeCompare(b.name,'es',{numeric:true});});
+    async function vacia(){var l=pend.splice(0);if(l.length) try{await api('admin_registrar',{fotos:l});}catch(e){pend=pend.concat(l);throw e;}}
+    async function worker(){
+      while(!parar&&sig<fs.length){
+        var f=fs[sig++];
+        try{pend.push(await una(f,o));ok.push(f.name);if(pend.length>=20) await vacia();}
+        catch(e){mal++;aviso(f.name+': '+e.message+'.',true);if(e.message==='Clave incorrecta') parar=true;}
+        hechas++;pr.value=hechas;es.textContent='Subiendo '+hechas+' de '+fs.length;
+      }
+    }
+    try{
+      await Promise.all([worker(),worker(),worker()]);
+      await vacia();
+      es.textContent=ok.length?(parar?'Detenido. ':'Listo. ')+ok.length+' subidas, '+mal+' con problemas. Ya se ven en la galería.':(parar&&mal?'La clave es incorrecta. Revisala y probá de nuevo.':'No se subió ninguna foto. Revisá los avisos de abajo.');
+    }catch(e){es.textContent='Hubo un error: '+e.message;}
+    finally{go.disabled=false;stop.hidden=true;}
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · fotos-torneo.html · v2.5 · 2026-11-20 · acepta descargas de Supabase Storage · v2.4 · 2026-11-20 · nunca cobra más por menos fotos y avisa cuántas sumar · v2.3 · 2026-11-20 · buscador por pareja o código, combos por cantidad, originales en Supabase o Backblaze · v2.2 · 2026-11-20 · descarga desde Backblaze B2 · v2.1 · 2026-11-20 · miniaturas livianas (th) y paginación de a 60 · v2.0 · 2026-11-20 · compra sin login: carrito, Mercado Pago, vuelta automática y descarga · v1.1 · 2026-11-19 · sin marca de cliente (noindex hasta tener fotos cargadas) -->
+<!-- ORIGEN · fotos-torneo.html · v2.6 · 2026-11-20 · la lista de fotos sale de Supabase (se sube desde subir-fotos.html) · v2.5 · 2026-11-20 · acepta descargas de Supabase Storage · v2.4 · 2026-11-20 · nunca cobra más por menos fotos y avisa cuántas sumar · v2.3 · 2026-11-20 · buscador por pareja o código, combos por cantidad, originales en Supabase o Backblaze · v2.2 · 2026-11-20 · descarga desde Backblaze B2 · v2.1 · 2026-11-20 · miniaturas livianas (th) y paginación de a 60 · v2.0 · 2026-11-20 · compra sin login: carrito, Mercado Pago, vuelta automática y descarga · v1.1 · 2026-11-19 · sin marca de cliente (noindex hasta tener fotos cargadas) -->
 <html lang="es">
 <head>
 <!-- Google Tag Manager -->
@@ -177,12 +177,12 @@ main{padding-bottom:70px}
 var FN = 'https://cvxmmrfuwjefdovoakqw.supabase.co/functions/v1/fotos';  /* función de Supabase */
 var EVENTO = '';                   /* nombre del torneo, ej: Copa Triple Frontera */
 var WA = '5493757656783';
-var DATA = 'fotos-torneo.json';     /* [{"id":"F-0001","torneo":"Día 1","categoria":"Mixto A","pareja":"Pérez / Gómez","th":"fotos-torneo/th/F-0001.webp","img":"fotos-torneo/F-0001.webp"}]  (th = miniatura de ~400 px, img = vista de ~1000 px)  (id = nombre del archivo original, sin extensión) */
+var DATA = FN+'?accion=lista';     /* [{"id":"F-0001","torneo":"Día 1","categoria":"Mixto A","pareja":"Pérez / Gómez","th":"fotos-torneo/th/F-0001.webp","img":"fotos-torneo/F-0001.webp"}]  (th = miniatura de ~400 px, img = vista de ~1000 px)  (id = nombre del archivo original, sin extensión) */
 
 (function(){
   var $ = function(i){return document.getElementById(i);};
   var combos=[], mostrar=60, gal=$('gal'), tools=$('tools'), empty=$('empty'), dlg=$('dlg'), fotos=[], cart=[], precio=0, ultimo=null, actual=null;
-  var LS='ft_compras', okImg=/^[\w\-\/.]+\.(webp|jpe?g|png)$/i, okUUID=/^[0-9a-f-]{36}$/i, okPay=/^https:\/\/([\w.-]+\.)?mercadopago\.com(\.ar)?\//i;
+  var LS='ft_compras', okImg=/^(https:\/\/cvxmmrfuwjefdovoakqw\.supabase\.co\/storage\/v1\/object\/public\/ft-miniaturas\/)?[\w\-\/.]+\.(webp|jpe?g|png)$/i, okUUID=/^[0-9a-f-]{36}$/i, okPay=/^https:\/\/([\w.-]+\.)?mercadopago\.com(\.ar)?\//i;
   var okDl=/^https:\/\/(cvxmmrfuwjefdovoakqw\.supabase\.co\/storage\/v1\/|[\w.-]+\.backblazeb2\.com\/)/;
   var money=function(n){return '$'+Number(n).toLocaleString('es-AR');};
 
