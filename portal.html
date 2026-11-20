@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
+<!-- Portal ORIGEN — v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -369,6 +369,53 @@ select option{background:#1b1a17;color:#F3EEE3}
 .pasos li.hecho{color:var(--tx)}
 .pasos li[aria-current=step]{background:var(--gold2);color:#111;font-weight:600}
 .item.sin-leer .tx{font-weight:600}
+/* v5.3 · métricas estilo Buffer: logos de red, tarjetas con color, calendario con miniaturas */
+.logo{display:inline-grid;place-items:center;width:var(--s,22px);height:var(--s,22px);border-radius:28%;color:#fff;font:600 calc(var(--s,22px) * .46)/1 Jost,sans-serif;flex:0 0 auto;letter-spacing:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}
+.calbar h2{font-size:1.1rem;letter-spacing:0;text-transform:capitalize;color:var(--tx);font-weight:600}
+.bar-top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
+.redes{display:flex;flex-wrap:wrap;gap:8px}
+.redes button{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--line);background:var(--s2);border-radius:999px;padding:.25rem .9rem .25rem .3rem;color:var(--mut);cursor:pointer;min-height:40px}
+.redes button[aria-pressed=true]{color:var(--tx);border-color:var(--c,var(--gold));background:color-mix(in srgb,var(--c,var(--gold)) 16%,transparent)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:22px}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 15%,transparent),transparent 65%),var(--s1)}
+.kpi .ki{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:10px;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c);margin-bottom:10px}
+.kpi .ki svg{width:18px;height:18px}
+.kpi .t{display:block;font-size:.8rem;color:var(--mut)}
+.kpi b{display:block;font-family:Anton,sans-serif;font-weight:400;font-size:1.9rem;line-height:1.15;letter-spacing:.02em}
+.kpi small{font-size:.78rem}
+.redcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.redcard{display:grid;gap:12px;text-align:left;border:1px solid var(--line);border-top:3px solid var(--c);border-radius:12px;padding:14px;background:var(--s1);color:var(--tx);cursor:pointer}
+.redcard:hover{background:var(--s2)}
+.redcard .rh{display:flex;align-items:center;gap:12px}
+.redcard .rm{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.redcard .rm i{display:block;font-style:normal;font-size:.72rem;color:var(--mut)}
+.redcard .rm b{font-size:1.05rem}
+.card h2 .ord{display:inline-block;text-transform:none;letter-spacing:0}
+.card h2 .ord select{min-height:34px;padding:.2rem .6rem;width:auto;font-size:.85rem}
+.pts{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.pt{position:relative;display:block;width:100%;max-width:46px;aspect-ratio:1/1;border:0;padding:0;border-radius:6px;overflow:hidden;background:var(--s3);cursor:pointer}
+.pt img{width:100%;height:100%;object-fit:cover;display:block}
+.pt .ph,.pth .ph{display:grid;place-items:center;width:100%;height:100%;color:var(--mut);font-weight:600}
+.pt .logo{position:absolute;right:2px;bottom:2px;--s:14px}
+.pt.prog{outline:1.5px dashed var(--gold);outline-offset:-1.5px;opacity:.85}
+.pch,.pc{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:14px;align-items:center}
+.pch{padding:0 0 8px;color:var(--mut);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;grid-template-columns:minmax(0,1fr) auto}
+.pc{width:100%;text-align:left;padding:12px 0;border:0;border-bottom:1px solid var(--line);background:none;color:var(--tx);cursor:pointer}
+.pc:hover{background:var(--s2)}
+.pth{width:64px;height:64px;border-radius:10px;overflow:hidden;background:var(--s3);display:block}
+.pth img{width:100%;height:100%;object-fit:cover;display:block}
+.ptx{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.pms{display:grid;grid-template-columns:repeat(4,72px);text-align:right;gap:6px}
+.pm .l{display:none;font-style:normal;font-size:.7rem;color:var(--mut)}
+@media(max-width:760px){
+  .pc{grid-template-columns:56px minmax(0,1fr)}
+  .pth{width:56px;height:56px}
+  .pc .pms{grid-column:1/-1;grid-template-columns:repeat(4,1fr);text-align:left}
+  .pm .l{display:block}
+  .pch{display:none}
+  .pt{max-width:22px;border-radius:4px}.pt .logo{display:none}
+}
+#nav a:nth-child(1) svg{color:#C9B37A}#nav a:nth-child(2) svg{color:#7FD6E8}#nav a:nth-child(3) svg{color:#F2A6C8}#nav a:nth-child(4) svg{color:#B59CF0}#nav a:nth-child(5) svg{color:#8FCB9B}#nav a:nth-child(6) svg{color:#E9B872}#nav a:nth-child(7) svg{color:#6FA8FF}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js" integrity="sha384-TcHRA3zBbn+Lexh5n+Oil4guNPOS3rjNDpGRAN46u/s/mB2IZ50ceC6TYDU2yvgK" crossorigin="anonymous" defer></script>
 </head>
@@ -456,7 +503,15 @@ const ICO = {
   users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4.2 4 1.8 4.5 4.5"/>',
   chart:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   send:'<path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/>',
-  more:'<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>'
+  more:'<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>',
+  eye:'<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+  reach:'<circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="9.5"/>',
+  heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 017-2.5A4 4 0 0119 10c0 5.6-7 10-7 10z"/>',
+  chat:'<path d="M4 5h16v11H9l-5 4z"/>',
+  share:'<path d="M4 12v7h16v-7M12 3v12M7 8l5-5 5 5"/>',
+  save:'<path d="M6 3h12v18l-6-4-6 4z"/>',
+  bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  grid:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>'
 };
 function h(tag, attrs, ...kids){
   const el = document.createElement(tag);
@@ -1395,7 +1450,7 @@ async function detalleCliente(id){
         h('section',{class:'card'}, h('h2',{}, 'Tareas abiertas', h('small',{}, ab.length)), ab.length ? h('ul',{class:'tasks'}, ab.map(itemTarea)) : vacio('Sin tareas abiertas.')),
         h('section',{class:'card'}, h('h2',{}, 'Lo que viene'), agendaAgrupada(prox, `Nada agendado. Probá con el asistente: “armá el calendario del mes para ${c.nombre}”.`))),
       boxPedidos(sol, abiertas), boxPresencia(id, dg), boxPresupCli(id), boxPagos(id),
-      boxMetricas(id, met), boxReportes(id, rep), boxObjetivos(id, obj), boxRecomendaciones(id, rec), boxProyectos(id, proy, etap, arch), boxArchivos(id, arch, proy), boxCupos(id, cup), boxAccesos(id, acc), boxADN(id, adn));
+      boxMetricas(id), boxReportes(id, rep), boxObjetivos(id, obj), boxRecomendaciones(id, rec), boxProyectos(id, proy, etap, arch), boxArchivos(id, arch, proy), boxCupos(id, cup), boxAccesos(id, acc), boxADN(id, adn));
     document.querySelectorAll('#view details.box').forEach(d => { // recuerda qué caja estaba abierta (cada cambio recarga la ficha)
       const n = d.querySelector('summary span')?.textContent;
       if (S.cajaDe === id && S.cajaAbierta === n) d.open = true;
@@ -1487,52 +1542,24 @@ function boxPagos(id){
           await ocupado(e.currentTarget, async () => { await q(sb.from('pagos').delete().eq('id', p.id)); toast('Pago borrado.'); await recargar(); }); }}, '✕')))))) : vacio('Sin pagos en los últimos 6 meses.')));
 }
 
-function boxMetricas(id, met){
-  const ya = new Date().getFullYear(), ma = new Date().getMonth() + 1;
-  const N = [['seguidores','Seguidores'],['nuevos','Nuevos'],['visualizaciones','Visualizaciones'],['alcance','Alcance'],['interacciones','Interacciones'],['visitas_perfil','Visitas al perfil'],['clics_enlace','Clics en enlace'],['mejor_post_vistas','Vistas mejor post']];
-  const f = h('form',{novalidate:true},
-    h('div',{class:'row'},
-      h('label',{}, 'Año', h('input',{type:'number',name:'anio',min:'2020',max:'2100',required:true,value:ya})),
-      h('label',{}, 'Mes', h('select',{name:'mes'}, MESES.map((n,i) => h('option',{value:i+1, selected:i+1 === ma}, n)))),
-      h('label',{}, 'Red', h('select',{name:'red'}, opLista(['instagram','facebook','tiktok','youtube']).map(([v,t]) => h('option',{value:v}, t))))),
-    h('div',{class:'row',style:'margin-top:10px'}, N.map(([k,t]) => h('label',{style:'flex:1 1 130px'}, t, h('input',{type:'number',name:k,min: k === 'nuevos' ? null : '0',inputmode:'numeric'})))),
-    h('label',{style:'margin-top:10px'}, 'Link del mejor post', h('input',{type:'url',name:'mejor_post_url',maxlength:'500',placeholder:'https://'})),
-    h('label',{style:'margin-top:10px'}, 'Comentario para el cliente', h('textarea',{name:'notas',maxlength:'1500',style:'min-height:70px'})),
-    h('button',{class:'btn',type:'submit',style:'margin-top:12px'}, 'Guardar métricas'),
-    h('p',{class:'mut',style:'font-size:.85rem'}, 'Si ese mes y red ya existen, se actualizan.'));
-  const precargar = () => { const r = met.find(x => x.anio === +f.anio.value && x.mes === +f.mes.value && x.red === f.red.value); for (const [k] of N) f[k].value = r?.[k] ?? ''; f.mejor_post_url.value = r?.mejor_post_url || ''; f.notas.value = r?.notas || ''; };
-  for (const k of ['anio','mes','red']) f[k].addEventListener('change', precargar);
-  precargar();
-  f.addEventListener('submit', async e => {
-    e.preventDefault(); if (!validar(f)) return;
-    const row = { cliente_id:id, anio:+f.anio.value, mes:+f.mes.value, red:f.red.value, mejor_post_url:httpUrl(f.mejor_post_url.value.trim()), notas:f.notas.value.trim() || null };
-    for (const [k] of N) row[k] = f[k].value === '' ? null : Math.round(+f[k].value);
-    await ocupado(e.submitter, async () => {
-      await q(sb.from('metricas_mensuales').upsert(row, { onConflict:'cliente_id,anio,mes,red' }));
-      met.splice(0, met.length, ...await q(sb.from('metricas_mensuales').select('*').eq('cliente_id', id)));
-      pintar(); toast('Métricas guardadas. El cliente ya las ve.');
-    });
-  });
-  const lista = h('div',{class:'tbl'}), cols = [['seguidores','Seg.'],['visualizaciones','Vistas']];
-  const pintar = () => fill(lista, met.length ? h('table',{}, h('caption',{class:'mut',style:'text-align:left'}, 'Ya cargado (tocá una fila para editarla)'),
-    h('thead',{}, h('tr',{}, h('th',{scope:'col'}, 'Mes'), h('th',{scope:'col'}, 'Red'), cols.map(([,t]) => h('th',{scope:'col',class:'num'}, t)))),
-    h('tbody',{}, [...met].sort((a, b) => b.anio - a.anio || b.mes - a.mes).map(r => h('tr',{}, h('th',{scope:'row'}, h('button',{type:'button',class:'btn ol sm',onclick:() => { f.anio.value = r.anio; f.mes.value = r.mes; f.red.value = r.red; precargar(); f.scrollIntoView({block:'center'}); }}, `${MESES[r.mes-1]} ${r.anio}`)),
-      h('td',{}, r.red), cols.map(([k]) => h('td',{class:'num'}, num(r[k]))))))) : h('p',{class:'mut'}, 'Todavía no hay métricas cargadas.'));
-  pintar();
-  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Métricas del mes'), met[0] ? pill(`última: ${MESES[met[0].mes-1]}`) : pill('sin cargar','warn')),
-    h('div',{}, panelBuffer(id, met, f, () => pintar()), lista, met.length ? h('button',{type:'button',class:'btn ol',style:'margin:10px 0',onclick:() => verComoCliente(id, 'metricas')}, 'Ver las métricas como las ve el cliente') : null, f));
+function boxMetricas(id){
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Métricas y publicaciones (Buffer)')),
+    h('div',{}, panelBuffer(id), h('button',{type:'button',class:'btn ol',style:'margin:12px 0',onclick:() => verComoCliente(id, 'metricas')}, 'Ver las métricas como las ve el cliente')));
 }
 
-/* Buffer: vincula los canales de cada cliente y trae las métricas del mes a "Métricas del mes" */
-function panelBuffer(id, met, f, pintar){
-  const out = h('div',{}), lis = h('div',{}), est = h('p',{class:'mut',style:'font-size:.9rem'});
-  const estado = async () => { try { const r = await q(sb.from('buffer_canales').select('nombre,red,cuenta').eq('cliente_id', id)); fill(est, r.length ? `Buffer vinculado: ${r.map(c => `${c.nombre} (${c.red}, cuenta ${c.cuenta})`).join(' · ')}.` : 'Buffer: todavía no hay canales vinculados a este cliente. Tocá “Vincular canales de Buffer”.'); } catch { fill(est, ''); } };
-  estado();
+/* Buffer: vincula los canales de cada cliente y trae las publicaciones con sus métricas (todo lo que ve el cliente sale de acá) */
+function panelBuffer(id){
+  const out = h('div',{}), lis = h('div',{}), est = h('div',{class:'mut',style:'font-size:.9rem;margin:.6rem 0'});
   const llamar = async (body) => {
     const { data, error } = await sb.functions.invoke('buffer', { body });
     if (error){ let m = 'Buffer todavía no está activado.'; try { m = (await error.context.json()).error || m; } catch {} throw Object.assign(new Error(m), { propio:true }); }
     return data;
   };
+  const estado = async () => { try {
+    const [r, n] = await Promise.all([q(sb.from('buffer_canales').select('nombre,red,cuenta').eq('cliente_id', id)), q(sb.from('buffer_posts').select('actualizado_en').eq('cliente_id', id).order('actualizado_en',{ascending:false}).limit(1)).catch(() => [])]);
+    fill(est, r.length ? [r.map(c => h('span',{style:'display:inline-flex;align-items:center;gap:6px;margin:0 14px 6px 0;color:var(--tx)'}, logo(c.red, 20), c.nombre, h('span',{class:'mut'}, `· cuenta ${c.cuenta}`))), n[0] ? h('span',{style:'display:block'}, `Última actualización: ${cuando(n[0].actualizado_en)}`) : h('span',{style:'display:block'}, 'Todavía no se trajeron publicaciones: tocá “Actualizar desde Buffer”.')]
+      : 'Buffer: todavía no hay canales vinculados a este cliente. Tocá “Vincular canales de Buffer”.'); } catch { fill(est, ''); } };
+  estado();
   const vincular = async btn => ocupado(btn, async () => {
     fill(lis, h('p',{class:'mut'}, 'Buscando tus canales de Buffer…'));
     const [{ canales, avisos }, mapas] = await Promise.all([llamar({ accion:'canales' }), q(sb.from('buffer_canales').select('canal_id,cliente_id'))]);
@@ -1548,25 +1575,16 @@ function panelBuffer(id, met, f, pintar){
         fill(lis, ''); toast('Canales guardados.'); estado();
       })}, 'Guardar canales') : null));
   });
-  const traer = async (btn, rango) => ocupado(btn, async () => {
-    const d = await llamar({ accion:'sync', rango, cliente_id:id, anio:+f.anio.value, mes:+f.mes.value });
-    if (d.resumen){
-      const n = v => v == null ? '–' : v.toLocaleString('es-AR');
-      fill(out, h('div',{}, h('p',{class:'mut'}, `Últimos ${rango} días (no se guarda, es para mirar):`), d.resumen.length ? d.resumen.map(r => h('p',{style:'margin:.2rem 0'}, `${r.red}: alcance ${n(r.alcance)} · vistas ${n(r.visualizaciones)} · interacciones ${n(r.interacciones)} · clics ${n(r.clics_enlace)}${r.posts ? ` · ${r.posts} posts` : ''}`)) : h('p',{class:'mut'}, 'Buffer no devolvió métricas para ese período.'), d.avisos.length ? h('p',{class:'mut'}, d.avisos.join(' · ')) : null));
-      return;
-    }
-    met.splice(0, met.length, ...await q(sb.from('metricas_mensuales').select('*').eq('cliente_id', id)));
-    pintar(); f.red.dispatchEvent(new Event('change'));
-    fill(out, h('p',{class:'mut'}, (d.guardadas.length ? (rango === 'todo' ? `Se guardaron ${new Set(d.guardadas.map(g => g.anio + '-' + g.mes)).size} meses con datos (${[...new Set(d.guardadas.map(g => g.red))].join(', ')}). ` : `Se actualizó: ${d.guardadas.map(g => `${g.red} (${g.posts} posts)`).join(', ')}. `) : 'No se guardó nada. ') + (d.avisos.length ? d.avisos.join(' · ') : '')));
-    toast(d.guardadas.length ? 'Métricas traídas de Buffer.' : 'Buffer no devolvió métricas.', !d.guardadas.length);
+  const traer = async (btn, historial) => ocupado(btn, async () => {
+    const d = await llamar({ accion:'posts', cliente_id:id, historial });
+    fill(out, h('p',{class:'mut'}, `Listo: ${d.publicadas} publicadas y ${d.programadas} programadas${d.con_error ? `, ${d.con_error} con error en Buffer` : ''}.` + (d.avisos.length ? ' ' + d.avisos.join(' · ') : '')));
+    toast(d.total ? 'Publicaciones traídas de Buffer.' : 'Buffer no devolvió publicaciones.', !d.total); estado();
   });
   return h('div',{style:'margin:0 0 14px'},
     h('div',{class:'row'}, h('button',{type:'button',class:'btn ol sm',onclick:e => vincular(e.currentTarget)}, 'Vincular canales de Buffer'),
-      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget, '7')}, 'Últimos 7 días'),
-      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget, '30')}, 'Últimos 30 días'),
-      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget, 'mes')}, 'Mes elegido'),
-      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget, 'todo')}, 'Todo el historial')),
-    h('p',{class:'mut',style:'font-size:.85rem'}, '7 y 30 días se muestran acá para mirar. “Mes elegido” y “Todo el historial” (hasta 24 meses, lo que Buffer tenga) se guardan en las métricas del cliente. No pisan seguidores ni visitas al perfil.'), est, lis, out);
+      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget, false)}, 'Actualizar desde Buffer'),
+      h('button',{type:'button',class:'btn ol sm',onclick:e => traer(e.currentTarget, true)}, 'Traer historial (2 años)')),
+    h('p',{class:'mut',style:'font-size:.85rem'}, 'Trae lo publicado y lo programado en Buffer, con las métricas de cada publicación (Buffer las actualiza una vez por día). El calendario, las métricas y el consumo del plan del cliente se calculan desde acá.'), est, lis, out);
 }
 
 function boxReportes(id, rep){
@@ -1627,7 +1645,7 @@ function boxCupos(id, cup){
   const mes = iso(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
   const fila = c => {
     const nom = h('input',{name:'nombre',maxlength:'80',required:true,'aria-label':'Nombre',value:c.nombre || ''}), lim = h('input',{type:'number',name:'limite',min:'1',max:'1000',required:true,'aria-label':'Cupo por mes',value:c.limite || ''}),
-      fu = h('select',{'aria-label':'Cómo se cuenta'}, [['publicaciones','Publicaciones publicadas (automático)'],['producciones','Sesiones realizadas (automático)'],['manual','Lo cargo yo']].map(([v, t]) => h('option',{value:v, selected:v === (c.fuente || 'manual')}, t))),
+      fu = h('select',{'aria-label':'Cómo se cuenta'}, [['buffer','Publicaciones de Buffer (automático)'],['buffer_video','Videos y reels de Buffer (automático)'],['buffer_imagen','Fotos y carruseles de Buffer (automático)'],['publicaciones','Publicaciones del calendario (automático)'],['producciones','Sesiones realizadas (automático)'],['manual','Lo cargo yo']].map(([v, t]) => h('option',{value:v, selected:v === (c.fuente || 'manual')}, t))),
       us = h('input',{type:'number',min:'0',max:'1000','aria-label':'Usado este mes',value:c.fuente === 'manual' && String(c.periodo || '').startsWith(mes.slice(0, 7)) ? c.usado : 0});
     const sync = () => { us.disabled = fu.value !== 'manual'; }; fu.addEventListener('change', sync); sync();
     const guardar = btn => {
@@ -1641,7 +1659,7 @@ function boxCupos(id, cup){
       c.id ? h('button',{type:'button',class:'btn peligro sm',onclick:e => { if (confirm(`¿Quitar “${c.nombre}” del plan?`)) ocupado(e.currentTarget, async () => { await q(sb.from('plan_cupos').delete().eq('id', c.id)); render(); }); }}, 'Quitar') : null));
   };
   return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Consumo del plan'), pill(cup.length ? `${cup.length} cupos` : 'sin definir', cup.length ? '' : 'warn')),
-    h('div',{}, h('p',{class:'mut',style:'font-size:.88rem'}, 'Lo que incluye el plan de este cliente. El cliente ve cuánto usó en el mes. Las publicaciones y las sesiones se cuentan solas; lo demás lo cargás vos y se reinicia cada mes.'),
+    h('div',{}, h('p',{class:'mut',style:'font-size:.88rem'}, 'Lo que incluye el plan de este cliente. El cliente ve cuánto usó en el mes. Las publicaciones de Buffer, las del calendario y las sesiones se cuentan solas; lo demás lo cargás vos y se reinicia cada mes.'),
       cup.map(fila), h('p',{class:'grupo'}, 'Agregar'), fila({})));
 }
 
@@ -1855,7 +1873,7 @@ function propuesta(data, out, ta){
 async function cargarCliente(cid){
   const y = new Date().getFullYear(), m = new Date().getMonth() + 1, desde = iso(new Date(y, m - 4, 1));
   const opc = p => p.catch(e => { if (['PGRST205','42P01'].includes(e?.code)) return []; throw e; }); // tabla de una migración que todavía no se corrió
-  const [ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan, diag, pre, arch, cupos, obj, rec, proy, etap] = await Promise.all([
+  const [ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan, diag, pre, arch, cupos, obj, rec, proy, etap, posts] = await Promise.all([
     q(sb.rpc('mi_ficha',{p_cliente:cid})),
     q(sb.from('contenidos').select('id,fecha,titulo,idea,copy,formato,red,estado,archivos,aprobacion,comentario_cliente').eq('cliente_id',cid).eq('visible_cliente',true).gte('fecha',desde).order('fecha')),
     q(sb.from('tareas').select('id,titulo,texto,texto_cliente,hecha,creado_en').eq('cliente_id',cid).eq('visible_cliente',true).order('creado_en',{ascending:false}).limit(40)),
@@ -1874,8 +1892,9 @@ async function cargarCliente(cid){
     opc(q(sb.from('objetivos').select('*').eq('cliente_id',cid).eq('visible_cliente',true).order('creado_en',{ascending:false}))),
     opc(q(sb.from('recomendaciones').select('id,titulo,texto,estado,creado_en').eq('cliente_id',cid).in('estado',['publicada','convertida']).order('creado_en',{ascending:false}))),
     opc(q(sb.from('proyectos').select('*').eq('cliente_id',cid).eq('visible_cliente',true).order('creado_en',{ascending:false}))),
-    opc(q(sb.from('proyecto_etapas').select('id,proyecto_id,nombre,orden,estado').eq('cliente_id',cid).order('orden')))]);
-  S.C = { ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan:plan[0], diag, pre, arch, cupos, obj, rec, proy, etap };
+    opc(q(sb.from('proyecto_etapas').select('id,proyecto_id,nombre,orden,estado').eq('cliente_id',cid).order('orden'))),
+    opc(q(sb.from('buffer_posts').select('*').eq('cliente_id',cid).order('fecha',{ascending:false}).limit(1000)))]);
+  S.C = { ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan:plan[0], diag, pre, arch, cupos, obj, rec, proy, etap, posts };
 }
 function selectorNegocio(){
   if (S.equipo || S.misClientes.length < 2) return;
@@ -1892,6 +1911,7 @@ VC.inicio = () => {
   const pend = C.cont.filter(c => c.aprobacion === 'pendiente' && c.estado === 'revision');
   const prox = [...C.prod.map(p => ({ ...p, titulo:'Sesión de producción' })), ...C.ev].filter(x => x.fecha >= hoy).sort((a,b) => a.fecha.localeCompare(b.fecha))[0];
   const ultM = C.met.filter(x => x.red === 'instagram').at(-1) || C.met.at(-1);
+  const v30 = (C.posts || []).length ? sumaK(enV(C.posts.filter(p => p.estado === 'sent'), new Date(Date.now() - 30 * 864e5), new Date()), 'vistas') : null;
   const tl = [
     ...C.tar.map(t => ({ f:t.creado_en, ok:t.hecha, txt:t.texto_cliente || t.titulo || t.texto, sub:t.hecha ? 'Hecho' : 'En curso' })),
     ...C.cont.filter(c => c.estado === 'publicado' && c.fecha <= hoy).map(c => ({ f:c.fecha, ok:true, txt:`Publicamos: ${c.titulo || c.formato}`, sub:c.red })),
@@ -1918,7 +1938,7 @@ VC.inicio = () => {
     h('div',{class:'stats'},
       h('div',{class:'stat'}, h('b',{}, `${pub}/${delMes.length}`), h('span',{}, `publicaciones de ${MESES[m]}`)),
       h('div',{class:'stat oro'}, h('b',{}, prox ? fCorta(prox.fecha) : '—'), h('span',{}, prox ? prox.titulo : 'sin producciones agendadas')),
-      h('a',{class:'stat',href:'#/metricas'}, h('b',{}, ultM ? num(ultM.visualizaciones) : '—'), h('span',{}, ultM ? `visualizaciones en ${MESES[ultM.mes-1]}` : 'métricas en camino'))),
+      h('a',{class:'stat',href:'#/metricas'}, h('b',{}, v30 != null ? fmtK('vistas', v30) : ultM ? num(ultM.visualizaciones) : '—'), h('span',{}, v30 != null ? 'visualizaciones en 30 días' : ultM ? `visualizaciones en ${MESES[ultM.mes-1]}` : 'métricas en camino'))),
     h('div',{class:'grid g32'},
       h('section',{class:'card','aria-labelledby':'h-tl'}, h('h2',{id:'h-tl'}, 'Lo que estamos haciendo'),
         tl.length ? h('ul',{class:'tasks'}, tl.map(i => h('li',{class:'task'}, h('span',{'aria-hidden':'true',style:`width:10px;height:10px;border-radius:50%;margin-top:8px;flex:0 0 auto;background:${i.ok ? 'var(--ok)' : 'var(--gold)'}`}),
@@ -2023,11 +2043,15 @@ function linea(vals, W, H, pad){ // puntos de una serie, escala desde cero
 }
 VC.metricas = () => {
   titulo('Métricas', 'Cómo le va a tu marca'); selectorNegocio();
-  const C = S.C, redes = [...new Set(C.met.map(x => x.red))];
+  const C = S.C, redes = [...new Set([...C.met.map(x => x.red), ...(C.r30 || []).map(x => x.red)])];
   if (!S.red || !redes.includes(S.red)) S.red = redes[0];
   if (!S.metrica) S.metrica = 'visualizaciones';
   const rows = C.met.filter(x => x.red === S.red).slice(-12);
-  if (!rows.length){ fill($('view'), h('div',{class:'card'}, vacio('Las métricas aparecen acá apenas cerramos el primer mes.'))); return; }
+  const sel = redes.length > 1 ? h('div',{class:'seg',role:'group','aria-label':'Red'}, redes.map(r => h('button',{type:'button','aria-pressed':String(r === S.red),onclick:() => { S.red = r; render(); }}, r[0].toUpperCase() + r.slice(1)))) : null;
+  const r30 = (C.r30 || []).find(x => x.red === S.red);
+  const b30 = r30 ? h('section',{class:'card'}, h('h2',{}, 'Últimos 30 días', h('small',{}, `actualizado el ${new Date(r30.actualizado_en).toLocaleDateString('es-AR')}`)),
+    h('div',{class:'stats',style:'margin-bottom:0'}, [['visualizaciones','Visualizaciones'],['alcance','Alcance'],['interacciones','Interacciones'],['posts','Publicaciones']].filter(([k]) => r30[k] != null).map(([k, t]) => h('div',{class:'stat'}, h('span',{}, t), h('b',{}, num(r30[k])))))) : null;
+  if (!rows.length){ fill($('view'), sel ? h('div',{class:'row',style:'margin-bottom:12px'}, sel) : null, b30 || h('div',{class:'card'}, vacio('Las métricas aparecen acá apenas cerramos el primer mes.'))); return; }
   const u = rows.at(-1), p = rows.at(-2), mes = r => `${MESES[r.mes-1]} ${r.anio}`;
   const delta = k => { const d = p && u[k] != null && p[k] ? Math.round((u[k] - p[k]) / p[k] * 100) : null;
     return d != null ? h('span',{class:d >= 0 ? 'up' : 'down',style:'display:block;font-size:.82rem'}, `${d >= 0 ? '▲' : '▼'} ${Math.abs(d)}% vs. mes anterior`) : null; };
@@ -2060,10 +2084,10 @@ VC.metricas = () => {
 
   const mas = [['nuevos','Seguidores nuevos'],['visitas_perfil','Visitas al perfil'],['clics_enlace','Clics en el enlace'],['mejor_post_vistas','Vistas del mejor post']].filter(([k]) => u[k] != null);
   const mejor = httpUrl(u.mejor_post_url);
-  const sel = redes.length > 1 ? h('div',{class:'seg',role:'group','aria-label':'Red'}, redes.map(r => h('button',{type:'button','aria-pressed':String(r === S.red),onclick:() => { S.red = r; render(); }}, r[0].toUpperCase() + r.slice(1)))) : null;
   const cols = [['seguidores','Seguidores'],['visualizaciones','Vistas'],['alcance','Alcance'],['interacciones','Interacc.'],['visitas_perfil','Visitas perfil'],['clics_enlace','Clics']];
   fill($('view'),
     h('div',{class:'row',style:'justify-content:space-between;align-items:center;margin-bottom:12px'}, sel || h('span',{class:'mut'}, 'Instagram'), h('span',{class:'mut',style:'font-size:.88rem'}, `Último mes cargado: ${mes(u)}`)),
+    b30,
     h('div',{class:'stats'}, METS.map(kpi)),
     h('div',{class:'grid g32'},
       h('section',{class:'card'}, h('h2',{}, 'Evolución', h('span',{class:'seg',role:'group','aria-label':'Métrica'}, METS.map(([k, t]) => h('button',{type:'button','aria-pressed':String(k === m),onclick:() => { S.metrica = k; render(); }}, t)))), svg),
@@ -2074,6 +2098,101 @@ VC.metricas = () => {
     h('section',{class:'card tbl'}, h('h2',{}, 'Detalle por mes'), h('table',{}, h('thead',{}, h('tr',{}, h('th',{scope:'col'}, 'Mes'), cols.map(([,t]) => h('th',{scope:'col',class:'num'}, t)))),
       h('tbody',{}, [...rows].reverse().map(r => h('tr',{}, h('th',{scope:'row'}, mes(r)), cols.map(([k]) => h('td',{class:'num'}, num(r[k])))))))));
 };
+
+/* ================= métricas estilo Buffer (cliente) ================= */
+const REDES = { instagram:['Instagram','#E1306C','IG','linear-gradient(135deg,#F9A03F,#E1306C 55%,#7A3FD1)'], tiktok:['TikTok','#25F4EE','TT','#111'], youtube:['YouTube','#FF4B4B','▶','#E02424'], facebook:['Facebook','#4C8DF6','f','#1877F2'],
+  linkedin:['LinkedIn','#3B9AE0','in','#0A66C2'], threads:['Threads','#F3EEE3','@','#262626'], twitter:['X','#F3EEE3','X','#262626'], pinterest:['Pinterest','#F0556B','P','#E60023'],
+  googlebusiness:['Google','#6FA8FF','G','#4285F4'], bluesky:['Bluesky','#4AA3FF','B','#1185FE'], mastodon:['Mastodon','#8E8EFF','M','#6364FF'] };
+const RED = k => REDES[k] || [String(k)[0].toUpperCase() + String(k).slice(1), '#C9B37A', String(k)[0].toUpperCase(), '#3a372f'];
+const logo = (k, s = 22) => h('span',{class:'logo',style:`--s:${s}px;background:${RED(k)[3]}`,title:RED(k)[0],'aria-hidden':'true'}, RED(k)[2]);
+const KPIS = [['pub','Publicaciones','grid','#C9B37A'],['vistas','Visualizaciones','eye','#7FD6E8'],['alcance','Alcance','reach','#B59CF0'],['reacciones','Reacciones','heart','#F2A6C8'],
+  ['comentarios','Comentarios','chat','#8FCB9B'],['compartidos','Compartidos','share','#E9B872'],['guardados','Guardados','save','#6FA8FF'],['engagement','Engagement','bolt','#F08A80']];
+const colK = k => (KPIS.find(x => x[0] === k) || [])[3] || '#C9B37A';
+const sumaK = (ps, k) => { if (k === 'pub') return ps.length; const v = ps.map(p => p[k]).filter(x => x != null); return v.length ? v.reduce((a, b) => a + +b, 0) / (k === 'engagement' ? v.length : 1) : null; };
+const fmtK = (k, v) => v == null ? '—' : k === 'engagement' ? v.toFixed(2).replace('.', ',') + '%' : num(Math.round(v));
+const compacto = n => n >= 1e6 ? (n / 1e6).toFixed(1).replace('.', ',') + 'M' : n >= 1000 ? (n / 1000).toFixed(n >= 1e4 ? 0 : 1).replace('.', ',') + 'k' : String(Math.round(n));
+const PER = [['7','7 días'],['30','30 días'],['mes','Este mes'],['todo','Todo']];
+function ventana(per){
+  const fin = new Date(); let ini;
+  if (per === '7' || per === '30') ini = new Date(+fin - per * 864e5); else if (per === 'mes') ini = new Date(fin.getFullYear(), fin.getMonth(), 1); else ini = new Date(0);
+  return { ini, fin, prev: per === 'todo' ? null : [new Date(+ini - (+fin - +ini)), ini] };
+}
+const enV = (ps, a, b) => ps.filter(p => { const t = +new Date(p.fecha); return t >= +a && t <= +b; });
+const miniatura = p => { const u = httpUrl(p.miniatura); return u ? h('img',{src:u,alt:'',loading:'lazy',referrerpolicy:'no-referrer',onerror:e => e.target.remove()}) : h('span',{class:'ph'}, RED(p.red)[2]); };
+
+function graficoBarras(ps, per, k){
+  const W = 640, H = 210, pad = 28, v = ventana(per), bk = new Map(), clave = d => per === 'todo' ? iso(d).slice(0, 7) : iso(d);
+  if (per === 'todo'){ const mn = ps.reduce((a, p) => Math.min(a, +new Date(p.fecha)), Date.now()), d = new Date(new Date(mn).getFullYear(), new Date(mn).getMonth(), 1); while (d <= v.fin){ bk.set(clave(d), []); d.setMonth(d.getMonth() + 1); } }
+  else { const d = new Date(v.ini.getFullYear(), v.ini.getMonth(), v.ini.getDate()); while (d <= v.fin){ bk.set(clave(d), []); d.setDate(d.getDate() + 1); } }
+  for (const p of ps){ const a = bk.get(clave(new Date(p.fecha))); if (a) a.push(p); }
+  const datos = [...bk.entries()].map(([c, a]) => [c, sumaK(a, k) || 0]).slice(-24 * (per === 'todo' ? 1 : 2)), mx = Math.max(1, ...datos.map(x => x[1])), n = datos.length, bw = (W - pad * 2) / n, col = colK(k);
+  const svg = sv('svg',{viewBox:`0 0 ${W} ${H}`,class:'chart',role:'img','aria-label':`${(KPIS.find(x => x[0] === k) || [])[1] || k} por ${per === 'todo' ? 'mes' : 'día'}`},
+    sv('defs',{}, (() => { const g = sv('linearGradient',{id:'gbar',x1:0,y1:0,x2:0,y2:1}); g.append(sv('stop',{offset:'0','stop-color':col}), sv('stop',{offset:'1','stop-color':col,'stop-opacity':'.35'})); return g; })()));
+  for (const f of [0, .5, 1]){ const y = H - pad - (H - pad * 2) * f; svg.append(sv('line',{x1:pad,x2:W - pad,y1:y,y2:y,stroke:'rgba(255,255,255,.08)'}), sv('text',{x:pad - 4,y:y + 4,'text-anchor':'end'}, compacto(mx * f))); }
+  datos.forEach(([c, val], i) => { const hh = (H - pad * 2) * val / mx, x = pad + i * bw, d = per === 'todo' ? null : dLocal(c), et = per === 'todo' ? `${MESES[+c.slice(5) - 1]} ${c.slice(0, 4)}` : fCorta(c);
+    svg.append(sv('rect',{x:x + bw * .15,y:H - pad - hh,width:Math.max(2, bw * .7),height:Math.max(hh, val ? 2 : 0),rx:Math.min(4, bw * .3),fill:'url(#gbar)'}, sv('title',{}, `${et}: ${k === 'engagement' ? fmtK(k, val) : num(val)}`)));
+    if (i % Math.ceil(n / 7) === 0) svg.append(sv('text',{x:x + bw / 2,y:H - 8,'text-anchor':'middle'}, per === 'todo' ? MESES[+c.slice(5) - 1].slice(0, 3) : `${d.getDate()}/${d.getMonth() + 1}`)); });
+  return svg;
+}
+
+function detallePost(p){
+  const u = httpUrl(p.miniatura), en = httpUrl(p.enlace), ms = KPIS.filter(([k]) => k !== 'pub' && p[k] != null);
+  abrirHoja(`${RED(p.red)[0]} · ${p.estado === 'sent' ? 'Publicada' : 'Programada'} ${cuando(p.fecha)}`,
+    u ? h('img',{src:u,alt:'',referrerpolicy:'no-referrer',style:'display:block;width:100%;max-height:320px;object-fit:contain;border-radius:12px;background:var(--s3);margin-bottom:12px',onerror:e => e.target.remove()}) : null,
+    h('p',{style:'white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 .8rem'}, p.texto || 'Sin texto'),
+    ms.length ? h('div',{class:'kpis',style:'margin:0 0 .8rem'}, ms.map(([k, t, ico, c]) => h('div',{class:'kpi',style:`--c:${c}`}, h('span',{class:'ki'}, ic(ico)), h('span',{class:'t'}, t), h('b',{}, fmtK(k, p[k])))))
+      : h('p',{class:'mut'}, p.estado === 'sent' ? 'Las métricas de esta publicación todavía no llegaron (se actualizan una vez por día).' : 'Todavía no se publicó.'),
+    en ? h('a',{class:'btn ol',href:en,target:'_blank',rel:'noopener'}, 'Ver publicación →') : null);
+}
+const miniPost = p => h('button',{type:'button',class:'pt' + (p.estado === 'sent' ? '' : ' prog'),'aria-label':`${RED(p.red)[0]}: ${(p.texto || 'publicación').slice(0, 60)}`,onclick:() => detallePost(p)}, miniatura(p), logo(p.red, 14));
+
+function calendarioBuffer(base){
+  const m0 = S.bcal ? new Date(S.bcal) : new Date(), y = m0.getFullYear(), m = m0.getMonth(), vacios = (new Date(y, m, 1).getDay() + 6) % 7, dias = new Date(y, m + 1, 0).getDate(), porDia = {};
+  for (const p of base) if (p.estado !== 'error') (porDia[iso(new Date(p.fecha))] ||= []).push(p);
+  const cel = [], prog = base.filter(p => p.estado === 'scheduled').length, mover = n => { S.bcal = new Date(y, m + n, 1); render(); };
+  for (let i = 0; i < vacios; i++) cel.push(h('div',{class:'day out','aria-hidden':'true'}));
+  for (let d = 1; d <= dias; d++){ const k = iso(new Date(y, m, d)), ps = porDia[k] || [];
+    cel.push(h('div',{class:'day' + (k === hoyISO() ? ' today' : '')}, h('div',{class:'day-h'}, h('span',{class:'dnum'}, d)), h('div',{class:'pts'}, ps.slice(0, 6).map(miniPost), ps.length > 6 ? h('span',{class:'mut',style:'font-size:.7rem'}, `+${ps.length - 6}`) : null))); }
+  return h('section',{class:'card'}, h('h2',{}, 'Calendario de publicaciones', h('small',{}, prog ? `${prog} programadas` : '')),
+    h('div',{class:'calbar'}, h('h2',{style:'text-transform:capitalize'}, `${MESES[m]} ${y}`), h('button',{type:'button',class:'btn ol sm','aria-label':'Mes anterior',onclick:() => mover(-1)}, '‹'), h('button',{type:'button',class:'btn ol sm',onclick:() => { S.bcal = null; render(); }}, 'Hoy'), h('button',{type:'button',class:'btn ol sm','aria-label':'Mes siguiente',onclick:() => mover(1)}, '›')),
+    h('div',{class:'cal'}, ['L','M','M','J','V','S','D'].map(x => h('div',{class:'dw'}, x)), cel),
+    h('p',{class:'mut',style:'font-size:.8rem;margin:.6rem 0 0'}, 'Con borde punteado: programadas. Tocá una publicación para ver su detalle.'));
+}
+
+function metricasBuffer(){
+  titulo('Métricas', 'Cómo le va a tu marca'); selectorNegocio();
+  const C = S.C, todas = C.posts, redes = [...new Set(todas.map(p => p.red))], per = S.bper || (S.bper = '30'), mk = S.bmet || (S.bmet = 'vistas');
+  if (S.bred && !redes.includes(S.bred)) S.bred = null;
+  const base = S.bred ? todas.filter(p => p.red === S.bred) : todas, pub = base.filter(p => p.estado === 'sent'), v = ventana(per), act = enV(pub, v.ini, v.fin), ant = v.prev ? enV(pub, v.prev[0], v.prev[1]) : null;
+  const chip = (k, t, c) => h('button',{type:'button','aria-pressed':String((S.bred || '') === k),style:`--c:${c}`,onclick:() => { S.bred = k || null; render(); }}, k ? logo(k, 26) : h('span',{class:'logo',style:'--s:26px;background:var(--gold);color:#111','aria-hidden':'true'}, '★'), t);
+  const tile = ([k, t, ico, c]) => { const val = sumaK(act, k); if (val == null) return null;
+    const pv = ant && ant.length ? sumaK(ant, k) : null, d = pv ? Math.round((val - pv) / pv * 100) : null;
+    return h('div',{class:'kpi',style:`--c:${c}`}, h('span',{class:'ki'}, ic(ico)), h('span',{class:'t'}, t), h('b',{}, fmtK(k, val)),
+      d != null ? h('small',{class:d >= 0 ? 'up' : 'down'}, `${d >= 0 ? '▲' : '▼'} ${Math.abs(d)}% vs. anterior`) : h('small',{class:'mut'}, per === 'todo' ? 'desde el inicio' : 'sin período anterior')); };
+  const orden = S.bord || 'vistas', top = [...act].sort((a, b) => orden === 'fecha' ? +new Date(b.fecha) - +new Date(a.fecha) : (b[orden] ?? -1) - (a[orden] ?? -1)), n = S.bn || 10;
+  const fila = (p, i) => h('button',{type:'button',class:'pc',onclick:() => detallePost(p)},
+    h('span',{class:'pth'}, miniatura(p)),
+    h('span',{style:'min-width:0'}, h('span',{class:'ptx'}, p.texto || 'Sin texto'), h('span',{class:'mut',style:'display:flex;align-items:center;gap:6px;font-size:.8rem;margin-top:4px'}, logo(p.red, 16), RED(p.red)[0], '·', fCorta(p.fecha), i === 0 && orden !== 'fecha' ? h('span',{class:'pill oro'}, '★ La mejor') : null)),
+    h('span',{class:'pms'}, [['vistas','Vistas'],['alcance','Alcance'],['reacciones','Reacc.'],['comentarios','Coment.']].map(([k, t]) => h('span',{class:'pm'}, h('i',{class:'l'}, t), h('b',{}, p[k] == null ? '—' : compacto(p[k]))))));
+  const porRed = !S.bred && redes.length > 1 ? h('section',{class:'card'}, h('h2',{}, 'Por red social'),
+    h('div',{class:'redcards'}, redes.map(r => { const ps = enV(pub.filter(p => p.red === r), v.ini, v.fin), vi = sumaK(ps, 'vistas'), tot = sumaK(act, 'vistas') || 0;
+      return h('button',{type:'button',class:'redcard',style:`--c:${RED(r)[1]}`,onclick:() => { S.bred = r; render(); }}, h('span',{class:'rh'}, logo(r, 34), h('span',{}, h('b',{}, RED(r)[0]), h('small',{class:'mut',style:'display:block'}, `${ps.length} publicaciones`))),
+        h('span',{class:'rm'}, [['Vistas', vi], ['Alcance', sumaK(ps, 'alcance')], ['Reacc.', sumaK(ps, 'reacciones')]].map(([t, x]) => h('span',{}, h('i',{}, t), h('b',{}, x == null ? '—' : compacto(x))))),
+        tot ? barra(Math.round((vi || 0) / tot * 100), `${RED(r)[0]}: ${Math.round((vi || 0) / tot * 100)}% de las vistas`) : null); }))) : null;
+  fill($('view'),
+    h('div',{class:'bar-top'}, h('div',{class:'redes',role:'group','aria-label':'Red social'}, chip('', 'Todas', '#C9B37A'), redes.map(r => chip(r, RED(r)[0], RED(r)[1]))),
+      h('div',{class:'seg',role:'group','aria-label':'Período'}, PER.map(([k, t]) => h('button',{type:'button','aria-pressed':String(k === per),onclick:() => { S.bper = k; S.bn = 10; render(); }}, t)))),
+    act.length || ant?.length ? h('div',{class:'kpis'}, KPIS.map(tile)) : h('div',{class:'card'}, vacio('No hay publicaciones con métricas en este período. Probá con otro período.')),
+    act.length ? h('section',{class:'card'}, h('h2',{}, 'Evolución', h('span',{class:'seg',role:'group','aria-label':'Métrica'}, [['vistas','Visualizaciones'],['alcance','Alcance'],['reacciones','Reacciones'],['pub','Publicaciones']].map(([k, t]) => h('button',{type:'button','aria-pressed':String(k === mk),onclick:() => { S.bmet = k; render(); }}, t)))), graficoBarras(pub, per, mk)) : null,
+    porRed,
+    calendarioBuffer(base),
+    act.length ? h('section',{class:'card'}, h('h2',{}, 'Rendimiento por publicación', h('label',{class:'ord'}, h('span',{class:'sr'}, 'Ordenar por'), h('select',{'aria-label':'Ordenar por',onchange:e => { S.bord = e.target.value; S.bn = 10; render(); }}, [['vistas','Más vistas'],['alcance','Más alcance'],['reacciones','Más reacciones'],['comentarios','Más comentarios'],['fecha','Más recientes']].map(([k, t]) => h('option',{value:k,selected:k === orden}, t))))),
+      h('div',{class:'pch'}, h('span',{}, 'Publicación'), h('span',{class:'pms'}, ['Vistas','Alcance','Reacc.','Coment.'].map(t => h('span',{}, t)))),
+      top.slice(0, n).map(fila), top.length > n ? h('button',{type:'button',class:'btn ol',style:'margin-top:12px',onclick:() => { S.bn = n + 10; render(); }}, `Ver más (${top.length - n})`) : null) : null,
+    h('p',{class:'mut',style:'font-size:.8rem'}, 'Los números vienen de las propias redes a través de Buffer y se actualizan una vez por día. Cuentan las publicaciones hechas por ORIGEN.'));
+}
+const metricasMensual = VC.metricas;
+VC.metricas = () => (S.C.posts || []).length ? metricasBuffer() : metricasMensual();
 
 async function abrirArchivo(path, btn){
   const w = window.open('', '_blank'); if (w) w.opener = null;
@@ -2173,8 +2292,10 @@ function cardPresencia(d){
 /* ================= consumo del plan y archivos (cliente) ================= */
 function usoCupos(C){ // lo ya publicado / realizado este mes; los manuales los carga el equipo y valen solo para el mes cargado
   const y = new Date().getFullYear(), m = new Date().getMonth(), hoy = hoyISO(), mes = `${y}-${String(m + 1).padStart(2,'0')}`;
+  const bp = (C.posts || []).filter(p => p.estado === 'sent' && enMes(iso(new Date(p.fecha)), y, m));
   const auto = { publicaciones:() => C.cont.filter(c => enMes(c.fecha, y, m) && c.estado === 'publicado').length,
-                 producciones:() => C.prod.filter(p => enMes(p.fecha, y, m) && p.fecha <= hoy).length };
+                 producciones:() => C.prod.filter(p => enMes(p.fecha, y, m) && p.fecha <= hoy).length,
+                 buffer:() => bp.length, buffer_video:() => bp.filter(p => p.tipo === 'video').length, buffer_imagen:() => bp.filter(p => p.tipo === 'imagen').length };
   return (C.cupos || []).map(c => ({ ...c, mes: c.fuente === 'manual' ? (String(c.periodo || '').startsWith(mes) ? c.usado : 0) : auto[c.fuente]() }));
 }
 function barrasCupos(C){
