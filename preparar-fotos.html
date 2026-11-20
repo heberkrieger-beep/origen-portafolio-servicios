@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!-- ORIGEN · preparar-fotos.html · v1.0 · 2026-11-20 · herramienta local: miniaturas y vistas con marca de agua + fotos-torneo.json -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Preparar fotos · ORIGEN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--b:#0E0E0D;--tx:#F1ECE0;--p:#A79F92;--ac:#C9B37A;--l:rgba(255,255,255,.12);--cream:#1A1917}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--b);color:var(--tx);font-family:'Jost',Arial,sans-serif;font-weight:300;line-height:1.6;padding:48px 20px}
+main{max-width:720px;margin:0 auto}
+h1{font-family:'Cormorant',Georgia,serif;font-weight:300;font-size:clamp(38px,6vw,56px);line-height:1.08;margin-bottom:12px}
+h1 em{color:var(--ac)}
+.lead{color:var(--p);font-size:17px;margin-bottom:30px}
+fieldset{border:1px solid var(--l);background:var(--cream);padding:22px;margin-bottom:18px;display:grid;gap:16px}
+legend{padding:0 8px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--ac)}
+label{display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--p)}
+input[type=text]{background:var(--b);color:var(--tx);border:1px solid var(--l);padding:12px 14px;font:inherit;font-size:16px;letter-spacing:0;text-transform:none}
+button{font:inherit;cursor:pointer;padding:15px 26px;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;font-weight:500;border:1px solid var(--ac);background:transparent;color:var(--tx)}
+button.pri{background:var(--ac);color:#111}
+button:disabled{opacity:.4;cursor:not-allowed}
+button:hover:not(:disabled){background:var(--tx);color:#111}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+.ok{color:var(--ac);font-size:14px;letter-spacing:0;text-transform:none}
+progress{width:100%;height:10px;accent-color:var(--ac)}
+#estado{margin:10px 0;color:var(--tx)}
+#log{list-style:none;font-size:14px;color:var(--p);border-top:1px solid var(--l);margin-top:14px}
+#log li{padding:8px 0;border-bottom:1px solid var(--l)}
+#log li.w{color:#e8c07a}
+.nota{font-size:14px;color:var(--p);margin-top:26px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1>Preparar <em>fotos</em></h1>
+<p class="lead">Elegí la carpeta con las originales y te genero, con tu marca de agua, la miniatura y la vista de cada foto, más el archivo <code>fotos-torneo.json</code>. Todo se hace en tu compu: no se sube nada.</p>
+<p class="lead" id="aviso" hidden style="color:#e8a09a">Este navegador no puede leer carpetas. Abrí esta página con Google Chrome o Microsoft Edge en una computadora.</p>
+
+<fieldset><legend>Datos</legend>
+  <label>Marca de agua<input type="text" id="marca" value="ORIGEN" maxlength="30" autocomplete="off"></label>
+  <label>Torneo o día (aparece como filtro en la galería)<input type="text" id="torneo" placeholder="Ej: Día 1" maxlength="60" autocomplete="off"></label>
+  <label>Categoría (opcional, se aplica a todas las fotos de esta tanda)<input type="text" id="cat" placeholder="Ej: Mixto A" maxlength="60" autocomplete="off"></label>
+</fieldset>
+
+<fieldset><legend>Carpetas</legend>
+  <div><button type="button" id="b-in">1 · Elegir carpeta con las originales</button> <span class="ok" id="t-in"></span></div>
+  <div><button type="button" id="b-out">2 · Elegir dónde guardar el resultado</button> <span class="ok" id="t-out"></span></div>
+</fieldset>
+
+<button type="button" class="pri" id="b-go" disabled>Preparar fotos</button>
+<button type="button" id="b-stop" hidden>Cancelar</button>
+
+<div style="margin-top:22px">
+  <progress id="prog" value="0" max="1" hidden></progress>
+  <p id="estado" role="status" aria-live="polite"></p>
+  <ul id="log"></ul>
+</div>
+
+<p class="nota">Las originales no se modifican. En la carpeta de salida se crea <code>fotos-torneo/</code> (vistas de 1200 px) y <code>fotos-torneo/th/</code> (miniaturas de 480 px), más <code>fotos-torneo.json</code>. Si ya existe ese archivo, se suman las fotos nuevas sin borrar lo anterior, así podés hacer una tanda por día. Las fotos ya preparadas se saltean.</p>
+</main>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i);};
+  var OK=/^[A-Za-z0-9_-]{1,60}$/, TH=480, VI=1200, parar=false;
+  var dIn=null, dOut=null;
+
+  function marca(ctx,w,h,t){
+    var fs=Math.max(14,Math.round(w*0.055)),sx,sy,R,x,y,off;
+    ctx.save();ctx.font='500 '+fs+'px Jost, Arial, sans-serif';ctx.fillStyle='rgba(255,255,255,.34)';ctx.strokeStyle='rgba(0,0,0,.25)';ctx.lineWidth=Math.max(1,fs/14);
+    ctx.textAlign='center';ctx.textBaseline='middle';ctx.translate(w/2,h/2);ctx.rotate(-Math.PI/7);
+    sx=ctx.measureText(t).width+fs*2.2;sy=fs*3.2;R=Math.hypot(w,h)/2;
+    for(y=-R;y<=R;y+=sy){off=(Math.round(y/sy)%2)*sx/2;for(x=-R;x<=R;x+=sx){ctx.strokeText(t,x+off,y);ctx.fillText(t,x+off,y);}}
+    ctx.restore();
+  }
+  function blob(bmp,lado,t,q){
+    var k=Math.min(1,lado/Math.max(bmp.width,bmp.height)),w=Math.max(1,Math.round(bmp.width*k)),h=Math.max(1,Math.round(bmp.height*k));
+    var c=document.createElement('canvas');c.width=w;c.height=h;
+    var ctx=c.getContext('2d');ctx.imageSmoothingQuality='high';ctx.drawImage(bmp,0,0,w,h);marca(ctx,w,h,t);
+    return new Promise(function(ok,no){c.toBlob(function(b){b?ok(b):no(new Error('No se pudo generar la imagen'));},'image/webp',q);});
+  }
+  function escribe(dir,nombre,b){
+    return dir.getFileHandle(nombre,{create:true}).then(function(fh){return fh.createWritable();}).then(function(w){return w.write(b).then(function(){return w.close();});});
+  }
+  function existe(dir,nombre){return dir.getFileHandle(nombre).then(function(){return true;},function(){return false;});}
+  function natural(a,b){return a.localeCompare(b,'es',{numeric:true});}
+
+  /* entradas: [{name, getFile()}]. out: carpeta de salida (handle). o: {marca,torneo,cat} */
+  async function procesar(entradas,out,o,avance,aviso){
+    var carp=await out.getDirectoryHandle('fotos-torneo',{create:true});
+    var th=await carp.getDirectoryHandle('th',{create:true});
+    var previo=[];
+    try{var fh=await out.getFileHandle('fotos-torneo.json');var j=JSON.parse(await (await fh.getFile()).text());if(Array.isArray(j)) previo=j;}catch(e){}
+    var porId={};previo.forEach(function(f){if(f&&f.id) porId[f.id]=f;});
+    var nuevas=[],hechas=0,saltadas=0,omitidas=0;
+    entradas=entradas.slice().sort(function(a,b){return natural(a.name,b.name);});
+    for(var i=0;i<entradas.length;i++){
+      if(parar){aviso('Cancelado. Lo ya preparado se conserva; volvé a correr para seguir.',true);break;}
+      var e=entradas[i],id=e.name.replace(/\.[^.]+$/,'');
+      avance(i,entradas.length,e.name);
+      if(!OK.test(id)){aviso(e.name+': nombre no válido (solo letras, números, guion y guion bajo). Se omitió.',true);omitidas++;continue;}
+      if(!/\.jpg$/.test(e.name)) aviso(e.name+': la extensión tiene que ser .jpg en minúscula tanto acá como en Backblaze, si no la descarga falla.',true);
+      if(await existe(th,id+'.webp')&&await existe(carp,id+'.webp')){saltadas++;}
+      else{
+        var bmp;
+        try{bmp=await createImageBitmap(await e.getFile(),{imageOrientation:'from-image'});}
+        catch(err){aviso(e.name+': no se pudo leer la imagen. Se omitió.',true);omitidas++;continue;}
+        try{
+          await escribe(th,id+'.webp',await blob(bmp,TH,o.marca,.72));
+          await escribe(carp,id+'.webp',await blob(bmp,VI,o.marca,.78));
+          hechas++;
+        }finally{bmp.close();}
+      }
+      if(!porId[id]){var f={id:id,torneo:o.torneo,categoria:o.cat,pareja:'',th:'fotos-torneo/th/'+id+'.webp',img:'fotos-torneo/'+id+'.webp'};porId[id]=f;nuevas.push(f);}
+    }
+    var todo=previo.concat(nuevas);
+    await escribe(out,'fotos-torneo.json',new Blob(['[\n'+todo.map(function(f){return JSON.stringify(f);}).join(',\n')+'\n]\n'],{type:'application/json'}));
+    return {hechas:hechas,saltadas:saltadas,omitidas:omitidas,total:todo.length};
+  }
+  window.__prep={procesar:procesar};
+
+  /* ---- interfaz ---- */
+  if(!window.showDirectoryPicker){$('aviso').hidden=false;$('b-in').disabled=true;$('b-out').disabled=true;return;}
+  function listo(){$('b-go').disabled=!(dIn&&dOut);}
+  $('b-in').addEventListener('click',function(){window.showDirectoryPicker({mode:'read'}).then(function(h){dIn=h;$('t-in').textContent='✓ '+h.name;listo();}).catch(function(){});});
+  $('b-out').addEventListener('click',function(){window.showDirectoryPicker({mode:'readwrite'}).then(function(h){dOut=h;$('t-out').textContent='✓ '+h.name;listo();}).catch(function(){});});
+  $('b-stop').addEventListener('click',function(){parar=true;});
+  function aviso(t,w){var li=document.createElement('li');li.textContent=t;if(w) li.className='w';$('log').appendChild(li);}
+  $('b-go').addEventListener('click',async function(){
+    var go=$('b-go'),stop=$('b-stop'),pr=$('prog'),es=$('estado');
+    parar=false;$('log').textContent='';go.disabled=true;stop.hidden=false;pr.hidden=false;
+    try{
+      var ent=[];
+      for await(var par of dIn.entries()){var n=par[0],h=par[1];if(h.kind==='file'&&/\.jpe?g$/i.test(n)) ent.push({name:n,getFile:function(h){return function(){return h.getFile();};}(h)});}
+      if(!ent.length){es.textContent='No encontré fotos .jpg en esa carpeta.';return;}
+      var r=await procesar(ent,dOut,{marca:$('marca').value.trim()||'ORIGEN',torneo:$('torneo').value.trim(),cat:$('cat').value.trim()},
+        function(i,t,n){pr.max=t;pr.value=i;es.textContent='Procesando '+(i+1)+' de '+t+': '+n;},aviso);
+      pr.value=pr.max;
+      es.textContent='Listo: '+r.hechas+' preparadas, '+r.saltadas+' ya estaban, '+r.omitidas+' omitidas. El archivo fotos-torneo.json tiene '+r.total+' fotos. Ahora subí la carpeta fotos-torneo y el archivo fotos-torneo.json a GitHub.';
+    }catch(err){es.textContent='Hubo un error: '+err.message;}
+    finally{go.disabled=false;stop.hidden=true;}
+  });
+})();
+</script>
+</body>
+</html>
