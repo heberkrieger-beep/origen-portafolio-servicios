@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v3.5 · 2026-11-18 · métricas como dashboard (tarjetas con tendencia, evolución, reparto por red) -->
+<!-- Portal ORIGEN — v4.3.1 · 2026-11-20 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -295,6 +295,24 @@ dialog{background:linear-gradient(180deg,#1b1a15,#100f0c);border-color:rgba(255,
 @media (prefers-reduced-motion:no-preference){.card,.stat,.cli,.btn{transition:transform .18s ease,border-color .18s ease,background .18s ease}a.stat:hover,.cli:hover{transform:translateY(-2px);border-color:rgba(201,179,122,.4)}}
 
 @media (prefers-reduced-motion:no-preference){#view>*{animation:in .28s ease both}@keyframes in{from{opacity:0;transform:translateY(5px)}}}
+
+/* v4.0 · avisos, conversación y estados */
+#campana{position:relative;display:flex;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--s2);align-items:center;justify-content:center;color:var(--gold);cursor:pointer;flex:0 0 auto;padding:0;margin-right:8px}
+#campana[hidden]{display:none}
+#campana .i{width:20px;height:20px}
+#campana .n{position:absolute;top:-5px;right:-5px;min-width:18px;height:18px;border-radius:9px;background:var(--gold2);color:#111;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px}
+#campana .n[hidden]{display:none}
+.hist{list-style:none;margin:.3rem 0 .8rem;padding:0;display:grid;gap:8px}
+.hist li{border-left:3px solid var(--mut);background:var(--s2);border-radius:10px;padding:.5rem .75rem}
+.hist li.equipo{border-color:var(--gold2)}
+.hist li.cliente{border-color:#7FD6E8}
+.hist .q{display:block;font-size:.8rem;color:var(--mut)}
+.hist .t{margin:.2rem 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.pasos{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:.2rem 0 .9rem;padding:0}
+.pasos li{font-size:.78rem;padding:.15rem .65rem;border-radius:999px;background:var(--s3);color:var(--mut)}
+.pasos li.hecho{color:var(--tx)}
+.pasos li[aria-current=step]{background:var(--gold2);color:#111;font-weight:600}
+.item.sin-leer .tx{font-weight:600}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js" integrity="sha384-TcHRA3zBbn+Lexh5n+Oil4guNPOS3rjNDpGRAN46u/s/mB2IZ50ceC6TYDU2yvgK" crossorigin="anonymous" defer></script>
 </head>
@@ -342,7 +360,7 @@ dialog{background:linear-gradient(180deg,#1b1a15,#100f0c);border-color:rgba(255,
   <div class="content">
     <header class="top">
       <div style="min-width:0"><p class="kicker" id="kicker"></p><h1 id="titulo"></h1></div>
-      <div class="row" style="flex-wrap:nowrap;align-items:center"><div id="top-extra"></div><button id="cuenta" type="button" aria-label="Mi cuenta"></button></div>
+      <div class="row" style="flex-wrap:nowrap;align-items:center"><div id="top-extra"></div><button id="campana" type="button" aria-label="Avisos" aria-haspopup="dialog" hidden></button><button id="cuenta" type="button" aria-label="Mi cuenta"></button></div>
     </header>
     <div id="banner" hidden></div>
     <main id="main" tabindex="-1"><div id="view"></div></main>
@@ -376,6 +394,7 @@ const SOL_EST = {nueva:['Nuevo','warn'],en_curso:['En curso','oro'],resuelta:['R
 const COLORES = ['#C9B37A','#7FD6E8','#F2A6C8','#B59CF0','#8FCB9B','#E9B872','#6FA8FF','#F08A80','#9FE0C9','#D6C1F5'];
 const ICO = {
   home:'<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>',
+  bell:'<path d="M6 9a6 6 0 0112 0c0 6 2 7 2 7H4s2-1 2-7"/><path d="M10 20a2 2 0 004 0"/>',
   cal:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',
   check:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 12l3 3 5-6"/>',
   users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4.2 4 1.8 4.5 4.5"/>',
@@ -406,6 +425,9 @@ const masDias = n => { const d = new Date(); d.setDate(d.getDate() + n); return 
 const hoyISO = () => iso(new Date());
 const fCorta = s => { const d = s && (String(s).length > 10 ? new Date(s) : dLocal(s)); return d ? d.toLocaleDateString('es-AR',{day:'numeric',month:'short'}) : ''; };
 const fLarga = s => dLocal(s).toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'});
+const cuando = s => new Date(s).toLocaleString('es-AR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+const kb = n => n == null ? '' : n >= 1048576 ? (n / 1048576).toFixed(1).replace('.', ',') + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
+const icoArch = n => /\.(png|jpe?g|webp|gif|heic)$/i.test(n) ? '🖼' : /\.(mp4|mov|webm|m4v)$/i.test(n) ? '🎬' : /\.pdf$/i.test(n) ? '📄' : /\.(zip|rar)$/i.test(n) ? '🗜' : '📎';
 const fRel = s => !s ? null : s === hoyISO() ? 'Hoy' : s === masDias(1) ? 'Mañana' : s === masDias(-1) ? 'Ayer' : fCorta(s);
 const httpUrl = u => { try { const x = new URL(u); return /^https?:$/.test(x.protocol) ? x.href : null; } catch { return null; } };
 const limpio = n => n.normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w.-]+/g,'-').replace(/^-+/,'').slice(-80) || 'archivo';
@@ -458,7 +480,7 @@ $('salir').addEventListener('click', salir);
 let arrancado = null;
 sb.auth.onAuthStateChange((ev, session) => {
   if (session?.user && arrancado !== session.user.id){ arrancado = session.user.id; setTimeout(() => entrar(session.user)); }
-  if (!session){ arrancado = null; pantalla('login'); }
+  if (!session){ arrancado = null; AV.lista = []; pintarCampana(); pantalla('login'); }
 });
 function pantalla(id){ for (const s of ['login','shell','cargando']) $(s).hidden = s !== id; }
 
@@ -484,21 +506,61 @@ async function entrar(user){
       S.cid = S.misClientes.some(c => c.id === g) ? g : S.misClientes[0].id;
       await cargarCliente(S.cid);
     }
-    pantalla('shell'); render();
+    pantalla('shell'); render(); cargarAvisos();
   } catch(e){ err(e); pantalla('login'); }
 }
+
+/* ================= avisos (campana) ================= */
+const AV = { lista:[], off:false, visto:null };
+$('campana').append(ic('bell'), h('span',{class:'n',id:'camp-n','aria-hidden':'true',hidden:true}));
+const enlaceOk = e => /^#\/[a-z]+$/.test(e || '') && rutaOk(e.slice(2));
+function pintarCampana(){
+  const n = AV.lista.filter(a => !a.leida).length, b = $('camp-n');
+  $('campana').hidden = AV.off || !S.user;
+  $('campana').setAttribute('aria-label', n ? `Avisos, ${n} sin leer` : 'Avisos');
+  b.hidden = !n; b.textContent = n > 9 ? '9+' : n;
+}
+async function cargarAvisos(){
+  if (AV.off || !S.user) return;
+  try { AV.lista = await q(sb.from('notificaciones').select('id,tipo,titulo,texto,enlace,leida,creado_en').order('creado_en',{ascending:false}).limit(30)); }
+  catch(e){ if (['PGRST205','42P01'].includes(e?.code)){ AV.off = true; pintarCampana(); } return; }
+  const n = AV.lista.filter(a => !a.leida).length;
+  if (AV.visto != null && n > AV.visto) toast('Tenés un aviso nuevo.');
+  AV.visto = n; pintarCampana();
+}
+async function marcarAvisos(ids){
+  if (!ids.length) return;
+  try { await q(sb.from('notificaciones').update({ leida:true }).in('id', ids)); AV.lista.forEach(a => { if (ids.includes(a.id)) a.leida = true; }); AV.visto = AV.lista.filter(a => !a.leida).length; pintarCampana(); }
+  catch(e){ err(e); }
+}
+function abrirAvisos(){
+  const sin = AV.lista.filter(a => !a.leida);
+  abrirHoja('Avisos', AV.lista.length ? [
+    sin.length ? h('button',{type:'button',class:'btn ol sm',style:'margin-bottom:10px',onclick:async () => { await marcarAvisos(sin.map(a => a.id)); abrirAvisos(); }}, 'Marcar todo como leído') : null,
+    AV.lista.map(a => h('button',{type:'button',class:'item' + (a.leida ? '' : ' sin-leer'),style:`--c:${a.leida ? 'var(--line)' : 'var(--gold2)'}`,onclick:() => {
+      cerrarHoja(); marcarAvisos(a.leida ? [] : [a.id]);
+      if (S.equipo) S.modo = 'equipo';
+      if (enlaceOk(a.enlace)){ if (location.hash === a.enlace) render(); else location.hash = a.enlace; } else render();
+    }}, h('span',{class:'tx'}, a.titulo, a.texto ? h('small',{}, a.texto) : null, h('small',{}, cuando(a.creado_en))), a.leida ? null : h('span',{class:'sr'}, '(sin leer)')))
+  ] : vacio('No tenés avisos por ahora.'));
+}
+$('campana').addEventListener('click', abrirAvisos);
+setInterval(() => { if (!document.hidden) cargarAvisos(); }, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) cargarAvisos(); });
 
 /* ================= navegación ================= */
 const RUTAS_E = [['hoy','Hoy','home'],['calendario','Calendario','cal'],['tareas','Tareas','check'],['clientes','Clientes','users']];
 const RUTAS_C = [['inicio','Inicio','home'],['calendario','Calendario','cal'],['metricas','Métricas','chart'],['pedir','Pedir','send'],['mas','Más','more']];
 const rutas = () => S.modo === 'equipo' ? RUTAS_E : RUTAS_C;
-function ruta(){ const [v, arg] = location.hash.replace(/^#\/?/,'').split('/'); return { v: rutas().some(r => r[0] === v) ? v : rutas()[0][0], arg }; }
+const OCULTAS = ['archivos','crecimiento','proyectos']; // sin botón propio: el cliente entra desde Más
+const rutaOk = v => rutas().some(r => r[0] === v) || (S.modo !== 'equipo' && OCULTAS.includes(v));
+function ruta(){ const [v, arg] = location.hash.replace(/^#\/?/,'').split('/'); return { v: rutaOk(v) ? v : rutas()[0][0], arg }; }
 window.addEventListener('hashchange', () => { if (!$('shell').hidden) render(); });
 const VE = {}, VC = {};
 
 function render(){
   const { v, arg } = ruta();
-  fill($('nav'), rutas().map(([k,t,i]) => h('a',{href:`#/${k}`, 'aria-current': k === v ? 'page' : null}, ic(i), h('span',{}, t))));
+  fill($('nav'), rutas().map(([k,t,i]) => h('a',{href:`#/${k}`, 'aria-current': k === v || (k === 'mas' && OCULTAS.includes(v)) ? 'page' : null}, ic(i), h('span',{}, t))));
   $('nav').classList.toggle('con-fab', S.modo === 'equipo');
   $('fab').hidden = S.modo !== 'equipo';
   const viendo = S.equipo && S.modo === 'cliente';
@@ -574,6 +636,13 @@ async function recargar(){ await cargarEquipo(S.mes); render(); }
 const opCli = req => () => [['', req ? 'Elegí el cliente' : 'Interna (sin cliente)'], ...S.E.clientes.map(c => [c.id, c.nombre])];
 const opUsr = () => [['', 'Sin asignar'], ...S.E.usuarios.map(u => [String(u.id), u.nombre])];
 const opLista = l => l.map(x => [x, x[0].toUpperCase() + x.slice(1)]);
+const TIPOS_PROY = { web:'Página web', tienda:'Tienda online', identidad:'Identidad de marca', camaras:'Cámaras / seguridad', automatizacion:'Automatización', audiovisual:'Producción audiovisual', otro:'Otro' };
+const EST_PROY = { planificado:['Planificado',''], en_curso:['En curso','oro'], pausado:['Pausado','warn'], finalizado:['Finalizado','ok'], cancelado:['Cancelado','bad'] };
+const ETAPAS_TIPO = { web:['Objetivos y estructura','Diseño','Desarrollo','Contenido','Revisión del cliente','Publicación'], tienda:['Objetivos y catálogo','Diseño','Carga de productos','Medios de pago y envíos','Revisión del cliente','Lanzamiento'],
+  identidad:['Investigación','Propuestas','Ajustes','Manual de marca','Entrega'], camaras:['Relevamiento','Presupuesto aprobado','Instalación','Configuración','Capacitación'],
+  automatizacion:['Relevamiento','Diseño del flujo','Implementación','Pruebas','Puesta en marcha'], audiovisual:['Guion','Producción','Edición','Revisión del cliente','Entrega'], otro:['Planificación','Ejecución','Revisión','Entrega'] };
+const ETAPA_EST = [['pendiente','Pendiente'],['en_curso','En curso'],['hecha','Hecha']];
+const avance = (p, et) => et.length ? Math.round(et.filter(e => e.estado === 'hecha').length / et.length * 100) : p.estado === 'finalizado' ? 100 : 0;
 const FORMS = {
   tarea: { tabla:'tareas', nombre:'Tarea', nuevoT:'Nueva tarea', okT:'Tarea agregada.', icono:'✓', campos:[
     {k:'titulo', l:'Qué hay que hacer', req:1, max:200, full:1},
@@ -622,8 +691,8 @@ const FORMS = {
     nuevo: () => ({ tipo:'reunion', visible_cliente:false }) }
 };
 
-const PLANES = [['Gestión de redes · Arranque',250000],['Gestión de redes · Crecimiento',350000],['Gestión de redes · Full',500000],['Gestión de redes · Solo Contenido',100000],
-  ['Web por suscripción · Profesional',20000],['Web por suscripción · Recomendado',30000],['Web por suscripción · Tienda Online',45000],['Plan Cámaras',30000],['A medida',0]];
+const PLANES = [['Gestión de redes · Esencial',350000],['Gestión de redes · Crecimiento',590000],['Gestión de redes · ORIGEN Full',900000],['Gestión de redes · Solo Contenido',100000],
+  ['Web por suscripción · Profesional',30000],['Web por suscripción · Recomendado',40000],['Web por suscripción · Tienda Online',55000],['Plan Cámaras',30000],['A medida',0]];
 const RUBROS = ['Gastronomía','Alojamiento','Turismo y excursiones','Transporte','Salud','Belleza y estética','Deportes','Comercio','Servicios profesionales','Educación','Inmobiliaria','Construcción','Eventos','Tecnología','Institución / ONG'];
 FORMS.cliente = { tabla:'clientes', nombre:'Cliente', nuevoT:'Nuevo cliente', okT:'Cliente creado.', sinBorrar:true, campos:[
   {k:'negocio', l:'Nombre del negocio', req:1, max:120},
@@ -648,6 +717,37 @@ FORMS.cliente = { tabla:'clientes', nombre:'Cliente', nuevoT:'Nuevo cliente', ok
   armar: form => { const pl = form.elements.plan_nombre, ab = form.elements.mensual_con_desc; let previo = PLANES.find(p => p[0] === pl.value)?.[1];
     pl.addEventListener('change', () => { const nuevo = PLANES.find(p => p[0] === pl.value)?.[1]; if (nuevo && (ab.value === '' || +ab.value === previo)) ab.value = nuevo; previo = nuevo; }); },
   antes: (v, nuevo) => { if (nuevo) v.nombre = v.negocio; } };
+
+Object.assign(FORMS, {
+  objetivo: { tabla:'objetivos', nombre:'Objetivo', nuevoT:'Nuevo objetivo', okT:'Objetivo agregado.', icono:'◎', campos:[
+    {k:'cliente_id', l:'Cliente', t:'select', op:opCli(true), req:1, full:1},
+    {k:'nombre', l:'Qué queremos lograr', req:1, max:120, full:1},
+    {k:'tipo', l:'Tipo', t:'select', op:[['clientes','Clientes nuevos'],['whatsapp','Consultas por WhatsApp'],['visitas','Visitas'],['reservas','Reservas'],['ventas','Ventas'],['seguidores','Seguidores'],['interaccion','Interacción'],['reputacion','Reputación'],['otro','Otro']]},
+    {k:'unidad', l:'Unidad (consultas, reservas…)', max:30},
+    {k:'meta', l:'Meta', t:'number', req:1, min:1},
+    {k:'actual', l:'Logrado hasta hoy (dato real)', t:'number', min:0},
+    {k:'inicio', l:'Desde', t:'date'}, {k:'fin', l:'Hasta', t:'date'},
+    {k:'descripcion', l:'Detalle', t:'textarea', max:500, full:1},
+    {k:'visible_cliente', l:'Mostrarlo al cliente', t:'check'}],
+    nuevo: () => ({ tipo:'otro', actual:0, visible_cliente:true }),
+    antes: v => { v.actual = v.actual ?? 0; } },
+  recomendacion: { tabla:'recomendaciones', nombre:'Recomendación', nuevoT:'Nueva recomendación', okT:'Recomendación guardada.', icono:'✦', campos:[
+    {k:'cliente_id', l:'Cliente', t:'select', op:opCli(true), req:1, full:1},
+    {k:'titulo', l:'Título', req:1, max:140, full:1},
+    {k:'texto', l:'Qué le recomendamos y por qué', t:'textarea', req:1, max:1500, full:1},
+    {k:'estado', l:'Estado (el cliente solo ve “Publicada”)', t:'select', op:[['borrador','Borrador'],['publicada','Publicada'],['descartada','Descartada'],['convertida','Convertida en pedido']], full:1}],
+    nuevo: () => ({ estado:'borrador' }) },
+  proyecto: { tabla:'proyectos', nombre:'Proyecto', nuevoT:'Nuevo proyecto', okT:'Proyecto creado.', icono:'▤', campos:[
+    {k:'cliente_id', l:'Cliente', t:'select', op:opCli(true), req:1, full:1},
+    {k:'nombre', l:'Nombre del proyecto', req:1, max:140, full:1},
+    {k:'tipo', l:'Tipo', t:'select', op:Object.entries(TIPOS_PROY)},
+    {k:'estado', l:'Estado', t:'select', op:Object.entries(EST_PROY).map(([k, v]) => [k, v[0]])},
+    {k:'responsable_id', l:'Responsable', t:'select', op:opUsr},
+    {k:'presupuesto_id', l:'Presupuesto asociado', t:'select', op:() => [['', 'Ninguno'], ...S.E.presupuestos.map(p => [p.id, `${cliDe(p.cliente_id)?.nombre || '—'} · ${p.titulo}`])]},
+    {k:'inicio', l:'Inicio', t:'date'}, {k:'estimada', l:'Entrega estimada', t:'date'},
+    {k:'descripcion', l:'Detalle', t:'textarea', max:1500, full:1},
+    {k:'visible_cliente', l:'Mostrarlo al cliente', t:'check'}],
+    nuevo: () => ({ tipo:'web', estado:'en_curso', visible_cliente:true }) } });
 
 function campo(f, val){
   if (f.t === 'check'){ const el = h('input',{type:'checkbox', name:f.k}); el.checked = !!val; return h('label',{class:'chk'}, el, f.l); }
@@ -705,7 +805,8 @@ function editar(tipo, obj, preset){
     }}, 'Borrar') : null));
   abrirHoja(nuevo ? F.nuevoT : F.nombre,
     tipo === 'contenido' && obj?.id ? h('p',{class:'mut',style:'margin:0 0 .6rem'}, 'Respuesta del cliente: ', pill(...(APROB[obj.aprobacion] || ['—']))) : null,
-    tipo === 'contenido' && obj?.comentario_cliente ? h('p',{class:'pre'}, '💬 ', obj.comentario_cliente) : null,
+    tipo === 'contenido' && obj?.id ? (() => { const H = hiloContenido(obj, true); return h('section',{}, h('h3',{style:'font-size:.9rem;margin:.6rem 0 .3rem'}, 'Conversación con el cliente'), H.lista,
+      h('label',{for:'hc-txt'}, 'Escribirle al cliente'), H.caja, h('div',{class:'row',style:'margin:8px 0 16px'}, h('button',{type:'button',class:'btn ol sm',onclick:e => H.enviar(e.currentTarget)}, 'Enviar comentario'))); })() : null,
     form);
 }
 
@@ -1208,13 +1309,20 @@ async function detalleCliente(id){
   fill($('top-extra'), h('button',{type:'button',class:'btn ol sm',onclick:() => verComoCliente(id)}, 'Ver como el cliente'));
   fill($('view'), vacio('Cargando…'));
   try {
-    const [sol, acc, adn, rep, met, dg] = await Promise.all([
+    const opc = p => p.catch(e => { if (['PGRST205','42P01'].includes(e?.code)) return null; throw e; });
+    const [sol, acc, adn, rep, met, dg, arch, cup, obj, rec, proy, etap] = await Promise.all([
       q(sb.from('solicitudes').select('*').eq('cliente_id', id).order('creado_en',{ascending:false}).limit(30)),
       q(sb.from('cliente_accesos').select('id,email,user_id').eq('cliente_id', id).order('creado_en')),
       q(sb.from('marca_adn').select('*').eq('cliente_id', id).maybeSingle()),
       q(sb.from('reportes').select('id,anio,mes,titulo,archivo_path').eq('cliente_id', id).order('anio',{ascending:false}).order('mes',{ascending:false})),
       q(sb.from('metricas_mensuales').select('*').eq('cliente_id', id).order('anio',{ascending:false}).order('mes',{ascending:false}).limit(24)),
-      q(sb.from('diagnosticos').select('*').eq('cliente_id', id).maybeSingle())]);
+      q(sb.from('diagnosticos').select('*').eq('cliente_id', id).maybeSingle()),
+      opc(q(sb.from('archivos').select('*').eq('cliente_id', id).order('creado_en',{ascending:false}))),
+      opc(q(sb.from('plan_cupos').select('*').eq('cliente_id', id).order('orden').order('creado_en'))),
+      opc(q(sb.from('objetivos').select('*').eq('cliente_id', id).order('creado_en',{ascending:false}))),
+      opc(q(sb.from('recomendaciones').select('*').eq('cliente_id', id).order('creado_en',{ascending:false}))),
+      opc(q(sb.from('proyectos').select('*').eq('cliente_id', id).order('creado_en',{ascending:false}))),
+      opc(q(sb.from('proyecto_etapas').select('*').eq('cliente_id', id).order('orden')))]);
     if (ruta().arg !== id || S.modo !== 'equipo') return;
     const hoy = hoyISO(), ab = S.E.tareas.filter(t => !t.hecha && String(t.cliente_id) === id);
     const prox = itemsAgenda(hoy, masDias(45), false).filter(i => String(i.cid) === id);
@@ -1231,7 +1339,12 @@ async function detalleCliente(id){
         h('section',{class:'card'}, h('h2',{}, 'Tareas abiertas', h('small',{}, ab.length)), ab.length ? h('ul',{class:'tasks'}, ab.map(itemTarea)) : vacio('Sin tareas abiertas.')),
         h('section',{class:'card'}, h('h2',{}, 'Lo que viene'), agendaAgrupada(prox, `Nada agendado. Probá con el asistente: “armá el calendario del mes para ${c.nombre}”.`))),
       boxPedidos(sol, abiertas), boxPresencia(id, dg), boxPresupCli(id), boxPagos(id),
-      boxMetricas(id, met), boxReportes(id, rep), boxAccesos(id, acc), boxADN(id, adn));
+      boxMetricas(id, met), boxReportes(id, rep), boxObjetivos(id, obj), boxRecomendaciones(id, rec), boxProyectos(id, proy, etap, arch), boxArchivos(id, arch, proy), boxCupos(id, cup), boxAccesos(id, acc), boxADN(id, adn));
+    document.querySelectorAll('#view details.box').forEach(d => { // recuerda qué caja estaba abierta (cada cambio recarga la ficha)
+      const n = d.querySelector('summary span')?.textContent;
+      if (S.cajaDe === id && S.cajaAbierta === n) d.open = true;
+      d.addEventListener('toggle', () => { if (d.open){ S.cajaDe = id; S.cajaAbierta = n; } else if (S.cajaAbierta === n) S.cajaAbierta = null; });
+    });
   } catch(e){ err(e); }
 }
 
@@ -1351,7 +1464,43 @@ function boxMetricas(id, met){
       h('td',{}, r.red), cols.map(([k]) => h('td',{class:'num'}, num(r[k]))))))) : h('p',{class:'mut'}, 'Todavía no hay métricas cargadas.'));
   pintar();
   return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Métricas del mes'), met[0] ? pill(`última: ${MESES[met[0].mes-1]}`) : pill('sin cargar','warn')),
-    h('div',{}, lista, met.length ? h('button',{type:'button',class:'btn ol',style:'margin:10px 0',onclick:() => verComoCliente(id, 'metricas')}, 'Ver las métricas como las ve el cliente') : null, f));
+    h('div',{}, panelBuffer(id, met, f, () => pintar()), lista, met.length ? h('button',{type:'button',class:'btn ol',style:'margin:10px 0',onclick:() => verComoCliente(id, 'metricas')}, 'Ver las métricas como las ve el cliente') : null, f));
+}
+
+/* Buffer: vincula los canales de cada cliente y trae las métricas del mes a "Métricas del mes" */
+function panelBuffer(id, met, f, pintar){
+  const out = h('div',{}), lis = h('div',{});
+  const llamar = async (body) => {
+    const { data, error } = await sb.functions.invoke('buffer', { body });
+    if (error){ let m = 'Buffer todavía no está activado.'; try { m = (await error.context.json()).error || m; } catch {} throw Object.assign(new Error(m), { propio:true }); }
+    return data;
+  };
+  const vincular = async btn => ocupado(btn, async () => {
+    fill(lis, h('p',{class:'mut'}, 'Buscando tus canales de Buffer…'));
+    const [{ canales, avisos }, mapas] = await Promise.all([llamar({ accion:'canales' }), q(sb.from('buffer_canales').select('canal_id,cliente_id'))]);
+    const mios = new Set(mapas.filter(m => String(m.cliente_id) === String(id)).map(m => m.canal_id)), ajenos = new Set(mapas.filter(m => String(m.cliente_id) !== String(id)).map(m => m.canal_id));
+    const cks = canales.map(c => ({ c, i:h('input',{type:'checkbox',checked:mios.has(c.id),disabled:ajenos.has(c.id)}) }));
+    fill(lis, h('div',{}, (avisos || []).map(a => h('p',{class:'mut'}, a)), cks.length ? cks.map(({ c, i }) => h('label',{style:'display:flex;gap:10px;align-items:center;margin:6px 0'}, i, `${c.nombre} · ${c.red} · cuenta ${c.cuenta}${ajenos.has(c.id) ? ' (ya es de otro cliente)' : ''}`)) : h('p',{class:'mut'}, 'No hay canales en tu Buffer.'),
+      cks.length ? h('button',{type:'button',class:'btn sm',style:'margin-top:8px',onclick:async e => ocupado(e.currentTarget, async () => {
+        for (const { c, i } of cks){
+          if (i.disabled) continue;
+          if (i.checked && !mios.has(c.id)) await q(sb.from('buffer_canales').upsert({ canal_id:c.id, organizacion_id:c.organizacion_id, cliente_id:id, red:c.red, nombre:c.nombre, cuenta:c.cuenta }, { onConflict:'canal_id' }));
+          if (!i.checked && mios.has(c.id)) await q(sb.from('buffer_canales').delete().eq('canal_id', c.id));
+        }
+        fill(lis, ''); toast('Canales guardados.');
+      })}, 'Guardar canales') : null));
+  });
+  const traer = async btn => ocupado(btn, async () => {
+    const d = await llamar({ accion:'sync', cliente_id:id, anio:+f.anio.value, mes:+f.mes.value });
+    met.splice(0, met.length, ...await q(sb.from('metricas_mensuales').select('*').eq('cliente_id', id)));
+    pintar(); f.red.dispatchEvent(new Event('change'));
+    fill(out, h('p',{class:'mut'}, (d.guardadas.length ? `Se actualizó: ${d.guardadas.map(g => `${g.red} (${g.posts} posts)`).join(', ')}. ` : 'No se guardó nada. ') + (d.avisos.length ? d.avisos.join(' · ') : '')));
+    toast(d.guardadas.length ? 'Métricas traídas de Buffer.' : 'Buffer no devolvió métricas.', !d.guardadas.length);
+  });
+  return h('div',{style:'margin:0 0 14px'},
+    h('div',{class:'row'}, h('button',{type:'button',class:'btn ol sm',onclick:e => vincular(e.currentTarget)}, 'Vincular canales de Buffer'),
+      h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget)}, 'Traer métricas del mes elegido')),
+    h('p',{class:'mut',style:'font-size:.85rem'}, 'Trae alcance, vistas, interacciones y clics del mes y año de abajo. No pisa seguidores ni visitas al perfil.'), lis, out);
 }
 
 function boxReportes(id, rep){
@@ -1376,6 +1525,98 @@ function boxReportes(id, rep){
   return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Reportes'), pill(String(rep.length))),
     h('div',{}, f, rep.map(r => h('div',{class:'li row',style:'justify-content:space-between;align-items:center'}, h('span',{}, r.titulo || `Reporte de ${MESES[r.mes-1]}`, ' ', h('span',{class:'mut'}, `${MESES[r.mes-1]} ${r.anio}`)),
       h('button',{type:'button',class:'btn ol sm',onclick:e => abrirArchivo(r.archivo_path, e.currentTarget)}, 'Abrir')))));
+}
+
+function boxArchivos(id, arch, proy){
+  if (arch == null) return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Archivos para el cliente'), pill('falta el SQL 07','warn')), h('div',{}, h('p',{class:'mut'}, 'Corré la migración 07 en Supabase para activar “Mis archivos”.')));
+  const f = h('form',{class:'row',novalidate:true},
+    h('label',{style:'flex:2 1 220px'}, 'Archivo', h('input',{type:'file',name:'archivo',required:true,accept:'image/*,video/*,application/pdf,.zip,.doc,.docx,.xls,.xlsx,.ppt,.pptx'})),
+    h('label',{style:'flex:2 1 200px'}, 'Nombre (opcional)', h('input',{name:'nombre',maxlength:'160',placeholder:'Logo final'})),
+    h('label',{}, 'Carpeta', h('select',{name:'carpeta'}, [['entregas','Entregas'],['contratos','Contratos'],['marca','Marca']].map(([v, t]) => h('option',{value:v}, t)))),
+    proy?.length ? h('label',{}, 'Proyecto', h('select',{name:'proyecto'}, [['', 'Ninguno'], ...proy.map(x => [x.id, x.nombre])].map(([v, t]) => h('option',{value:v}, t)))) : null,
+    h('button',{class:'btn',type:'submit'}, 'Subir'));
+  f.addEventListener('submit', async e => {
+    e.preventDefault(); if (!validar(f)) return;
+    const file = f.archivo.files[0];
+    if (file.size > MAX_MB * 1048576) return toast(`El archivo pesa más de ${MAX_MB} MB.`, true);
+    await ocupado(e.submitter, async () => {
+      const path = `${id}/entregas/${Date.now()}-${limpio(file.name)}`;
+      await q(sb.storage.from(BUCKET).upload(path, file, { contentType:file.type || 'application/octet-stream' }));
+      try { await q(sb.from('archivos').insert({ cliente_id:id, nombre:(f.nombre.value.trim() || file.name).slice(0, 160), carpeta:f.carpeta.value, path, tamano:file.size, ...(f.proyecto?.value ? { proyecto_id:f.proyecto.value } : {}) })); }
+      catch(er){ await sb.storage.from(BUCKET).remove([path]); throw er; }
+      toast('Archivo subido. El cliente ya lo ve y le avisamos.'); render();
+    });
+  });
+  const borrar = (a, btn) => { if (!confirm(`¿Borrar “${a.nombre}”? El cliente deja de verlo y no se puede deshacer.`)) return;
+    return ocupado(btn, async () => { await q(sb.from('archivos').delete().eq('id', a.id)); await sb.storage.from(BUCKET).remove([a.path]); toast('Borrado.'); render(); }); };
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Archivos para el cliente'), pill(String(arch.length))),
+    h('div',{}, f, arch.map(a => h('div',{class:'li row',style:'justify-content:space-between;align-items:center;gap:.6rem'},
+      h('span',{style:'min-width:0;overflow-wrap:anywhere'}, icoArch(a.nombre) + ' ' + a.nombre, ' ', h('span',{class:'mut'}, [a.carpeta, fCorta(a.creado_en), kb(a.tamano)].filter(Boolean).join(' · '))),
+      h('span',{class:'row',style:'gap:6px;flex-wrap:nowrap'}, h('button',{type:'button',class:'btn ol sm',onclick:e => abrirArchivo(a.path, e.currentTarget)}, 'Abrir'),
+        h('button',{type:'button',class:'btn peligro sm','aria-label':`Borrar ${a.nombre}`,onclick:e => borrar(a, e.currentTarget)}, 'Borrar'))))));
+}
+
+function boxCupos(id, cup){
+  if (cup == null) return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Consumo del plan'), pill('falta el SQL 07','warn')), h('div',{}, h('p',{class:'mut'}, 'Corré la migración 07 en Supabase para activar el consumo del plan.')));
+  const mes = iso(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
+  const fila = c => {
+    const nom = h('input',{name:'nombre',maxlength:'80',required:true,'aria-label':'Nombre',value:c.nombre || ''}), lim = h('input',{type:'number',name:'limite',min:'1',max:'1000',required:true,'aria-label':'Cupo por mes',value:c.limite || ''}),
+      fu = h('select',{'aria-label':'Cómo se cuenta'}, [['publicaciones','Publicaciones publicadas (automático)'],['producciones','Sesiones realizadas (automático)'],['manual','Lo cargo yo']].map(([v, t]) => h('option',{value:v, selected:v === (c.fuente || 'manual')}, t))),
+      us = h('input',{type:'number',min:'0',max:'1000','aria-label':'Usado este mes',value:c.fuente === 'manual' && String(c.periodo || '').startsWith(mes.slice(0, 7)) ? c.usado : 0});
+    const sync = () => { us.disabled = fu.value !== 'manual'; }; fu.addEventListener('change', sync); sync();
+    const guardar = btn => {
+      if (!nom.value.trim() || !(+lim.value >= 1)){ (nom.value.trim() ? lim : nom).focus(); return toast('Poné un nombre y un cupo de 1 o más.', true); }
+      const v = { cliente_id:id, nombre:nom.value.trim(), limite:Math.round(+lim.value), fuente:fu.value, usado:fu.value === 'manual' ? Math.max(0, Math.round(+us.value || 0)) : 0, periodo:fu.value === 'manual' ? mes : null };
+      return ocupado(btn, async () => { await q(c.id ? sb.from('plan_cupos').update(v).eq('id', c.id) : sb.from('plan_cupos').insert(v)); toast('Guardado.'); render(); });
+    };
+    return h('div',{class:'li'}, h('div',{class:'row'}, h('label',{style:'flex:2 1 180px'}, 'Qué incluye', nom), h('label',{style:'flex:0 1 110px'}, 'Cupo por mes', lim),
+      h('label',{style:'flex:2 1 220px'}, 'Cómo se cuenta', fu), h('label',{style:'flex:0 1 110px'}, 'Usado (mes)', us),
+      h('button',{type:'button',class:'btn sm',onclick:e => guardar(e.currentTarget)}, c.id ? 'Guardar' : 'Agregar'),
+      c.id ? h('button',{type:'button',class:'btn peligro sm',onclick:e => { if (confirm(`¿Quitar “${c.nombre}” del plan?`)) ocupado(e.currentTarget, async () => { await q(sb.from('plan_cupos').delete().eq('id', c.id)); render(); }); }}, 'Quitar') : null));
+  };
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Consumo del plan'), pill(cup.length ? `${cup.length} cupos` : 'sin definir', cup.length ? '' : 'warn')),
+    h('div',{}, h('p',{class:'mut',style:'font-size:.88rem'}, 'Lo que incluye el plan de este cliente. El cliente ve cuánto usó en el mes. Las publicaciones y las sesiones se cuentan solas; lo demás lo cargás vos y se reinicia cada mes.'),
+      cup.map(fila), h('p',{class:'grupo'}, 'Agregar'), fila({})));
+}
+
+function sinSQL(titulo, n){ return h('details',{class:'box'}, h('summary',{}, h('span',{}, titulo), pill(`falta el SQL ${n}`,'warn')), h('div',{}, h('p',{class:'mut'}, `Corré la migración ${n} en Supabase para activar esto.`))); }
+const fNum = n => new Intl.NumberFormat('es-AR').format(n);
+function boxObjetivos(id, obj){
+  if (obj == null) return sinSQL('Objetivos de crecimiento', '08');
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Objetivos de crecimiento'), pill(String(obj.length))),
+    h('div',{}, h('div',{class:'row',style:'margin-bottom:8px'}, h('button',{type:'button',class:'btn sm',onclick:() => editar('objetivo', null, { cliente_id:id })}, '+ Objetivo')),
+      h('p',{class:'mut',style:'font-size:.88rem'}, 'Cargá el resultado real a medida que lo tengas. Si no hay un dato verificable, no lo cargues.'),
+      obj.length ? obj.map(o => h('button',{type:'button',class:'item',onclick:() => editar('objetivo', o)},
+        h('span',{class:'tx'}, o.nombre, h('small',{}, `${fNum(o.actual)} de ${fNum(o.meta)} ${o.unidad || ''}`.trim())), o.visible_cliente ? pill('Lo ve el cliente','ok') : pill('Interno'))) : vacio('Sin objetivos todavía.')));
+}
+function boxRecomendaciones(id, rec){
+  if (rec == null) return sinSQL('Recomendaciones', '08');
+  const E = { borrador:['Borrador',''], publicada:['Publicada','ok'], convertida:['Convertida en pedido','oro'], descartada:['Descartada','warn'] };
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Recomendaciones para el cliente'), pill(String(rec.length))),
+    h('div',{}, h('div',{class:'row',style:'margin-bottom:8px'}, h('button',{type:'button',class:'btn sm',onclick:() => editar('recomendacion', null, { cliente_id:id })}, '+ Recomendación')),
+      rec.length ? rec.map(r => h('button',{type:'button',class:'item',onclick:() => editar('recomendacion', r)}, h('span',{class:'tx'}, r.titulo, h('small',{}, fCorta(r.creado_en))), pill(...E[r.estado]))) : vacio('Sin recomendaciones todavía.')));
+}
+function boxProyectos(id, proy, etap, arch){
+  if (proy == null) return sinSQL('Proyectos', '08');
+  const fila = p => {
+    const et = etap.filter(e => e.proyecto_id === p.id), av = avance(p, et);
+    const sugerir = btn => ocupado(btn, async () => { await q(sb.from('proyecto_etapas').insert(ETAPAS_TIPO[p.tipo].map((nombre, i) => ({ proyecto_id:p.id, cliente_id:id, nombre, orden:i + 1 })))); render(); });
+    const nueva = h('input',{maxlength:'80','aria-label':'Nueva etapa',placeholder:'Nueva etapa'});
+    const agregar = btn => nueva.value.trim() ? ocupado(btn, async () => { await q(sb.from('proyecto_etapas').insert({ proyecto_id:p.id, cliente_id:id, nombre:nueva.value.trim(), orden:et.length + 1 })); render(); }) : nueva.focus();
+    return h('div',{class:'li'},
+      h('div',{class:'row',style:'justify-content:space-between;align-items:center;gap:.5rem'}, h('b',{}, p.nombre), h('span',{class:'row',style:'gap:6px'}, pill(...EST_PROY[p.estado]), p.visible_cliente ? null : pill('Interno'),
+        h('button',{type:'button',class:'btn ol sm',onclick:() => verProyecto(p, et, arch, true)}, 'Mensajes y archivos'), h('button',{type:'button',class:'btn ol sm',onclick:() => editar('proyecto', p)}, 'Editar'))),
+      h('p',{class:'mut',style:'margin:.2rem 0 .4rem;font-size:.85rem'}, `${TIPOS_PROY[p.tipo]} · ${av}% listo`), barra(av, `${p.nombre}: ${av}% listo`),
+      et.map(e => h('div',{class:'row',style:'align-items:center;gap:.5rem;margin-top:6px'}, h('span',{style:'flex:1 1 160px'}, e.nombre),
+        (() => { const sel = h('select',{'aria-label':`Estado de ${e.nombre}`,style:'width:auto;min-height:36px'}, ETAPA_EST.map(([v, t]) => h('option',{value:v, selected:v === e.estado}, t)));
+          sel.addEventListener('change', () => ocupado(sel, async () => { await q(sb.from('proyecto_etapas').update({ estado:sel.value }).eq('id', e.id)); render(); })); return sel; })(),
+        h('button',{type:'button',class:'btn peligro sm','aria-label':`Quitar ${e.nombre}`,onclick:b => { if (confirm(`¿Quitar la etapa “${e.nombre}”?`)) ocupado(b.currentTarget, async () => { await q(sb.from('proyecto_etapas').delete().eq('id', e.id)); render(); }); }}, 'Quitar'))),
+      h('div',{class:'row',style:'margin-top:8px;align-items:center'}, nueva, h('button',{type:'button',class:'btn sm',onclick:b => agregar(b.currentTarget)}, 'Agregar etapa'),
+        et.length ? null : h('button',{type:'button',class:'btn ol sm',onclick:b => sugerir(b.currentTarget)}, 'Usar etapas sugeridas')));
+  };
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Proyectos'), pill(String(proy.length))),
+    h('div',{}, h('div',{class:'row',style:'margin-bottom:8px'}, h('button',{type:'button',class:'btn sm',onclick:() => editar('proyecto', null, { cliente_id:id })}, '+ Proyecto')),
+      proy.length ? proy.map(fila) : vacio('Sin proyectos todavía.')));
 }
 
 function boxAccesos(id, acc){
@@ -1547,21 +1788,28 @@ function propuesta(data, out, ta){
 /* ================= datos y vistas del CLIENTE ================= */
 async function cargarCliente(cid){
   const y = new Date().getFullYear(), m = new Date().getMonth() + 1, desde = iso(new Date(y, m - 4, 1));
-  const [ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan, diag, pre] = await Promise.all([
+  const opc = p => p.catch(e => { if (['PGRST205','42P01'].includes(e?.code)) return []; throw e; }); // tabla de una migración que todavía no se corrió
+  const [ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan, diag, pre, arch, cupos, obj, rec, proy, etap] = await Promise.all([
     q(sb.rpc('mi_ficha',{p_cliente:cid})),
     q(sb.from('contenidos').select('id,fecha,titulo,idea,copy,formato,red,estado,archivos,aprobacion,comentario_cliente').eq('cliente_id',cid).eq('visible_cliente',true).gte('fecha',desde).order('fecha')),
     q(sb.from('tareas').select('id,titulo,texto,texto_cliente,hecha,creado_en').eq('cliente_id',cid).eq('visible_cliente',true).order('creado_en',{ascending:false}).limit(40)),
     q(sb.from('producciones').select('id,fecha,hora,ubicacion').eq('cliente_id',cid).eq('visible_cliente',true).gte('fecha',desde).order('fecha')),
     q(sb.from('eventos').select('id,fecha,hora,titulo,tipo').eq('cliente_id',cid).eq('visible_cliente',true).gte('fecha',desde).order('fecha')),
     q(sb.from('metricas_mensuales').select('*').eq('cliente_id',cid).order('anio').order('mes')),
-    q(sb.from('reportes').select('id,anio,mes,titulo,archivo_path').eq('cliente_id',cid).order('anio',{ascending:false}).order('mes',{ascending:false})),
+    q(sb.from('reportes').select('id,anio,mes,titulo,archivo_path,creado_en').eq('cliente_id',cid).order('anio',{ascending:false}).order('mes',{ascending:false})),
     q(sb.from('solicitudes').select('*').eq('cliente_id',cid).order('creado_en',{ascending:false}).limit(30)),
     q(sb.from('servicios_cliente').select('nombre,frecuencia,descripcion,activo').eq('cliente_id',cid)),
     q(sb.from('pagos').select('fecha,monto,nota').eq('cliente_id',cid).order('fecha',{ascending:false}).limit(24)),
     q(sb.from('planificaciones_mensuales').select('objetivos,resultados').eq('cliente_id',cid).eq('anio',y).eq('mes',m)),
     q(sb.from('diagnosticos').select('*').eq('cliente_id',cid).maybeSingle()),
-    q(sb.from('presupuestos').select('*').eq('cliente_id',cid).neq('estado','borrador').order('creado_en',{ascending:false}))]);
-  S.C = { ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan:plan[0], diag, pre };
+    q(sb.from('presupuestos').select('*').eq('cliente_id',cid).neq('estado','borrador').order('creado_en',{ascending:false})),
+    opc(q(sb.from('archivos').select('*').eq('cliente_id',cid).order('creado_en',{ascending:false}).limit(100))),
+    opc(q(sb.from('plan_cupos').select('id,nombre,limite,fuente,usado,periodo').eq('cliente_id',cid).order('orden').order('creado_en'))),
+    opc(q(sb.from('objetivos').select('*').eq('cliente_id',cid).eq('visible_cliente',true).order('creado_en',{ascending:false}))),
+    opc(q(sb.from('recomendaciones').select('id,titulo,texto,estado,creado_en').eq('cliente_id',cid).in('estado',['publicada','convertida']).order('creado_en',{ascending:false}))),
+    opc(q(sb.from('proyectos').select('*').eq('cliente_id',cid).eq('visible_cliente',true).order('creado_en',{ascending:false}))),
+    opc(q(sb.from('proyecto_etapas').select('id,proyecto_id,nombre,orden,estado').eq('cliente_id',cid).order('orden')))]);
+  S.C = { ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan:plan[0], diag, pre, arch, cupos, obj, rec, proy, etap };
 }
 function selectorNegocio(){
   if (S.equipo || S.misClientes.length < 2) return;
@@ -1585,13 +1833,22 @@ VC.inicio = () => {
     ...C.prod.filter(p => p.fecha <= hoy).map(p => ({ f:p.fecha, ok:true, txt:'Sesión de producción' + (p.ubicacion ? ` en ${p.ubicacion}` : ''), sub:'Producción' })),
     ...C.sol.filter(s => s.estado === 'resuelta').map(s => ({ f:s.creado_en, ok:true, txt:`Resolvimos tu ${TIPOS_SOL[s.tipo].toLowerCase()}`, sub:s.respuesta }))
   ].filter(i => i.f && i.txt).sort((a,b) => String(b.f).localeCompare(String(a.f))).slice(0, 12);
-  const preEnv = C.pre.filter(p => p.estado === 'enviado');
+  const preEnv = C.pre.filter(p => p.estado === 'enviado'), camb = C.cont.filter(c => c.aprobacion === 'cambios' && c.estado !== 'publicado');
+  const acciones = [
+    ...preEnv.map(p => ({ ico:'$', t:`Presupuesto para revisar: ${p.titulo}`, s:'Miralo y aceptalo desde acá', cta:'Ver', al:() => verPresupuesto(p) })),
+    ...pend.map(c => ({ ico:'▣', t:`Para aprobar: ${c.titulo || c.formato || 'Publicación'}`, s:[fCorta(c.fecha), c.red].filter(Boolean).join(' · '), cta:'Revisar', al:() => verContenido(c) })),
+    ...camb.map(c => ({ ico:'↺', t:`Pediste cambios: ${c.titulo || c.formato || 'Publicación'}`, s:'El equipo lo está ajustando', cta:'Ver', espera:true, al:() => verContenido(c) }))];
+  const semana = [
+    ...C.cont.map(c => ({ f:c.fecha, ico:'▣', t:c.titulo || c.formato || 'Publicación', s:[ESTADOS[c.estado], c.red].filter(Boolean).join(' · ') })),
+    ...C.prod.map(p => ({ f:p.fecha, ico:'📷', t:'Sesión de producción', s:[hhmm(p.hora), p.ubicacion].filter(Boolean).join(' · ') })),
+    ...C.ev.map(e => ({ f:e.fecha, ico:'◷', t:e.titulo || 'Reunión', s:hhmm(e.hora) }))]
+    .filter(x => x.f >= hoy && x.f <= masDias(7)).sort((a,b) => a.f.localeCompare(b.f));
   fill($('view'),
     bannerInstalar(),
-    preEnv.length ? h('button',{type:'button',class:'card asis',onclick:() => verPresupuesto(preEnv[0]),style:'display:flex;width:100%;font:inherit;text-align:left;justify-content:space-between;align-items:center;gap:1rem;color:var(--tx);cursor:pointer'},
-      h('span',{}, h('b',{}, preEnv.length === 1 ? `Tenés un presupuesto para revisar: ${preEnv[0].titulo}` : `Tenés ${preEnv.length} presupuestos para revisar`), h('br'), h('span',{class:'mut'}, 'Miralo y aceptalo desde acá.')), h('span',{class:'btn sm'}, 'Ver')) : null,
-    pend.length ? h('a',{class:'card asis',href:'#/calendario',style:'display:flex;justify-content:space-between;align-items:center;gap:1rem;text-decoration:none;color:var(--tx)'},
-      h('span',{}, h('b',{}, `Tenés ${pend.length} ${pend.length === 1 ? 'publicación' : 'publicaciones'} para aprobar`), h('br'), h('span',{class:'mut'}, 'Revisalas y danos el OK o pedí cambios.')), h('span',{class:'btn sm'}, 'Ver')) : null,
+    h('section',{class:'card asis','aria-labelledby':'h-at'}, h('h2',{id:'h-at'}, 'Necesita tu atención', acciones.filter(a => !a.espera).length ? h('small',{}, acciones.filter(a => !a.espera).length) : null),
+      acciones.length ? acciones.map(a => h('button',{type:'button',class:'item',style:`--c:${a.espera ? '#F08A80' : '#E9B872'}`,onclick:a.al},
+        h('span',{class:'ico','aria-hidden':'true'}, a.ico), h('span',{class:'tx'}, a.t, h('small',{}, a.s)), h('span',{class:'btn sm'}, a.cta)))
+        : h('p',{style:'margin:0'}, '✓ Estás al día: no hay nada pendiente de tu parte.')),
     h('div',{class:'stats'},
       h('div',{class:'stat'}, h('b',{}, `${pub}/${delMes.length}`), h('span',{}, `publicaciones de ${MESES[m]}`)),
       h('div',{class:'stat oro'}, h('b',{}, prox ? fCorta(prox.fecha) : '—'), h('span',{}, prox ? prox.titulo : 'sin producciones agendadas')),
@@ -1601,7 +1858,10 @@ VC.inicio = () => {
         tl.length ? h('ul',{class:'tasks'}, tl.map(i => h('li',{class:'task'}, h('span',{'aria-hidden':'true',style:`width:10px;height:10px;border-radius:50%;margin-top:8px;flex:0 0 auto;background:${i.ok ? 'var(--ok)' : 'var(--gold)'}`}),
           h('div',{}, h('span',{class:'tt'}, i.txt), h('span',{class:'mut',style:'font-size:.82rem'}, [fRel(String(i.f).slice(0,10)), i.sub].filter(Boolean).join(' · ')))))) : vacio('Pronto vas a ver acá cada avance.')),
       h('div',{},
-        h('section',{class:'card'}, h('h2',{}, 'Tu plan'), h('p',{style:'margin:0 0 .4rem'}, h('b',{}, f.plan || 'Plan ORIGEN'), f.pausado ? ' · en pausa' : ''),
+        h('section',{class:'card','aria-labelledby':'h-sem'}, h('h2',{id:'h-sem'}, 'Esta semana'),
+          semana.length ? semana.map(x => h('div',{class:'item',style:'--c:var(--gold2);cursor:default'}, h('span',{class:'ico','aria-hidden':'true'}, x.ico),
+            h('span',{class:'tx'}, x.t, h('small',{}, [fRel(x.f), x.s].filter(Boolean).join(' · '))))) : vacio('No hay nada agendado para los próximos 7 días.')),
+        h('section',{class:'card'}, h('h2',{}, 'Tu plan', usoCupos(C).length ? h('small',{}, `uso de ${MESES[m]}`) : null), h('p',{style:'margin:0 0 .4rem'}, h('b',{}, f.plan || 'Plan ORIGEN'), f.pausado ? ' · en pausa' : ''), barrasCupos(C),
           f.objetivo ? h('p',{class:'mut',style:'margin:0 0 .6rem'}, 'Objetivo: ', f.objetivo) : null,
           h('div',{class:'row',style:'gap:6px'}, Object.entries(f.redes || {}).map(([k,v]) => { const u = v && (httpUrl(v) || (k === 'instagram' ? httpUrl('https://instagram.com/' + String(v).replace(/^@/,'')) : null)); return u ? h('a',{class:'btn ol sm',href:u,target:'_blank',rel:'noopener'}, k[0].toUpperCase() + k.slice(1)) : null; }))),
         h('section',{class:'card'}, h('h2',{}, 'Objetivo del mes'), C.plan?.objetivos ? h('div',{class:'pre'}, C.plan.objetivos) : vacio('Lo definimos a principio de mes.'),
@@ -1632,10 +1892,34 @@ VC.calendario = () => {
     h('div',{class:'leyenda'}, pill('Para aprobar','',col.pendiente), pill('Aprobado','',col.aprobado), pill('Pediste cambios','',col.cambios), pill('Producción','','#7FD6E8'), pill('Reunión','','#B59CF0')));
 };
 
+const QUIEN = { comentario:'comentó', aprobado:'aprobó', cambios:'pidió cambios', reabierto:'volvió a pedir la aprobación' };
+function pasosContenido(c){
+  const ks = Object.keys(ESTADOS).filter(k => k !== 'idea'), at = ks.indexOf(c.estado);
+  return h('ol',{class:'pasos','aria-label':'Estado de la publicación'}, ks.map((k, i) => h('li',{class:i < at ? 'hecho' : '','aria-current':i === at ? 'step' : null}, ESTADOS[k])));
+}
+function hiloContenido(c, equipo){ // conversación de una publicación: la lee y la escribe el cliente o el equipo
+  const lista = h('ul',{class:'hist','aria-live':'polite'}), caja = h('textarea',{id:'hc-txt',maxlength:'1000',placeholder:equipo ? 'Escribile al cliente sobre esta publicación' : 'Ej.: cambiar la foto de portada'});
+  const quien = f => f.de === 'equipo' ? 'ORIGEN' : equipo ? 'Cliente' : 'Vos';
+  const cargar = async () => {
+    let filas = [];
+    try { filas = await q(sb.from('contenido_historial').select('id,de,tipo,texto,creado_en').eq('contenido_id', c.id).order('creado_en')); } catch(e){ console.error(e); }
+    if (!filas.length && c.comentario_cliente) filas = [{ de:'cliente', tipo:'comentario', texto:c.comentario_cliente }];
+    fill(lista, filas.length ? filas.map(f => h('li',{class:f.de}, h('span',{class:'q'}, h('b',{}, quien(f)), ` ${QUIEN[f.tipo]}${f.creado_en ? ' · ' + cuando(f.creado_en) : ''}`), f.texto ? h('p',{class:'t'}, f.texto) : null))
+      : h('li',{}, h('span',{class:'q'}, 'Todavía no hay mensajes.')));
+  };
+  const enviar = btn => {
+    const t = caja.value.trim();
+    if (!t){ caja.setAttribute('aria-invalid','true'); caja.focus(); toast('Escribí algo primero.', true); return; }
+    return ocupado(btn, async () => { await q(sb.rpc('comentar_contenido',{ p_id:c.id, p_texto:t })); caja.value = ''; caja.removeAttribute('aria-invalid'); toast('Enviado.'); await cargar(); });
+  };
+  cargar();
+  return { lista, caja, enviar };
+}
+
 function verContenido(c){
   const links = (Array.isArray(c.archivos) ? c.archivos : []).map(a => httpUrl(typeof a === 'string' ? a : a?.url)).filter(Boolean);
-  const coment = h('textarea',{id:'v-com',maxlength:'1000',placeholder:'Ej.: cambiar la foto de portada'});
-  const puede = !S.equipo && c.estado !== 'publicado';
+  const equipo = S.equipo, H = hiloContenido(c, equipo), coment = H.caja;
+  const puede = !equipo && c.estado !== 'publicado';
   const decidir = async (btn, dec) => {
     const t = coment.value.trim();
     if (dec === 'cambios' && !t){ coment.setAttribute('aria-invalid','true'); coment.focus(); toast('Contanos qué cambiar.', true); return; }
@@ -1645,17 +1929,24 @@ function verContenido(c){
       toast(dec === 'aprobado' ? '¡Aprobado! Gracias 🙌' : 'Listo, el equipo ya lo ve.'); render();
     });
   };
+  const reabrir = btn => ocupado(btn, async () => {
+    await q(sb.from('contenidos').update({ estado:'revision', aprobacion:'pendiente' }).eq('id', c.id));
+    cerrarHoja(); toast('Le avisamos al cliente que lo vuelva a revisar.'); await cargarCliente(S.cid); render();
+  });
   abrirHoja(c.titulo || 'Publicación',
     h('p',{class:'mut',style:'margin-top:0'}, [fLarga(c.fecha), c.red, c.formato].filter(Boolean).join(' · '), ' ', pill(...APROB[c.aprobacion])),
+    pasosContenido(c),
     c.idea ? [h('h3',{style:'font-size:.9rem;margin:.6rem 0 0'}, 'Idea'), h('div',{class:'pre'}, c.idea)] : null,
     c.copy ? [h('h3',{style:'font-size:.9rem;margin:.6rem 0 0'}, 'Texto de la publicación'), h('div',{class:'pre'}, c.copy)] : null,
     links.length ? h('p',{}, links.map((u,i) => h('a',{class:'btn ol sm',href:u,target:'_blank',rel:'noopener',style:'margin:0 6px 6px 0'}, `Ver la pieza${links.length > 1 ? ' ' + (i+1) : ''}`))) : null,
-    c.comentario_cliente ? h('p',{}, h('b',{}, 'Tu comentario: '), c.comentario_cliente) : null,
-    puede ? [h('label',{for:'v-com',style:'margin-top:.4rem'}, '¿Algún comentario? (opcional para aprobar)'), coment,
+    h('h3',{style:'font-size:.9rem;margin:.8rem 0 0'}, 'Conversación'), H.lista,
+    c.estado !== 'publicado' || equipo ? [h('label',{for:'hc-txt'}, puede ? '¿Algún comentario? (opcional para aprobar)' : 'Escribir un comentario'), coment,
       h('div',{class:'row',style:'margin-top:12px'},
-        h('button',{type:'button',class:'btn',onclick:e => decidir(e.currentTarget,'aprobado')}, '✓ Aprobar'),
-        h('button',{type:'button',class:'btn ol',onclick:e => decidir(e.currentTarget,'cambios')}, 'Pedir cambios'))]
-      : S.equipo ? h('p',{class:'mut'}, 'Vista del equipo: el cliente aprueba desde su cuenta.') : null);
+        h('button',{type:'button',class:'btn ol',onclick:e => H.enviar(e.currentTarget)}, equipo ? 'Responder' : 'Enviar comentario'),
+        puede ? [h('button',{type:'button',class:'btn',onclick:e => decidir(e.currentTarget,'aprobado')}, '✓ Aprobar'),
+          h('button',{type:'button',class:'btn ol',onclick:e => decidir(e.currentTarget,'cambios')}, 'Pedir cambios')] : null,
+        equipo && c.aprobacion !== 'pendiente' ? h('button',{type:'button',class:'btn',onclick:e => reabrir(e.currentTarget)}, 'Volver a pedir aprobación') : null)] : null,
+    equipo ? h('p',{class:'mut'}, 'Vista del equipo: el cliente aprueba desde su cuenta.') : null);
 }
 
 const sv = (t, a, ...k) => { const e = document.createElementNS('http://www.w3.org/2000/svg', t); for (const x in a) e.setAttribute(x, a[x]); e.append(...k); return e; };
@@ -1813,10 +2104,101 @@ function cardPresencia(d){
     h('button',{type:'button',class:'btn',style:'margin-top:6px',onclick:() => pedirServicio(SERVICIOS[3], 'Quiero mejorar mi presencia digital según el diagnóstico.')}, 'Quiero mejorarlo'));
 }
 
+/* ================= consumo del plan y archivos (cliente) ================= */
+function usoCupos(C){ // lo ya publicado / realizado este mes; los manuales los carga el equipo y valen solo para el mes cargado
+  const y = new Date().getFullYear(), m = new Date().getMonth(), hoy = hoyISO(), mes = `${y}-${String(m + 1).padStart(2,'0')}`;
+  const auto = { publicaciones:() => C.cont.filter(c => enMes(c.fecha, y, m) && c.estado === 'publicado').length,
+                 producciones:() => C.prod.filter(p => enMes(p.fecha, y, m) && p.fecha <= hoy).length };
+  return (C.cupos || []).map(c => ({ ...c, mes: c.fuente === 'manual' ? (String(c.periodo || '').startsWith(mes) ? c.usado : 0) : auto[c.fuente]() }));
+}
+function barrasCupos(C){
+  const u = usoCupos(C); if (!u.length) return null;
+  return h('div',{style:'display:grid;gap:12px;margin-top:.6rem'}, u.map(c => {
+    const pct = Math.round(c.mes / c.limite * 100), pasado = c.mes > c.limite;
+    return h('div',{}, h('div',{class:'row',style:'justify-content:space-between;align-items:baseline;gap:.5rem'}, h('span',{}, c.nombre), h('b',{}, `${c.mes} de ${c.limite}`, pasado ? h('span',{class:'mut',style:'font-weight:400'}, ` (+${c.mes - c.limite})`) : null)),
+      barra(pct, `${c.nombre}: ${c.mes} de ${c.limite} este mes`));
+  }));
+}
+function listaArchivos(C){
+  const ent = (C.arch || []).map(a => ({ n:a.nombre, sec:'entregas', sub:{ entregas:'Entrega', contratos:'Contrato', marca:'Marca' }[a.carpeta], f:a.creado_en, path:a.path, t:a.tamano }));
+  const rep = C.rep.map(r => ({ n:r.titulo || `Reporte de ${MESES[r.mes-1]} ${r.anio}`, sec:'reportes', sub:'Reporte', f:r.creado_en || `${r.anio}-${String(r.mes).padStart(2,'0')}-28`, path:r.archivo_path }));
+  const mat = C.sol.flatMap(s => (Array.isArray(s.archivos) ? s.archivos : []).filter(a => a?.path).map(a => ({ n:a.nombre || 'archivo', sec:'material', sub:'Lo que mandaste', f:s.creado_en, path:a.path })));
+  return [...ent, ...rep, ...mat].sort((a, b) => String(b.f).localeCompare(String(a.f)));
+}
+VC.archivos = () => {
+  titulo('Mis archivos', 'Lo que te entregamos y lo que nos mandaste'); selectorNegocio();
+  if (!S.fArch) S.fArch = 'todo';
+  const F = [['todo','Todo'],['entregas','Entregas'],['reportes','Reportes'],['material','Lo que mandaste']], ver = listaArchivos(S.C).filter(x => S.fArch === 'todo' || x.sec === S.fArch);
+  fill($('view'),
+    h('div',{class:'row',style:'justify-content:space-between;align-items:center;margin-bottom:12px'},
+      h('div',{class:'seg',role:'group','aria-label':'Tipo de archivo'}, F.map(([k, t]) => h('button',{type:'button','aria-pressed':String(k === S.fArch),onclick:() => { S.fArch = k; render(); }}, t))),
+      h('a',{class:'btn ol sm',href:'#/pedir'}, 'Mandar material')),
+    h('section',{class:'card','aria-labelledby':'h-ar'}, h('h2',{id:'h-ar'}, 'Archivos', h('small',{}, ver.length)),
+      ver.length ? ver.map(x => h('div',{class:'li row',style:'justify-content:space-between;align-items:center;gap:.7rem'},
+        h('span',{style:'min-width:0;overflow-wrap:anywhere'}, h('span',{'aria-hidden':'true'}, icoArch(x.n) + ' '), h('b',{}, x.n), h('br'), h('span',{class:'mut',style:'font-size:.82rem'}, [x.sub, fCorta(x.f), kb(x.t)].filter(Boolean).join(' · '))),
+        h('button',{type:'button',class:'btn sm',onclick:e => abrirArchivo(x.path, e.currentTarget)}, 'Abrir')))
+        : vacio(S.fArch === 'todo' ? 'Acá van a aparecer tus reportes, entregas y lo que nos mandes.' : 'Todavía no hay archivos en esta categoría.')));
+};
+
+function verProyecto(p, et, arch, equipo){ // detalle: etapas, archivos y conversación (la usan el cliente y el equipo)
+  const av = avance(p, et), fl = (arch || []).filter(a => a.proyecto_id === p.id), lista = h('ul',{class:'hist','aria-live':'polite'}), caja = h('textarea',{id:'pm-txt',maxlength:'1000',placeholder:equipo ? 'Escribile al cliente sobre este proyecto' : 'Escribinos sobre este proyecto'});
+  const cargar = async () => {
+    let m = []; try { m = await q(sb.from('proyecto_mensajes').select('id,de,texto,creado_en').eq('proyecto_id', p.id).order('creado_en')); } catch(e){ console.error(e); }
+    fill(lista, m.length ? m.map(x => h('li',{class:x.de}, h('span',{class:'q'}, h('b',{}, x.de === 'equipo' ? 'ORIGEN' : equipo ? 'Cliente' : 'Vos'), ' · ' + cuando(x.creado_en)), h('p',{class:'t'}, x.texto))) : h('li',{}, h('span',{class:'q'}, 'Todavía no hay mensajes.')));
+  };
+  const enviar = btn => { const t = caja.value.trim(); if (!t){ caja.setAttribute('aria-invalid','true'); caja.focus(); return toast('Escribí algo primero.', true); }
+    return ocupado(btn, async () => { await q(sb.rpc('comentar_proyecto',{ p_id:p.id, p_texto:t })); caja.value = ''; caja.removeAttribute('aria-invalid'); toast('Enviado.'); await cargar(); }); };
+  cargar();
+  abrirHoja(p.nombre,
+    h('p',{class:'mut',style:'margin:0 0 .5rem'}, [TIPOS_PROY[p.tipo], p.inicio ? `desde ${fCorta(p.inicio)}` : null, p.estimada ? `entrega estimada ${fCorta(p.estimada)}` : null, usrDe(p.responsable_id) ? `responsable: ${usrDe(p.responsable_id).nombre.split(' ')[0]}` : null].filter(Boolean).join(' · ')),
+    pill(...EST_PROY[p.estado]), p.descripcion ? h('p',{style:'white-space:pre-wrap;overflow-wrap:anywhere'}, p.descripcion) : null,
+    h('p',{style:'margin:.8rem 0 .3rem'}, h('b',{}, `${av}% listo`)), barra(av, `Avance: ${av}%`),
+    et.length ? h('ol',{class:'pasos',style:'display:grid;gap:6px;margin-top:.7rem'}, et.map(e => h('li',{style:e.estado === 'en_curso' ? 'color:var(--gold)' : null}, (e.estado === 'hecha' ? '✓ ' : e.estado === 'en_curso' ? '▶ ' : '○ ') + e.nombre, h('span',{class:'mut'}, ' · ' + ETAPA_EST.find(x => x[0] === e.estado)[1])))) : null,
+    fl.length ? h('section',{}, h('h3',{style:'font-size:.9rem;margin:.9rem 0 .3rem'}, 'Archivos del proyecto'), fl.map(a => h('div',{class:'li row',style:'justify-content:space-between;align-items:center;gap:.6rem'}, h('span',{style:'overflow-wrap:anywhere'}, icoArch(a.nombre) + ' ' + a.nombre),
+      h('button',{type:'button',class:'btn sm',onclick:e => abrirArchivo(a.path, e.currentTarget)}, 'Abrir')))) : null,
+    h('section',{}, h('h3',{style:'font-size:.9rem;margin:.9rem 0 .3rem'}, 'Conversación'), lista, h('label',{for:'pm-txt'}, equipo ? 'Escribirle al cliente' : 'Tu mensaje'), caja,
+      h('div',{class:'row',style:'margin-top:8px'}, h('button',{type:'button',class:'btn sm',onclick:e => enviar(e.currentTarget)}, 'Enviar'))));
+}
+
+VC.proyectos = () => {
+  titulo('Proyectos', 'Cómo avanza lo que estamos armando'); selectorNegocio();
+  const C = S.C;
+  fill($('view'), h('a',{class:'btn ghost',href:'#/mas',style:'margin-bottom:10px'}, '← Más'),
+    C.proy.length ? C.proy.map(p => { const et = C.etap.filter(e => e.proyecto_id === p.id), av = avance(p, et), sig = et.find(e => e.estado === 'en_curso') || et.find(e => e.estado === 'pendiente');
+      return h('button',{type:'button',class:'card',style:'display:block;width:100%;text-align:left;color:var(--tx);cursor:pointer',onclick:() => verProyecto(p, et, C.arch, false)},
+        h('div',{class:'row',style:'justify-content:space-between;align-items:center;gap:.5rem'}, h('b',{}, p.nombre), pill(...EST_PROY[p.estado])),
+        h('p',{class:'mut',style:'margin:.2rem 0 .5rem;font-size:.85rem'}, [TIPOS_PROY[p.tipo], p.estimada ? `entrega estimada ${fCorta(p.estimada)}` : null, sig && p.estado === 'en_curso' ? `ahora: ${sig.nombre}` : null].filter(Boolean).join(' · ')),
+        barra(av, `${p.nombre}: ${av}% listo`), h('p',{class:'mut',style:'margin:.3rem 0 0;font-size:.82rem'}, `${av}% listo`)); })
+    : h('section',{class:'card'}, vacio('Cuando empecemos un proyecto con vos (web, tienda, identidad, cámaras…), lo seguís desde acá.')));
+};
+
+VC.crecimiento = () => {
+  titulo('Crecimiento', 'Tus objetivos y lo que te recomendamos'); selectorNegocio();
+  const C = S.C, hoy = hoyISO(), pend = C.rec.filter(r => r.estado === 'publicada');
+  const quiero = (r, btn) => ocupado(btn, async () => { await q(sb.rpc('convertir_recomendacion',{ p_id:r.id })); toast('¡Listo! Lo pediste y ORIGEN ya lo ve.'); await cargarCliente(S.cid); render(); });
+  fill($('view'), h('a',{class:'btn ghost',href:'#/mas',style:'margin-bottom:10px'}, '← Más'),
+    h('section',{class:'card','aria-labelledby':'h-ob'}, h('h2',{id:'h-ob'}, 'Objetivos', h('small',{}, C.obj.length)),
+      C.obj.length ? C.obj.map(o => { const pct = Math.min(100, Math.round(o.actual / o.meta * 100)), vence = o.fin && o.fin < hoy && pct < 100;
+        return h('div',{class:'li'}, h('div',{class:'row',style:'justify-content:space-between;align-items:baseline;gap:.5rem'}, h('b',{}, o.nombre), h('span',{}, `${fNum(o.actual)} de ${fNum(o.meta)} ${o.unidad || ''}`.trim())),
+          barra(pct, `${o.nombre}: ${pct}%`), h('p',{class:'mut',style:'margin:.3rem 0 0;font-size:.82rem'}, [`${pct}% logrado`, o.inicio || o.fin ? `${o.inicio ? fCorta(o.inicio) : ''} → ${o.fin ? fCorta(o.fin) : ''}` : null, vence ? 'plazo vencido' : null].filter(Boolean).join(' · ')),
+          o.descripcion ? h('p',{style:'margin:.3rem 0 0'}, o.descripcion) : null); })
+        : vacio('Todavía no definimos objetivos. En tu próxima reunión los armamos juntos.')),
+    h('section',{class:'card','aria-labelledby':'h-re'}, h('h2',{id:'h-re'}, 'Recomendaciones de ORIGEN', h('small',{}, pend.length)),
+      C.rec.length ? C.rec.map(r => h('div',{class:'li'}, h('b',{}, r.titulo), r.estado === 'convertida' ? h('span',{}, ' ', pill('Ya lo pediste','oro')) : null, h('p',{style:'white-space:pre-wrap;overflow-wrap:anywhere;margin:.3rem 0 .5rem'}, r.texto),
+        r.estado === 'publicada' ? h('button',{type:'button',class:'btn sm',onclick:e => quiero(r, e.currentTarget)}, 'Quiero esto') : null))
+        : vacio('Cuando tengamos una idea para hacer crecer tu negocio, la vas a ver acá.')));
+};
+
 VC.mas = () => {
   titulo('Más', 'Presupuestos, reportes y tu plan'); selectorNegocio();
   const C = S.C, sv = C.serv.filter(x => x.activo !== false);
+  const nArch = listaArchivos(C).length;
   fill($('view'),
+    h('a',{class:'card',href:'#/archivos',style:'display:flex;justify-content:space-between;align-items:center;gap:1rem;text-decoration:none;color:var(--tx)'},
+      h('span',{}, h('b',{}, '📁 Mis archivos'), h('br'), h('span',{class:'mut'}, nArch ? `${nArch} ${nArch === 1 ? 'archivo' : 'archivos'}: reportes, entregas y lo que mandaste` : 'Reportes, entregas y lo que nos mandes')), h('span',{class:'btn sm'}, 'Abrir')),
+    h('div',{class:'grid g2'}, [['#/crecimiento','📈 Crecimiento', C.obj.length || C.rec.length ? `${C.obj.length} ${C.obj.length === 1 ? 'objetivo' : 'objetivos'} · ${C.rec.filter(r => r.estado === 'publicada').length} para vos` : 'Objetivos y recomendaciones'],
+      ['#/proyectos','🛠 Proyectos', C.proy.length ? `${C.proy.length} ${C.proy.length === 1 ? 'proyecto' : 'proyectos'}` : 'Cómo avanza lo que armamos']].map(([href, t, d]) =>
+      h('a',{class:'card',href,style:'display:flex;justify-content:space-between;align-items:center;gap:1rem;text-decoration:none;color:var(--tx)'}, h('span',{}, h('b',{}, t), h('br'), h('span',{class:'mut'}, d)), h('span',{class:'btn sm'}, 'Abrir')))),
     C.pre.length ? h('section',{class:'card'}, h('h2',{}, 'Presupuestos'), C.pre.map(p => h('button',{type:'button',class:'item',style:'--c:var(--gold)',onclick:() => verPresupuesto(p)},
       h('span',{class:'ico','aria-hidden':'true'}, '$'), h('span',{class:'tx'}, p.titulo, h('small',{}, fCorta(p.creado_en))), h('b',{style:'white-space:nowrap'}, pesos(p.total)), pill(...PRE_EST[p.estado])))) : null,
     cardPresencia(C.diag),
@@ -1824,7 +2206,7 @@ VC.mas = () => {
       h('span',{}, h('b',{}, r.titulo || `Reporte de ${MESES[r.mes-1]}`), h('br'), h('span',{class:'mut',style:'font-size:.85rem'}, `${MESES[r.mes-1]} ${r.anio}`)),
       h('button',{type:'button',class:'btn sm',onclick:e => abrirArchivo(r.archivo_path, e.currentTarget)}, 'Abrir PDF'))) : vacio('El primer reporte llega al cerrar el mes.')),
     h('div',{class:'grid g2'},
-      h('section',{class:'card'}, h('h2',{}, 'Tu plan'), sv.length ? sv.map(x => h('div',{class:'li'}, h('b',{}, x.nombre), x.frecuencia ? h('span',{class:'mut'}, ' · ' + x.frecuencia) : null, x.descripcion ? h('p',{class:'mut',style:'margin:.2rem 0 0'}, x.descripcion) : null)) : h('p',{}, C.ficha?.plan || 'Plan ORIGEN'),
+      h('section',{class:'card'}, h('h2',{}, 'Tu plan'), barrasCupos(C), sv.length ? sv.map(x => h('div',{class:'li'}, h('b',{}, x.nombre), x.frecuencia ? h('span',{class:'mut'}, ' · ' + x.frecuencia) : null, x.descripcion ? h('p',{class:'mut',style:'margin:.2rem 0 0'}, x.descripcion) : null)) : h('p',{}, C.ficha?.plan || 'Plan ORIGEN'),
         C.ficha?.mensual ? h('p',{style:'margin-top:.8rem'}, 'Abono mensual: ', h('b',{}, pesos(C.ficha.mensual)), C.ficha.dia_cobro ? ` · se cobra el día ${C.ficha.dia_cobro}` : '') : null),
       h('section',{class:'card tbl'}, h('h2',{}, 'Pagos registrados'), C.pag.length ? h('table',{}, h('thead',{}, h('tr',{}, h('th',{scope:'col'}, 'Fecha'), h('th',{scope:'col',class:'num'}, 'Monto'), h('th',{scope:'col'}, 'Detalle'))),
         h('tbody',{}, C.pag.map(p => h('tr',{}, h('td',{}, fCorta(p.fecha)), h('td',{class:'num'}, pesos(p.monto)), h('td',{}, p.nota || ''))))) : vacio('Sin pagos registrados.'))),
