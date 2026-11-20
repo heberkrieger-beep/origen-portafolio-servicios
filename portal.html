@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v5.0 · 2026-11-20 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
+<!-- Portal ORIGEN — v5.0.1 · 2026-11-20 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -1524,7 +1524,9 @@ function boxMetricas(id, met){
 
 /* Buffer: vincula los canales de cada cliente y trae las métricas del mes a "Métricas del mes" */
 function panelBuffer(id, met, f, pintar){
-  const out = h('div',{}), lis = h('div',{});
+  const out = h('div',{}), lis = h('div',{}), est = h('p',{class:'mut',style:'font-size:.9rem'});
+  const estado = async () => { try { const r = await q(sb.from('buffer_canales').select('nombre,red,cuenta').eq('cliente_id', id)); fill(est, r.length ? `Buffer vinculado: ${r.map(c => `${c.nombre} (${c.red}, cuenta ${c.cuenta})`).join(' · ')}.` : 'Buffer: todavía no hay canales vinculados a este cliente. Tocá “Vincular canales de Buffer”.'); } catch { fill(est, ''); } };
+  estado();
   const llamar = async (body) => {
     const { data, error } = await sb.functions.invoke('buffer', { body });
     if (error){ let m = 'Buffer todavía no está activado.'; try { m = (await error.context.json()).error || m; } catch {} throw Object.assign(new Error(m), { propio:true }); }
@@ -1542,7 +1544,7 @@ function panelBuffer(id, met, f, pintar){
           if (i.checked && !mios.has(c.id)) await q(sb.from('buffer_canales').upsert({ canal_id:c.id, organizacion_id:c.organizacion_id, cliente_id:id, red:c.red, nombre:c.nombre, cuenta:c.cuenta }, { onConflict:'canal_id' }));
           if (!i.checked && mios.has(c.id)) await q(sb.from('buffer_canales').delete().eq('canal_id', c.id));
         }
-        fill(lis, ''); toast('Canales guardados.');
+        fill(lis, ''); toast('Canales guardados.'); estado();
       })}, 'Guardar canales') : null));
   });
   const traer = async btn => ocupado(btn, async () => {
@@ -1555,7 +1557,7 @@ function panelBuffer(id, met, f, pintar){
   return h('div',{style:'margin:0 0 14px'},
     h('div',{class:'row'}, h('button',{type:'button',class:'btn ol sm',onclick:e => vincular(e.currentTarget)}, 'Vincular canales de Buffer'),
       h('button',{type:'button',class:'btn sm',onclick:e => traer(e.currentTarget)}, 'Traer métricas del mes elegido')),
-    h('p',{class:'mut',style:'font-size:.85rem'}, 'Trae alcance, vistas, interacciones y clics del mes y año de abajo. No pisa seguidores ni visitas al perfil.'), lis, out);
+    h('p',{class:'mut',style:'font-size:.85rem'}, 'Trae alcance, vistas, interacciones y clics del mes y año de abajo. No pisa seguidores ni visitas al perfil.'), est, lis, out);
 }
 
 function boxReportes(id, rep){
