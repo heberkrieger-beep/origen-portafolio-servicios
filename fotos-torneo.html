@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · fotos-torneo.html · v2.0 · 2026-11-20 · compra sin login: carrito, Mercado Pago, vuelta automática y descarga · v1.1 · 2026-11-19 · sin marca de cliente (noindex hasta tener fotos cargadas) -->
+<!-- ORIGEN · fotos-torneo.html · v2.4 · 2026-11-20 · nunca cobra más por menos fotos y avisa cuántas sumar · v2.3 · 2026-11-20 · buscador por pareja o código, combos por cantidad, originales en Supabase o Backblaze · v2.2 · 2026-11-20 · descarga desde Backblaze B2 · v2.1 · 2026-11-20 · miniaturas livianas (th) y paginación de a 60 · v2.0 · 2026-11-20 · compra sin login: carrito, Mercado Pago, vuelta automática y descarga · v1.1 · 2026-11-19 · sin marca de cliente (noindex hasta tener fotos cargadas) -->
 <html lang="es">
 <head>
 <!-- Google Tag Manager -->
@@ -47,6 +47,9 @@ section{padding:70px 0;border-bottom:1px solid var(--l);scroll-margin-top:72px}
 h2{font-size:clamp(32px,4.2vw,52px);margin-bottom:20px}
 .tools{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-end;margin:28px 0}
 .tools label{display:flex;flex-direction:column;gap:6px;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p)}
+.tools input{background:var(--cream);color:var(--tx);border:1px solid var(--l);padding:12px 14px;font:inherit;font-size:15px;min-width:240px}
+.precios{font-size:15px;color:var(--p);margin:-10px 0 24px}
+.precios b{color:var(--tx);font-weight:400}
 .tools select{background:var(--cream);color:var(--tx);border:1px solid var(--l);padding:12px 14px;font:inherit;font-size:15px;min-width:200px}
 .count{font-size:14px;color:var(--p);margin-left:auto}
 .gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
@@ -126,11 +129,14 @@ main{padding-bottom:70px}
 <section aria-labelledby="gal-h"><div class="wrap">
   <div class="eb">Galería</div><h2 id="gal-h">Buscá tu <em>foto</em>.</h2>
   <div class="tools" id="tools" hidden>
+    <label>Buscar por pareja o código<input id="f-q" type="search" placeholder="Ej: Pérez o F-0123" autocomplete="off"></label>
     <label>Torneo<select id="f-torneo"><option value="">Todos</option></select></label>
     <label>Categoría<select id="f-cat"><option value="">Todas</option></select></label>
     <p class="count" id="count" aria-live="polite"></p>
   </div>
+  <p class="precios" id="precios" hidden></p>
   <div class="gal" id="gal"></div>
+  <p style="text-align:center;margin-top:24px"><button class="btn sec" id="mas" type="button" hidden>Ver más fotos</button></p>
   <div class="empty" id="empty" hidden>
     <h3>Las fotos se publican <em>después de cada fecha</em>.</h3>
     <p>Todavía no hay fotos cargadas del último torneo. Si jugaste y querés tus fotos, escribinos y te avisamos apenas estén.</p>
@@ -171,13 +177,13 @@ main{padding-bottom:70px}
 var FN = 'https://cvxmmrfuwjefdovoakqw.supabase.co/functions/v1/fotos';  /* función de Supabase */
 var EVENTO = '';                   /* nombre del torneo, ej: Copa Triple Frontera */
 var WA = '5493757656783';
-var DATA = 'fotos-torneo.json';     /* [{"id":"F-0001","torneo":"Día 1","categoria":"Mixto A","img":"fotos-torneo/F-0001.webp"}]  (id = nombre del archivo original, sin extensión) */
+var DATA = 'fotos-torneo.json';     /* [{"id":"F-0001","torneo":"Día 1","categoria":"Mixto A","pareja":"Pérez / Gómez","th":"fotos-torneo/th/F-0001.webp","img":"fotos-torneo/F-0001.webp"}]  (th = miniatura de ~400 px, img = vista de ~1000 px)  (id = nombre del archivo original, sin extensión) */
 
 (function(){
   var $ = function(i){return document.getElementById(i);};
-  var gal=$('gal'), tools=$('tools'), empty=$('empty'), dlg=$('dlg'), fotos=[], cart=[], precio=0, ultimo=null, actual=null;
+  var combos=[], mostrar=60, gal=$('gal'), tools=$('tools'), empty=$('empty'), dlg=$('dlg'), fotos=[], cart=[], precio=0, ultimo=null, actual=null;
   var LS='ft_compras', okImg=/^[\w\-\/.]+\.(webp|jpe?g|png)$/i, okUUID=/^[0-9a-f-]{36}$/i, okPay=/^https:\/\/([\w.-]+\.)?mercadopago\.com(\.ar)?\//i;
-  var storage=FN.replace(/\/functions\/v1\/fotos$/,'')+'/storage/v1/';
+  var okDl=/^https:\/\/[\w.-]+\.backblazeb2\.com\//;
   var money=function(n){return '$'+Number(n).toLocaleString('es-AR');};
 
   function api(accion,body){
@@ -189,34 +195,43 @@ var DATA = 'fotos-torneo.json';     /* [{"id":"F-0001","torneo":"Día 1","catego
 
   function limpia(f){
     if(!f||typeof f.id!=='string'||!/^[\w-]{1,60}$/.test(f.id)||typeof f.img!=='string'||!okImg.test(f.img)) return null;
-    return {id:f.id,torneo:String(f.torneo||'').slice(0,60),categoria:String(f.categoria||'').slice(0,60),img:f.img};
+    return {id:f.id,th:(typeof f.th==='string'&&okImg.test(f.th))?f.th:f.img,torneo:String(f.torneo||'').slice(0,60),categoria:String(f.categoria||'').slice(0,60),pareja:String(f.pareja||'').slice(0,80),img:f.img};
   }
   function opciones(sel,key){
     var v=[];fotos.forEach(function(f){if(f[key]&&v.indexOf(f[key])<0) v.push(f[key]);});
     v.forEach(function(x){var o=document.createElement('option');o.value=x;o.textContent=x;sel.appendChild(o);});
     sel.parentNode.hidden=v.length<2;
   }
+  function norm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
+  function total(n){var top=n+combos.reduce(function(a,c){return Math.max(a,c[0]);},0),m=[0],i,j;for(i=1;i<=top;i++){m[i]=m[i-1]+precio;for(j=0;j<combos.length;j++){if(i>=combos[j][0]) m[i]=Math.min(m[i],m[i-combos[j][0]]+combos[j][1]);}}return Math.min.apply(null,m.slice(n,top+1));}
+  function faltan(n){var t=total(n),k;for(k=1;k<=10;k++){if(total(n+k)>t) return k-1;}return 10;}
   function enCarrito(id){return cart.indexOf(id)>=0;}
-  function pinta(){
+  function pinta(sigue){
     var t=$('f-torneo').value,c=$('f-cat').value,n=0;
+    if(sigue!==false) mostrar=60;
+    var q=norm($('f-q').value);
+    var lista=fotos.filter(function(f){return !((t&&f.torneo!==t)||(c&&f.categoria!==c))&&(!q||norm(f.id+' '+f.pareja+' '+f.categoria+' '+f.torneo).indexOf(q)>=0);});
     gal.textContent='';
-    fotos.forEach(function(f){
-      if((t&&f.torneo!==t)||(c&&f.categoria!==c)) return;
+    lista.slice(0,mostrar).forEach(function(f){
       n++;
       var b=document.createElement('button'),im=document.createElement('img'),s=document.createElement('span'),a=document.createElement('span');
       b.type='button';b.className='ph'+(enCarrito(f.id)?' sel':'');
-      im.src=f.img;im.loading='lazy';im.decoding='async';im.alt='Foto '+f.id+(f.torneo?', '+f.torneo:'')+(f.categoria?', '+f.categoria:'');
+      im.src=f.th;im.width=400;im.height=267;im.loading='lazy';im.decoding='async';im.alt='Foto '+f.id+(f.torneo?', '+f.torneo:'')+(f.categoria?', '+f.categoria:'');
       s.textContent=f.id;a.className='ver';a.textContent=enCarrito(f.id)?'En el carrito ✓':'Ver y comprar';
       s.appendChild(a);b.appendChild(im);b.appendChild(s);
       b.addEventListener('click',function(){abre(f,b);});
       gal.appendChild(b);
     });
-    $('count').textContent=n+(n===1?' foto':' fotos');
+    $('count').textContent=lista.length+(lista.length===1?' foto':' fotos');
+    $('mas').hidden=lista.length<=mostrar;
   }
+  $('mas').addEventListener('click',function(){mostrar+=60;pinta(false);});
   function barra(){
     var n=cart.length,bar=$('bar');
     bar.hidden=!(precio&&n);
-    $('bar-t').textContent=n+(n===1?' foto · ':' fotos · ')+money(precio*n);
+    var tot=total(n),ah=precio*n-tot;
+    var fl=faltan(n);
+    $('bar-t').textContent=n+(n===1?' foto · ':' fotos · ')+money(tot)+(ah>0?' (ahorrás '+money(ah)+')':'')+(fl>0?' · Sumá '+fl+(fl===1?' foto más':' fotos más')+' y pagás lo mismo':'');
     $('bar-e').hidden=true;
   }
   function abre(f,btn){
@@ -231,12 +246,12 @@ var DATA = 'fotos-torneo.json';     /* [{"id":"F-0001","torneo":"Día 1","catego
   }
   $('dlg-add').addEventListener('click',function(){
     var i=cart.indexOf(actual.id);if(i<0) cart.push(actual.id);else cart.splice(i,1);
-    dlg.close();pinta();barra();
+    dlg.close();pinta(false);barra();
   });
   $('dlg-x').addEventListener('click',function(){dlg.close();});
   dlg.addEventListener('click',function(e){if(e.target===dlg) dlg.close();});
   dlg.addEventListener('close',function(){$('dlg-img').src='';if(ultimo) ultimo.focus();});
-  $('f-torneo').addEventListener('change',pinta);$('f-cat').addEventListener('change',pinta);
+  $('f-torneo').addEventListener('change',pinta);$('f-cat').addEventListener('change',pinta);$('f-q').addEventListener('input',function(){pinta();});
 
   $('bar-b').addEventListener('click',function(){
     var b=$('bar-b'),e=$('bar-e');b.disabled=true;e.hidden=true;
@@ -249,9 +264,9 @@ var DATA = 'fotos-torneo.json';     /* [{"id":"F-0001","torneo":"Día 1","catego
   /* ---- Mis fotos compradas ---- */
   var vistos=0;
   function muestra(fs){
-    var l=$('mis-l'),prev={};fotos.forEach(function(f){prev[f.id]=f.img;});
+    var l=$('mis-l'),prev={};fotos.forEach(function(f){prev[f.id]=f.th;});
     fs.forEach(function(f){
-      if(f.url.indexOf(storage)!==0) return;
+      if(!okDl.test(f.url)) return;
       var d=document.createElement('div'),a=document.createElement('a');
       if(prev[f.id]){var im=document.createElement('img');im.src=prev[f.id];im.alt='Foto '+f.id;im.loading='lazy';d.appendChild(im);}
       a.href=f.url;a.textContent='Descargar '+f.id;a.setAttribute('download','');
@@ -291,7 +306,8 @@ var DATA = 'fotos-torneo.json';     /* [{"id":"F-0001","torneo":"Día 1","catego
 
   /* ---- Inicio ---- */
   if(EVENTO){$('kw').textContent=EVENTO+' · Puerto Iguazú';document.title='Fotos de '+EVENTO+' · ORIGEN';}
-  api('config').then(function(j){precio=Number(j.precio)||0;}).catch(function(){}).then(function(){
+  api('config').then(function(j){precio=Number(j.precio)||0;combos=(Array.isArray(j.combos)?j.combos:[]).filter(function(c){return c[0]>=2&&c[1]>0;}).sort(function(a,b){return a[0]-b[0];});
+    if(precio){var e=$('precios'),parts=['1 foto '+money(precio)].concat(combos.map(function(c){return c[0]+' fotos '+money(c[1]);}));e.textContent=parts.join(' · ');e.hidden=false;}}).catch(function(){}).then(function(){
     return fetch(DATA).then(function(r){if(!r.ok) throw 0;return r.json();}).then(function(j){
       fotos=(Array.isArray(j)?j:[]).map(limpia).filter(Boolean);
       if(!fotos.length) throw 0;
