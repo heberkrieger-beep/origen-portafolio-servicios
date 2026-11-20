@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
+<!-- Portal ORIGEN — v5.4 · 2026-11-20 · cuenta del cliente: pauta con tickets, estado de cuenta e informe imprimibles, envío por WhatsApp y aviso de saldo al ingresar · v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -248,6 +248,7 @@ ul.checks li span{color:var(--mut);font-size:.88rem}
   #print table{width:100%;border-collapse:collapse}#print th,#print td{border-bottom:1px solid #ddd;padding:7px 6px;color:#111;text-transform:none;letter-spacing:0;font-size:10.5pt}
   #print thead th{color:#666;font-size:9pt}#print tfoot td{border:0}#print .pr-tot td{font-weight:700;font-size:13pt;border-top:2px solid #C9B37A}
   .pr-h{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #C9B37A;padding-bottom:12px;margin-bottom:14px}
+  #print h3{font-size:12pt;margin:1.2em 0 .3em}#print tr{break-inside:avoid}#print td.num{white-space:nowrap}.pr-neg td{color:#2a7a3b}.pr-tk{break-before:page;text-align:center}.pr-tk img{max-width:100%;max-height:235mm;object-fit:contain}
   .pr-notas{white-space:pre-wrap;background:#f6f3ec;padding:10px 12px;border-radius:8px;margin-top:16px}.pr-f{margin-top:34px;color:#444}
 }
 
@@ -1421,7 +1422,7 @@ async function detalleCliente(id){
   fill($('view'), vacio('Cargando…'));
   try {
     const opc = p => p.catch(e => { if (['PGRST205','42P01'].includes(e?.code)) return null; throw e; });
-    const [sol, acc, adn, rep, met, dg, arch, cup, obj, rec, proy, etap] = await Promise.all([
+    const [sol, acc, adn, rep, met, dg, arch, cup, obj, rec, proy, etap, cgs, pgs] = await Promise.all([
       q(sb.from('solicitudes').select('*').eq('cliente_id', id).order('creado_en',{ascending:false}).limit(30)),
       q(sb.from('cliente_accesos').select('id,email,user_id').eq('cliente_id', id).order('creado_en')),
       q(sb.from('marca_adn').select('*').eq('cliente_id', id).maybeSingle()),
@@ -1433,7 +1434,9 @@ async function detalleCliente(id){
       opc(q(sb.from('objetivos').select('*').eq('cliente_id', id).order('creado_en',{ascending:false}))),
       opc(q(sb.from('recomendaciones').select('*').eq('cliente_id', id).order('creado_en',{ascending:false}))),
       opc(q(sb.from('proyectos').select('*').eq('cliente_id', id).order('creado_en',{ascending:false}))),
-      opc(q(sb.from('proyecto_etapas').select('*').eq('cliente_id', id).order('orden')))]);
+      opc(q(sb.from('proyecto_etapas').select('*').eq('cliente_id', id).order('orden'))),
+      opc(q(sb.from('cargos').select('*').eq('cliente_id', id).order('fecha',{ascending:false}))),
+      q(sb.from('pagos').select('id,fecha,monto,nota').eq('cliente_id', id).order('fecha',{ascending:false}).limit(500))]);
     if (ruta().arg !== id || S.modo !== 'equipo') return;
     const hoy = hoyISO(), ab = S.E.tareas.filter(t => !t.hecha && String(t.cliente_id) === id);
     const prox = itemsAgenda(hoy, masDias(45), false).filter(i => String(i.cid) === id);
@@ -1449,7 +1452,7 @@ async function detalleCliente(id){
       h('div',{class:'grid g2'},
         h('section',{class:'card'}, h('h2',{}, 'Tareas abiertas', h('small',{}, ab.length)), ab.length ? h('ul',{class:'tasks'}, ab.map(itemTarea)) : vacio('Sin tareas abiertas.')),
         h('section',{class:'card'}, h('h2',{}, 'Lo que viene'), agendaAgrupada(prox, `Nada agendado. Probá con el asistente: “armá el calendario del mes para ${c.nombre}”.`))),
-      boxPedidos(sol, abiertas), boxPresencia(id, dg), boxPresupCli(id), boxPagos(id),
+      boxPedidos(sol, abiertas), boxPresencia(id, dg), boxPresupCli(id), boxPagos(id), boxCuenta(id, cgs, pgs),
       boxMetricas(id), boxReportes(id, rep), boxObjetivos(id, obj), boxRecomendaciones(id, rec), boxProyectos(id, proy, etap, arch), boxArchivos(id, arch, proy), boxCupos(id, cup), boxAccesos(id, acc), boxADN(id, adn));
     document.querySelectorAll('#view details.box').forEach(d => { // recuerda qué caja estaba abierta (cada cambio recarga la ficha)
       const n = d.querySelector('summary span')?.textContent;
@@ -1873,7 +1876,7 @@ function propuesta(data, out, ta){
 async function cargarCliente(cid){
   const y = new Date().getFullYear(), m = new Date().getMonth() + 1, desde = iso(new Date(y, m - 4, 1));
   const opc = p => p.catch(e => { if (['PGRST205','42P01'].includes(e?.code)) return []; throw e; }); // tabla de una migración que todavía no se corrió
-  const [ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan, diag, pre, arch, cupos, obj, rec, proy, etap, posts] = await Promise.all([
+  const [ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan, diag, pre, arch, cupos, obj, rec, proy, etap, posts, cargos] = await Promise.all([
     q(sb.rpc('mi_ficha',{p_cliente:cid})),
     q(sb.from('contenidos').select('id,fecha,titulo,idea,copy,formato,red,estado,archivos,aprobacion,comentario_cliente').eq('cliente_id',cid).eq('visible_cliente',true).gte('fecha',desde).order('fecha')),
     q(sb.from('tareas').select('id,titulo,texto,texto_cliente,hecha,creado_en').eq('cliente_id',cid).eq('visible_cliente',true).order('creado_en',{ascending:false}).limit(40)),
@@ -1883,7 +1886,7 @@ async function cargarCliente(cid){
     q(sb.from('reportes').select('id,anio,mes,titulo,archivo_path,creado_en').eq('cliente_id',cid).order('anio',{ascending:false}).order('mes',{ascending:false})),
     q(sb.from('solicitudes').select('*').eq('cliente_id',cid).order('creado_en',{ascending:false}).limit(30)),
     q(sb.from('servicios_cliente').select('nombre,frecuencia,descripcion,activo').eq('cliente_id',cid)),
-    q(sb.from('pagos').select('fecha,monto,nota').eq('cliente_id',cid).order('fecha',{ascending:false}).limit(24)),
+    q(sb.from('pagos').select('fecha,monto,nota').eq('cliente_id',cid).order('fecha',{ascending:false}).limit(300)),
     q(sb.from('planificaciones_mensuales').select('objetivos,resultados').eq('cliente_id',cid).eq('anio',y).eq('mes',m)),
     q(sb.from('diagnosticos').select('*').eq('cliente_id',cid).maybeSingle()),
     q(sb.from('presupuestos').select('*').eq('cliente_id',cid).neq('estado','borrador').order('creado_en',{ascending:false})),
@@ -1893,8 +1896,9 @@ async function cargarCliente(cid){
     opc(q(sb.from('recomendaciones').select('id,titulo,texto,estado,creado_en').eq('cliente_id',cid).in('estado',['publicada','convertida']).order('creado_en',{ascending:false}))),
     opc(q(sb.from('proyectos').select('*').eq('cliente_id',cid).eq('visible_cliente',true).order('creado_en',{ascending:false}))),
     opc(q(sb.from('proyecto_etapas').select('id,proyecto_id,nombre,orden,estado').eq('cliente_id',cid).order('orden'))),
-    opc(q(sb.from('buffer_posts').select('*').eq('cliente_id',cid).order('fecha',{ascending:false}).limit(1000)))]);
-  S.C = { ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan:plan[0], diag, pre, arch, cupos, obj, rec, proy, etap, posts };
+    opc(q(sb.from('buffer_posts').select('*').eq('cliente_id',cid).order('fecha',{ascending:false}).limit(1000))),
+    opc(q(sb.from('cargos').select('id,fecha,tipo,concepto,monto,ticket_path').eq('cliente_id',cid).order('fecha',{ascending:false}).limit(300)))]);
+  S.C = { ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan:plan[0], diag, pre, arch, cupos, obj, rec, proy, etap, posts, cargos };
 }
 function selectorNegocio(){
   if (S.equipo || S.misClientes.length < 2) return;
@@ -2182,6 +2186,8 @@ function metricasBuffer(){
   fill($('view'),
     h('div',{class:'bar-top'}, h('div',{class:'redes',role:'group','aria-label':'Red social'}, chip('', 'Todas', '#C9B37A'), redes.map(r => chip(r, RED(r)[0], RED(r)[1]))),
       h('div',{class:'seg',role:'group','aria-label':'Período'}, PER.map(([k, t]) => h('button',{type:'button','aria-pressed':String(k === per),onclick:() => { S.bper = k; S.bn = 10; render(); }}, t)))),
+    act.length ? h('div',{class:'row',style:'margin-bottom:14px'}, h('button',{type:'button',class:'btn ol sm',onclick:e => ocupado(e.currentTarget, () => imprimirInforme(C.ficha?.negocio || ''))}, 'Imprimir informe / PDF'),
+      h('a',{class:'btn ol sm',target:'_blank',rel:'noopener',href:'https://wa.me/',onclick:e => { e.currentTarget.href = 'https://wa.me/?text=' + encodeURIComponent(textoInforme((C.ficha?.contacto || '').split(' ')[0])); }}, 'Reenviar por WhatsApp')) : null,
     act.length || ant?.length ? h('div',{class:'kpis'}, KPIS.map(tile)) : h('div',{class:'card'}, vacio('No hay publicaciones con métricas en este período. Probá con otro período.')),
     act.length ? h('section',{class:'card'}, h('h2',{}, 'Evolución', h('span',{class:'seg',role:'group','aria-label':'Métrica'}, [['vistas','Visualizaciones'],['alcance','Alcance'],['reacciones','Reacciones'],['pub','Publicaciones']].map(([k, t]) => h('button',{type:'button','aria-pressed':String(k === mk),onclick:() => { S.bmet = k; render(); }}, t)))), graficoBarras(pub, per, mk)) : null,
     porRed,
@@ -2193,6 +2199,126 @@ function metricasBuffer(){
 }
 const metricasMensual = VC.metricas;
 VC.metricas = () => (S.C.posts || []).length ? metricasBuffer() : metricasMensual();
+
+/* ================= cuenta del cliente: abono + cargos (pauta con ticket) − pagos ================= */
+const sumN = (l, k) => l.reduce((s, x) => s + Number(x[k] || 0), 0);
+const TIPO_CARGO = { pauta:'Publicidad (pauta)', extra:'Servicio extra', ajuste:'Ajuste' };
+const PORTAL_URL = 'https://agencia-origen.online/portal.html';
+function cuentaDe(abono, pagos, cargos){ // mes a mes desde el primer movimiento; saldo > 0 = debe, < 0 = a favor
+  const k = f => String(f).slice(0, 7), fin = k(iso(new Date())), ini = [...pagos, ...cargos].map(x => k(x.fecha)).sort()[0] || fin;
+  const filas = []; let y = +ini.slice(0, 4), m = +ini.slice(5, 7), acum = 0;
+  while (`${y}-${String(m).padStart(2, '0')}` <= fin){
+    const c = `${y}-${String(m).padStart(2, '0')}`, cg = cargos.filter(x => k(x.fecha) === c), pg = pagos.filter(x => k(x.fecha) === c), antes = acum;
+    acum += abono + sumN(cg, 'monto') - sumN(pg, 'monto');
+    filas.push({ y, m:m - 1, antes, cg, pg, abono, saldo:acum });
+    if (++m > 12){ m = 1; y++; }
+  }
+  return { filas, saldo:acum };
+}
+const textoCuenta = (nombre, f) => `¡Hola${nombre ? ' ' + nombre : ''}! Te paso el estado de cuenta de ${MESES[f.m]} de ORIGEN: abono ${pesos(f.abono)}` + (f.cg.length ? `, publicidad y extras ${pesos(sumN(f.cg, 'monto'))}` : '') + (f.pg.length ? `, pagado ${pesos(sumN(f.pg, 'monto'))}` : '') +
+  `. ` + (f.saldo > 0 ? `Saldo a pagar: ${pesos(f.saldo)}. Alias: OrigenStudioIguazu.` : 'Estás al día. ¡Gracias!') + ` Ver el detalle con los tickets: ${PORTAL_URL}`;
+async function imprimirCuenta(nombre, abono, pagos, cargos, y, m){
+  const f = cuentaDe(abono, pagos, cargos).filas.find(x => x.y === y && x.m === m); if (!f) return toast('Ese mes no tiene movimientos.', true);
+  const tk = f.cg.filter(x => x.ticket_path), esImg = p => /\.(png|jpe?g|webp|gif)$/i.test(p);
+  const urls = await Promise.all(tk.map(x => esImg(x.ticket_path) ? sb.storage.from(BUCKET).createSignedUrl(x.ticket_path, 600).then(r => r.data?.signedUrl || null, () => null) : null));
+  const fila = (t, v, cls) => h('tr',{class:cls}, h('td',{}, t), h('td',{class:'num'}, v));
+  fill($('print'),
+    h('div',{class:'pr-h'}, h('img',{src:'logo-origen.png',alt:'ORIGEN',width:'140'}), h('div',{style:'text-align:right'}, h('b',{style:'font-size:14pt'}, 'Estado de cuenta'), h('br'), `${MESES[f.m]} ${f.y}`)),
+    h('p',{}, 'Cliente: ', h('b',{}, nombre)),
+    h('table',{}, h('thead',{}, h('tr',{}, h('th',{}, 'Concepto'), h('th',{class:'num'}, 'Importe'))), h('tbody',{},
+      f.antes ? fila(f.antes > 0 ? 'Saldo anterior' : 'Saldo a favor anterior', pesos(f.antes)) : null,
+      abono ? fila('Abono mensual ORIGEN', pesos(abono)) : null,
+      f.cg.map(x => fila(`${fCorta(x.fecha)} · ${TIPO_CARGO[x.tipo] || ''}: ${x.concepto}${x.ticket_path ? (urls[tk.indexOf(x)] ? ' (ticket adjunto)' : ' (ticket en tu portal)') : ''}`, pesos(x.monto))),
+      f.pg.map(x => fila(`Pago recibido ${fCorta(x.fecha)}${x.nota ? ' · ' + x.nota : ''}`, '− ' + pesos(x.monto), 'pr-neg'))),
+      h('tfoot',{}, h('tr',{class:'pr-tot'}, h('td',{}, f.saldo > 0 ? 'Saldo a pagar' : f.saldo < 0 ? 'Saldo a favor' : 'Cuenta al día'), h('td',{class:'num'}, pesos(Math.abs(f.saldo)))))),
+    h('div',{class:'pr-f'}, h('p',{}, 'Alias para transferir: OrigenStudioIguazu'), h('p',{}, 'ORIGEN Studio Iguazú · agencia-origen.online · WhatsApp 375 765-6783')),
+    tk.map((x, i) => urls[i] ? h('div',{class:'pr-tk'}, h('p',{}, h('b',{}, `Ticket · ${x.concepto} · ${pesos(x.monto)} · ${fCorta(x.fecha)}`)), h('img',{src:urls[i],alt:`Ticket de ${x.concepto}`})) : null));
+  await Promise.all([...$('print').querySelectorAll('img')].map(i => i.decode().catch(() => {})));
+  window.print();
+}
+function datosInforme(){
+  const per = S.bper || '30', v = ventana(per), pub = (S.C.posts || []).filter(p => p.estado === 'sent'), act = enV(pub, v.ini, v.fin), ant = v.prev ? enV(pub, v.prev[0], v.prev[1]) : [];
+  const t = KPIS.map(([k, n]) => [k, n, sumaK(act, k), ant.length ? sumaK(ant, k) : null]).filter(x => x[2] != null);
+  return { per, v, act, t, nombre:PER.find(p => p[0] === per)[1].toLowerCase(), ini:per === 'todo' ? 'el inicio' : v.ini.toLocaleDateString('es-AR',{day:'numeric',month:'long'}), fin:v.fin.toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'}) };
+}
+async function imprimirInforme(nombre){
+  const d = datosInforme(), redes = [...new Set(d.act.map(p => p.red))], top = [...d.act].sort((a, b) => (b.vistas ?? -1) - (a.vistas ?? -1)).slice(0, 5);
+  const dif = (a, b) => b ? `${a >= b ? '▲' : '▼'} ${Math.abs(Math.round((a - b) / b * 100))}%` : '';
+  fill($('print'),
+    h('div',{class:'pr-h'}, h('img',{src:'logo-origen.png',alt:'ORIGEN',width:'140'}), h('div',{style:'text-align:right'}, h('b',{style:'font-size:14pt'}, 'Informe de métricas'), h('br'), `${d.ini} al ${d.fin}`)),
+    h('p',{}, 'Cliente: ', h('b',{}, nombre), ` · Período: ${d.nombre}`),
+    h('table',{}, h('thead',{}, h('tr',{}, h('th',{}, 'Métrica'), h('th',{class:'num'}, 'Resultado'), h('th',{class:'num'}, 'vs. período anterior'))),
+      h('tbody',{}, d.t.map(([k, n, a, b]) => h('tr',{}, h('td',{}, n), h('td',{class:'num'}, fmtK(k, a)), h('td',{class:'num'}, k === 'engagement' || b == null ? '' : dif(a, b)))))),
+    redes.length > 1 ? [h('h3',{}, 'Por red social'), h('table',{}, h('thead',{}, h('tr',{}, ['Red','Publicaciones','Visualizaciones','Alcance','Reacciones'].map((t, i) => h('th',{class:i ? 'num' : ''}, t)))),
+      h('tbody',{}, redes.map(r => { const ps = d.act.filter(p => p.red === r); return h('tr',{}, h('td',{}, RED(r)[0]), h('td',{class:'num'}, ps.length), ['vistas','alcance','reacciones'].map(k => h('td',{class:'num'}, fmtK(k, sumaK(ps, k))))); })))] : null,
+    top.length ? [h('h3',{}, 'Publicaciones con mejores resultados'), h('table',{}, h('tbody',{}, top.map(p => h('tr',{}, h('td',{}, `${fCorta(p.fecha)} · ${RED(p.red)[0]} · ${(p.texto || 'Sin texto').slice(0, 90)}`), h('td',{class:'num'}, `${fmtK('vistas', p.vistas)} vistas`)))))] : null,
+    h('div',{class:'pr-f'}, h('p',{style:'font-size:9pt;color:#666'}, 'Datos de las propias redes sociales, de las publicaciones hechas por ORIGEN.'), h('p',{}, 'ORIGEN Studio Iguazú · agencia-origen.online · WhatsApp 375 765-6783')));
+  await Promise.all([...$('print').querySelectorAll('img')].map(i => i.decode().catch(() => {})));
+  window.print();
+}
+function textoInforme(nombre){
+  const d = datosInforme(), g = k => d.t.find(x => x[0] === k);
+  return `¡Hola${nombre ? ' ' + nombre : ''}! Resumen de tu marca en redes (${d.nombre}): ` + [['pub','publicaciones'],['vistas','visualizaciones'],['alcance','de alcance'],['reacciones','reacciones']].filter(([k]) => g(k)).map(([k, t]) => `${fmtK(k, g(k)[2])} ${t}`).join(', ') + `. Informe completo: ${PORTAL_URL}`;
+}
+
+/* Equipo: cargos (pauta con ticket) y estado de cuenta de un cliente */
+function boxCuenta(id, cg, pg){
+  if (cg == null) return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Cuenta y pauta'), pill('falta el SQL 09','warn')), h('div',{}, h('p',{class:'mut'}, 'Corré la migración 09 en Supabase para cargar la pauta con sus tickets.')));
+  const c = cliDe(id), cta = cuentaDe(c.abono, pg, cg), hoy = new Date(), n = primerNombre(c);
+  const f = h('form',{class:'form',novalidate:true},
+    h('label',{}, 'Tipo', h('select',{name:'tipo'}, Object.entries(TIPO_CARGO).map(([v, t]) => h('option',{value:v}, t)))),
+    h('label',{}, 'Fecha *', h('input',{type:'date',name:'fecha',required:true,value:hoyISO()})),
+    h('label',{}, 'Monto ($) *', h('input',{type:'number',name:'monto',step:'1',required:true,inputmode:'numeric',placeholder:'Ajuste: negativo descuenta'})),
+    h('label',{class:'full'}, 'Concepto *', h('input',{name:'concepto',required:true,maxlength:'200',placeholder:'Pauta Meta Ads · campaña de verano'})),
+    h('label',{class:'full'}, 'Ticket (foto o PDF, opcional)', h('input',{type:'file',name:'ticket',accept:'image/png,image/jpeg,image/webp,application/pdf'})),
+    h('label',{class:'chk full'}, h('input',{type:'checkbox',name:'visible',checked:true}), ' El cliente lo ve en su cuenta'),
+    h('div',{class:'form-acc full'}, h('button',{class:'btn',type:'submit'}, 'Cargar')));
+  f.addEventListener('submit', async e => {
+    e.preventDefault(); if (!validar(f)) return;
+    const file = f.ticket.files[0], monto = Math.round(+f.monto.value);
+    if (!monto) return toast('El monto no puede ser 0.', true);
+    if (file && file.size > MAX_MB * 1048576) return toast(`El ticket pesa más de ${MAX_MB} MB.`, true);
+    await ocupado(e.submitter, async () => {
+      const path = file ? `${id}/cargos/${Date.now()}-${limpio(file.name)}` : null;
+      if (path) await q(sb.storage.from(BUCKET).upload(path, file, { contentType:file.type || 'application/octet-stream' }));
+      try { await q(sb.from('cargos').insert({ cliente_id:id, tipo:f.tipo.value, fecha:f.fecha.value, monto, concepto:f.concepto.value.trim(), ticket_path:path, visible_cliente:f.visible.checked })); }
+      catch(er){ if (path) await sb.storage.from(BUCKET).remove([path]); throw er; }
+      toast('Cargo registrado.'); render();
+    });
+  });
+  const mes = h('input',{type:'month',value:`${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}`,'aria-label':'Mes del estado de cuenta',style:'width:auto'});
+  const ym = () => { const [y, m] = (mes.value || '').split('-').map(Number); return [y, m - 1]; };
+  const wa = h('a',{class:'btn ol sm',target:'_blank',rel:'noopener'}, 'Enviar por WhatsApp');
+  wa.addEventListener('click', () => { const [y, m] = ym(), fm = cuentaDe(c.abono, pg, cg).filas.find(x => x.y === y && x.m === m); if (fm) wa.href = `https://wa.me/${telWA(c.raw.whatsapp)}?text=${encodeURIComponent(textoCuenta(n, fm))}`; else { wa.removeAttribute('href'); toast('Ese mes no tiene movimientos.', true); } });
+  const borrar = (x, btn) => { if (!confirm(`¿Borrar “${x.concepto}”? No se puede deshacer.`)) return;
+    return ocupado(btn, async () => { await q(sb.from('cargos').delete().eq('id', x.id)); if (x.ticket_path) await sb.storage.from(BUCKET).remove([x.ticket_path]); toast('Borrado.'); render(); }); };
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Cuenta y pauta'), pill(cta.saldo > 0 ? `debe ${pesos(cta.saldo)}` : cta.saldo < 0 ? `a favor ${pesos(-cta.saldo)}` : 'al día', cta.saldo > 0 ? 'warn' : 'ok')),
+    h('div',{}, h('p',{class:'mut',style:'font-size:.88rem'}, 'Saldo = abono de cada mes + cargos − pagos, desde el primer movimiento cargado.'), f,
+      h('div',{class:'row',style:'margin:12px 0;align-items:center'}, mes, h('button',{type:'button',class:'btn sm',onclick:e => ocupado(e.currentTarget, () => imprimirCuenta(c.nombre, c.abono, pg, cg, ...ym()))}, 'Imprimir / PDF'), wa),
+      cg.length ? cg.map(x => h('div',{class:'li row',style:'justify-content:space-between;align-items:center;gap:.6rem'},
+        h('span',{style:'min-width:0;overflow-wrap:anywhere'}, h('b',{}, pesos(x.monto)), ` · ${x.concepto} `, h('span',{class:'mut'}, [TIPO_CARGO[x.tipo], fCorta(x.fecha), x.visible_cliente ? null : 'oculto'].filter(Boolean).join(' · '))),
+        h('span',{class:'row',style:'gap:6px;flex-wrap:nowrap'}, x.ticket_path ? h('button',{type:'button',class:'btn ol sm',onclick:e => abrirArchivo(x.ticket_path, e.currentTarget)}, 'Ticket') : null,
+          h('button',{type:'button',class:'btn peligro sm','aria-label':`Borrar ${x.concepto}`,onclick:e => borrar(x, e.currentTarget)}, 'Borrar')))) : vacio('Sin cargos todavía.')));
+}
+
+/* Cliente: tarjeta "Tu cuenta" y aviso de saldo al entrar */
+const cuentaCli = () => cuentaDe(Number(S.C.ficha?.mensual) || 0, S.C.pag, S.C.cargos || []);
+function verCuenta(){
+  const C = S.C, cta = cuentaCli(), nombre = C.ficha?.negocio || '', n = (C.ficha?.contacto || '').split(' ')[0], filas = [...cta.filas].reverse();
+  const mes = h('select',{'aria-label':'Mes'}, filas.map((x, i) => h('option',{value:i}, `${MESES[x.m]} ${x.y}`))), cur = () => filas[+mes.value];
+  const wa = h('a',{class:'btn ol',target:'_blank',rel:'noopener'}, 'Reenviar por WhatsApp');
+  wa.addEventListener('click', () => { wa.href = `https://wa.me/?text=${encodeURIComponent(textoCuenta(n, cur()))}`; });
+  abrirHoja('Tu cuenta', h('p',{style:'margin:0 0 .8rem'}, cta.saldo > 0 ? ['Saldo a pagar: ', h('b',{}, pesos(cta.saldo))] : cta.saldo < 0 ? ['Saldo a favor: ', h('b',{}, pesos(-cta.saldo))] : 'Tu cuenta está al día.',
+    cta.saldo > 0 ? h('span',{class:'mut'}, ' · Alias: OrigenStudioIguazu') : null),
+    filas.length ? [h('div',{class:'row',style:'align-items:center;margin-bottom:12px'}, mes, h('button',{type:'button',class:'btn',onclick:e => ocupado(e.currentTarget, () => imprimirCuenta(nombre, cta.filas[0].abono, C.pag, C.cargos || [], cur().y, cur().m))}, 'Imprimir / PDF'), wa),
+      h('p',{class:'mut',style:'font-size:.85rem;margin:0'}, 'El estado de cuenta incluye el abono, la publicidad con sus tickets y tus pagos.')] : vacio('Todavía no hay movimientos.'));
+}
+const inicioBase = VC.inicio; VC.inicio = () => { inicioBase(); avisoSaldo(); };
+function avisoSaldo(){
+  if (S.equipo || S.saldoVisto === S.cid) return; S.saldoVisto = S.cid;
+  try { if (sessionStorage.getItem('saldo_' + S.cid)) return; sessionStorage.setItem('saldo_' + S.cid, '1'); } catch {}
+  const cta = cuentaCli(); if (cta.saldo > 0) verCuenta();
+}
 
 async function abrirArchivo(path, btn){
   const w = window.open('', '_blank'); if (w) w.opener = null;
@@ -2395,6 +2521,8 @@ VC.mas = () => {
     h('div',{class:'grid g2'},
       h('section',{class:'card'}, h('h2',{}, 'Tu plan'), barrasCupos(C), sv.length ? sv.map(x => h('div',{class:'li'}, h('b',{}, x.nombre), x.frecuencia ? h('span',{class:'mut'}, ' · ' + x.frecuencia) : null, x.descripcion ? h('p',{class:'mut',style:'margin:.2rem 0 0'}, x.descripcion) : null)) : h('p',{}, C.ficha?.plan || 'Plan ORIGEN'),
         C.ficha?.mensual ? h('p',{style:'margin-top:.8rem'}, 'Abono mensual: ', h('b',{}, pesos(C.ficha.mensual)), C.ficha.dia_cobro ? ` · se cobra el día ${C.ficha.dia_cobro}` : '') : null),
+      h('section',{class:'card'}, h('h2',{}, 'Tu cuenta'), (() => { const t = cuentaCli().saldo; return h('p',{style:'margin:0 0 .8rem'}, t > 0 ? ['Saldo a pagar: ', h('b',{}, pesos(t))] : t < 0 ? ['Saldo a favor: ', h('b',{}, pesos(-t))] : 'Tu cuenta está al día.'); })(),
+        h('button',{type:'button',class:'btn',onclick:verCuenta}, 'Estado de cuenta y tickets')),
       h('section',{class:'card tbl'}, h('h2',{}, 'Pagos registrados'), C.pag.length ? h('table',{}, h('thead',{}, h('tr',{}, h('th',{scope:'col'}, 'Fecha'), h('th',{scope:'col',class:'num'}, 'Monto'), h('th',{scope:'col'}, 'Detalle'))),
         h('tbody',{}, C.pag.map(p => h('tr',{}, h('td',{}, fCorta(p.fecha)), h('td',{class:'num'}, pesos(p.monto)), h('td',{}, p.nota || ''))))) : vacio('Sin pagos registrados.'))),
     h('section',{class:'card'}, h('h2',{}, 'Tu portal en el celular'),
