@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · fotos-torneo.html · v2.8 · 2026-11-20 · Mercado Pago se abre aparte y las fotos aparecen solas al pagar · v2.7 · 2026-11-20 · aviso para no cerrar al volver de Mercado Pago · v2.6 · 2026-11-20 · la lista de fotos sale de Supabase (se sube desde subir-fotos.html) · v2.5 · 2026-11-20 · acepta descargas de Supabase Storage · v2.4 · 2026-11-20 · nunca cobra más por menos fotos y avisa cuántas sumar · v2.3 · 2026-11-20 · buscador por pareja o código, combos por cantidad, originales en Supabase o Backblaze · v2.2 · 2026-11-20 · descarga desde Backblaze B2 · v2.1 · 2026-11-20 · miniaturas livianas (th) y paginación de a 60 · v2.0 · 2026-11-20 · compra sin login: carrito, Mercado Pago, vuelta automática y descarga · v1.1 · 2026-11-19 · sin marca de cliente (noindex hasta tener fotos cargadas) -->
+<!-- ORIGEN · fotos-torneo.html · v3.0 · 2026-11-23 · botón para descargar cada foto gratis con marca de agua · v2.9 · 2026-11-20 · si vuelven a la galería tras pagar (atrás o recarga) las fotos aparecen solas · v2.8 · 2026-11-20 · Mercado Pago se abre aparte y las fotos aparecen solas al pagar · v2.7 · 2026-11-20 · aviso para no cerrar al volver de Mercado Pago · v2.6 · 2026-11-20 · la lista de fotos sale de Supabase (se sube desde subir-fotos.html) · v2.5 · 2026-11-20 · acepta descargas de Supabase Storage · v2.4 · 2026-11-20 · nunca cobra más por menos fotos y avisa cuántas sumar · v2.3 · 2026-11-20 · buscador por pareja o código, combos por cantidad, originales en Supabase o Backblaze · v2.2 · 2026-11-20 · descarga desde Backblaze B2 · v2.1 · 2026-11-20 · miniaturas livianas (th) y paginación de a 60 · v2.0 · 2026-11-20 · compra sin login: carrito, Mercado Pago, vuelta automática y descarga · v1.1 · 2026-11-19 · sin marca de cliente (noindex hasta tener fotos cargadas) -->
 <html lang="es">
 <head>
 <!-- Google Tag Manager -->
@@ -165,8 +165,9 @@ main{padding-bottom:70px}
       <p id="dlg-m"></p>
       <p class="pr" id="dlg-p"></p>
       <button class="btn" id="dlg-add" type="button">Agregar al carrito</button>
+      <button class="btn sec" id="dlg-dl" type="button">Descargar con marca de agua (gratis)</button>
       <a class="btn sec" id="dlg-wa" target="_blank" rel="noopener">Consultar por WhatsApp</a>
-      <p>La foto que descargás es la original, sin marca de agua.</p>
+      <p>Al comprar descargás la original en alta resolución, sin marca de agua.</p>
       <p class="soporte" style="margin-top:0">¿Problemas? WhatsApp <a href="https://wa.me/5493757656783?text=Hola%2C%20tengo%20un%20problema%20con%20mi%20compra%20de%20fotos." target="_blank" rel="noopener">375 765-6783</a></p>
     </div>
   </div>
@@ -248,6 +249,14 @@ var DATA = FN+'?accion=lista';     /* [{"id":"F-0001","torneo":"Día 1","categor
     var i=cart.indexOf(actual.id);if(i<0) cart.push(actual.id);else cart.splice(i,1);
     dlg.close();pinta(false);barra();
   });
+  $('dlg-dl').addEventListener('click',function(){
+    var f=actual,b=this,t=b.textContent;if(!f) return;b.disabled=true;b.textContent='Descargando…';
+    fetch(f.img).then(function(r){if(!r.ok) throw 0;return r.blob();}).then(createImageBitmap).then(function(m){
+      var c=document.createElement('canvas');c.width=m.width;c.height=m.height;c.getContext('2d').drawImage(m,0,0);m.close();
+      return new Promise(function(ok,no){c.toBlob(function(x){x?ok(x):no();},'image/jpeg',.9);});
+    }).then(function(x){var u=URL.createObjectURL(x),a=document.createElement('a');a.href=u;a.download='ORIGEN-'+f.id+'.jpg';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u);},4000);})
+    .catch(function(){window.open(f.img,'_blank','noopener');}).then(function(){b.disabled=false;b.textContent=t;});
+  });
   $('dlg-x').addEventListener('click',function(){dlg.close();});
   dlg.addEventListener('click',function(e){if(e.target===dlg) dlg.close();});
   dlg.addEventListener('close',function(){$('dlg-img').src='';if(ultimo) ultimo.focus();});
@@ -256,7 +265,7 @@ var DATA = FN+'?accion=lista';     /* [{"id":"F-0001","torneo":"Día 1","categor
   $('bar-b').addEventListener('click',function(){
     var b=$('bar-b'),e=$('bar-e');b.disabled=true;e.hidden=true;
     api('crear',{fotos:cart}).then(function(j){
-      if(j.url&&okPay.test(j.url)){guarda(j.token);var w=window.open(j.url,'_blank');if(w){b.disabled=false;espera(j.token);}else location.href=j.url;return;}
+      if(j.url&&okPay.test(j.url)){guarda(j.token);try{localStorage.setItem('ft_ult',JSON.stringify({t:j.token,ts:Date.now()}));}catch(x){}var w=window.open(j.url,'_blank');if(w){b.disabled=false;espera(j.token);}else location.href=j.url;return;}
       throw 0;
     }).catch(function(){e.textContent='No pudimos iniciar el pago. Probá de nuevo o escribinos por WhatsApp.';e.hidden=false;b.disabled=false;});
   });
@@ -266,13 +275,13 @@ var DATA = FN+'?accion=lista';     /* [{"id":"F-0001","torneo":"Día 1","categor
   /* Espera el pago: la compra se confirma sola y las fotos aparecen aunque no vuelvan por Mercado Pago */
   var esp=null,tic=null;
   function espera(t){
-    var n=0;clearTimeout(esp);$('mis-l').textContent='';$('mis').hidden=false;
+    var n=0;clearTimeout(esp);$('mis').hidden=false;
     $('mis-msg').textContent='Esperando tu pago… cuando termines, volvé a esta pantalla y tus fotos aparecen solas.';
     $('mis').scrollIntoView();
     tic=function(){
       clearTimeout(esp);
       api('estado',{c:t}).then(function(j){
-        if(j.estado==='pagado'){tic=null;$('mis-l').textContent='';muestra(j.fotos||[]);cart=[];barra();pinta(false);
+        if(j.estado==='pagado'){tic=null;if(!$('mis-l').querySelector('[data-t="'+t+'"]')) muestra(j.fotos||[],t);cart=[];barra();pinta(false);
           $('mis-msg').textContent='¡Pago confirmado! Descargá tus fotos acá abajo. Los links duran 1 hora: si vencen, recargá esta página.';$('mis').scrollIntoView();return;}
         if(++n<400) esp=setTimeout(tic,3000);
       }).catch(function(){esp=setTimeout(tic,5000);});
@@ -280,11 +289,11 @@ var DATA = FN+'?accion=lista';     /* [{"id":"F-0001","torneo":"Día 1","categor
     tic();
   }
   document.addEventListener('visibilitychange',function(){if(!document.hidden&&tic) tic();});
-  function muestra(fs){
+  function muestra(fs,t){
     var l=$('mis-l'),prev={};fotos.forEach(function(f){prev[f.id]=f.th;});
     fs.forEach(function(f){
       if(!okDl.test(f.url)) return;
-      var d=document.createElement('div'),a=document.createElement('a');
+      var d=document.createElement('div'),a=document.createElement('a');d.setAttribute('data-t',t||'');
       if(prev[f.id]){var im=document.createElement('img');im.src=prev[f.id];im.alt='Foto '+f.id;im.loading='lazy';d.appendChild(im);}
       a.href=f.url;a.textContent='Descargar '+f.id;a.setAttribute('download','');
       d.appendChild(a);l.appendChild(d);
@@ -292,7 +301,7 @@ var DATA = FN+'?accion=lista';     /* [{"id":"F-0001","torneo":"Día 1","categor
   }
   function revisa(t,pid,n){
     return api('estado',{c:t,payment_id:pid||undefined}).then(function(j){
-      if(j.estado==='pagado'){muestra(j.fotos||[]);return true;}
+      if(j.estado==='pagado'){muestra(j.fotos||[],t);return true;}
       if(j.estado==='pendiente'&&pid&&n<12){
         $('mis').hidden=false;$('mis-msg').textContent='Estamos confirmando tu pago…';
         return new Promise(function(ok){setTimeout(function(){ok(revisa(t,pid,n+1));},2500);});
@@ -331,7 +340,10 @@ var DATA = FN+'?accion=lista';     /* [{"id":"F-0001","torneo":"Día 1","categor
       opciones($('f-torneo'),'torneo');opciones($('f-cat'),'categoria');
       tools.hidden=false;pinta();
     }).catch(function(){empty.hidden=false;});
-  }).then(function(){cargaMis();});
+  }).then(function(){cargaMis();
+    /* si pagaron hace poco y volvieron a la galería (atrás o recarga), sigue esperando el pago */
+    try{var u=JSON.parse(localStorage.getItem('ft_ult')||'null');if(u&&okUUID.test(u.t)&&Date.now()-u.ts<20*60000&&!new URLSearchParams(location.search).get('c')) espera(u.t);}catch(e){}
+  });
 })();
 </script>
 </body>
