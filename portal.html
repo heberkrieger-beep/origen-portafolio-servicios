@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v5.5 · 2026-11-24 · calendario por Semana y Día con horas, tareas con hora, atrasadas marcadas, aviso de choques y el asistente puede sacar o mover tareas, reuniones y producciones · v5.4 · 2026-11-20 · cuenta del cliente: pauta con tickets, estado de cuenta e informe imprimibles, envío por WhatsApp y aviso de saldo al ingresar · v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
+<!-- Portal ORIGEN — v5.6 · 2026-11-24 · diseño de app en el celular: barra superior fija, tarjetas, pestañas limpias con botón central, asistente compacto, nueva tarea plegable y hojas desde abajo · v5.5 · 2026-11-24 · calendario por Semana y Día con horas, tareas con hora, atrasadas marcadas, aviso de choques y el asistente puede sacar o mover tareas, reuniones y producciones · v5.4 · 2026-11-20 · cuenta del cliente: pauta con tickets, estado de cuenta e informe imprimibles, envío por WhatsApp y aviso de saldo al ingresar · v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -132,7 +132,7 @@ ul.tasks{list-style:none;margin:0;padding:0}
 
 /* calendario */
 .calbar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
-.calbar h2{margin:0 auto 0 0;text-transform:capitalize;font-size:1.25rem;font-weight:600}
+.calbar h2{margin:0 auto 0 0;text-transform:none;font-size:1.25rem;font-weight:600}
 .calbar select{width:auto;min-height:38px;padding:.3rem .6rem}
 .cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
 .cal .dw{font-size:.72rem;color:var(--mut);text-align:center;text-transform:uppercase;letter-spacing:.06em}
@@ -397,7 +397,8 @@ select option{background:#1b1a17;color:#F3EEE3}
 .item.sin-leer .tx{font-weight:600}
 /* v5.3 · métricas estilo Buffer: logos de red, tarjetas con color, calendario con miniaturas */
 .logo{display:inline-grid;place-items:center;width:var(--s,22px);height:var(--s,22px);border-radius:28%;color:#fff;font:600 calc(var(--s,22px) * .46)/1 Jost,sans-serif;flex:0 0 auto;letter-spacing:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}
-.calbar h2{font-size:1.1rem;letter-spacing:0;text-transform:capitalize;color:var(--tx);font-weight:600}
+.calbar h2::first-letter{text-transform:uppercase}
+.calbar h2{font-size:1.1rem;letter-spacing:0;text-transform:none;color:var(--tx);font-weight:600}
 .bar-top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
 .redes{display:flex;flex-wrap:wrap;gap:8px}
 .redes button{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--line);background:var(--s2);border-radius:999px;padding:.25rem .9rem .25rem .3rem;color:var(--mut);cursor:pointer;min-height:40px}
@@ -442,6 +443,66 @@ select option{background:#1b1a17;color:#F3EEE3}
   .pt{max-width:22px;border-radius:4px}.pt .logo{display:none}
 }
 #nav a:nth-child(1) svg{color:#C9B37A}#nav a:nth-child(2) svg{color:#7FD6E8}#nav a:nth-child(3) svg{color:#F2A6C8}#nav a:nth-child(4) svg{color:#B59CF0}#nav a:nth-child(5) svg{color:#8FCB9B}#nav a:nth-child(6) svg{color:#E9B872}#nav a:nth-child(7) svg{color:#6FA8FF}
+
+/* ---------- v5.6 · app en el celular: barra fija, tarjetas, pestañas limpias, hoja con asa ---------- */
+.asis-bar,.nt>summary{display:none}
+@media(max-width:899px){
+:root{--nav:64px;--r:20px}
+html{-webkit-text-size-adjust:100%}
+body{overflow-x:hidden;-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
+a,button,summary,select,label{touch-action:manipulation}
+input,select,textarea{font-size:16px;border-radius:14px;min-height:48px}
+.content,main{min-width:0}
+/* barra superior fija con vidrio */
+.top{position:sticky;top:0;z-index:9;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 10px;background:rgba(11,11,10,.84);-webkit-backdrop-filter:saturate(1.4) blur(16px);backdrop-filter:saturate(1.4) blur(16px);border-bottom:1px solid var(--line);max-width:none}
+.top h1{font-size:1.4rem;letter-spacing:.02em}
+.kicker{font-size:.66rem;letter-spacing:.16em;margin:0 0 .1rem}
+#cuenta{width:38px;height:38px;border-color:rgba(201,179,122,.45);background:linear-gradient(135deg,rgba(201,179,122,.22),rgba(201,179,122,.06))}
+main{padding:14px 16px calc(var(--nav) + var(--safe) + 56px)}
+/* tarjetas tipo app */
+.card{background:var(--s1);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px}
+.card h2{margin-bottom:.8rem}
+.card.asis{background:linear-gradient(135deg,rgba(201,179,122,.15),rgba(201,179,122,.04));border:1px solid rgba(201,179,122,.35);padding:12px 14px;margin:0 0 12px}
+details.box{background:var(--s1);border:1px solid var(--line);border-radius:20px;margin-bottom:12px;padding:0 16px}
+details.box>summary{padding:14px 0}
+.stats{grid-template-columns:1fr 1fr;gap:10px;border:0;margin-bottom:12px}
+.stats .stat{background:var(--s1);border:1px solid var(--line)!important;border-radius:18px;padding:12px 16px!important}
+.stats .stat b{font-size:1.8rem;line-height:1.1}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+.stats .stat.alerta{display:block;background:rgba(240,138,128,.08);border-color:rgba(240,138,128,.3)!important}
+.clis{border:0;display:grid;gap:10px}
+.cli{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:14px 16px}
+.item,.alerta:not(.stat){background:var(--s2);border:0;border-radius:14px;padding:.7rem .85rem;margin-bottom:8px}
+.seg{display:flex;width:max-content;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.seg::-webkit-scrollbar{display:none}
+.seg button{white-space:nowrap;min-height:38px}
+.btn{min-height:46px}.btn.sm{min-height:38px}
+.btn,.cli,.item,.pc,#nav a,.asis-bar{transition:transform .12s ease,background .12s ease}
+.btn:active,.cli:active,.item:active,.pc:active,#nav a:active,.asis-bar:active{transform:scale(.97)}
+/* barra de pestañas */
+.side{height:calc(var(--nav) + var(--safe));background:rgba(14,14,12,.92);border-top:1px solid var(--line)}
+#nav a{position:relative;min-width:0;padding:.45rem 0;font-size:.64rem;font-weight:500;letter-spacing:0;gap:3px}
+#nav a span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#nav a svg{width:24px;height:24px}
+#nav a:not([aria-current=page]) svg{color:var(--mut)!important}
+#nav a[aria-current=page] svg{color:var(--gold)!important}
+#nav a[aria-current=page]::before{content:"";position:absolute;top:-6px;left:32%;right:32%;height:3px;border-radius:0 0 3px 3px;background:var(--gold)}
+#nav.con-fab{display:grid;grid-template-columns:1fr 1fr 68px 1fr 1fr;align-items:stretch}
+#nav.con-fab a:nth-child(2){margin-right:0}#nav.con-fab a:nth-child(3){margin-left:0;grid-column:4}#nav.con-fab a:nth-child(4){grid-column:5}
+#fab{bottom:calc(var(--safe) + 22px);box-shadow:0 8px 24px rgba(201,179,122,.35)}
+/* asistente compacto y nueva tarea plegable */
+.asis-bar{display:flex;align-items:center;gap:.7rem;width:100%;text-align:left;padding:.85rem 1rem;margin:0 0 12px;border:1px solid rgba(201,179,122,.35);border-radius:18px;background:linear-gradient(135deg,rgba(201,179,122,.16),rgba(201,179,122,.04));color:var(--tx);font:inherit;cursor:pointer}
+.asis-bar span:first-child{color:var(--gold);font-size:1.2rem}.asis-bar span:nth-child(2){flex:1;color:var(--mut);font-size:.95rem}
+.nt{padding:0}.nt>summary{display:flex;align-items:center;gap:.6rem;padding:14px 16px;font-weight:600;color:var(--gold);cursor:pointer;list-style:none}
+.nt>summary::-webkit-details-marker{display:none}.nt[open]>summary{border-bottom:1px solid var(--line)}.nt>form{padding:14px 16px 16px}
+/* hoja desde abajo con asa */
+dialog{border-radius:24px 24px 0 0;border-bottom:0}
+dialog::before{content:"";display:block;width:40px;height:4px;border-radius:2px;background:rgba(255,255,255,.22);margin:8px auto 0}
+.sh-h{padding-top:6px}
+.sh-h button:focus:not(:focus-visible){outline:none}
+.calbar{gap:6px}.calbar .btn{min-height:40px}.calbar select{min-height:40px}
+}
+@media(max-width:899px) and (prefers-reduced-motion:no-preference){dialog[open]{animation:hoja .28s cubic-bezier(.2,.8,.2,1)}@keyframes hoja{from{transform:translateY(48px);opacity:0}}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js" integrity="sha384-TcHRA3zBbn+Lexh5n+Oil4guNPOS3rjNDpGRAN46u/s/mB2IZ50ceC6TYDU2yvgK" crossorigin="anonymous" defer></script>
 </head>
@@ -1285,7 +1346,7 @@ function vistaHoras(n){
       h('button',{type:'button',class:'btn ol sm',onclick:() => { S.h24 = !S.h24; S.calScroll = null; render(); }}, S.h24 ? 'Horario normal' : 'Ver 24 h'),
       h('button',{type:'button',class:'btn sm',onclick:() => nuevoAlgo({ fecha:n === 1 ? f0 : (dias.includes(hoy) ? hoy : f0), cliente_id:S.filtroCli || undefined })}, '+ Agregar')),
     cardAtrasadas(),
-    n === 1 ? h('p',{class:'mut',style:'margin:0 0 10px'}, its.length ? `${its.length} ${its.length === 1 ? 'compromiso' : 'compromisos'} con horario · ocupado ${Math.floor(ocup / 60)} h ${ocup % 60} min` : 'Sin compromisos con horario. Tocá un horario libre para agendar.') : h('p',{class:'mut',style:'margin:0 0 10px'}, 'Tocá un horario libre para agendar. Lo rayado es tiempo ocupado; en rojo, lo que se superpone.'),
+    n === 1 ? h('p',{class:'mut',style:'margin:0 0 10px'}, its.length ? `${its.length} ${its.length === 1 ? 'compromiso' : 'compromisos'} con horario · ocupado ${Math.floor(ocup / 60)} h ${ocup % 60} min` : 'Sin compromisos con horario. Tocá un horario libre para agendar.') : h('p',{class:'mut',style:'margin:0 0 10px'}, 'Tocá un horario libre para agendar. Rayado = ocupado · rojo = se superpone.'),
     wrap,
     h('div',{class:'leyenda'}, S.E.clientes.map(c => pill(c.nombre, '', c.color)), pill('▣ publicación'), pill('📷 producción'), pill('◷ reunión'), pill('✓ tarea con hora')));
 }
@@ -1317,7 +1378,7 @@ VE.tareas = () => {
     });
   });
   fill($('view'),
-    h('div',{class:'card'}, f),
+    movil() ? h('details',{class:'card nt'}, h('summary',{}, '+ Nueva tarea'), f) : h('div',{class:'card'}, f),
     h('div',{class:'row',style:'margin:4px 0 10px;align-items:center'}, segMias(), selCli()),
     h('div',{class:'card'},
       ab.length ? grupos.filter(g => g[1].length).map(([t, l, c]) => [h('p',{class:'grupo ' + (c || '')}, `${t} · ${l.length}`), h('ul',{class:'tasks'}, l.map(itemTarea))]) : vacio('No hay tareas pendientes. 🙌'),
@@ -1885,6 +1946,7 @@ function cajaAsistente(pre){
   return { ta, out, nodos:[ta, chips, h('div',{class:'row'}, micBtn(ta), h('button',{type:'button',class:'btn',onclick:e => ordenar(ta, out, e.currentTarget)}, 'Ordenar con IA')), out] };
 }
 function asistenteCard(){
+  if (movil()) return h('button',{type:'button',class:'asis-bar',onclick:() => abrirAsistente()}, h('span',{'aria-hidden':'true'}, '✦'), h('span',{}, 'Contale al asistente qué hay que hacer…'), h('span',{'aria-hidden':'true'}, '🎙'));
   const a = cajaAsistente();
   return h('section',{class:'card asis','aria-labelledby':'h-asis'}, h('h2',{id:'h-asis'}, '✦ Asistente', h('small',{}, 'escribí o dictá, yo lo ordeno')), a.nodos);
 }
