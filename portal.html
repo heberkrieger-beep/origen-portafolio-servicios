@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v5.6 · 2026-11-24 · diseño de app en el celular: barra superior fija, tarjetas, pestañas limpias con botón central, asistente compacto, nueva tarea plegable y hojas desde abajo · v5.5 · 2026-11-24 · calendario por Semana y Día con horas, tareas con hora, atrasadas marcadas, aviso de choques y el asistente puede sacar o mover tareas, reuniones y producciones · v5.4 · 2026-11-20 · cuenta del cliente: pauta con tickets, estado de cuenta e informe imprimibles, envío por WhatsApp y aviso de saldo al ingresar · v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
+<!-- Portal ORIGEN — v5.8 · 2026-11-24 · el Mapa mira el cupo del plan, cuánto se cumplió del calendario y lo que quedó sin hacer · v5.7 · 2026-11-24 · Mapa de clientes: semáforo por cliente con publicaciones del mes, qué falta, cobros, tareas vencidas y pedidos · v5.6 · 2026-11-24 · diseño de app en el celular: barra superior fija, tarjetas, pestañas limpias con botón central, asistente compacto, nueva tarea plegable y hojas desde abajo · v5.5 · 2026-11-24 · calendario por Semana y Día con horas, tareas con hora, atrasadas marcadas, aviso de choques y el asistente puede sacar o mover tareas, reuniones y producciones · v5.4 · 2026-11-20 · cuenta del cliente: pauta con tickets, estado de cuenta e informe imprimibles, envío por WhatsApp y aviso de saldo al ingresar · v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -444,6 +444,17 @@ select option{background:#1b1a17;color:#F3EEE3}
 }
 #nav a:nth-child(1) svg{color:#C9B37A}#nav a:nth-child(2) svg{color:#7FD6E8}#nav a:nth-child(3) svg{color:#F2A6C8}#nav a:nth-child(4) svg{color:#B59CF0}#nav a:nth-child(5) svg{color:#8FCB9B}#nav a:nth-child(6) svg{color:#E9B872}#nav a:nth-child(7) svg{color:#6FA8FF}
 
+.mapa-st{grid-template-columns:repeat(3,1fr)!important}.mapa-st .stat:last-child:nth-child(odd){grid-column:auto!important}
+.mapa-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.mapa-cli{display:block;width:100%;background:var(--s1);border:1px solid var(--line);border-radius:var(--r);padding:16px;color:var(--tx)}
+.mapa-cli:hover{border-color:rgba(201,179,122,.4)}
+.mapa-h{display:flex;align-items:center;gap:.6rem;margin-bottom:.45rem}.mapa-n{flex:1;min-width:0;overflow-wrap:anywhere;font-weight:700;color:var(--tx);text-decoration:none}.mapa-n:hover{color:var(--gold2)}
+.sem{width:12px;height:12px;border-radius:50%;background:var(--ok);flex:0 0 auto}.sem.n1{background:var(--warn)}.sem.n2{background:var(--bad)}
+.mapa-dots{display:flex;flex-wrap:wrap;gap:4px;margin:.55rem 0 0}.mapa-dots i{width:11px;height:11px;border-radius:3px;background:var(--c)}
+.mapa-falta{list-style:none;margin:.65rem 0 0;padding:0;display:grid;gap:5px;font-size:.92rem}.mapa-falta li::before{content:"●";margin-right:.5rem;color:var(--warn)}.mapa-falta li.n2::before{color:var(--bad)}
+.mapa-cup{display:grid;gap:10px;margin-top:.7rem;font-size:.9rem}
+.mapa-sin{margin-top:.7rem;font-size:.9rem}.mapa-sin summary{cursor:pointer;color:var(--mut)}.mapa-sin ul{margin:.4rem 0 0;padding-left:1.1rem;color:var(--tx)}
+.mapa-ok{margin:.65rem 0 0;color:var(--ok);font-size:.92rem}
 /* ---------- v5.6 · app en el celular: barra fija, tarjetas, pestañas limpias, hoja con asa ---------- */
 .asis-bar,.nt>summary{display:none}
 @media(max-width:899px){
@@ -809,7 +820,8 @@ const pillCli = id => { const c = cliDe(id); return c ? pill(c.nombre, '', c.col
 async function cargarEquipo(centro){
   const c = centro || new Date(), ahora = new Date();
   const desde = iso(new Date(c.getFullYear(), c.getMonth() - 2, 1)), hasta = iso(new Date(c.getFullYear(), c.getMonth() + 5, 0));
-  const [cl, us, ta, co, pr, ev, so, dg, pp, pg, ga] = await Promise.all([
+  const sinFallo = p => p.catch(() => []); // si la tabla todavía no existe, el portal sigue andando
+  const [cl, us, ta, co, pr, ev, so, dg, pp, pg, ga, cu, bp] = await Promise.all([
     q(sb.from('clientes').select('*').order('negocio',{nullsFirst:false})),
     q(sb.from('usuarios').select('id,nombre,rol,auth_id,activo')),
     q(sb.from('tareas').select('*').or(`hecha.eq.false,hecha.is.null,creado_en.gte.${masDias(-30)},hecha_en.gte.${masDias(-190)}`).order('fecha_limite',{nullsFirst:false}).limit(600)),
@@ -820,12 +832,14 @@ async function cargarEquipo(centro){
     q(sb.from('diagnosticos').select('cliente_id,tiene_web,web_url,seo_puntaje,google_ficha,aparece_ia,actualizado_en')),
     q(sb.from('presupuestos').select('*').order('creado_en',{ascending:false}).limit(300)),
     q(sb.from('pagos').select('id,cliente_id,fecha,monto,nota').gte('fecha', iso(new Date(ahora.getFullYear(), ahora.getMonth() - 6, 1))).order('fecha',{ascending:false})),
-    q(sb.from('gastos').select('*').gte('fecha', iso(new Date(ahora.getFullYear(), ahora.getMonth() - 6, 1))).order('fecha',{ascending:false}))
+    q(sb.from('gastos').select('*').gte('fecha', iso(new Date(ahora.getFullYear(), ahora.getMonth() - 6, 1))).order('fecha',{ascending:false})),
+    sinFallo(q(sb.from('plan_cupos').select('*'))),
+    sinFallo(q(sb.from('buffer_posts').select('*').gte('fecha', iso(new Date(ahora.getFullYear(), ahora.getMonth(), 1))).limit(2000)))
   ]);
   const todos = cl.map((x, i) => ({ id:String(x.id), nombre:x.negocio || x.nombre || 'Sin nombre', plan:x.plan_nombre, pausado:!!x.pausado, baja:x.estado === 'baja', prospecto:x.estado === 'prospecto',
     abono:Number(x.mensual_con_desc ?? x.precio_acordado ?? x.precio_lista) || 0, color:COLORES[i % COLORES.length], raw:x }));
   S.E = { desde, hasta, todos, clientes:todos.filter(x => !x.baja), mapa:new Map(todos.map(x => [x.id, x])), usuarios:us.filter(u => u.activo !== false),
-    tareas:ta, contenidos:co, producciones:pr, eventos:ev, solicitudes:so, diag:new Map(dg.map(d => [String(d.cliente_id), d])), presupuestos:pp, pagos:pg, gastos:ga };
+    tareas:ta, contenidos:co, producciones:pr, eventos:ev, solicitudes:so, diag:new Map(dg.map(d => [String(d.cliente_id), d])), presupuestos:pp, pagos:pg, gastos:ga, cupos:cu, bposts:bp };
   S.horaOk = ta.length ? 'hora' in ta[0] : false; // la migración 10 agrega hora y duración a las tareas
   S.yo = us.find(u => u.auth_id === S.user.id) || null;
 }
@@ -1402,7 +1416,7 @@ const primerNombre = c => (c?.raw?.contacto_nombre || '').split(' ')[0];
 
 function subnavClientes(act){
   return h('div',{class:'seg',role:'group','aria-label':'Sección de clientes',style:'margin-bottom:14px'},
-    [['','Clientes'],['presupuestos','Presupuestos'],['cobros','Cobros'],['numeros','Números']].map(([k,t]) => h('button',{type:'button','aria-pressed':String(act === k),onclick:() => { location.hash = '#/clientes' + (k ? '/' + k : ''); }}, t)));
+    [['mapa','Mapa'],['','Clientes'],['presupuestos','Presupuestos'],['cobros','Cobros'],['numeros','Números']].map(([k,t]) => h('button',{type:'button','aria-pressed':String(act === k),onclick:() => { location.hash = '#/clientes' + (k ? '/' + k : ''); }}, t)));
 }
 function pillPresencia(id){
   const d = S.E.diag.get(id);
@@ -1412,7 +1426,59 @@ function pillPresencia(id){
   return null;
 }
 
+
+/* ================= mapa de clientes: cómo viene cada uno ================= */
+const NIV = [['Al día','ok'], ['A atender','warn'], ['En rojo','bad']];
+function estadoCli(c){
+  const hoy = hoyISO(), y = new Date().getFullYear(), m = new Date().getMonth(), dia = new Date().getDate(), de = x => String(x.cliente_id) === c.id;
+  const cont = S.E.contenidos.filter(de), mes = cont.filter(x => enMes(x.fecha, y, m));
+  const atras = cont.filter(x => x.fecha < hoy && x.fecha >= masDias(-30) && x.estado !== 'publicado');
+  const prox = cont.filter(x => x.fecha >= hoy && x.estado !== 'publicado').sort((a, b) => a.fecha.localeCompare(b.fecha))[0];
+  const venc = S.E.tareas.filter(t => de(t) && !t.hecha && t.fecha_limite && t.fecha_limite < hoy).length;
+  const esp = cont.filter(x => x.estado === 'revision' && x.aprobacion === 'pendiente').length, cam = cont.filter(x => x.aprobacion === 'cambios' && x.estado !== 'publicado').length;
+  const ped = S.E.solicitudes.filter(x => de(x) && x.estado === 'nueva').length;
+  const cobrado = S.E.pagos.filter(x => de(x) && enMes(x.fecha, y, m)).reduce((t, x) => t + (Number(x.monto) || 0), 0);
+  const cup = usoCupos({ cont, prod:(S.E.producciones || []).filter(de), posts:(S.E.bposts || []).filter(de), cupos:(S.E.cupos || []).filter(de) }).filter(x => Number(x.limite) > 0);
+  const dm = new Date(y, m + 1, 0).getDate();
+  const deb = [...mes.filter(x => x.fecha <= hoy).map(x => x.estado === 'publicado'), ...S.E.tareas.filter(t => de(t) && enMes(t.fecha_limite, y, m) && t.fecha_limite <= hoy).map(t => !!t.hecha)];
+  const sin = [...atras.map(x => `${x.titulo || x.formato || 'Publicación'} · ${fCorta(x.fecha)}`), ...S.E.tareas.filter(t => de(t) && !t.hecha && t.fecha_limite && t.fecha_limite < hoy).map(t => `${t.titulo || t.texto} · ${fCorta(t.fecha_limite)}`)];
+  const falta = [];
+  for (const cp of cup){ const esp = Math.ceil(cp.limite * dia / dm); if (cp.mes >= cp.limite) continue;
+    if (dia >= 22) falta.push([2, `${cp.nombre}: ${cp.mes} de ${cp.limite}, faltan ${cp.limite - cp.mes} para cerrar el mes`]);
+    else if (esp - cp.mes >= 2) falta.push([1, `${cp.nombre}: ${cp.mes} de ${cp.limite}, a esta altura deberían ir unas ${esp}`]); }
+  if (ped) falta.push([2, `${ped} ${ped === 1 ? 'pedido' : 'pedidos'} del cliente sin responder`]);
+  if (atras.length) falta.push([atras.length > 1 ? 2 : 1, `${atras.length} ${atras.length === 1 ? 'publicación atrasada' : 'publicaciones atrasadas'} (no salieron en su fecha)`]);
+  if (venc) falta.push([venc >= 3 ? 2 : 1, `${venc} ${venc === 1 ? 'tarea vencida' : 'tareas vencidas'}`]);
+  if (c.abono > 0 && cobrado < c.abono) falta.push([dia >= 10 ? 2 : 1, cobrado ? `Pagó ${pesos(cobrado)} de ${pesos(c.abono)} este mes` : `Falta cobrar ${MESES[m].toLowerCase()}: ${pesos(c.abono)}`]);
+  if (cam) falta.push([1, `Pidió cambios en ${cam} ${cam === 1 ? 'publicación' : 'publicaciones'}`]);
+  if (esp) falta.push([1, `${esp} ${esp === 1 ? 'publicación espera' : 'publicaciones esperan'} su aprobación`]);
+  if (!prox || prox.fecha > masDias(14)) falta.push([1, 'No hay publicaciones agendadas en los próximos 14 días']);
+  return { mes, prox, falta, cup, sin, deb:deb.length, cumpl:deb.filter(Boolean).length, nivel: Math.max(0, ...falta.map(f => f[0])), pub:mes.filter(x => x.estado === 'publicado').length };
+}
+function vistaMapa(){
+  titulo('Mapa de clientes', 'Cómo viene cada uno');
+  const hoy = hoyISO(), m = new Date().getMonth();
+  const L = S.E.clientes.filter(c => !c.prospecto), act = L.filter(c => !c.pausado).map(c => ({ c, e:estadoCli(c) })).sort((a, b) => b.e.nivel - a.e.nivel || b.e.falta.length - a.e.falta.length);
+  const n = k => act.filter(x => x.e.nivel === k).length;
+  const pun = x => x.estado === 'publicado' ? ['var(--ok)', 'publicada'] : x.fecha < hoy ? ['var(--bad)', 'atrasada'] : x.estado === 'idea' ? ['#6b6559', 'idea'] : ['var(--gold)', 'en camino'];
+  fill($('view'), subnavClientes('mapa'),
+    h('div',{class:'stats mapa-st'},
+      h('div',{class:'stat alerta'}, h('b',{}, n(2)), h('span',{}, 'en rojo')),
+      h('div',{class:'stat oro'}, h('b',{}, n(1)), h('span',{}, 'a atender')),
+      h('div',{class:'stat'}, h('b',{}, n(0)), h('span',{}, 'al día'))),
+    act.length ? h('div',{class:'mapa-g'}, act.map(({ c, e }) => h('div',{class:'mapa-cli'},
+      h('div',{class:'mapa-h'}, h('span',{class:'sem n' + e.nivel,'aria-hidden':'true'}), h('a',{href:'#/clientes/' + c.id,class:'mapa-n'}, c.nombre), pill(NIV[e.nivel][0], NIV[e.nivel][1])),
+      h('p',{class:'mut',style:'margin:0;font-size:.88rem'}, `${e.pub} de ${e.mes.length} ${e.mes.length === 1 ? 'publicación' : 'publicaciones'} de ${MESES[m].toLowerCase()}`, e.prox ? ` · próxima: ${fCorta(e.prox.fecha)}` : ''),
+      e.mes.length ? h('div',{class:'mapa-dots'}, e.mes.map(x => { const [col, t] = pun(x); return h('i',{style:`--c:${col}`,title:`${x.titulo || x.formato || 'Publicación'} · ${fCorta(x.fecha)} · ${t}`}); })) : null,
+      e.cup.length ? h('div',{class:'mapa-cup'}, e.cup.map(cp => h('div',{}, h('div',{class:'row',style:'justify-content:space-between;gap:.5rem'}, h('span',{}, cp.nombre), h('b',{}, `${cp.mes} de ${cp.limite}`)), barra(Math.round(cp.mes / cp.limite * 100), `${cp.nombre}: ${cp.mes} de ${cp.limite} este mes`)))) : null,
+      e.deb ? h('div',{class:'mapa-cup'}, h('div',{}, h('div',{class:'row',style:'justify-content:space-between;gap:.5rem'}, h('span',{}, 'Calendario cumplido'), h('b',{}, `${e.cumpl} de ${e.deb}`)), barra(Math.round(e.cumpl / e.deb * 100), `Calendario cumplido: ${e.cumpl} de ${e.deb}`))) : null,
+      e.falta.length ? h('ul',{class:'mapa-falta'}, e.falta.map(([k, t]) => h('li',{class:'n' + k}, t))) : h('p',{class:'mapa-ok'}, '✓ Todo en orden'),
+      e.sin.length ? h('details',{class:'mapa-sin'}, h('summary',{}, `Quedó sin hacer · ${e.sin.length}`), h('ul',{}, e.sin.slice(0, 8).map(t => h('li',{}, t)))) : null))) : vacio('No hay clientes activos.'),
+    L.some(c => c.pausado) ? h('p',{class:'mut',style:'margin-top:14px;font-size:.88rem'}, 'En pausa: ' + L.filter(c => c.pausado).map(c => c.nombre).join(', ')) : null);
+}
+
 VE.clientes = arg => {
+  if (arg === 'mapa') return vistaMapa();
   if (arg === 'presupuestos') return vistaPresupuestos();
   if (arg === 'cobros') return vistaCobros();
   if (arg === 'numeros') return vistaNumeros();
