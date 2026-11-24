@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v5.4 · 2026-11-20 · cuenta del cliente: pauta con tickets, estado de cuenta e informe imprimibles, envío por WhatsApp y aviso de saldo al ingresar · v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
+<!-- Portal ORIGEN — v5.5 · 2026-11-24 · calendario por Semana y Día con horas, tareas con hora, atrasadas marcadas, aviso de choques y el asistente puede sacar o mover tareas, reuniones y producciones · v5.4 · 2026-11-20 · cuenta del cliente: pauta con tickets, estado de cuenta e informe imprimibles, envío por WhatsApp y aviso de saldo al ingresar · v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -251,6 +251,31 @@ ul.checks li span{color:var(--mut);font-size:.88rem}
   #print h3{font-size:12pt;margin:1.2em 0 .3em}#print tr{break-inside:avoid}#print td.num{white-space:nowrap}.pr-neg td{color:#2a7a3b}.pr-tk{break-before:page;text-align:center}.pr-tk img{max-width:100%;max-height:235mm;object-fit:contain}
   .pr-notas{white-space:pre-wrap;background:#f6f3ec;padding:10px 12px;border-radius:8px;margin-top:16px}.pr-f{margin-top:34px;color:#444}
 }
+
+/* v5.5 · calendario por horas */
+.hwrap{border:1px solid var(--line);border-radius:12px;overflow:auto;max-height:70vh;background:var(--s1);position:relative}
+.hgrid{display:grid;grid-template-columns:46px repeat(var(--n),minmax(112px,1fr));min-width:100%}
+.hhead{position:sticky;top:0;z-index:6;background:var(--s1);border-bottom:1px solid var(--line)}
+.hhead>div{padding:6px;min-width:0;border-left:1px solid var(--line)}.hhead>div:first-child{border-left:0}
+.hhead .dh{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:.74rem;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+.hhead .dh .dnum,.hhead .dh b{font-size:1.05rem;font-weight:600;color:var(--tx);letter-spacing:0}
+.hhead .hoy .dnum,.hhead .hoy b{color:var(--gold)}
+.hhead .dh .add{margin-left:auto}
+.hhead .chip{margin-top:3px}
+.hl{height:calc(var(--sl,28px)*2);height:56px;position:relative;border-top:1px solid var(--line)}
+.hl span{position:absolute;top:-8px;right:6px;font-size:.7rem;color:var(--mut);background:var(--s1);padding:0 2px}
+.hcol{position:relative;border-left:1px solid var(--line);cursor:cell;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:100% 56px,100% 28px}
+.hcol.hoy{background-color:rgba(201,179,122,.06)}
+.blk{position:absolute;border:0;border-left:3px solid var(--c);border-radius:6px;background:color-mix(in srgb,var(--c) 24%,#15140f);color:var(--tx);font:inherit;font-size:.74rem;line-height:1.25;text-align:left;padding:2px 5px;overflow:hidden;cursor:pointer;z-index:1}
+.blk small{display:block;color:var(--mut);font-size:.68rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.blk.produccion,.blk.evento{background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 6px,transparent 6px 12px)}
+.blk.choque{outline:2px solid var(--bad);outline-offset:-1px;z-index:2}
+.blk.venc{border-left-color:var(--bad)}
+.ahora{position:absolute;left:0;right:0;height:2px;background:var(--bad);z-index:3;pointer-events:none}
+.ahora::before{content:"";position:absolute;left:-4px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--bad)}
+.chip.venc{box-shadow:inset 3px 0 0 var(--bad);color:#ffc2bb}
+.card.atras{border-left:3px solid var(--bad);margin-bottom:12px;padding-top:12px;padding-bottom:12px}.card.atras summary{cursor:pointer;font-weight:600;color:var(--bad);font-size:.95rem}
+@media(max-width:760px){.hwrap{max-height:66vh}}
 
 /* login */
 .login{min-height:100dvh;display:grid;place-items:center;padding:24px 16px;background:radial-gradient(80% 60% at 50% 0%,rgba(201,179,122,.14),transparent 70%)}
@@ -740,6 +765,7 @@ async function cargarEquipo(centro){
     abono:Number(x.mensual_con_desc ?? x.precio_acordado ?? x.precio_lista) || 0, color:COLORES[i % COLORES.length], raw:x }));
   S.E = { desde, hasta, todos, clientes:todos.filter(x => !x.baja), mapa:new Map(todos.map(x => [x.id, x])), usuarios:us.filter(u => u.activo !== false),
     tareas:ta, contenidos:co, producciones:pr, eventos:ev, solicitudes:so, diag:new Map(dg.map(d => [String(d.cliente_id), d])), presupuestos:pp, pagos:pg, gastos:ga };
+  S.horaOk = ta.length ? 'hora' in ta[0] : false; // la migración 10 agrega hora y duración a las tareas
   S.yo = us.find(u => u.auth_id === S.user.id) || null;
 }
 async function recargar(){ await cargarEquipo(S.mes); render(); }
@@ -761,13 +787,15 @@ const FORMS = {
     {k:'cliente_id', l:'Cliente', t:'select', op:opCli(false)},
     {k:'responsable_id', l:'Responsable', t:'select', op:opUsr},
     {k:'fecha_limite', l:'Para cuándo', t:'date'},
+    {k:'hora', l:'Hora (si ocupa un horario)', t:'time', si:() => S.horaOk},
+    {k:'duracion_min', l:'Duración (min)', t:'number', min:5, si:() => S.horaOk},
     {k:'prioridad', l:'Prioridad', t:'select', op:[['baja','Baja'],['media','Media'],['alta','Alta']]},
     {k:'estado', l:'Estado', t:'select', op:[['pendiente','Pendiente'],['en_curso','En curso'],['hecha','Hecha']], full:1},
     {k:'descripcion', l:'Notas', t:'textarea', max:2000, full:1},
     {k:'visible_cliente', l:'Mostrarla al cliente en “Lo que estamos haciendo”', t:'check'},
     {k:'texto_cliente', l:'Cómo la ve el cliente (opcional)', max:200, full:1}],
     nuevo: () => ({ estado:'pendiente', prioridad:'media', responsable_id:S.yo ? String(S.yo.id) : '' }),
-    antes: v => { v.texto = v.titulo; v.hecha = v.estado === 'hecha'; } },
+    antes: v => { v.texto = v.titulo; v.hecha = v.estado === 'hecha'; if (v.hora && !v.fecha_limite) throw aviso('Para ponerle hora, elegí primero la fecha.'); if (!v.hora && 'duracion_min' in v) v.duracion_min = null; } },
   contenido: { tabla:'contenidos', nombre:'Publicación', nuevoT:'Nueva publicación', okT:'Publicación agregada.', icono:'▣', campos:[
     {k:'cliente_id', l:'Cliente', t:'select', op:opCli(true), req:1, full:1},
     {k:'fecha', l:'Fecha', t:'date', req:1},
@@ -894,12 +922,20 @@ function validar(form){
 function editar(tipo, obj, preset){
   const F = FORMS[tipo], nuevo = !obj?.id;
   const base = nuevo ? { ...F.nuevo(), ...(preset || {}) } : (F.cargar ? F.cargar(obj) : obj);
-  const form = h('form',{class:'form', novalidate:true}, F.campos.map(f => campo(f, base[f.k])));
+  const campos = F.campos.filter(f => !f.si || f.si());
+  const form = h('form',{class:'form', novalidate:true}, campos.map(f => campo(f, base[f.k])));
   F.armar?.(form, base);
   const guardar = async (btn, extra) => {
     if (!validar(form)) return;
+    if (['tarea','produccion','evento'].includes(tipo)){ // avisa si se superpone con otro compromiso con horario
+      const w = valores(form, campos), fk = tipo === 'tarea' ? 'fecha_limite' : 'fecha';
+      if (w[fk] && w.hora && !(tipo === 'tarea' && w.estado === 'hecha')){
+        const ch = choquesDe(w[fk], w.hora, w.duracion_min || DUR[tipo], obj?.id);
+        if (ch.length && !confirm(`A esa hora ya tenés: ${ch.map(x => `${x.t} (${hhmm(x.hora)})`).join(', ')}.\n¿Guardar igual?`)) return;
+      }
+    }
     await ocupado(btn, async () => {
-      const v = { ...valores(form, F.campos), ...(extra || {}) };
+      const v = { ...valores(form, campos), ...(extra || {}) };
       F.antes?.(v, nuevo);
       if (nuevo) await q(sb.from(F.tabla).insert(v));
       else await q(sb.from(F.tabla).update(v).eq('id', obj.id));
@@ -925,7 +961,7 @@ function editar(tipo, obj, preset){
 function nuevoAlgo(preset){
   abrirHoja('Agregar', h('div',{class:'tipos'},
     [['contenido','Publicación','para el calendario'],['tarea','Tarea','algo para hacer'],['produccion','Producción','sesión de fotos o video'],['evento','Reunión','llamada o entrega']].map(([t, n, d]) =>
-      h('button',{type:'button',onclick:() => editar(t, null, preset)}, h('b',{'aria-hidden':'true'}, FORMS[t].icono), h('span',{}, n), h('small',{}, d)))),
+      h('button',{type:'button',onclick:() => editar(t, null, t === 'tarea' && preset?.fecha ? { ...preset, fecha_limite:preset.fecha } : preset)}, h('b',{'aria-hidden':'true'}, FORMS[t].icono), h('span',{}, n), h('small',{}, d)))),
     h('p',{class:'mut',style:'margin-top:16px;font-size:.9rem'}, '¿Varias cosas juntas? ', h('button',{type:'button',class:'btn ol sm',onclick:() => abrirAsistente(preset?.cliente_id ? `${cliDe(preset.cliente_id)?.nombre}: ` : '')}, '✦ Contáselo al asistente')));
 }
 
@@ -963,7 +999,7 @@ function itemsAgenda(desde, hasta, conTareas){
   for (const c of S.E.contenidos) if (c.fecha >= desde && c.fecha <= hasta) it.push({ f:c.fecha, cid:c.cliente_id, ico:'▣', t:c.titulo || c.formato || 'Publicación', sub:[ESTADOS[c.estado] || c.estado, c.red].filter(Boolean).join(' · '), hecho:c.estado === 'publicado', abrir:() => editar('contenido', c) });
   for (const p of S.E.producciones) if (p.fecha >= desde && p.fecha <= hasta) it.push({ f:p.fecha, h:p.hora, cid:p.cliente_id, ico:'📷', t:'Producción' + (p.ubicacion ? ` · ${p.ubicacion}` : ''), sub:hhmm(p.hora), abrir:() => editar('produccion', p) });
   for (const e of S.E.eventos) if (e.fecha >= desde && e.fecha <= hasta) it.push({ f:e.fecha, h:e.hora, cid:e.cliente_id, ico:'◷', t:e.titulo || 'Reunión', sub:hhmm(e.hora), abrir:() => editar('evento', e) });
-  if (conTareas) for (const t of S.E.tareas) if (t.fecha_limite && t.fecha_limite >= desde && t.fecha_limite <= hasta) it.push({ f:t.fecha_limite, cid:t.cliente_id, ico:'✓', t:t.titulo || t.texto, sub:'Tarea', hecho:t.hecha, abrir:() => editar('tarea', t) });
+  if (conTareas) for (const t of S.E.tareas) if (t.fecha_limite && t.fecha_limite >= desde && t.fecha_limite <= hasta) it.push({ f:t.fecha_limite, h:t.hora, cid:t.cliente_id, ico:'✓', t:t.titulo || t.texto, sub:!t.hecha && t.fecha_limite < hoyISO() ? 'Tarea atrasada' : 'Tarea', hecho:t.hecha, venc:!t.hecha && t.fecha_limite < hoyISO(), abrir:() => editar('tarea', t) });
   return it.sort((a,b) => (a.f + (a.h || '')).localeCompare(b.f + (b.h || '')));
 }
 function itemBtn(i){
@@ -1146,13 +1182,13 @@ function grillaMes(y, m, porDia, conAgregar){
   }
   const it = porDia[S.diaSel] || [];
   const panel = h('section',{class:'card dia-panel','aria-live':'polite'},
-    h('h2',{}, fLarga(S.diaSel).replace(/^./, c => c.toUpperCase()), conAgregar ? h('button',{type:'button',class:'btn ol sm',onclick:() => nuevoAlgo({ fecha:S.diaSel })}, '+ Agregar') : null),
+    h('h2',{}, fLarga(S.diaSel).replace(/^./, c => c.toUpperCase()), h('span',{class:'row',style:'gap:6px'}, h('button',{type:'button',class:'btn ol sm',onclick:() => { S.calV = 'dia'; S.calF = S.diaSel; S.calScroll = null; render(); }}, 'Ver por horas'), conAgregar ? h('button',{type:'button',class:'btn ol sm',onclick:() => nuevoAlgo({ fecha:S.diaSel })}, '+ Agregar') : null)),
     it.length ? it.map(x => h(x.abrir ? 'button' : 'div',{type:x.abrir ? 'button' : null,class:'item',style:`--c:${x.color}`,onclick:x.abrir || null},
       h('span',{class:'ico','aria-hidden':'true'}, x.ico), h('span',{class:'tx'}, x.t, x.sub ? h('small',{}, x.sub) : null))) : vacio('Nada agendado este día.'));
   return [h('div',{class:'cal'}, celdas), panel];
 }
 
-VE.calendario = () => {
+const calendarioMes = () => {
   const y = S.mes.getFullYear(), m = S.mes.getMonth();
   titulo('Calendario', 'Todos los clientes');
   const ir = d => { S.mes = new Date(y, m + d, 1); S.diaSel = null; if (iso(S.mes) < S.E.desde || iso(new Date(y, m + d + 1, 0)) > S.E.hasta) ocupado(null, recargar); else render(); };
@@ -1160,18 +1196,100 @@ VE.calendario = () => {
   for (const x of itemsAgenda(iso(new Date(y, m - 1, 20)), iso(new Date(y, m + 1, 12)), true).filter(filtraCli)){
     const c = cliDe(x.cid), color = c?.color || '#6b6559';
     (porDia[x.f] ||= []).push({ color, ico:x.ico, t:x.t, sub:[c?.nombre || 'Interna', x.h ? hhmm(x.h) : null, x.sub].filter(Boolean).join(' · '), abrir:x.abrir,
-      chip:h('button',{type:'button',class:'chip' + (x.hecho ? ' hecho' : ''),style:`--c:${color}`,onclick:x.abrir,title:`${c?.nombre || 'Interna'} · ${x.t}`},
+      chip:h('button',{type:'button',class:'chip' + (x.hecho ? ' hecho' : '') + (x.venc ? ' venc' : ''),style:`--c:${color}`,onclick:x.abrir,title:`${c?.nombre || 'Interna'} · ${x.t}`},
         `${x.ico} ${x.h ? hhmm(x.h) + ' ' : ''}${x.t}`, h('span',{class:'sr'}, ` · ${c?.nombre || 'Interna'}`)) });
   }
   fill($('view'),
-    h('div',{class:'calbar'}, h('h2',{'aria-live':'polite'}, `${MESES[m]} ${y}`), selCli(),
+    h('div',{class:'calbar'}, h('h2',{'aria-live':'polite'}, `${MESES[m]} ${y}`), selCli(), barraVistas(),
       h('button',{type:'button',class:'btn ol sm','aria-label':'Mes anterior',onclick:() => ir(-1)}, '‹'),
       h('button',{type:'button',class:'btn ol sm',onclick:() => { S.mes = new Date(); S.diaSel = null; render(); }}, 'Hoy'),
       h('button',{type:'button',class:'btn ol sm','aria-label':'Mes siguiente',onclick:() => ir(1)}, '›'),
       h('button',{type:'button',class:'btn sm solo-pc',onclick:() => nuevoAlgo({ fecha:S.diaSel || hoyISO(), cliente_id:S.filtroCli || undefined })}, '+ Agregar')),
+    cardAtrasadas(),
     grillaMes(y, m, porDia, true),
     h('div',{class:'leyenda'}, S.E.clientes.map(c => pill(c.nombre, '', c.color)), pill('▣ publicación'), pill('📷 producción'), pill('◷ reunión'), pill('✓ tarea')));
 };
+
+/* ================= agenda por horas: Semana y Día, bloques ocupados y choques ================= */
+const DUR = { tarea:30, produccion:120, evento:60 }, SL = 28; // duración por defecto (min) y alto en px de media hora
+const aMin = t => { const [a, b] = String(t).slice(0, 5).split(':').map(Number); return a * 60 + b; };
+const deMin = n => `${String(Math.floor(n / 60)).padStart(2, '0')}:${String(n % 60).padStart(2, '0')}`;
+const sumaDias = (f, n) => { const d = dLocal(f); d.setDate(d.getDate() + n); return iso(d); };
+const lunesDe = f => sumaDias(f, -((dLocal(f).getDay() + 6) % 7));
+const DIA3 = ['dom','lun','mar','mié','jue','vie','sáb'];
+function conHora(f){ // lo que ocupa un horario ese día: producciones, reuniones y tareas con hora
+  const r = [], hoy = hoyISO();
+  for (const p of S.E.producciones) if (p.fecha === f && p.hora) r.push({ k:'produccion', o:p, id:p.id, cid:p.cliente_id, hora:p.hora, dur:p.duracion_min > 0 ? p.duracion_min : DUR.produccion, t:'Producción' + (p.ubicacion ? ` · ${p.ubicacion}` : ''), ico:'📷' });
+  for (const e of S.E.eventos) if (e.fecha === f && e.hora) r.push({ k:'evento', o:e, id:e.id, cid:e.cliente_id, hora:e.hora, dur:e.duracion_min > 0 ? e.duracion_min : DUR.evento, t:e.titulo || 'Reunión', ico:'◷' });
+  for (const t of S.E.tareas) if (!t.hecha && t.fecha_limite === f && t.hora) r.push({ k:'tarea', o:t, id:t.id, cid:t.cliente_id, hora:t.hora, dur:t.duracion_min > 0 ? t.duracion_min : DUR.tarea, t:t.titulo || t.texto || 'Tarea', ico:'✓', venc:f < hoy });
+  return r;
+}
+const choquesDe = (f, hora, dur, excl) => { const a = aMin(hora), b = a + dur; return conHora(f).filter(x => String(x.id) !== String(excl) && aMin(x.hora) < b && a < aMin(x.hora) + x.dur); };
+function irA(f){
+  const d = dLocal(f); S.calF = f; S.diaSel = null; S.mes = new Date(d.getFullYear(), d.getMonth(), 1);
+  const a = S.calV === 'sem' ? lunesDe(f) : f, b = S.calV === 'sem' ? sumaDias(a, 6) : f;
+  if (a < S.E.desde || b > S.E.hasta) ocupado(null, recargar); else render();
+}
+function cardAtrasadas(){
+  const hoy = hoyISO(), l = S.E.tareas.filter(t => !t.hecha && t.fecha_limite && t.fecha_limite < hoy && esMia(t) && (!S.filtroCli || String(t.cliente_id) === S.filtroCli)).sort((a, b) => a.fecha_limite.localeCompare(b.fecha_limite));
+  if (!l.length) return null;
+  return h('details',{class:'card atras',open:S.atrasOpen,ontoggle:e => { S.atrasOpen = e.currentTarget.open; }}, h('summary',{}, `⚠ Atrasadas · ${l.length}`, h('span',{class:'mut'}, ' · tocá para verlas')),
+    h('div',{style:'margin:.6rem 0'}, segMias()), h('ul',{class:'tasks'}, l.slice(0, 6).map(itemTarea)), l.length > 6 ? h('p',{style:'margin:.6rem 0 0'}, h('a',{href:'#/tareas'}, `Ver las ${l.length} →`)) : null);
+}
+const barraVistas = () => h('div',{class:'seg',role:'group','aria-label':'Vista del calendario'}, [['mes','Mes'],['sem','Semana'],['dia','Día']].map(([k, t]) =>
+  h('button',{type:'button','aria-pressed':String((S.calV || 'mes') === k),onclick:() => {
+    const v = S.calV || 'mes'; S.calV = k; S.calScroll = null;
+    if (k !== 'mes' && v === 'mes') S.calF = S.diaSel || (enMes(hoyISO(), S.mes.getFullYear(), S.mes.getMonth()) ? hoyISO() : iso(S.mes));
+    if (k === 'mes' && S.calF){ const d = dLocal(S.calF); S.mes = new Date(d.getFullYear(), d.getMonth(), 1); S.diaSel = S.calF; }
+    render(); } }, t)));
+function columnaHoras(f, h0, h1, ahora){
+  const hoy = hoyISO(), its = conHora(f).filter(filtraCli).map(x => ({ ...x, ini:aMin(x.hora), fin:Math.min(aMin(x.hora) + x.dur, 1440) })).sort((a, b) => a.ini - b.ini || b.fin - a.fin);
+  let lanes = [], cl = [], fin = 0;
+  const cerrar = () => { cl.forEach(x => { x.n = lanes.length; x.choque = lanes.length > 1; }); cl = []; lanes = []; };
+  for (const x of its){ if (x.ini >= fin){ cerrar(); fin = 0; } let l = lanes.findIndex(e => e <= x.ini); if (l < 0) l = lanes.length; lanes[l] = x.fin; x.l = l; fin = Math.max(fin, x.fin); cl.push(x); }
+  cerrar();
+  const bloques = its.filter(x => x.fin > h0 * 60 && x.ini < h1 * 60).map(x => {
+    const c = cliDe(x.cid), a = Math.max(x.ini, h0 * 60), top = (a - h0 * 60) / 30 * SL, alto = Math.max((Math.min(x.fin, h1 * 60) - a) / 30 * SL, 20);
+    return h('button',{type:'button',class:`blk ${x.k}` + (x.choque ? ' choque' : '') + (x.venc ? ' venc' : ''),style:`top:${top}px;height:${alto - 2}px;left:calc(${x.l} * 100% / ${x.n} + 1px);width:calc(100% / ${x.n} - 3px);--c:${c?.color || '#6b6559'}`,
+      onclick:() => editar(x.k, x.o), 'aria-label':`${hhmm(x.hora)} a ${deMin(x.fin)}, ${x.t}${c ? ', ' + c.nombre : ''}${x.choque ? ', se superpone con otro compromiso' : ''}${x.venc ? ', atrasada' : ''}`},
+      h('b',{}, `${hhmm(x.hora)} ${x.ico}`), ' ', x.t, c ? h('small',{}, c.nombre) : null);
+  });
+  const col = h('div',{class:'hcol' + (f === hoy ? ' hoy' : ''),style:`height:${(h1 - h0) * 2 * SL}px`}, bloques,
+    f === hoy && ahora >= h0 * 60 && ahora < h1 * 60 ? h('div',{class:'ahora','aria-hidden':'true',style:`top:${(ahora - h0 * 60) / 30 * SL}px`}) : null);
+  col.addEventListener('click', e => { if (e.target !== col) return; nuevoAlgo({ fecha:f, hora:deMin(h0 * 60 + Math.floor(e.offsetY / SL) * 30), cliente_id:S.filtroCli || undefined }); });
+  return { col, its };
+}
+function vistaHoras(n){
+  const hoy = hoyISO(), ahora = new Date().getHours() * 60 + new Date().getMinutes();
+  const f0 = n === 7 ? lunesDe(S.calF || hoy) : (S.calF || hoy), dias = Array.from({ length:n }, (_, i) => sumaDias(f0, i)), h0 = S.h24 ? 0 : 7, h1 = S.h24 ? 24 : 22;
+  titulo('Calendario', 'Todos los clientes');
+  const rango = n === 7 ? `${fCorta(dias[0])} – ${fCorta(dias[6])}` : fLarga(f0).replace(/^./, c => c.toUpperCase());
+  const cabecera = dias.map(f => { const d = dLocal(f), sin = itemsAgenda(f, f, true).filter(x => !x.h && filtraCli(x));
+    return h('div',{class:f === hoy ? 'hoy' : ''},
+      h('div',{class:'dh'}, h('span',{}, DIA3[d.getDay()]),
+        n === 7 ? h('button',{type:'button',class:'dnum','aria-label':`Ver el ${fLarga(f)} por horas`,onclick:() => { S.calV = 'dia'; S.calF = f; render(); }}, d.getDate()) : h('b',{}, d.getDate()),
+        h('button',{type:'button',class:'add','aria-label':`Agregar el ${fLarga(f)}`,onclick:() => nuevoAlgo({ fecha:f, cliente_id:S.filtroCli || undefined })}, '+')),
+      sin.map(x => h('button',{type:'button',class:'chip' + (x.hecho ? ' hecho' : '') + (x.venc ? ' venc' : ''),style:`--c:${cliDe(x.cid)?.color || '#6b6559'}`,onclick:x.abrir,title:`${cliDe(x.cid)?.nombre || 'Interna'} · ${x.t}`}, `${x.ico} ${x.t}`))); });
+  const cols = dias.map(f => columnaHoras(f, h0, h1, ahora));
+  const wrap = h('div',{class:'hwrap',tabindex:'0',role:'region','aria-label':'Agenda por horas'},
+    h('div',{class:'hgrid hhead',style:`--n:${n}`}, h('div',{}), cabecera),
+    h('div',{class:'hgrid',style:`--n:${n}`}, h('div',{}, Array.from({ length:h1 - h0 }, (_, i) => h('div',{class:'hl'}, h('span',{}, `${String(h0 + i).padStart(2, '0')}:00`)))), cols.map(c => c.col)));
+  wrap.addEventListener('scroll', () => { S.calScroll = wrap.scrollTop; });
+  requestAnimationFrame(() => { wrap.scrollTop = S.calScroll ?? Math.max(0, ((dias.includes(hoy) ? Math.max(ahora - 60, h0 * 60) : 8 * 60) - h0 * 60) / 30 * SL); });
+  const its = cols[0].its, ocup = n === 1 ? its.reduce((s, x) => { const a = Math.max(x.ini, s.fin); return x.fin > a ? { t:s.t + x.fin - a, fin:x.fin } : s; }, { t:0, fin:-1 }).t : 0;
+  fill($('view'),
+    h('div',{class:'calbar'}, h('h2',{'aria-live':'polite'}, rango), selCli(), barraVistas(),
+      h('button',{type:'button',class:'btn ol sm','aria-label':n === 7 ? 'Semana anterior' : 'Día anterior',onclick:() => irA(sumaDias(f0, -n))}, '‹'),
+      h('button',{type:'button',class:'btn ol sm',onclick:() => { S.calScroll = null; irA(hoy); }}, 'Hoy'),
+      h('button',{type:'button',class:'btn ol sm','aria-label':n === 7 ? 'Semana siguiente' : 'Día siguiente',onclick:() => irA(sumaDias(f0, n))}, '›'),
+      h('button',{type:'button',class:'btn ol sm',onclick:() => { S.h24 = !S.h24; S.calScroll = null; render(); }}, S.h24 ? 'Horario normal' : 'Ver 24 h'),
+      h('button',{type:'button',class:'btn sm',onclick:() => nuevoAlgo({ fecha:n === 1 ? f0 : (dias.includes(hoy) ? hoy : f0), cliente_id:S.filtroCli || undefined })}, '+ Agregar')),
+    cardAtrasadas(),
+    n === 1 ? h('p',{class:'mut',style:'margin:0 0 10px'}, its.length ? `${its.length} ${its.length === 1 ? 'compromiso' : 'compromisos'} con horario · ocupado ${Math.floor(ocup / 60)} h ${ocup % 60} min` : 'Sin compromisos con horario. Tocá un horario libre para agendar.') : h('p',{class:'mut',style:'margin:0 0 10px'}, 'Tocá un horario libre para agendar. Lo rayado es tiempo ocupado; en rojo, lo que se superpone.'),
+    wrap,
+    h('div',{class:'leyenda'}, S.E.clientes.map(c => pill(c.nombre, '', c.color)), pill('▣ publicación'), pill('📷 producción'), pill('◷ reunión'), pill('✓ tarea con hora')));
+}
+VE.calendario = () => S.calV === 'sem' ? vistaHoras(7) : S.calV === 'dia' ? vistaHoras(1) : calendarioMes();
 
 VE.tareas = () => {
   titulo('Tareas', S.soloMias ? 'Las tuyas y las sin asignar' : 'De todo el equipo');
@@ -1806,13 +1924,18 @@ async function ordenar(ta, out, btn){
     propuesta(data, out, ta);
   });
 }
-const NOMBRE_ACC = { avance:'Avance · lo ve el cliente', tarea:'Tarea nueva', completar:'Marcar como hecha', reprogramar:'Cambiar tarea', contenido:'Publicación', produccion:'Producción', evento:'Reunión' };
+const NOMBRE_ACC = { avance:'Avance · lo ve el cliente', tarea:'Tarea nueva', completar:'Marcar como hecha', reprogramar:'Cambiar tarea', eliminar:'Sacar de la agenda', contenido:'Publicación', produccion:'Producción', evento:'Reunión' };
+const OBJ_T = { tarea:'tarea', evento:'reunión', produccion:'producción' };
+const nomAcc = a => a.tipo === 'reprogramar' && a.objeto && a.objeto !== 'tarea' ? `Mover ${OBJ_T[a.objeto]}` : a.tipo === 'eliminar' ? `Sacar ${OBJ_T[a.objeto] || 'de la agenda'}` : NOMBRE_ACC[a.tipo];
 const PRIO_T = { baja:'baja', media:'media', alta:'alta' }, EST_T = { pendiente:'pendiente', en_curso:'en curso' };
 function cambiosTexto(a){
-  const c = a.cambios || {}, out = [];
-  if ('fecha_limite' in c) out.push(`fecha: ${a.antes.fecha_limite ? fCorta(a.antes.fecha_limite) : 'sin fecha'} → ${fCorta(c.fecha_limite)}`);
-  if ('prioridad' in c) out.push(`prioridad: ${PRIO_T[a.antes.prioridad] || 'media'} → ${PRIO_T[c.prioridad]}`);
-  if ('responsable_id' in c) out.push(`responsable: ${usrDe(a.antes.responsable_id)?.nombre || 'sin asignar'} → ${usrDe(c.responsable_id)?.nombre || '—'}`);
+  const c = a.cambios || {}, an = a.antes || {}, out = [];
+  if ('fecha_limite' in c) out.push(`fecha: ${an.fecha_limite ? fCorta(an.fecha_limite) : 'sin fecha'} → ${fCorta(c.fecha_limite)}`);
+  if ('fecha' in c) out.push(`fecha: ${an.fecha ? fCorta(an.fecha) : '—'} → ${fCorta(c.fecha)}`);
+  if ('hora' in c) out.push(`hora: ${an.hora ? hhmm(an.hora) : 'sin hora'} → ${hhmm(c.hora)}`);
+  if ('duracion_min' in c) out.push(`duración: ${an.duracion_min ? an.duracion_min + ' min' : '—'} → ${c.duracion_min} min`);
+  if ('prioridad' in c) out.push(`prioridad: ${PRIO_T[an.prioridad] || 'media'} → ${PRIO_T[c.prioridad]}`);
+  if ('responsable_id' in c) out.push(`responsable: ${usrDe(an.responsable_id)?.nombre || 'sin asignar'} → ${usrDe(c.responsable_id)?.nombre || '—'}`);
   if ('estado' in c) out.push(`estado: ${EST_T[c.estado]}`);
   return out.join(' · ');
 }
@@ -1823,12 +1946,13 @@ function propuesta(data, out, ta){
   const guardarBtn = h('button',{type:'button',class:'btn'});
   const contar = () => { const n = acc.filter(a => a.ok).length; guardarBtn.textContent = `Guardar ${n} ${n === 1 ? 'cambio' : 'cambios'}`; guardarBtn.disabled = !n; };
   const tarjetas = acc.map(a => {
-    const cb = h('input',{type:'checkbox','aria-label':`Incluir: ${NOMBRE_ACC[a.tipo]}`}); cb.checked = true;
+    const cb = h('input',{type:'checkbox','aria-label':`Incluir: ${nomAcc(a)}`}); cb.checked = true;
     let cuerpo, leer = () => {};
-    if (a.tipo === 'completar' || a.tipo === 'reprogramar'){
+    if (['completar','reprogramar','eliminar'].includes(a.tipo)){
       const av = a.tipo === 'completar' && a.cliente_id ? h('input',{'aria-label':'Texto para el cliente (opcional)',maxlength:'200',placeholder:'Qué ve el cliente (opcional)'}) : null;
       if (av) av.value = a.avance || '';
-      cuerpo = [h('span',{class:'tt'}, a.titulo), h('span',{class:'task-meta'}, pillCli(a.cliente_id), a.tipo === 'reprogramar' ? pill(cambiosTexto(a), 'oro') : null), av];
+      cuerpo = [h('span',{class:'tt'}, a.titulo), h('span',{class:'task-meta'}, pillCli(a.cliente_id), a.tipo === 'reprogramar' ? pill(cambiosTexto(a), 'oro') : null,
+        a.tipo === 'eliminar' ? pill('Se elimina' + (a.fecha ? ` · ${fCorta(a.fecha)}` : ''), 'bad') : null, a.choque ? pill('⚠ ' + a.choque, 'warn') : null), av];
       leer = () => { if (av) a.avance = av.value.trim() || null; };
     } else {
       const t = h('input',{'aria-label': a.tipo === 'produccion' ? 'Lugar' : 'Texto', maxlength: a.tipo === 'avance' ? '200' : '140', placeholder: a.tipo === 'produccion' ? 'Lugar (opcional)' : null});
@@ -1836,11 +1960,11 @@ function propuesta(data, out, ta){
       const cli = h('select',{'aria-label':'Cliente'}, opCli(a.tipo === 'contenido' || a.tipo === 'produccion')().map(([v,n]) => h('option',{value:v}, n))); cli.value = a.cliente_id || '';
       const fKey = a.tipo === 'tarea' ? 'fecha_limite' : a.tipo === 'avance' ? null : 'fecha';
       const fe = fKey ? h('input',{type:'date','aria-label':'Fecha'}) : null; if (fe) fe.value = a[fKey] || '';
-      cuerpo = [t, a.idea ? h('span',{class:'mut',style:'font-size:.85rem'}, a.idea) : null, h('div',{class:'row'}, cli, fe)];
+      cuerpo = [t, a.idea ? h('span',{class:'mut',style:'font-size:.85rem'}, a.idea) : null, a.choque ? h('span',{class:'task-meta'}, pill('⚠ ' + a.choque, 'warn')) : null, h('div',{class:'row'}, cli, fe)];
       leer = () => { a.cliente_id = cli.value || null; const v = t.value.trim(); if (a.tipo === 'avance') a.texto = v; else if (a.tipo === 'produccion') a.ubicacion = v || null; else a.titulo = v; if (fKey) a[fKey] = fe.value || null; };
     }
     const card = h('div',{class:'acc'}, cb, h('div',{class:'campos'},
-      h('span',{class:'tipo-t'}, NOMBRE_ACC[a.tipo], a.tipo === 'contenido' ? ` · ${a.red} · ${a.formato}` : '', a.hora ? ` · ${a.hora}` : ''), cuerpo));
+      h('span',{class:'tipo-t'}, nomAcc(a), a.tipo === 'contenido' ? ` · ${a.red} · ${a.formato}` : '', a.hora ? ` · ${a.hora}${a.duracion_min ? ` (${a.duracion_min} min)` : ''}` : ''), cuerpo));
     cb.addEventListener('change', () => { a.ok = cb.checked; card.classList.toggle('off', !cb.checked); contar(); });
     a.leer = leer;
     return card;
@@ -1849,18 +1973,24 @@ function propuesta(data, out, ta){
   guardarBtn.addEventListener('click', () => ocupado(guardarBtn, async () => {
     const sel = acc.filter(a => a.ok); sel.forEach(a => a.leer());
     const falta = sel.find(a => (['contenido','produccion'].includes(a.tipo) && !a.cliente_id) || (a.tipo === 'avance' && !a.texto) || (['tarea','contenido','evento'].includes(a.tipo) && !a.titulo) || (['contenido','produccion','evento'].includes(a.tipo) && !a.fecha));
-    if (falta) throw aviso(`Completá cliente, texto y fecha en “${NOMBRE_ACC[falta.tipo]}”.`);
-    const yo = S.yo?.id || null, ins = { tareas:[], contenidos:[], producciones:[], eventos:[] }, upd = [];
+    if (falta) throw aviso(`Completá cliente, texto y fecha en “${nomAcc(falta)}”.`);
+    const yo = S.yo?.id || null, ins = { tareas:[], contenidos:[], producciones:[], eventos:[] }, upd = [], del = [];
     for (const a of sel){
       if (a.tipo === 'avance') ins.tareas.push({ cliente_id:a.cliente_id, titulo:a.texto, texto:a.texto, texto_cliente:a.texto, hecha:true, estado:'hecha', visible_cliente:!!a.cliente_id, responsable_id:yo, prioridad:'media' });
-      if (a.tipo === 'tarea') ins.tareas.push({ cliente_id:a.cliente_id, titulo:a.titulo, texto:a.titulo, fecha_limite:a.fecha_limite, responsable_id:a.responsable_id || yo, prioridad:a.prioridad || 'media', estado:'pendiente', hecha:false, visible_cliente:false });
-      if (a.tipo === 'completar') upd.push([a.tarea_id, { hecha:true, estado:'hecha', ...(a.avance ? { visible_cliente:true, texto_cliente:a.avance } : {}) }]);
-      if (a.tipo === 'reprogramar') upd.push([a.tarea_id, { ...a.cambios }]);
+      if (a.tipo === 'tarea') ins.tareas.push({ cliente_id:a.cliente_id, titulo:a.titulo, texto:a.titulo, fecha_limite:a.fecha_limite, responsable_id:a.responsable_id || yo, prioridad:a.prioridad || 'media', estado:'pendiente', hecha:false, visible_cliente:false, ...(S.horaOk ? { hora:a.hora || null, duracion_min:a.duracion_min || null } : {}) });
+      if (a.tipo === 'completar') upd.push(['tareas', a.tarea_id, { hecha:true, estado:'hecha', ...(a.avance ? { visible_cliente:true, texto_cliente:a.avance } : {}) }]);
+      if (a.tipo === 'reprogramar'){ const cam = { ...a.cambios }; if (!S.horaOk && (a.objeto || 'tarea') === 'tarea'){ delete cam.hora; delete cam.duracion_min; } if (Object.keys(cam).length) upd.push([a.tabla || 'tareas', a.tarea_id, cam]); }
+      if (a.tipo === 'eliminar' && ['tareas','eventos','producciones'].includes(a.tabla)) del.push([a.tabla, a.id]);
       if (a.tipo === 'contenido') ins.contenidos.push({ cliente_id:a.cliente_id, fecha:a.fecha, red:a.red, formato:a.formato, titulo:a.titulo, idea:a.idea || null, estado:'idea', visible_cliente:false });
-      if (a.tipo === 'produccion') ins.producciones.push({ cliente_id:a.cliente_id, fecha:a.fecha, hora:a.hora || null, ubicacion:a.ubicacion || null, visible_cliente:true });
-      if (a.tipo === 'evento') ins.eventos.push({ cliente_id:a.cliente_id, titulo:a.titulo, fecha:a.fecha, hora:a.hora || null, tipo:a.tipo_evento || 'reunion', visible_cliente:false });
+      if (a.tipo === 'produccion') ins.producciones.push({ cliente_id:a.cliente_id, fecha:a.fecha, hora:a.hora || null, duracion_min:a.duracion_min || null, ubicacion:a.ubicacion || null, visible_cliente:true });
+      if (a.tipo === 'evento') ins.eventos.push({ cliente_id:a.cliente_id, titulo:a.titulo, fecha:a.fecha, hora:a.hora || null, duracion_min:a.duracion_min || null, tipo:a.tipo_evento || 'reunion', visible_cliente:false });
     }
-    for (const [id, cambios] of upd) await q(sb.from('tareas').update(cambios).eq('id', id));
+    const pisa = sel.flatMap(a => { const f = a.tipo === 'tarea' ? a.fecha_limite : ['produccion','evento'].includes(a.tipo) ? a.fecha : null;
+      return f && a.hora ? choquesDe(f, a.hora, a.duracion_min || DUR[a.tipo], null).map(x => `${a.titulo || 'Producción'} (${hhmm(a.hora)}) ↔ ${x.t} (${hhmm(x.hora)})`) : []; });
+    if (pisa.length && !confirm(`Hay horarios que se superponen:\n${pisa.join('\n')}\n\n¿Guardar igual?`)) return;
+    if (del.length && !confirm(`Se ${del.length === 1 ? 'va a borrar 1 elemento' : `van a borrar ${del.length} elementos`} de la agenda y no se puede deshacer. ¿Seguir?`)) return;
+    for (const [tabla, id, cambios] of upd) await q(sb.from(tabla).update(cambios).eq('id', id));
+    for (const [tabla, id] of del) await q(sb.from(tabla).delete().eq('id', id));
     for (const [tabla, filas] of Object.entries(ins)) if (filas.length) await q(sb.from(tabla).insert(filas));
     ta.value = '';
     toast(`¡Listo! Guardé ${sel.length} ${sel.length === 1 ? 'cambio' : 'cambios'}.`);
