@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v5.9 · 2026-11-25 · cuentas: la cuenta del cliente usa el mismo abono que el equipo, "la cuenta empieza en", y el equipo ve mes por mes y corrige pagos y cargos · v5.8.1 · 2026-11-24 · el nombre del cliente ya no se parte letra por letra en el celular · v5.8 · 2026-11-24 · el Mapa mira el cupo del plan, cuánto se cumplió del calendario y lo que quedó sin hacer · v5.7 · 2026-11-24 · Mapa de clientes: semáforo por cliente con publicaciones del mes, qué falta, cobros, tareas vencidas y pedidos · v5.6 · 2026-11-24 · diseño de app en el celular: barra superior fija, tarjetas, pestañas limpias con botón central, asistente compacto, nueva tarea plegable y hojas desde abajo · v5.5 · 2026-11-24 · calendario por Semana y Día con horas, tareas con hora, atrasadas marcadas, aviso de choques y el asistente puede sacar o mover tareas, reuniones y producciones · v5.4 · 2026-11-20 · cuenta del cliente: pauta con tickets, estado de cuenta e informe imprimibles, envío por WhatsApp y aviso de saldo al ingresar · v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
+<!-- Portal ORIGEN — v6.0 · 2026-11-25 · métricas profesionales (gráficos de evolución, por red, formato, día y hora, interacciones) y el equipo puede cambiar de negocio al ver como cliente -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -517,6 +517,20 @@ dialog::before{content:"";display:block;width:40px;height:4px;border-radius:2px;
 .calbar{gap:6px}.calbar .btn{min-height:40px}.calbar select{min-height:40px}
 }
 @media(max-width:899px) and (prefers-reduced-motion:no-preference){dialog[open]{animation:hoja .28s cubic-bezier(.2,.8,.2,1)}@keyframes hoja{from{transform:translateY(48px);opacity:0}}}
+/* v6.0 · métricas profesionales */
+.hero{background:linear-gradient(135deg,color-mix(in srgb,var(--gold) 14%,transparent),transparent 70%),var(--s1)!important;border:1px solid var(--line)!important;border-radius:18px!important;padding:18px!important;margin-bottom:14px!important}
+.hero-t{margin:0 0 .4rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.hero-x{margin:0;font-size:1.15rem;line-height:1.5}.hero-x b{font-family:Anton,sans-serif;font-weight:400;font-size:1.35rem;color:var(--gold);letter-spacing:.02em}.hero-x .dl2{font-size:.9rem;white-space:nowrap}
+.ins{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.insc{display:grid;border:1px solid var(--line);border-radius:12px;padding:6px 12px;background:var(--s2)}.insc i{font-style:normal;font-size:.7rem;color:var(--mut)}.insc b{font-size:.95rem}
+.kpi{position:relative;overflow:hidden}.kpi .spark{display:block;width:100%;height:28px;margin-top:8px}
+.gr2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px;margin-bottom:14px;align-items:start}.gr2>.card{margin:0!important}
+.dnb{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:center}.donut{width:150px;height:150px}
+.donut .dn{fill:var(--tx);font:400 26px Anton,sans-serif}.donut .dl{fill:var(--mut);font:11px Jost,sans-serif}
+.ley{list-style:none;margin:0;padding:0;display:grid;gap:8px}.ley li{display:grid;grid-template-columns:10px minmax(0,1fr) auto 38px;gap:8px;align-items:center;font-size:.88rem}.ley i{width:10px;height:10px;border-radius:3px}.ley small{text-align:right}
+.hb{display:grid;gap:12px}.hbr{display:grid;grid-template-columns:minmax(70px,.9fr) 2fr auto;gap:10px;align-items:center;font-size:.88rem}.hbl small{display:block}.hbt{height:12px;border-radius:999px;background:var(--s3);overflow:hidden}.hbt i{display:block;height:100%;border-radius:999px}
+.lg{display:flex;gap:16px;margin:.4rem 0 0;font-size:.8rem;color:var(--mut)}.lg span{display:inline-flex;align-items:center;gap:6px}.lg i{width:14px;height:4px;border-radius:2px;display:inline-block}.lg i.dash{background:repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 4px,transparent 4px 8px)}
+svg.chart{width:100%;height:auto;display:block}
+@media(max-width:520px){.dnb{grid-template-columns:1fr;justify-items:center}.ley{width:100%}.hero-x{font-size:1.02rem}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js" integrity="sha384-TcHRA3zBbn+Lexh5n+Oil4guNPOS3rjNDpGRAN46u/s/mB2IZ50ceC6TYDU2yvgK" crossorigin="anonymous" defer></script>
 </head>
@@ -2175,9 +2189,10 @@ async function cargarCliente(cid){
   S.C = { ficha, cont, tar, prod, ev, met, rep, sol, serv, pag, plan:plan[0], diag, pre, arch, cupos, obj, rec, proy, etap, posts, cargos };
 }
 function selectorNegocio(){
-  if (S.equipo || S.misClientes.length < 2) return;
-  const s = h('select',{'aria-label':'Negocio',style:'width:auto;min-height:38px'}, S.misClientes.map(c => h('option',{value:c.id, selected:c.id === S.cid}, c.nombre)));
-  s.addEventListener('change', () => ocupado(s, async () => { S.cid = s.value; try { localStorage.setItem('portal_cid', S.cid); } catch {} await cargarCliente(S.cid); render(); }));
+  const lista = S.equipo ? S.E.clientes.filter(c => !c.prospecto).map(c => ({id:String(c.id), nombre:c.nombre})) : S.misClientes;
+  if (lista.length < 2) return;
+  const s = h('select',{'aria-label':'Negocio',style:'width:auto;max-width:100%;min-height:38px'}, lista.map(c => h('option',{value:c.id, selected:c.id === String(S.cid)}, c.nombre)));
+  s.addEventListener('change', () => ocupado(s, async () => { S.cid = s.value; if (!S.equipo) { try { localStorage.setItem('portal_cid', S.cid); } catch {} } S.red = null; S.bred = null; await cargarCliente(S.cid); render(); }));
   fill($('top-extra'), s);
 }
 
@@ -2398,20 +2413,58 @@ function ventana(per){
 const enV = (ps, a, b) => ps.filter(p => { const t = +new Date(p.fecha); return t >= +a && t <= +b; });
 const miniatura = p => { const u = httpUrl(p.miniatura); return u ? h('img',{src:u,alt:'',loading:'lazy',referrerpolicy:'no-referrer',onerror:e => e.target.remove()}) : h('span',{class:'ph'}, RED(p.red)[2]); };
 
-function graficoBarras(ps, per, k){
-  const W = 640, H = 210, pad = 28, v = ventana(per), bk = new Map(), clave = d => per === 'todo' ? iso(d).slice(0, 7) : iso(d);
-  if (per === 'todo'){ const mn = ps.reduce((a, p) => Math.min(a, +new Date(p.fecha)), Date.now()), d = new Date(new Date(mn).getFullYear(), new Date(mn).getMonth(), 1); while (d <= v.fin){ bk.set(clave(d), []); d.setMonth(d.getMonth() + 1); } }
-  else { const d = new Date(v.ini.getFullYear(), v.ini.getMonth(), v.ini.getDate()); while (d <= v.fin){ bk.set(clave(d), []); d.setDate(d.getDate() + 1); } }
+const nombreK = k => (KPIS.find(x => x[0] === k) || [])[1] || k;
+const DIAS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+const FORMATOS = { video:'Video', reel:'Reel', image:'Imagen', imagen:'Imagen', carousel:'Carrusel', carrusel:'Carrusel', text:'Texto', story:'Historia', link:'Enlace' };
+const prom = (ps, k) => { if (!ps.length) return null; const s = sumaK(ps, k); return s == null ? null : (k === 'engagement' || k === 'pub') ? s : s / ps.length; };
+const etFecha = (c, per) => per === 'todo' ? `${MESES[+c.slice(5, 7) - 1]} ${c.slice(0, 4)}` : fCorta(c);
+function serie(ps, per, k, ini, fin){
+  const mes = per === 'todo', clave = d => mes ? iso(d).slice(0, 7) : iso(d), bk = new Map();
+  const d = mes ? new Date(ini.getFullYear(), ini.getMonth(), 1) : new Date(ini.getFullYear(), ini.getMonth(), ini.getDate());
+  while (d <= fin){ bk.set(clave(d), []); if (mes) d.setMonth(d.getMonth() + 1); else d.setDate(d.getDate() + 1); }
   for (const p of ps){ const a = bk.get(clave(new Date(p.fecha))); if (a) a.push(p); }
-  const datos = [...bk.entries()].map(([c, a]) => [c, sumaK(a, k) || 0]).slice(-24 * (per === 'todo' ? 1 : 2)), mx = Math.max(1, ...datos.map(x => x[1])), n = datos.length, bw = (W - pad * 2) / n, col = colK(k);
-  const svg = sv('svg',{viewBox:`0 0 ${W} ${H}`,class:'chart',role:'img','aria-label':`${(KPIS.find(x => x[0] === k) || [])[1] || k} por ${per === 'todo' ? 'mes' : 'día'}`},
-    sv('defs',{}, (() => { const g = sv('linearGradient',{id:'gbar',x1:0,y1:0,x2:0,y2:1}); g.append(sv('stop',{offset:'0','stop-color':col}), sv('stop',{offset:'1','stop-color':col,'stop-opacity':'.35'})); return g; })()));
-  for (const f of [0, .5, 1]){ const y = H - pad - (H - pad * 2) * f; svg.append(sv('line',{x1:pad,x2:W - pad,y1:y,y2:y,stroke:'rgba(255,255,255,.08)'}), sv('text',{x:pad - 4,y:y + 4,'text-anchor':'end'}, compacto(mx * f))); }
-  datos.forEach(([c, val], i) => { const hh = (H - pad * 2) * val / mx, x = pad + i * bw, d = per === 'todo' ? null : dLocal(c), et = per === 'todo' ? `${MESES[+c.slice(5) - 1]} ${c.slice(0, 4)}` : fCorta(c);
-    svg.append(sv('rect',{x:x + bw * .15,y:H - pad - hh,width:Math.max(2, bw * .7),height:Math.max(hh, val ? 2 : 0),rx:Math.min(4, bw * .3),fill:'url(#gbar)'}, sv('title',{}, `${et}: ${k === 'engagement' ? fmtK(k, val) : num(val)}`)));
-    if (i % Math.ceil(n / 7) === 0) svg.append(sv('text',{x:x + bw / 2,y:H - 8,'text-anchor':'middle'}, per === 'todo' ? MESES[+c.slice(5) - 1].slice(0, 3) : `${d.getDate()}/${d.getMonth() + 1}`)); });
+  return [...bk].map(([c, a]) => ({ c, v: k === 'pub' ? a.length : sumaK(a, k) ?? (k === 'engagement' ? null : 0) }));
+}
+function graficoArea(cur, prev, k, per){
+  const W = 640, H = 240, L = 40, R = 12, T = 14, B = 26, n = cur.length, col = colK(k), fm = v => k === 'engagement' ? v.toFixed(1).replace('.', ',') + '%' : compacto(v);
+  const mx = Math.max(1, ...[...cur, ...(prev || [])].map(x => x.v ?? 0)), X = i => n < 2 ? (L + W - R) / 2 : L + i * (W - L - R) / (n - 1), Y = v => H - B - (H - T - B) * v / mx;
+  const trazo = s => s.map((x, i) => x.v == null ? '' : `${i && s[i - 1].v != null ? 'L' : 'M'}${X(i).toFixed(1)} ${Y(x.v).toFixed(1)}`).join('');
+  const svg = sv('svg',{viewBox:`0 0 ${W} ${H}`,class:'chart',role:'img','aria-label':`Evolución de ${nombreK(k)}, ${n} ${per === 'todo' ? 'meses' : 'días'}`},
+    sv('defs',{}, (() => { const g = sv('linearGradient',{id:'garea',x1:0,y1:0,x2:0,y2:1}); g.append(sv('stop',{offset:'0','stop-color':col,'stop-opacity':'.45'}), sv('stop',{offset:'1','stop-color':col,'stop-opacity':'0'})); return g; })()));
+  for (const f of [0, .25, .5, .75, 1]){ const y = Y(mx * f); svg.append(sv('line',{x1:L,x2:W - R,y1:y,y2:y,stroke:'rgba(255,255,255,.07)'}), sv('text',{x:L - 6,y:y + 4,'text-anchor':'end'}, fm(mx * f))); }
+  if (prev && prev.length) svg.append(sv('path',{d:trazo(prev),fill:'none',stroke:'rgba(255,255,255,.4)','stroke-width':1.6,'stroke-dasharray':'4 4','stroke-linejoin':'round'}));
+  if (k !== 'engagement' && n > 1) svg.append(sv('path',{d:`${trazo(cur)}L${X(n - 1)} ${H - B}L${X(0)} ${H - B}Z`,fill:'url(#garea)'}));
+  svg.append(sv('path',{d:trazo(cur),fill:'none',stroke:col,'stroke-width':2.4,'stroke-linejoin':'round','stroke-linecap':'round'}));
+  cur.forEach((x, i) => { if (x.v == null) return; const t = sv('title',{}, `${etFecha(x.c, per)}: ${k === 'engagement' ? fmtK(k, x.v) : num(Math.round(x.v))}`);
+    if (n <= 31) svg.append(sv('circle',{cx:X(i),cy:Y(x.v),r:x.v ? 3 : 0,fill:col})); svg.append(sv('circle',{cx:X(i),cy:Y(x.v),r:10,fill:'transparent'}, t)); });
+  cur.forEach((x, i) => { if (i % Math.ceil(n / 6) === 0) svg.append(sv('text',{x:X(i),y:H - 6,'text-anchor':'middle'}, per === 'todo' ? MESES[+x.c.slice(5, 7) - 1].slice(0, 3) : (d => `${d.getDate()}/${d.getMonth() + 1}`)(dLocal(x.c)))); });
   return svg;
 }
+function donut(items, centro, etq){
+  const tot = items.reduce((a, x) => a + x.v, 0), r = 54, C = 2 * Math.PI * r; let off = 0;
+  const svg = sv('svg',{viewBox:'0 0 140 140',class:'donut',role:'img','aria-label':etq}, sv('circle',{cx:70,cy:70,r,fill:'none',stroke:'var(--s3)','stroke-width':20}));
+  for (const x of items){ if (!x.v) continue; const len = C * x.v / tot;
+    svg.append(sv('circle',{cx:70,cy:70,r,fill:'none',stroke:x.c,'stroke-width':20,'stroke-dasharray':`${Math.max(len - 1.5, .5)} ${C}`,'stroke-dashoffset':-off,transform:'rotate(-90 70 70)'}, sv('title',{}, `${x.t}: ${num(x.v)}`))); off += len; }
+  svg.append(sv('text',{x:70,y:70,'text-anchor':'middle',class:'dn'}, compacto(tot)), sv('text',{x:70,y:88,'text-anchor':'middle',class:'dl'}, centro));
+  return svg;
+}
+const leyenda = items => { const tot = items.reduce((a, x) => a + x.v, 0) || 1;
+  return h('ul',{class:'ley'}, items.map(x => h('li',{}, h('i',{style:`background:${x.c}`}), h('span',{}, x.t), h('b',{}, compacto(x.v)), h('small',{class:'mut'}, Math.round(x.v / tot * 100) + '%')))); };
+const donutBox = (items, centro, etq) => h('div',{class:'dnb'}, donut(items, centro, etq), leyenda(items));
+function columnas(items, c, fm, etq){
+  const W = 320, H = 150, B = 22, T = 16, n = items.length, bw = W / n, mx = Math.max(1, ...items.map(x => x.v || 0)), top = Math.max(...items.map(x => x.v || 0));
+  const svg = sv('svg',{viewBox:`0 0 ${W} ${H}`,class:'chart',role:'img','aria-label':etq});
+  items.forEach((x, i) => { const hh = (H - B - T) * (x.v || 0) / mx, best = x.v && x.v === top;
+    svg.append(sv('rect',{x:i * bw + bw * .15,y:H - B - hh,width:bw * .7,height:Math.max(hh, x.v ? 2 : 0),rx:3,fill:c,opacity:best ? 1 : .42}, sv('title',{}, `${x.t}: ${x.v == null ? 'sin datos' : fm(x.v)}`)));
+    if (best) svg.append(sv('text',{x:i * bw + bw / 2,y:H - B - hh - 4,'text-anchor':'middle',style:'fill:var(--tx);font-weight:600'}, fm(x.v)));
+    if (x.l) svg.append(sv('text',{x:i * bw + bw / 2,y:H - 6,'text-anchor':'middle'}, x.l)); });
+  return svg;
+}
+const hbars = (items, fm) => { const mx = Math.max(1, ...items.map(x => x.v || 0));
+  return h('div',{class:'hb'}, items.map(x => h('div',{class:'hbr'}, h('span',{class:'hbl'}, x.t, x.sub ? h('small',{class:'mut'}, x.sub) : null), h('span',{class:'hbt'}, h('i',{style:`width:${Math.max(2, (x.v || 0) / mx * 100)}%;background:${x.c || 'var(--gold)'}`})), h('b',{}, fm(x.v))))); };
+const spark = (vals, c) => { if (vals.length < 2 || !vals.some(v => v)) return null; const p = linea(vals.map(v => v || 0), 100, 28, 2);
+  return sv('svg',{viewBox:'0 0 100 28',class:'spark','aria-hidden':'true',preserveAspectRatio:'none'}, sv('polyline',{points:p.map(x => x.map(n => n.toFixed(1)).join(',')).join(' '),fill:'none',stroke:c,'stroke-width':1.8,'stroke-linejoin':'round','stroke-linecap':'round','vector-effect':'non-scaling-stroke'})); };
+const mejor = (grupos, k) => grupos.map(([t, ps]) => ({ t, v: prom(ps, k), n: ps.length })).filter(x => x.v != null && x.n).sort((a, b) => b.v - a.v)[0];
 
 function detallePost(p){
   const u = httpUrl(p.miniatura), en = httpUrl(p.enlace), ms = KPIS.filter(([k]) => k !== 'pub' && p[k] != null);
@@ -2442,29 +2495,55 @@ function metricasBuffer(){
   const C = S.C, todas = C.posts, redes = [...new Set(todas.map(p => p.red))], per = S.bper || (S.bper = '30'), mk = S.bmet || (S.bmet = 'vistas');
   if (S.bred && !redes.includes(S.bred)) S.bred = null;
   const base = S.bred ? todas.filter(p => p.red === S.bred) : todas, pub = base.filter(p => p.estado === 'sent'), v = ventana(per), act = enV(pub, v.ini, v.fin), ant = v.prev ? enV(pub, v.prev[0], v.prev[1]) : null;
+  const ini = per === 'todo' ? new Date(Math.min(Date.now(), ...pub.map(p => +new Date(p.fecha)))) : v.ini, perT = (PER.find(x => x[0] === per) || [])[1] || '', k2 = mk === 'pub' ? 'vistas' : mk;
+  const delta = k => { const a = sumaK(act, k), b = ant && ant.length ? sumaK(ant, k) : null; return a != null && b ? Math.round((a - b) / b * 100) : null; };
   const chip = (k, t, c) => h('button',{type:'button','aria-pressed':String((S.bred || '') === k),style:`--c:${c}`,onclick:() => { S.bred = k || null; render(); }}, k ? logo(k, 26) : h('span',{class:'logo',style:'--s:26px;background:var(--gold);color:#111','aria-hidden':'true'}, '★'), t);
   const tile = ([k, t, ico, c]) => { const val = sumaK(act, k); if (val == null) return null;
-    const pv = ant && ant.length ? sumaK(ant, k) : null, d = pv ? Math.round((val - pv) / pv * 100) : null;
+    const d = delta(k), sp = spark(serie(pub, per, k, ini, v.fin).map(x => x.v), c);
     return h('div',{class:'kpi',style:`--c:${c}`}, h('span',{class:'ki'}, ic(ico)), h('span',{class:'t'}, t), h('b',{}, fmtK(k, val)),
-      d != null ? h('small',{class:d >= 0 ? 'up' : 'down'}, `${d >= 0 ? '▲' : '▼'} ${Math.abs(d)}% vs. anterior`) : h('small',{class:'mut'}, per === 'todo' ? 'desde el inicio' : 'sin período anterior')); };
+      d != null ? h('small',{class:d >= 0 ? 'up' : 'down'}, `${d >= 0 ? '▲' : '▼'} ${Math.abs(d)}% vs. anterior`) : h('small',{class:'mut'}, per === 'todo' ? 'desde el inicio' : 'sin período anterior'), sp); };
+  /* lo que mejor funciona */
+  const porDia = DIAS.map((t, i) => [t, act.filter(p => (new Date(p.fecha).getDay() + 6) % 7 === i)]), porHora = Array.from({length:24}, (_, i) => [i, act.filter(p => new Date(p.fecha).getHours() === i)]);
+  const fmts = [...new Set(act.map(p => p.tipo || 'otro'))].map(t => [FORMATOS[t] || (t[0].toUpperCase() + t.slice(1)), act.filter(p => (p.tipo || 'otro') === t)]);
+  const mDia = mejor(porDia, k2), mHora = mejor(porHora, k2), mFmt = fmts.length > 1 ? mejor(fmts, k2) : null, mRed = !S.bred && redes.length > 1 ? mejor(redes.map(r => [RED(r)[0], act.filter(p => p.red === r)]), k2) : null;
+  const vis = sumaK(act, 'vistas'), alc = sumaK(act, 'alcance'), dv = delta('vistas');
+  const hero = act.length ? h('section',{class:'card hero'},
+    h('p',{class:'hero-t'}, `${perT} · ${S.bred ? RED(S.bred)[0] : 'todas las redes'}`),
+    h('p',{class:'hero-x'}, `Publicamos ${act.length} ${act.length === 1 ? 'pieza' : 'piezas'}`, vis != null ? [' que sumaron ', h('b',{}, compacto(vis)), ' visualizaciones'] : null, alc != null ? [' y llegaron a ', h('b',{}, compacto(alc)), ' personas'] : null, '.',
+      dv != null ? h('span',{class:'dl2 ' + (dv >= 0 ? 'up' : 'down')}, ` ${dv >= 0 ? '▲' : '▼'} ${Math.abs(dv)}% vs. el período anterior`) : null),
+    h('div',{class:'ins'}, [mDia && ['Mejor día', mDia.t], mHora && ['Mejor hora', `${String(mHora.t).padStart(2, '0')}:00`], mFmt && ['Mejor formato', mFmt.t], mRed && ['Mejor red', mRed.t]].filter(Boolean).map(([a, b]) => h('span',{class:'insc'}, h('i',{}, a), h('b',{}, b)))),
+    h('div',{class:'row',style:'margin-top:12px'}, h('button',{type:'button',class:'btn ol sm',onclick:e => ocupado(e.currentTarget, () => imprimirInforme(C.ficha?.negocio || ''))}, 'Imprimir informe / PDF'),
+      h('a',{class:'btn ol sm',target:'_blank',rel:'noopener',href:'https://wa.me/',onclick:e => { e.currentTarget.href = 'https://wa.me/?text=' + encodeURIComponent(textoInforme((C.ficha?.contacto || '').split(' ')[0])); }}, 'Reenviar por WhatsApp'))) : null;
+  /* gráficos */
+  const cur = serie(pub, per, mk, ini, v.fin), prev = v.prev ? serie(pub, per, mk, v.prev[0], v.prev[1]).slice(0, cur.length) : null;
+  const evol = act.length ? h('section',{class:'card'}, h('h2',{}, 'Evolución', h('span',{class:'seg',role:'group','aria-label':'Métrica'}, [['vistas','Visualizaciones'],['alcance','Alcance'],['reacciones','Reacciones'],['engagement','Engagement'],['pub','Publicaciones']].map(([k, t]) => h('button',{type:'button','aria-pressed':String(k === mk),onclick:() => { S.bmet = k; render(); }}, t)))),
+    graficoArea(cur, prev, mk, per), h('p',{class:'lg'}, h('span',{}, h('i',{style:`background:${colK(mk)}`}), 'Este período'), prev ? h('span',{}, h('i',{class:'dash'}), 'Período anterior') : null)) : null;
+  const colR = r => RED(r)[1], vr = redes.map(r => ({ t:RED(r)[0], c:colR(r), v:sumaK(act.filter(p => p.red === r), 'vistas') || 0 })).filter(x => x.v);
+  const cRed = !S.bred && vr.length > 1 ? h('section',{class:'card'}, h('h2',{}, 'Visualizaciones por red', h('small',{}, 'tocá una red abajo para verla sola')), donutBox(vr, 'vistas', 'Reparto de visualizaciones por red social'),
+    h('div',{class:'redcards',style:'margin-top:12px'}, redes.map(r => { const ps = act.filter(p => p.red === r); return h('button',{type:'button',class:'redcard',style:`--c:${colR(r)}`,onclick:() => { S.bred = r; render(); }},
+      h('span',{class:'rh'}, logo(r, 30), h('span',{}, h('b',{}, RED(r)[0]), h('small',{class:'mut',style:'display:block'}, `${ps.length} publicaciones`))),
+      h('span',{class:'rm'}, [['Vistas','vistas'],['Alcance','alcance'],['Engag.','engagement']].map(([t, k]) => h('span',{}, h('i',{}, t), h('b',{}, fmtK(k, sumaK(ps, k)) === '—' ? '—' : k === 'engagement' ? fmtK(k, sumaK(ps, k)) : compacto(sumaK(ps, k)))))));  }))) : null;
+  const inter = [['reacciones','Reacciones'],['comentarios','Comentarios'],['compartidos','Compartidos'],['guardados','Guardados']].map(([k, t]) => ({ t, c:colK(k), v:Math.round(sumaK(act, k) || 0) })).filter(x => x.v);
+  const cInter = inter.length ? h('section',{class:'card'}, h('h2',{}, 'Cómo interactúa la gente'), donutBox(inter, 'interacciones', 'Reparto de interacciones: reacciones, comentarios, compartidos y guardados')) : null;
+  const cFmt = fmts.length > 1 ? h('section',{class:'card'}, h('h2',{}, 'Qué formato rinde más', h('small',{}, `${nombreK(k2)} por publicación`)),
+    hbars(fmts.map(([t, ps], i) => ({ t, sub:`${ps.length} pub.`, v:prom(ps, k2), c:['#C9B37A','#7FD6E8','#B59CF0','#F2A6C8','#8FCB9B'][i % 5] })).sort((a, b) => (b.v || 0) - (a.v || 0)), x => x == null ? '—' : k2 === 'engagement' ? fmtK(k2, x) : compacto(x))) : null;
+  const fm2 = x => k2 === 'engagement' ? fmtK(k2, x) : compacto(x);
+  const cDia = act.length > 1 ? h('section',{class:'card'}, h('h2',{}, 'Mejor día de la semana', h('small',{}, `${nombreK(k2)} por publicación`)),
+    columnas(porDia.map(([t, ps]) => ({ t, l:t.slice(0, 3), v:prom(ps, k2) })), colK(k2), fm2, `${nombreK(k2)} promedio por día de la semana`)) : null;
+  const cHora = act.length > 1 ? h('section',{class:'card'}, h('h2',{}, 'Mejor horario para publicar', h('small',{}, `${nombreK(k2)} por publicación`)),
+    columnas(porHora.map(([t, ps]) => ({ t:`${String(t).padStart(2, '0')}:00`, l:t % 3 === 0 ? String(t) : '', v:prom(ps, k2) })), colK(k2), fm2, `${nombreK(k2)} promedio según la hora de publicación`)) : null;
   const orden = S.bord || 'vistas', top = [...act].sort((a, b) => orden === 'fecha' ? +new Date(b.fecha) - +new Date(a.fecha) : (b[orden] ?? -1) - (a[orden] ?? -1)), n = S.bn || 10;
   const fila = (p, i) => h('button',{type:'button',class:'pc',onclick:() => detallePost(p)},
     h('span',{class:'pth'}, miniatura(p)),
     h('span',{style:'min-width:0'}, h('span',{class:'ptx'}, p.texto || 'Sin texto'), h('span',{class:'mut',style:'display:flex;align-items:center;gap:6px;font-size:.8rem;margin-top:4px'}, logo(p.red, 16), RED(p.red)[0], '·', fCorta(p.fecha), i === 0 && orden !== 'fecha' ? h('span',{class:'pill oro'}, '★ La mejor') : null)),
     h('span',{class:'pms'}, [['vistas','Vistas'],['alcance','Alcance'],['reacciones','Reacc.'],['comentarios','Coment.']].map(([k, t]) => h('span',{class:'pm'}, h('i',{class:'l'}, t), h('b',{}, p[k] == null ? '—' : compacto(p[k]))))));
-  const porRed = !S.bred && redes.length > 1 ? h('section',{class:'card'}, h('h2',{}, 'Por red social'),
-    h('div',{class:'redcards'}, redes.map(r => { const ps = enV(pub.filter(p => p.red === r), v.ini, v.fin), vi = sumaK(ps, 'vistas'), tot = sumaK(act, 'vistas') || 0;
-      return h('button',{type:'button',class:'redcard',style:`--c:${RED(r)[1]}`,onclick:() => { S.bred = r; render(); }}, h('span',{class:'rh'}, logo(r, 34), h('span',{}, h('b',{}, RED(r)[0]), h('small',{class:'mut',style:'display:block'}, `${ps.length} publicaciones`))),
-        h('span',{class:'rm'}, [['Vistas', vi], ['Alcance', sumaK(ps, 'alcance')], ['Reacc.', sumaK(ps, 'reacciones')]].map(([t, x]) => h('span',{}, h('i',{}, t), h('b',{}, x == null ? '—' : compacto(x))))),
-        tot ? barra(Math.round((vi || 0) / tot * 100), `${RED(r)[0]}: ${Math.round((vi || 0) / tot * 100)}% de las vistas`) : null); }))) : null;
+  const grid = (...c) => { c = c.filter(Boolean); return c.length ? h('div',{class:'gr2'}, c) : null; };
   fill($('view'),
     h('div',{class:'bar-top'}, h('div',{class:'redes',role:'group','aria-label':'Red social'}, chip('', 'Todas', '#C9B37A'), redes.map(r => chip(r, RED(r)[0], RED(r)[1]))),
       h('div',{class:'seg',role:'group','aria-label':'Período'}, PER.map(([k, t]) => h('button',{type:'button','aria-pressed':String(k === per),onclick:() => { S.bper = k; S.bn = 10; render(); }}, t)))),
-    act.length ? h('div',{class:'row',style:'margin-bottom:14px'}, h('button',{type:'button',class:'btn ol sm',onclick:e => ocupado(e.currentTarget, () => imprimirInforme(C.ficha?.negocio || ''))}, 'Imprimir informe / PDF'),
-      h('a',{class:'btn ol sm',target:'_blank',rel:'noopener',href:'https://wa.me/',onclick:e => { e.currentTarget.href = 'https://wa.me/?text=' + encodeURIComponent(textoInforme((C.ficha?.contacto || '').split(' ')[0])); }}, 'Reenviar por WhatsApp')) : null,
+    hero,
     act.length || ant?.length ? h('div',{class:'kpis'}, KPIS.map(tile)) : h('div',{class:'card'}, vacio('No hay publicaciones con métricas en este período. Probá con otro período.')),
-    act.length ? h('section',{class:'card'}, h('h2',{}, 'Evolución', h('span',{class:'seg',role:'group','aria-label':'Métrica'}, [['vistas','Visualizaciones'],['alcance','Alcance'],['reacciones','Reacciones'],['pub','Publicaciones']].map(([k, t]) => h('button',{type:'button','aria-pressed':String(k === mk),onclick:() => { S.bmet = k; render(); }}, t)))), graficoBarras(pub, per, mk)) : null,
-    porRed,
+    evol, grid(cRed, cInter), grid(cFmt, cDia), cHora,
     calendarioBuffer(base),
     act.length ? h('section',{class:'card'}, h('h2',{}, 'Rendimiento por publicación', h('label',{class:'ord'}, h('span',{class:'sr'}, 'Ordenar por'), h('select',{'aria-label':'Ordenar por',onchange:e => { S.bord = e.target.value; S.bn = 10; render(); }}, [['vistas','Más vistas'],['alcance','Más alcance'],['reacciones','Más reacciones'],['comentarios','Más comentarios'],['fecha','Más recientes']].map(([k, t]) => h('option',{value:k,selected:k === orden}, t))))),
       h('div',{class:'pch'}, h('span',{}, 'Publicación'), h('span',{class:'pms'}, ['Vistas','Alcance','Reacc.','Coment.'].map(t => h('span',{}, t)))),
