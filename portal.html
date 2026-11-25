@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v5.8.1 · 2026-11-24 · el nombre del cliente ya no se parte letra por letra en el celular · v5.8 · 2026-11-24 · el Mapa mira el cupo del plan, cuánto se cumplió del calendario y lo que quedó sin hacer · v5.7 · 2026-11-24 · Mapa de clientes: semáforo por cliente con publicaciones del mes, qué falta, cobros, tareas vencidas y pedidos · v5.6 · 2026-11-24 · diseño de app en el celular: barra superior fija, tarjetas, pestañas limpias con botón central, asistente compacto, nueva tarea plegable y hojas desde abajo · v5.5 · 2026-11-24 · calendario por Semana y Día con horas, tareas con hora, atrasadas marcadas, aviso de choques y el asistente puede sacar o mover tareas, reuniones y producciones · v5.4 · 2026-11-20 · cuenta del cliente: pauta con tickets, estado de cuenta e informe imprimibles, envío por WhatsApp y aviso de saldo al ingresar · v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
+<!-- Portal ORIGEN — v5.9 · 2026-11-25 · cuentas: la cuenta del cliente usa el mismo abono que el equipo, "la cuenta empieza en", y el equipo ve mes por mes y corrige pagos y cargos · v5.8.1 · 2026-11-24 · el nombre del cliente ya no se parte letra por letra en el celular · v5.8 · 2026-11-24 · el Mapa mira el cupo del plan, cuánto se cumplió del calendario y lo que quedó sin hacer · v5.7 · 2026-11-24 · Mapa de clientes: semáforo por cliente con publicaciones del mes, qué falta, cobros, tareas vencidas y pedidos · v5.6 · 2026-11-24 · diseño de app en el celular: barra superior fija, tarjetas, pestañas limpias con botón central, asistente compacto, nueva tarea plegable y hojas desde abajo · v5.5 · 2026-11-24 · calendario por Semana y Día con horas, tareas con hora, atrasadas marcadas, aviso de choques y el asistente puede sacar o mover tareas, reuniones y producciones · v5.4 · 2026-11-20 · cuenta del cliente: pauta con tickets, estado de cuenta e informe imprimibles, envío por WhatsApp y aviso de saldo al ingresar · v5.3 · 2026-11-20 · métricas estilo Buffer: publicaciones, calendario, métricas por publicación y por red, consumo del plan desde Buffer, sin carga manual · v5.2 · 2026-11-20 · el cliente ve los últimos 30 días de Buffer · v5.1 · 2026-11-20 · Buffer: 7 días, 30 días, mes o todo el historial; meses legibles · v5.0.1 · Buffer muestra los canales vinculados · v5.0 · diseño editorial plano, sin tarjetas · v4.3.1 · Buffer con una cuenta por cliente · v4.3.0 · 2026-11-20 · métricas automáticas desde Buffer (vincular canales y traer el mes) · v4.2.2 · 2026-11-19 · planes de redes y web con los precios nuevos · v4.2.1 · planes de redes · v4.2 · Crecimiento (objetivos y recomendaciones) y Proyectos -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -455,6 +455,7 @@ select option{background:#1b1a17;color:#F3EEE3}
 .mapa-cup{display:grid;gap:10px;margin-top:.7rem;font-size:.9rem}
 .mapa-sin{margin-top:.7rem;font-size:.9rem}.mapa-sin summary{cursor:pointer;color:var(--mut)}.mapa-sin ul{margin:.4rem 0 0;padding-left:1.1rem;color:var(--tx)}
 .mapa-ok{margin:.65rem 0 0;color:var(--ok);font-size:.92rem}
+details.cta-m{border-top:1px solid var(--line);padding:6px 0}.cta-m>summary span:first-child{text-transform:capitalize}.cta-m>summary{display:flex;justify-content:space-between;gap:.6rem;cursor:pointer;padding:8px 0;font-weight:500}.cta-m>div{padding:0 0 10px}
 /* ---------- v5.6 · app en el celular: barra fija, tarjetas, pestañas limpias, hoja con asa ---------- */
 .asis-bar,.nt>summary{display:none}
 @media(max-width:899px){
@@ -1644,21 +1645,34 @@ function vistaCobros(){
     }) : vacio('No hay clientes con abono cargado. Cargalo en cada cliente con “Editar datos”.'),
       sinAbono.length ? h('p',{class:'mut',style:'font-size:.88rem;margin:.8rem 0 0'}, `Sin abono cargado: ${sinAbono.map(c => c.nombre).join(', ')}.`) : null));
 }
-function registrarPago(c, sugerido, y, mm){
+function registrarPago(c, sugerido, y, mm, previo){
   const hoy = new Date(), mismo = y === hoy.getFullYear() && mm === hoy.getMonth();
   const f = h('form',{class:'form',novalidate:true},
     h('label',{}, 'Monto ($) *', h('input',{type:'number',name:'monto',min:'1',step:'1',required:true,inputmode:'numeric',value:String(sugerido || c.abono || '')})),
-    h('label',{}, 'Fecha *', h('input',{type:'date',name:'fecha',required:true,value: mismo ? hoyISO() : iso(new Date(y, mm, Math.min(Number(c.raw.dia_cobro) || 1, 28)))})),
-    h('label',{class:'full'}, 'Detalle', h('input',{name:'nota',maxlength:'200',value:`Abono ${MESES[mm]} ${y}`})),
-    h('div',{class:'form-acc full'}, h('button',{class:'btn',type:'submit'}, 'Registrar')));
+    h('label',{}, 'Fecha *', h('input',{type:'date',name:'fecha',required:true,value: previo ? previo.fecha : mismo ? hoyISO() : iso(new Date(y, mm, Math.min(Number(c.raw.dia_cobro) || 1, 28)))})),
+    h('label',{class:'full'}, 'Detalle', h('input',{name:'nota',maxlength:'200',value:previo ? previo.nota || '' : `Abono ${MESES[mm]} ${y}`})),
+    h('div',{class:'form-acc full'}, h('button',{class:'btn',type:'submit'}, previo ? 'Guardar cambios' : 'Registrar')));
   f.addEventListener('submit', async e => {
     e.preventDefault(); if (!validar(f)) return;
     await ocupado(e.submitter, async () => {
-      await q(sb.from('pagos').insert({ cliente_id:c.id, monto:Math.round(+f.monto.value), fecha:f.fecha.value, nota:f.nota.value.trim() || null }));
-      cerrarHoja(); toast('Pago registrado. El cliente lo ve en su portal.'); await recargar();
+      const v = { monto:Math.round(+f.monto.value), fecha:f.fecha.value, nota:f.nota.value.trim() || null };
+      await q(previo ? sb.from('pagos').update(v).eq('id', previo.id) : sb.from('pagos').insert({ cliente_id:c.id, ...v }));
+      cerrarHoja(); toast(previo ? 'Pago corregido.' : 'Pago registrado. El cliente lo ve en su portal.'); await recargar();
     });
   });
-  abrirHoja(`Pago de ${c.nombre}`, f);
+  abrirHoja(previo ? `Corregir pago de ${c.nombre}` : `Pago de ${c.nombre}`, f);
+}
+function editarCargo(x){
+  const f = h('form',{class:'form',novalidate:true},
+    h('label',{}, 'Tipo', h('select',{name:'tipo'}, Object.entries(TIPO_CARGO).map(([v, t]) => h('option',{value:v,selected:v === x.tipo}, t)))),
+    h('label',{}, 'Fecha *', h('input',{type:'date',name:'fecha',required:true,value:x.fecha})),
+    h('label',{}, 'Monto ($) *', h('input',{type:'number',name:'monto',step:'1',required:true,inputmode:'numeric',value:String(x.monto)})),
+    h('label',{class:'full'}, 'Concepto *', h('input',{name:'concepto',required:true,maxlength:'200',value:x.concepto})),
+    h('label',{class:'chk full'}, h('input',{type:'checkbox',name:'visible',checked:!!x.visible_cliente}), ' El cliente lo ve en su cuenta'),
+    h('div',{class:'form-acc full'}, h('button',{class:'btn',type:'submit'}, 'Guardar cambios')));
+  f.addEventListener('submit', e => { e.preventDefault(); if (!validar(f)) return; const monto = Math.round(+f.monto.value); if (!monto) return toast('El monto no puede ser 0.', true);
+    ocupado(e.submitter, async () => { await q(sb.from('cargos').update({ tipo:f.tipo.value, fecha:f.fecha.value, monto, concepto:f.concepto.value.trim(), visible_cliente:f.visible.checked }).eq('id', x.id)); cerrarHoja(); toast('Cargo corregido.'); await recargar(); }); });
+  abrirHoja('Corregir cargo', f);
 }
 
 async function detalleCliente(id){
@@ -1699,7 +1713,7 @@ async function detalleCliente(id){
       h('div',{class:'grid g2'},
         h('section',{class:'card'}, h('h2',{}, 'Tareas abiertas', h('small',{}, ab.length)), ab.length ? h('ul',{class:'tasks'}, ab.map(itemTarea)) : vacio('Sin tareas abiertas.')),
         h('section',{class:'card'}, h('h2',{}, 'Lo que viene'), agendaAgrupada(prox, `Nada agendado. Probá con el asistente: “armá el calendario del mes para ${c.nombre}”.`))),
-      boxPedidos(sol, abiertas), boxPresencia(id, dg), boxPresupCli(id), boxPagos(id), boxCuenta(id, cgs, pgs),
+      boxPedidos(sol, abiertas), boxPresencia(id, dg), boxPresupCli(id), boxPagos(id, pgs), boxCuenta(id, cgs, pgs),
       boxMetricas(id), boxReportes(id, rep), boxObjetivos(id, obj), boxRecomendaciones(id, rec), boxProyectos(id, proy, etap, arch), boxArchivos(id, arch, proy), boxCupos(id, cup), boxAccesos(id, acc), boxADN(id, adn));
     document.querySelectorAll('#view details.box').forEach(d => { // recuerda qué caja estaba abierta (cada cambio recarga la ficha)
       const n = d.querySelector('summary span')?.textContent;
@@ -1783,13 +1797,13 @@ function boxPresupCli(id){
   return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Presupuestos'), pill(String(l.length))),
     h('div',{}, h('button',{type:'button',class:'btn sm',style:'margin-bottom:8px',onclick:() => editarPresupuesto(null, { cliente_id:id })}, '+ Nuevo presupuesto'), l.length ? l.map(itemPresupuesto) : vacio('Sin presupuestos.')));
 }
-function boxPagos(id){
-  const c = cliDe(id), l = S.E.pagos.filter(p => String(p.cliente_id) === id), hoy = new Date();
+function boxPagos(id, todos){
+  const c = cliDe(id), l = todos || S.E.pagos.filter(p => String(p.cliente_id) === id), hoy = new Date();
   return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Pagos'), pill(c.abono ? `${pesos(c.abono)}/mes` : 'sin abono')),
     h('div',{}, h('button',{type:'button',class:'btn sm',style:'margin-bottom:8px',onclick:() => registrarPago(c, c.abono, hoy.getFullYear(), hoy.getMonth())}, '+ Registrar pago'),
       l.length ? h('table',{}, h('tbody',{}, l.map(p => h('tr',{}, h('td',{}, fCorta(p.fecha)), h('td',{class:'num'}, pesos(p.monto)), h('td',{}, p.nota || ''),
         h('td',{class:'num'}, h('button',{type:'button',class:'btn ghost sm','aria-label':`Borrar pago del ${fCorta(p.fecha)}`,onclick:async e => { if (!confirm('¿Borrar este pago?')) return;
-          await ocupado(e.currentTarget, async () => { await q(sb.from('pagos').delete().eq('id', p.id)); toast('Pago borrado.'); await recargar(); }); }}, '✕')))))) : vacio('Sin pagos en los últimos 6 meses.')));
+          await ocupado(e.currentTarget, async () => { await q(sb.from('pagos').delete().eq('id', p.id)); toast('Pago borrado.'); await recargar(); }); }}, '✕')))))) : vacio('Sin pagos cargados.')));
 }
 
 function boxMetricas(id){
@@ -2464,8 +2478,10 @@ VC.metricas = () => (S.C.posts || []).length ? metricasBuffer() : metricasMensua
 const sumN = (l, k) => l.reduce((s, x) => s + Number(x[k] || 0), 0);
 const TIPO_CARGO = { pauta:'Publicidad (pauta)', extra:'Servicio extra', ajuste:'Ajuste' };
 const PORTAL_URL = 'https://agencia-origen.online/portal.html';
-function cuentaDe(abono, pagos, cargos){ // mes a mes desde el primer movimiento; saldo > 0 = debe, < 0 = a favor
-  const k = f => String(f).slice(0, 7), fin = k(iso(new Date())), ini = [...pagos, ...cargos].map(x => k(x.fecha)).sort()[0] || fin;
+function cuentaDe(abono, pagos, cargos, desde){ // mes a mes desde "la cuenta empieza en" (o el primer movimiento); saldo > 0 = debe, < 0 = a favor
+  const k = f => String(f).slice(0, 7), d = desde ? k(desde) : null, fin = k(iso(new Date()));
+  if (d){ pagos = pagos.filter(x => k(x.fecha) >= d); cargos = cargos.filter(x => k(x.fecha) >= d); }
+  const ini = d || [...pagos, ...cargos].map(x => k(x.fecha)).sort()[0] || fin;
   const filas = []; let y = +ini.slice(0, 4), m = +ini.slice(5, 7), acum = 0;
   while (`${y}-${String(m).padStart(2, '0')}` <= fin){
     const c = `${y}-${String(m).padStart(2, '0')}`, cg = cargos.filter(x => k(x.fecha) === c), pg = pagos.filter(x => k(x.fecha) === c), antes = acum;
@@ -2477,8 +2493,8 @@ function cuentaDe(abono, pagos, cargos){ // mes a mes desde el primer movimiento
 }
 const textoCuenta = (nombre, f) => `¡Hola${nombre ? ' ' + nombre : ''}! Te paso el estado de cuenta de ${MESES[f.m]} de ORIGEN: abono ${pesos(f.abono)}` + (f.cg.length ? `, publicidad y extras ${pesos(sumN(f.cg, 'monto'))}` : '') + (f.pg.length ? `, pagado ${pesos(sumN(f.pg, 'monto'))}` : '') +
   `. ` + (f.saldo > 0 ? `Saldo a pagar: ${pesos(f.saldo)}. Alias: OrigenStudioIguazu.` : 'Estás al día. ¡Gracias!') + ` Ver el detalle con los tickets: ${PORTAL_URL}`;
-async function imprimirCuenta(nombre, abono, pagos, cargos, y, m){
-  const f = cuentaDe(abono, pagos, cargos).filas.find(x => x.y === y && x.m === m); if (!f) return toast('Ese mes no tiene movimientos.', true);
+async function imprimirCuenta(nombre, abono, pagos, cargos, y, m, desde){
+  const f = cuentaDe(abono, pagos, cargos, desde).filas.find(x => x.y === y && x.m === m); if (!f) return toast('Ese mes no tiene movimientos.', true);
   const tk = f.cg.filter(x => x.ticket_path), esImg = p => /\.(png|jpe?g|webp|gif)$/i.test(p);
   const urls = await Promise.all(tk.map(x => esImg(x.ticket_path) ? sb.storage.from(BUCKET).createSignedUrl(x.ticket_path, 600).then(r => r.data?.signedUrl || null, () => null) : null));
   const fila = (t, v, cls) => h('tr',{class:cls}, h('td',{}, t), h('td',{class:'num'}, v));
@@ -2524,7 +2540,7 @@ function textoInforme(nombre){
 /* Equipo: cargos (pauta con ticket) y estado de cuenta de un cliente */
 function boxCuenta(id, cg, pg){
   if (cg == null) return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Cuenta y pauta'), pill('falta el SQL 09','warn')), h('div',{}, h('p',{class:'mut'}, 'Corré la migración 09 en Supabase para cargar la pauta con sus tickets.')));
-  const c = cliDe(id), cta = cuentaDe(c.abono, pg, cg), hoy = new Date(), n = primerNombre(c);
+  const c = cliDe(id), desde = c.raw.cuenta_desde || null, cta = cuentaDe(c.abono, pg, cg, desde), hoy = new Date(), n = primerNombre(c);
   const f = h('form',{class:'form',novalidate:true},
     h('label',{}, 'Tipo', h('select',{name:'tipo'}, Object.entries(TIPO_CARGO).map(([v, t]) => h('option',{value:v}, t)))),
     h('label',{}, 'Fecha *', h('input',{type:'date',name:'fecha',required:true,value:hoyISO()})),
@@ -2549,20 +2565,36 @@ function boxCuenta(id, cg, pg){
   const mes = h('input',{type:'month',value:`${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, '0')}`,'aria-label':'Mes del estado de cuenta',style:'width:auto'});
   const ym = () => { const [y, m] = (mes.value || '').split('-').map(Number); return [y, m - 1]; };
   const wa = h('a',{class:'btn ol sm',target:'_blank',rel:'noopener'}, 'Enviar por WhatsApp');
-  wa.addEventListener('click', () => { const [y, m] = ym(), fm = cuentaDe(c.abono, pg, cg).filas.find(x => x.y === y && x.m === m); if (fm) wa.href = `https://wa.me/${telWA(c.raw.whatsapp)}?text=${encodeURIComponent(textoCuenta(n, fm))}`; else { wa.removeAttribute('href'); toast('Ese mes no tiene movimientos.', true); } });
+  wa.addEventListener('click', () => { const [y, m] = ym(), fm = cuentaDe(c.abono, pg, cg, desde).filas.find(x => x.y === y && x.m === m); if (fm) wa.href = `https://wa.me/${telWA(c.raw.whatsapp)}?text=${encodeURIComponent(textoCuenta(n, fm))}`; else { wa.removeAttribute('href'); toast('Ese mes no tiene movimientos.', true); } });
   const borrar = (x, btn) => { if (!confirm(`¿Borrar “${x.concepto}”? No se puede deshacer.`)) return;
     return ocupado(btn, async () => { await q(sb.from('cargos').delete().eq('id', x.id)); if (x.ticket_path) await sb.storage.from(BUCKET).remove([x.ticket_path]); toast('Borrado.'); render(); }); };
-  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Cuenta y pauta'), pill(cta.saldo > 0 ? `debe ${pesos(cta.saldo)}` : cta.saldo < 0 ? `a favor ${pesos(-cta.saldo)}` : 'al día', cta.saldo > 0 ? 'warn' : 'ok')),
-    h('div',{}, h('p',{class:'mut',style:'font-size:.88rem'}, 'Saldo = abono de cada mes + cargos − pagos, desde el primer movimiento cargado.'), f,
-      h('div',{class:'row',style:'margin:12px 0;align-items:center'}, mes, h('button',{type:'button',class:'btn sm',onclick:e => ocupado(e.currentTarget, () => imprimirCuenta(c.nombre, c.abono, pg, cg, ...ym()))}, 'Imprimir / PDF'), wa),
-      cg.length ? cg.map(x => h('div',{class:'li row',style:'justify-content:space-between;align-items:center;gap:.6rem'},
-        h('span',{style:'min-width:0;overflow-wrap:anywhere'}, h('b',{}, pesos(x.monto)), ` · ${x.concepto} `, h('span',{class:'mut'}, [TIPO_CARGO[x.tipo], fCorta(x.fecha), x.visible_cliente ? null : 'oculto'].filter(Boolean).join(' · '))),
-        h('span',{class:'row',style:'gap:6px;flex-wrap:nowrap'}, x.ticket_path ? h('button',{type:'button',class:'btn ol sm',onclick:e => abrirArchivo(x.ticket_path, e.currentTarget)}, 'Ticket') : null,
-          h('button',{type:'button',class:'btn peligro sm','aria-label':`Borrar ${x.concepto}`,onclick:e => borrar(x, e.currentTarget)}, 'Borrar')))) : vacio('Sin cargos todavía.')));
+  const sinCol = !('cuenta_desde' in c.raw), dIn = h('input',{type:'month',value:String(desde || '').slice(0, 7),'aria-label':'La cuenta empieza en',style:'width:auto'});
+  const guardarDesde = e => ocupado(e.currentTarget, async () => { await q(sb.from('clientes').update({ cuenta_desde: dIn.value ? dIn.value + '-01' : null }).eq('id', id)); toast('Listo, la cuenta se recalculó.'); await recargar(); });
+  const saldoTxt = v => v > 0 ? `debe ${pesos(v)}` : v < 0 ? `a favor ${pesos(-v)}` : 'al día';
+  const mov = (txt, sub, acc) => h('div',{class:'li row',style:'justify-content:space-between;align-items:center;gap:.6rem'}, h('span',{style:'min-width:0;overflow-wrap:anywhere'}, txt, ' ', h('span',{class:'mut'}, sub)), h('span',{class:'row',style:'gap:6px;flex-wrap:nowrap'}, acc));
+  const meses = [...cta.filas].reverse().map(fm => h('details',{class:'cta-m',open:fm.y === hoy.getFullYear() && fm.m === hoy.getMonth()},
+    h('summary',{}, h('span',{}, `${MESES[fm.m]} ${fm.y}`), h('span',{class:'mut'}, saldoTxt(fm.saldo))),
+    h('div',{}, h('p',{class:'mut',style:'margin:.2rem 0 .5rem;font-size:.88rem'}, `Abono ${pesos(fm.abono)}${fm.antes ? ` · arrastra ${fm.antes > 0 ? 'deuda' : 'saldo a favor'} de ${pesos(Math.abs(fm.antes))}` : ''}`),
+      fm.cg.map(x => mov(h('b',{}, pesos(x.monto)), `${x.concepto} · ${TIPO_CARGO[x.tipo] || ''} · ${fCorta(x.fecha)}${x.visible_cliente ? '' : ' · oculto'}`, [
+        x.ticket_path ? h('button',{type:'button',class:'btn ol sm',onclick:e => abrirArchivo(x.ticket_path, e.currentTarget)}, 'Ticket') : null,
+        h('button',{type:'button',class:'btn ol sm',onclick:() => editarCargo(x)}, 'Editar'),
+        h('button',{type:'button',class:'btn peligro sm','aria-label':`Borrar ${x.concepto}`,onclick:e => borrar(x, e.currentTarget)}, 'Borrar')])),
+      fm.pg.map(x => mov(h('b',{}, '− ' + pesos(x.monto)), `pago · ${fCorta(x.fecha)}${x.nota ? ' · ' + x.nota : ''}`, [
+        h('button',{type:'button',class:'btn ol sm',onclick:() => registrarPago(c, x.monto, fm.y, fm.m, x)}, 'Editar'),
+        h('button',{type:'button',class:'btn peligro sm','aria-label':`Borrar pago del ${fCorta(x.fecha)}`,onclick:e => { if (!confirm('¿Borrar este pago? No se puede deshacer.')) return; ocupado(e.currentTarget, async () => { await q(sb.from('pagos').delete().eq('id', x.id)); toast('Pago borrado.'); await recargar(); }); }}, 'Borrar')])),
+      !fm.cg.length && !fm.pg.length ? vacio('Sin movimientos este mes.') : null,
+      h('button',{type:'button',class:'btn sm',style:'margin-top:8px',onclick:() => registrarPago(c, Math.max(0, fm.saldo) || fm.abono, fm.y, fm.m)}, '+ Registrar pago de este mes'))));
+  return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Cuenta y pauta'), pill(saldoTxt(cta.saldo), cta.saldo > 0 ? 'warn' : 'ok')),
+    h('div',{}, h('p',{class:'mut',style:'font-size:.88rem'}, 'Saldo = abono de cada mes + cargos − pagos. Si algo está mal, corregilo mes por mes abajo, o cargá un “Ajuste” (con monto negativo descuenta).'),
+      h('div',{class:'row',style:'align-items:center;margin:8px 0 12px'}, h('span',{class:'mut',style:'font-size:.88rem'}, 'La cuenta empieza en'), dIn, h('button',{type:'button',class:'btn ol sm',disabled:sinCol,onclick:guardarDesde}, 'Guardar'), sinCol ? pill('falta el SQL 11','warn') : null),
+      h('p',{class:'mut',style:'font-size:.8rem;margin:0 0 12px'}, 'Lo anterior a ese mes no cuenta (útil si hay pagos viejos que no corresponden).'),
+      meses.length ? meses : vacio('Todavía no hay movimientos.'),
+      h('div',{class:'row',style:'margin:12px 0;align-items:center'}, mes, h('button',{type:'button',class:'btn sm',onclick:e => ocupado(e.currentTarget, () => imprimirCuenta(c.nombre, c.abono, pg, cg, ...ym(), desde))}, 'Imprimir / PDF'), wa),
+      h('details',{class:'cta-m'}, h('summary',{}, '+ Cargar pauta, servicio extra o ajuste'), f)));
 }
 
 /* Cliente: tarjeta "Tu cuenta" y aviso de saldo al entrar */
-const cuentaCli = () => cuentaDe(Number(S.C.ficha?.mensual) || 0, S.C.pag, S.C.cargos || []);
+const cuentaCli = () => cuentaDe(Number(S.C.ficha?.mensual) || 0, S.C.pag, S.C.cargos || [], S.C.ficha?.cuenta_desde);
 function verCuenta(){
   const C = S.C, cta = cuentaCli(), nombre = C.ficha?.negocio || '', n = (C.ficha?.contacto || '').split(' ')[0], filas = [...cta.filas].reverse();
   const mes = h('select',{'aria-label':'Mes'}, filas.map((x, i) => h('option',{value:i}, `${MESES[x.m]} ${x.y}`))), cur = () => filas[+mes.value];
