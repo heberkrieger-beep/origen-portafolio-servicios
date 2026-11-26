@@ -18,6 +18,7 @@ Precios en pesos argentinos (ARS), vigentes en noviembre de 2026.
 - [ORIGEN TV](https://agencia-origen.online/tv.html): productora digital de Puerto Iguazú. Programas: Café de Ideas (miércoles y domingos 19 h), Heberdá (en vivo los miércoles 10 h), Origen Esports y Origen Deportes (transmisiones de pádel). Transmisión de eventos.
 - [Café de Ideas](https://agencia-origen.online/cafe-de-ideas.html): podcast de entrevistas con referentes de Puerto Iguazú.
 - [Auspicios para marcas](https://agencia-origen.online/auspicios.html): paquetes de auspicio por programa y Origen TV 360; la propuesta con valores se pide por WhatsApp.
+- [Torneo de FIFA · ORIGEN Esports](https://agencia-origen.online/esports.html): inscripción online con pago por Mercado Pago. Sábado 12 de diciembre, 1° premio PS5, 2° premio $100.000, inscripción $40.000. Transmisión en vivo por ORIGEN TV.
 - [Ranking de Juiced Online Evolution](https://agencia-origen.online/juiced.html): ranking de la comunidad de Origen Esports.
 
 ## Optional

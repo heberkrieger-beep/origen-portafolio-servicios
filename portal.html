@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v7.11 · 2026-11-26 · flyer con IA: foto de ejemplo («así lo quiero») · v7.10 · 2026-11-26 · flyer con IA: pedido libre arriba, ideas rápidas y «pedir un cambio» sobre la misma imagen · v7.9 · 2026-11-26 · «Crear flyer o post con IA» (Gemini + ADN de marca) en la ficha del cliente · v7.8 · 2026-11-26 · botón «Editar / eliminar» visible arriba de la ficha del cliente · v7.7 · 2026-11-26 · presupuesto: los servicios se eligen de la lista del catálogo, sin escribir · v7.6 · 2026-11-26 · app PWA desde $500.000 y precios de web a medida nuevos (catalogo.js v1.5) · v7.5 · 2026-11-26 · sin Club por ahora · v7.4 · 2026-11-26 · publicidad "Tu propia app" en las ideas del cliente + Club de clientes por negocio (puntos, regalo a la compra N, promos con aviso al celular) · v7.3 · 2026-11-26 · plan Arranque: meta semanal de 1 publicación + 1 historia, sin ofrecer producción; ORIGEN Full como "recomendado" · v7.2 · 2026-11-26 · Próximos 7 días se desliza día por día (Hoy, Mañana, miércoles…) · v7.1 · 2026-11-26 · inicio más corto, fichas de cliente alineadas, eliminar clientes, tareas asignadas por el equipo (con registro), cliente ve ORIGEN Full como recomendado · v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
+<!-- Portal ORIGEN — v7.12 · 2026-11-26 · Negocio > Torneos: inscriptos y cobros de ORIGEN Esports · v7.11 · 2026-11-26 · flyer con IA: foto de ejemplo («así lo quiero») · v7.10 · 2026-11-26 · flyer con IA: pedido libre arriba, ideas rápidas y «pedir un cambio» sobre la misma imagen · v7.9 · 2026-11-26 · «Crear flyer o post con IA» (Gemini + ADN de marca) en la ficha del cliente · v7.8 · 2026-11-26 · botón «Editar / eliminar» visible arriba de la ficha del cliente · v7.7 · 2026-11-26 · presupuesto: los servicios se eligen de la lista del catálogo, sin escribir · v7.6 · 2026-11-26 · app PWA desde $500.000 y precios de web a medida nuevos (catalogo.js v1.5) · v7.5 · 2026-11-26 · sin Club por ahora · v7.4 · 2026-11-26 · publicidad "Tu propia app" en las ideas del cliente + Club de clientes por negocio (puntos, regalo a la compra N, promos con aviso al celular) · v7.3 · 2026-11-26 · plan Arranque: meta semanal de 1 publicación + 1 historia, sin ofrecer producción; ORIGEN Full como "recomendado" · v7.2 · 2026-11-26 · Próximos 7 días se desliza día por día (Hoy, Mañana, miércoles…) · v7.1 · 2026-11-26 · inicio más corto, fichas de cliente alineadas, eliminar clientes, tareas asignadas por el equipo (con registro), cliente ve ORIGEN Full como recomendado · v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -887,7 +887,7 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) carg
 const NAV_E = [['hoy','Hoy','home',['hoy'],[]],
   ['calendario','Agenda','cal',['calendario','tareas'],[['calendario','Calendario'],['tareas','Tareas']]],
   ['clientes','Clientes','users',['clientes'],[['clientes','Todos'],['clientes/mapa','Mapa']]],
-  ['negocio','Negocio','chart',['negocio'],[['negocio','Resumen'],['negocio/presupuestos','Presupuestos'],['negocio/cobros','Cobros']]]];
+  ['negocio','Negocio','chart',['negocio'],[['negocio','Resumen'],['negocio/presupuestos','Presupuestos'],['negocio/cobros','Cobros'],['negocio/torneos','Torneos']]]];
 const RUTAS_C = [['inicio','Inicio','home'],['calendario','Calendario','cal'],['metricas','Métricas','chart'],['pedir','Pedir','send'],['mas','Más','more']];
 const rutas = () => S.modo === 'equipo' ? NAV_E : RUTAS_C;
 const OCULTAS = ['archivos','crecimiento','proyectos','plan','cuenta']; // sin botón propio: el cliente entra desde Más
@@ -1049,6 +1049,11 @@ const FORMS = {
 const PLANES = [['Gestión de redes · Esencial',350000],['Gestión de redes · Crecimiento',590000],['Gestión de redes · ORIGEN Full',900000],['Gestión de redes · Arranque',100000],
   ['Web por suscripción · Profesional',30000],['Web por suscripción · Recomendado',40000],['Web por suscripción · Tienda Online',55000],['Plan Cámaras',30000],['A medida',0]];
 const RUBROS = ['Gastronomía','Alojamiento','Turismo y excursiones','Transporte','Salud','Belleza y estética','Deportes','Comercio','Servicios profesionales','Educación','Inmobiliaria','Construcción','Eventos','Tecnología','Institución / ONG'];
+FORMS.torneo = { tabla:'es_torneos', nombre:'Torneo', nuevoT:'Nuevo torneo', okT:'Torneo creado.', borrarT:'Borrar torneo', confirmar:t => `¿Borrar “${t.nombre}” y todas sus inscripciones? No se puede deshacer.`, campos:[
+  {k:'nombre', l:'Nombre del torneo', req:1, max:80, full:1}, {k:'juego', l:'Juego', max:60}, {k:'fecha', l:'Fecha', t:'date'},
+  {k:'precio', l:'Inscripción ($)', t:'number', min:1, req:1}, {k:'cupo', l:'Cupo (vacío = sin límite)', t:'number', min:2},
+  {k:'premios', l:'Premios', max:300, full:1}, {k:'activo', l:'Abierto a inscripciones en la web', t:'check'}],
+  nuevo: () => ({ activo:true }) };
 FORMS.cliente = { tabla:'clientes', nombre:'Cliente', nuevoT:'Nuevo cliente', okT:'Cliente creado.', borrarT:'Eliminar cliente', despues:() => { S.det = null; location.hash = '#/clientes'; },
   confirmar:o => `¿Eliminar a “${o.negocio || o.nombre}” y TODO lo suyo (tareas, publicaciones, pagos, archivos)?\nNo se puede deshacer.\n\nSi fue cliente de verdad, es mejor marcarlo como “Dado de baja”.`, campos:[
   {k:'negocio', l:'Nombre del negocio', req:1, max:120},
@@ -1616,7 +1621,7 @@ const telWA = n => { let d = String(n || '').replace(/\D/g,''); if (d.startsWith
 const primerNombre = c => (c?.raw?.contacto_nombre || '').split(' ')[0];
 
 function subnavClientes(act){ // act: '' todos · 'mapa' · '' + negocio: 'numeros' | 'presupuestos' | 'cobros'
-  const neg = ['numeros','presupuestos','cobros'].includes(act), g = NAV_E.find(r => r[0] === (neg ? 'negocio' : 'clientes'));
+  const neg = ['numeros','presupuestos','cobros','torneos'].includes(act), g = NAV_E.find(r => r[0] === (neg ? 'negocio' : 'clientes'));
   return secciones(g[4], neg ? (act === 'numeros' ? 'negocio' : 'negocio/' + act) : (act ? 'clientes/' + act : 'clientes'), g[1]);
 }
 function pillPresencia(id){
@@ -1679,7 +1684,7 @@ function vistaMapa(){
 }
 
 { const t0 = VE.tareas; VE.tareas = x => { t0(x); $('view').prepend(secciones(NAV_E[1][4], 'tareas', 'Agenda')); }; }
-VE.negocio = arg => arg === 'presupuestos' ? vistaPresupuestos() : arg === 'cobros' ? vistaCobros() : vistaNumeros();
+VE.negocio = arg => arg === 'presupuestos' ? vistaPresupuestos() : arg === 'cobros' ? vistaCobros() : arg === 'torneos' ? vistaTorneos() : vistaNumeros();
 VE.clientes = arg => {
   if (arg === 'mapa') return vistaMapa();
   if (['presupuestos','cobros','numeros'].includes(arg)){ location.replace('#/negocio' + (arg === 'numeros' ? '' : '/' + arg)); return; }
@@ -1721,6 +1726,30 @@ function vistaPresupuestos(){
     h('div',{class:'stats'}, stat('enviado','esperando respuesta','oro'), stat('aceptado','aceptados'), stat('borrador','borradores'), stat('rechazado','rechazados')),
     est ? h('p',{}, pill(`Filtrando: ${PRE_EST[est][0]}`, PRE_EST[est][1]), ' ', h('button',{type:'button',class:'btn ghost sm',onclick:() => { S.filtroPre = ''; render(); }}, 'Ver todos')) : null,
     h('div',{class:'card'}, lista.length ? lista.map(itemPresupuesto) : vacio('Todavía no hay presupuestos. Armá el primero con “+ Nuevo presupuesto”.')));
+}
+
+// Torneos de ORIGEN Esports: inscripciones que llegan desde esports.html (pagan por Mercado Pago)
+function vistaTorneos(){
+  titulo('Torneos', 'ORIGEN Esports');
+  fill($('top-extra'), h('button',{type:'button',class:'btn sm',onclick:() => editar('torneo', null)}, '+ Nuevo torneo'));
+  const cuerpo = h('div',{}, vacio('Cargando…'));
+  fill($('view'), subnavClientes('torneos'), cuerpo);
+  Promise.all([q(sb.from('es_torneos').select('*').order('fecha',{ascending:false})), q(sb.from('es_inscripciones').select('*').order('creado_en',{ascending:false}).limit(2000))]).then(([ts, ins]) => {
+    if (!ts.length) return fill(cuerpo, vacio('Todavía no hay torneos. Si recién corriste el SQL 14, recargá; o creá uno con “+ Nuevo torneo”.'));
+    fill(cuerpo, ts.map(t => {
+      const mias = ins.filter(i => i.torneo_id === t.id), pag = mias.filter(i => i.estado === 'pagado'), pen = mias.filter(i => i.estado === 'pendiente');
+      const lista = pag.slice().sort((a, b) => (a.pagado_en || '').localeCompare(b.pagado_en || ''));
+      const copiar = async () => { try { await navigator.clipboard.writeText(lista.map((i, n) => `${n + 1}. ${i.nombre} · ${i.gamertag} · ${i.whatsapp}`).join('\n')); toast('Lista copiada.'); } catch { toast('No pude copiar. Seleccioná la lista a mano.', true); } };
+      return h('section',{class:'card'},
+        h('h2',{}, t.nombre, h('span',{class:'row',style:'gap:6px'}, pill(t.activo ? 'abierto' : 'cerrado', t.activo ? 'ok' : 'warn'), h('button',{type:'button',class:'btn ol sm',onclick:() => editar('torneo', t)}, 'Editar'))),
+        h('p',{class:'mut'}, [t.juego, t.fecha ? fLarga(t.fecha) : null, `inscripción ${pesos(t.precio)}`, t.cupo ? `cupo ${t.cupo}` : 'sin cupo'].filter(Boolean).join(' · ')),
+        h('div',{class:'stats'}, h('div',{class:'stat'}, h('b',{}, lista.length), h('span',{}, t.cupo ? `inscriptos de ${t.cupo}` : 'inscriptos')),
+          h('div',{class:'stat'}, h('b',{}, pesos(lista.length * Number(t.precio))), h('span',{}, 'cobrado')), h('div',{class:'stat'}, h('b',{}, pen.length), h('span',{}, 'sin pagar'))),
+        lista.length ? h('div',{}, h('div',{class:'row',style:'margin-bottom:8px'}, h('button',{type:'button',class:'btn ol sm',onclick:copiar}, 'Copiar lista')),
+          h('ul',{class:'tasks'}, lista.map(i => h('li',{}, h('span',{}, h('b',{}, i.nombre), ` · ${i.gamertag}`), ' ', h('a',{href:`https://wa.me/${telWA(i.whatsapp)}`,target:'_blank',rel:'noopener'}, i.whatsapp), i.email ? h('span',{class:'mut'}, ` · ${i.email}`) : null)))) : vacio('Todavía no hay inscriptos pagos.'),
+        pen.length ? h('details',{style:'margin-top:10px'}, h('summary',{}, `${pen.length} sin pagar (empezaron y no terminaron)`), h('ul',{class:'tasks'}, pen.map(i => h('li',{}, `${i.nombre} · ${i.gamertag} · `, h('a',{href:`https://wa.me/${telWA(i.whatsapp)}`,target:'_blank',rel:'noopener'}, i.whatsapp))))) : null);
+    }));
+  }).catch(() => fill(cuerpo, h('p',{class:'pre'}, 'No pude cargar los torneos. ¿Corriste el SQL 14 en Supabase?')));
 }
 
 function editarPresupuesto(p, preset){
