@@ -1,4 +1,4 @@
-// ORIGEN · Edge Function "imagenes" v1.2 · 2026-11-26 · pedir cambios sobre la imagen ya generada · v1.1 · ahora con OpenAI (gpt-image) en vez de Gemini
+// ORIGEN · Edge Function "imagenes" v1.3 · 2026-11-26 · foto de ejemplo («así lo quiero») · v1.2 · pedir cambios sobre la imagen ya generada · v1.1 · ahora con OpenAI (gpt-image) en vez de Gemini
 // Arma flyers, posts e historias usando el ADN de marca del cliente.
 // El portal manda SOLO lo que pide el equipo (pieza, formato, textos, referencias); el prompt se arma acá,
 // con el ADN guardado en Supabase. Solo equipo. Registra cada pedido en imagenes_gen (control de gasto).
@@ -61,6 +61,10 @@ Deno.serve(async (req) => {
   const refs = cambio ? [{ tipo: 'image/png', b64: base! }] : (Array.isArray(b.refs) ? b.refs : []).slice(0, MAX_REF).filter((r: any) =>
     r && /^image\/(png|jpeg|webp)$/.test(r.tipo) && typeof r.b64 === 'string' && r.b64.length < MAX_REF_B64 && /^[A-Za-z0-9+/=]+$/.test(r.b64));
 
+  // Foto de ejemplo ("así lo quiero"): se imita el estilo y la distribución, no se copian textos ni marcas
+  const m0: any = b.modelo, modelo_img = !cambio && m0 && /^image\/(png|jpeg|webp)$/.test(m0.tipo) && typeof m0.b64 === 'string' && m0.b64.length < MAX_REF_B64 && /^[A-Za-z0-9+/=]+$/.test(m0.b64) ? m0 : null;
+  const imgs: any[] = modelo_img ? [modelo_img, ...refs].slice(0, MAX_REF + 1) : refs;
+
   const [{ data: cli }, { data: adn }] = await Promise.all([
     sb.from('clientes').select('*').eq('id', cid).maybeSingle(),
     sb.from('marca_adn').select('*').eq('cliente_id', cid).maybeSingle(),
@@ -88,7 +92,8 @@ Deno.serve(async (req) => {
     `- Título principal: "${titular}"`,
     detalle ? `- Texto de apoyo: "${detalle}"` : null,
     contacto ? `- Datos de contacto (al pie, legibles): "${contacto}"` : null,
-    refs.length ? `Las imágenes adjuntas son referencias: si hay un logo, colocalo tal cual, sin redibujarlo ni deformarlo; las fotos usalas como base visual del producto o lugar real.` : null,
+    modelo_img ? `La PRIMERA imagen adjunta es un EJEMPLO de cómo quiere verse la pieza: imitá su estilo, composición, distribución del texto, tipo de fondo y clima. NO copies sus textos, logos, marcas ni personas: usá solo los datos y la identidad de "${nombre}".` : null,
+    refs.length ? `Las ${modelo_img ? 'demás ' : ''}imágenes adjuntas son de la marca: si hay un logo, colocalo tal cual, sin redibujarlo ni deformarlo; las fotos usalas como base visual del producto o lugar real.` : null,
     `Reglas: no agregues teléfonos, precios, fechas, direcciones ni textos que no estén arriba. Jerarquía clara (el título se lee primero), buen contraste, márgenes seguros y composición limpia. Nada de marcas de agua ni logos de terceros.`,
   ].filter(Boolean).join('\n\n');
 
@@ -98,10 +103,10 @@ Deno.serve(async (req) => {
   let r: Response;
   try {
     const cab = { Authorization: `Bearer ${clave}` }, senal = AbortSignal.timeout(110000);
-    if (refs.length) { // con logo o fotos de referencia: endpoint de edición (multipart)
+    if (imgs.length) { // con logo o fotos de referencia: endpoint de edición (multipart)
       const fd = new FormData();
       fd.append('model', modelo); fd.append('prompt', prompt); fd.append('size', tam); fd.append('quality', calidad);
-      refs.forEach((x: any, i: number) => fd.append('image[]', new Blob([Uint8Array.from(atob(x.b64), (c) => c.charCodeAt(0))], { type: x.tipo }), `ref${i}.${x.tipo.split('/')[1]}`));
+      imgs.forEach((x: any, i: number) => fd.append('image[]', new Blob([Uint8Array.from(atob(x.b64), (c) => c.charCodeAt(0))], { type: x.tipo }), `ref${i}.${x.tipo.split('/')[1]}`));
       r = await fetch('https://api.openai.com/v1/images/edits', { method: 'POST', headers: cab, body: fd, signal: senal });
     } else {
       r = await fetch('https://api.openai.com/v1/images/generations', { method: 'POST', headers: { ...cab, 'Content-Type': 'application/json' }, signal: senal,
