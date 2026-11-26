@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
+<!-- Portal ORIGEN — v7.2 · 2026-11-26 · Próximos 7 días se desliza día por día (Hoy, Mañana, miércoles…) · v7.1 · 2026-11-26 · inicio más corto, fichas de cliente alineadas, eliminar clientes, tareas asignadas por el equipo (con registro), cliente ve ORIGEN Full como recomendado · v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -619,6 +619,24 @@ a.card h2{text-decoration:none}
 .card h2.nw{flex-wrap:nowrap}
 @media(max-width:759px){.dash{grid-template-columns:repeat(2,minmax(0,1fr))}.dash>*{grid-column:1/-1}.dash>.k{grid-column:span 1;flex-direction:column;align-items:flex-start;gap:10px;padding:16px}}
 @media(prefers-reduced-motion:reduce){.ring .pg{transition:none}}
+
+/* v7.1: inicio más corto, fichas de cliente sin desfasaje */
+.dash{align-items:start}
+.grid{gap:16px}
+.stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important;gap:12px!important;border:0!important;margin-bottom:16px!important}
+.stats .stat,.stats .stat:first-child{border:1px solid rgba(255,255,255,.09)!important;border-radius:20px!important;padding:14px 18px!important}
+.stats .stat:last-child:nth-child(odd){grid-column:auto}
+@media(max-width:620px){.stats{grid-template-columns:1fr 1fr!important}.stats .stat:last-child:nth-child(odd){grid-column:1/-1}}
+.ag-mas{margin:.7rem 0 0;font-size:.92rem}
+.sem-chips{display:flex;gap:6px;margin:0 0 10px;overflow-x:auto;scrollbar-width:none}.sem-chips::-webkit-scrollbar{display:none}
+.sem-chip{flex:1 0 auto;min-width:44px;min-height:40px;border-radius:12px;border:1px solid var(--line);background:none;color:var(--mut);font:inherit;font-size:.85rem;cursor:pointer;position:relative;padding:0 .6rem}
+.sem-chip[aria-pressed=true]{background:var(--gold);color:#111;border-color:var(--gold);font-weight:600}
+.sem-chip i{font-style:normal;font-size:.65rem;position:absolute;top:2px;right:5px;opacity:.8}
+.sem-pista{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;gap:0;border-radius:14px}.sem-pista::-webkit-scrollbar{display:none}
+.sem-dia{flex:0 0 100%;scroll-snap-align:start;min-height:210px;box-sizing:border-box;padding-right:2px}
+@media(prefers-reduced-motion:reduce){.sem-pista{scroll-behavior:auto}}
+.dash{margin-top:16px}.stats{margin-top:16px}.grid+.card,.grid+section,.card+.card{margin-top:16px}
+#view>.dash>*{margin-top:0}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js" integrity="sha384-TcHRA3zBbn+Lexh5n+Oil4guNPOS3rjNDpGRAN46u/s/mB2IZ50ceC6TYDU2yvgK" crossorigin="anonymous" defer></script>
 </head>
@@ -982,7 +1000,7 @@ const FORMS = {
   tarea: { tabla:'tareas', nombre:'Tarea', nuevoT:'Nueva tarea', okT:'Tarea agregada.', icono:'✓', campos:[
     {k:'titulo', l:'Qué hay que hacer', req:1, max:200, full:1},
     {k:'cliente_id', l:'Cliente', t:'select', op:opCli(false)},
-    {k:'responsable_id', l:'Responsable', t:'select', op:opUsr},
+    {k:'responsable_id', l:'Asignar a', t:'select', op:opUsr},
     {k:'fecha_limite', l:'Para cuándo', t:'date'},
     {k:'hora', l:'Hora (si ocupa un horario)', t:'time', si:() => S.horaOk},
     {k:'duracion_min', l:'Duración (min)', t:'number', min:5, si:() => S.horaOk},
@@ -992,7 +1010,7 @@ const FORMS = {
     {k:'visible_cliente', l:'Mostrarla al cliente en “Lo que estamos haciendo”', t:'check'},
     {k:'texto_cliente', l:'Cómo la ve el cliente (opcional)', max:200, full:1}],
     nuevo: () => ({ estado:'pendiente', prioridad:'media', responsable_id:S.yo ? String(S.yo.id) : '' }),
-    antes: v => { v.texto = v.titulo; v.hecha = v.estado === 'hecha'; if (v.hora && !v.fecha_limite) throw aviso('Para ponerle hora, elegí primero la fecha.'); if (!v.hora && 'duracion_min' in v) v.duracion_min = null; } },
+    antes: (v, nuevo) => { if (nuevo && S.yo) v.creado_por = String(S.yo.id); v.texto = v.titulo; v.hecha = v.estado === 'hecha'; if (v.hora && !v.fecha_limite) throw aviso('Para ponerle hora, elegí primero la fecha.'); if (!v.hora && 'duracion_min' in v) v.duracion_min = null; } },
   contenido: { tabla:'contenidos', nombre:'Publicación', nuevoT:'Nueva publicación', okT:'Publicación agregada.', icono:'▣', campos:[
     {k:'cliente_id', l:'Cliente', t:'select', op:opCli(true), req:1, full:1},
     {k:'fecha', l:'Fecha', t:'date', req:1},
@@ -1031,7 +1049,8 @@ const FORMS = {
 const PLANES = [['Gestión de redes · Esencial',350000],['Gestión de redes · Crecimiento',590000],['Gestión de redes · ORIGEN Full',900000],['Gestión de redes · Arranque',100000],
   ['Web por suscripción · Profesional',30000],['Web por suscripción · Recomendado',40000],['Web por suscripción · Tienda Online',55000],['Plan Cámaras',30000],['A medida',0]];
 const RUBROS = ['Gastronomía','Alojamiento','Turismo y excursiones','Transporte','Salud','Belleza y estética','Deportes','Comercio','Servicios profesionales','Educación','Inmobiliaria','Construcción','Eventos','Tecnología','Institución / ONG'];
-FORMS.cliente = { tabla:'clientes', nombre:'Cliente', nuevoT:'Nuevo cliente', okT:'Cliente creado.', sinBorrar:true, campos:[
+FORMS.cliente = { tabla:'clientes', nombre:'Cliente', nuevoT:'Nuevo cliente', okT:'Cliente creado.', borrarT:'Eliminar cliente', despues:() => { S.det = null; location.hash = '#/clientes'; },
+  confirmar:o => `¿Eliminar a “${o.negocio || o.nombre}” y TODO lo suyo (tareas, publicaciones, pagos, archivos)?\nNo se puede deshacer.\n\nSi fue cliente de verdad, es mejor marcarlo como “Dado de baja”.`, campos:[
   {k:'negocio', l:'Nombre del negocio', req:1, max:120},
   {k:'rubro', l:'Rubro', t:'list', op:RUBROS, max:60},
   {k:'contacto_nombre', l:'Persona de contacto', max:120},
@@ -1134,7 +1153,7 @@ function editar(tipo, obj, preset){
     await ocupado(btn, async () => {
       const v = { ...valores(form, campos), ...(extra || {}) };
       F.antes?.(v, nuevo);
-      if (nuevo) await q(sb.from(F.tabla).insert(v));
+      if (nuevo){ try { await q(sb.from(F.tabla).insert(v)); } catch(e){ if ('creado_por' in v && /creado_por/.test(e?.message || '')){ delete v.creado_por; await q(sb.from(F.tabla).insert(v)); } else throw e; } }
       else await q(sb.from(F.tabla).update(v).eq('id', obj.id));
       cerrarHoja(); toast(extra ? 'Enviado al cliente para aprobar.' : nuevo ? F.okT : 'Cambios guardados.');
       await recargar();
@@ -1145,9 +1164,9 @@ function editar(tipo, obj, preset){
     h('button',{class:'btn',type:'submit'}, nuevo ? 'Agregar' : 'Guardar'),
     tipo === 'contenido' && obj?.aprobacion !== 'aprobado' ? h('button',{class:'btn ol',type:'button',onclick:e => guardar(e.currentTarget, { estado:'revision', visible_cliente:true, aprobacion:'pendiente' })}, 'Mandar al cliente para aprobar') : null,
     !nuevo && !F.sinBorrar ? h('button',{class:'btn peligro',type:'button',style:'margin-left:auto',onclick:async e => {
-      if (!confirm(`¿Borrar “${obj.titulo || F.nombre}”? No se puede deshacer.`)) return;
-      await ocupado(e.currentTarget, async () => { await q(sb.from(F.tabla).delete().eq('id', obj.id)); cerrarHoja(); toast('Borrado.'); await recargar(); });
-    }}, 'Borrar') : null));
+      if (!confirm(F.confirmar ? F.confirmar(obj) : `¿Borrar “${obj.titulo || F.nombre}”? No se puede deshacer.`)) return;
+      await ocupado(e.currentTarget, async () => { await q(sb.from(F.tabla).delete().eq('id', obj.id)); cerrarHoja(); toast('Borrado.'); F.despues?.(); await recargar(); });
+    }}, F.borrarT || 'Borrar') : null));
   abrirHoja(nuevo ? F.nuevoT : F.nombre,
     tipo === 'contenido' && obj?.id ? h('p',{class:'mut',style:'margin:0 0 .6rem'}, 'Respuesta del cliente: ', pill(...(APROB[obj.aprobacion] || ['—']))) : null,
     tipo === 'contenido' && obj?.id ? (() => { const H = hiloContenido(obj, true); return h('section',{}, h('h3',{style:'font-size:.9rem;margin:.6rem 0 .3rem'}, 'Conversación con el cliente'), H.lista,
@@ -1155,6 +1174,10 @@ function editar(tipo, obj, preset){
     form);
 }
 
+function asignarTarea(preset){
+  const otros = S.E.usuarios.filter(u => String(u.id) !== String(S.yo?.id));
+  editar('tarea', null, { ...(preset || {}), responsable_id: otros.length === 1 ? String(otros[0].id) : '' });
+}
 function nuevoAlgo(preset){
   abrirHoja('Agregar', h('div',{class:'tipos'},
     [['contenido','Publicación','para el calendario'],['tarea','Tarea','algo para hacer'],['produccion','Producción','sesión de fotos o video'],['evento','Reunión','llamada o entrega']].map(([t, n, d]) =>
@@ -1175,6 +1198,7 @@ function itemTarea(t){
         t.prioridad === 'alta' ? pill('Prioridad alta','bad') : null,
         t.estado === 'en_curso' ? pill('En curso','oro') : null,
         u ? pill(u.nombre.split(' ')[0]) : null,
+        (p => p && String(t.creado_por) !== String(t.responsable_id) ? pill('De ' + p.nombre.split(' ')[0], 'oro') : null)(usrDe(t.creado_por)),
         t.visible_cliente ? pill('Lo ve el cliente','ok') : null)));
 }
 async function marcar(t, hecha){
@@ -1345,6 +1369,18 @@ function miniMes(conAlgo, titulo){
     h('h2',{id:'h-mini',class:'nw',style:'text-transform:capitalize'}, titulo || MESES[m], h('a',{href:'#/calendario',class:'btn ol sm'}, 'Abrir')),
     h('div',{class:'mini',role:'img','aria-label':`${MESES[m]}: hoy es ${t.getDate()}. ${hay.length ? 'Días con actividad: ' + hay.join(', ') : 'Sin actividad este mes'}`}, c));
 }
+/* Próximos 7 días: se desliza día por día (Hoy, Mañana, miércoles…) */
+function carruselSemana(hoy){
+  const dias = Array.from({length:7}, (_, i) => masDias(i)), nom = f => f === hoy ? 'Hoy' : f === masDias(1) ? 'Mañana' : fLarga(f).split(',')[0].replace(/^./, c => c.toUpperCase());
+  const items = dias.map(f => itemsAgenda(f, f, false));
+  const pista = h('div',{class:'sem-pista',tabindex:'0','aria-label':'Próximos 7 días, deslizá para ver cada día'},
+    dias.map((f, i) => h('div',{class:'sem-dia',id:`sem-${i}`,role:'group','aria-label':`${nom(f)} ${fCorta(f)}`},
+      h('p',{class:'ag-dia'}, `${nom(f)} · ${fCorta(f)}`), items[i].length ? items[i].map(itemBtn) : vacio('Nada agendado.'))));
+  const chips = dias.map((f, i) => h('button',{type:'button',class:'sem-chip','aria-pressed':String(i === 0),onclick:() => pista.scrollTo({ left: i * pista.clientWidth, behavior:'smooth' })},
+    nom(f).slice(0, 3), items[i].length ? h('i',{'aria-label':`${items[i].length} cosas`}, items[i].length) : null));
+  pista.addEventListener('scroll', () => { const k = Math.round(pista.scrollLeft / Math.max(1, pista.clientWidth)); chips.forEach((c, i) => c.setAttribute('aria-pressed', String(i === k))); }, { passive:true });
+  return [h('div',{class:'sem-chips'}, chips), pista];
+}
 VE.hoy = () => {
   const hr = new Date().getHours(), nom = (S.yo?.nombre || '').split(' ')[0];
   titulo(`${hr < 13 ? 'Buen día' : hr < 20 ? 'Buenas tardes' : 'Buenas noches'}${nom ? ', ' + nom : ''}`, fLarga(hoyISO()).replace(/^./, x => x.toUpperCase()));
@@ -1357,6 +1393,7 @@ VE.hoy = () => {
   const t0 = new Date(), y = t0.getFullYear(), m = t0.getMonth(), mm = String(m + 1).padStart(2, '0');
   const deHoyTodas = S.E.tareas.filter(x => x.fecha_limite === hoy && esMia(x)), hechasHoy = deHoyTodas.filter(x => x.hecha).length;
   const delMes = S.E.contenidos.filter(c => enMes(c.fecha, y, m)), pubMes = delMes.filter(c => c.estado === 'publicado').length;
+  const asignadas = S.E.tareas.filter(t => !t.hecha && t.creado_por && String(t.creado_por) !== String(S.yo?.id) && String(t.responsable_id) === String(S.yo?.id));
   const conAlgo = new Set(itemsAgenda(`${y}-${mm}-01`, `${y}-${mm}-31`, true).map(x => x.f));
   fill($('view'),
     bannerInstalar(),
@@ -1367,15 +1404,19 @@ VE.hoy = () => {
       col('s3', kpiRing(delMes.length ? pubMes / delMes.length * 100 : 0, `${pubMes}/${delMes.length}`, '#7FD6E8', `Publicado en ${MESES[m]}`, 'todos los clientes', '#/calendario')),
       col('s3', kpiNum(pedidos.length, 'pedidos de clientes', '#E9B872', '#/clientes')),
       col('s3', kpiNum(esperando.length, 'esperando aprobación', '#B79CFF', '#/calendario')),
+      asignadas.length ? col('s12', h('section',{class:'card','aria-labelledby':'h-asig'},
+        h('h2',{id:'h-asig'}, 'Te asignaron', h('small',{}, asignadas.length)),
+        h('ul',{class:'tasks'}, asignadas.slice(0, 6).map(itemTarea)),
+        asignadas.length > 6 ? h('p',{class:'ag-mas'}, h('a',{href:'#/tareas'}, `Ver las ${asignadas.length} →`)) : null)) : null,
       col('s5', h('section',{class:'card','aria-labelledby':'h-hoy'},
         h('h2',{id:'h-hoy'}, 'Para hoy', segMias()),
         venc.length ? [h('p',{class:'grupo bad'}, 'Vencidas'), h('ul',{class:'tasks'}, venc.map(itemTarea))] : null,
         deHoy.length ? [venc.length ? h('p',{class:'grupo'}, 'Hoy') : null, h('ul',{class:'tasks'}, deHoy.map(itemTarea))] : null,
         !venc.length && !deHoy.length ? vacio('Nada pendiente para hoy. 🙌') : null,
-        h('p',{style:'margin:.8rem 0 0'}, h('a',{href:'#/tareas'}, 'Ver todas las tareas →')))),
+        h('p',{style:'margin:.8rem 0 0',class:'row'}, h('a',{href:'#/tareas'}, 'Ver todas las tareas →'), h('button',{type:'button',class:'btn ol sm',onclick:() => asignarTarea()}, '+ Asignar tarea')))),
       col('s4', h('section',{class:'card','aria-labelledby':'h-sem'},
         h('h2',{id:'h-sem'}, 'Próximos 7 días', h('button',{type:'button',class:'btn ol sm',onclick:() => nuevoAlgo({ fecha:hoy })}, '+ Agregar')),
-        agendaAgrupada(itemsAgenda(hoy, masDias(7), false), 'Nada agendado esta semana.'))),
+        carruselSemana(hoy))),
       col('s3', miniMes(conAlgo)),
       (cambios.length || pedidos.length || aceptados.length) ? col('s12', h('section',{class:'card','aria-labelledby':'h-at'},
         h('h2',{id:'h-at'}, 'Necesita atención'),
@@ -1860,6 +1901,7 @@ async function detalleCliente(id){
     const [sol, acc, adn, rep, met, dg, arch, cup, obj, rec, proy, etap, cgs, pgs] = d;
     const hoy = hoyISO(), ab = S.E.tareas.filter(t => !t.hecha && String(t.cliente_id) === id);
     const prox = itemsAgenda(hoy, masDias(45), false).filter(i => String(i.cid) === id);
+    const hechas = S.E.tareas.filter(t => t.hecha && String(t.cliente_id) === id).sort((a, b) => String(b.hecha_en || b.creado_en).localeCompare(String(a.hecha_en || a.creado_en))).slice(0, 8);
     const abiertas = sol.filter(s => s.estado !== 'resuelta').length;
     const r = c.raw, wa = telWA(r.whatsapp), saldo = cgs == null ? null : cuentaDe(c.abono, pgs, cgs, r.cuenta_desde).saldo;
     const st = (t, v, cls) => h('div',{class:'stat chico' + (cls ? ' ' + cls : '')}, h('span',{}, t), h('b',{}, v));
@@ -1870,6 +1912,7 @@ async function detalleCliente(id){
         h('div',{class:'grid g2'},
           h('section',{class:'card'}, h('h2',{}, 'Tareas abiertas', h('small',{}, ab.length)), ab.length ? h('ul',{class:'tasks'}, ab.map(itemTarea)) : vacio('Sin tareas abiertas.')),
           h('section',{class:'card'}, h('h2',{}, 'Lo que viene'), agendaAgrupada(prox, `Nada agendado. Probá con el asistente: “armá el calendario del mes para ${c.nombre}”.`))),
+        hechas.length ? h('section',{class:'card'}, h('h2',{}, 'Registro de tareas hechas', h('small',{}, hechas.length)), h('ul',{class:'tasks'}, hechas.map(itemTarea))) : null,
         boxPedidos(sol, abiertas)],
       plan: () => [
         h('section',{class:'card'}, h('h2',{}, 'Plan contratado', h('button',{type:'button',class:'btn ol sm',onclick:() => editar('cliente', r)}, 'Editar plan y datos')),
@@ -1884,6 +1927,7 @@ async function detalleCliente(id){
       h('div',{class:'row',style:'margin-bottom:12px'},
         h('a',{class:'btn ghost sm',href:'#/clientes'}, '← Clientes'),
         h('button',{type:'button',class:'btn sm',onclick:() => nuevoAlgo({ cliente_id:id, fecha:hoy })}, '+ Agregar'),
+        h('button',{type:'button',class:'btn ol sm',onclick:() => asignarTarea({ cliente_id:id })}, 'Asignar tarea'),
         h('button',{type:'button',class:'btn ol sm',onclick:() => abrirAsistente(`${c.nombre}: `)}, '✦ Asistente'),
         wa ? h('a',{class:'btn ol sm',href:`https://wa.me/${wa}`,target:'_blank',rel:'noopener'}, 'WhatsApp') : null),
       tabs, ...(CUERPO[sub] || CUERPO.resumen)());
@@ -3045,11 +3089,11 @@ function cardSesiones(){
 function sugerencias(C){
   const tiene = re => (C.serv || []).some(x => x.activo !== false && re.test(x.nombre || '')) || re.test(C.ficha?.plan || '');
   const alto = usoCupos(C).filter(c => c.limite).sort((a, b) => b.mes / b.limite - a.mes / a.limite).find(c => c.mes / c.limite >= .8), sinWeb = C.diag && C.diag.tiene_web === false, conWeb = C.diag && C.diag.tiene_web === true;
-  const i = planIdx(C.ficha?.plan), sig = i >= 0 && i < 3 ? PLANES_WEB[i + 1] : null, hook = ['¿Querés dejar de depender del material que mandás?', '¿Querés más alcance?', 'Tu equipo de marketing, completo'];
+  const i = planIdx(C.ficha?.plan), sig = i >= 0 && i < 3 ? PLANES_WEB[3] : null, hook = ['Tu equipo de marketing, completo'];
   const dif = sig && C.ficha?.mensual ? sig.pr - Number(C.ficha.mensual) : sig ? sig.pr - PLANES_WEB[i].pr : 0;
   const ex = (k, p, ico, t, x, precio, cta, nombre, desc) => ({ k, ico, p, t, x, precio, cta, s:[ico, nombre, desc || x, precio] });
   return [
-    sig && { k:'plan', ico:'🚀', p:10, t:hook[i], x:`Con ${sig.n} sumás: ${sig.suma.slice(0, 3).join(', ').toLowerCase()}.`, precio:`${sig.n}: ${pesos(sig.pr)} por mes${dif > 0 ? ` (+${pesos(dif)})` : ''}`, cta:`Quiero pasar a ${sig.n}`,
+    sig && { k:'plan', ico:'🚀', p:10, t:hook[0], x:`Con ${sig.n} sumás: ${sig.suma.slice(0, 3).join(', ').toLowerCase()}.`, precio:`${sig.n}: ${pesos(sig.pr)} por mes${dif > 0 ? ` (+${pesos(dif)})` : ''}`, cta:`Quiero pasar a ${sig.n}`,
       al:() => pedirServicio(['🚀', `Cambio de plan: ${sig.n}`, `${sig.d} ${sig.suma.join(' · ')}.`, `${pesos(sig.pr)} por mes`], `Quiero pasar al plan ${sig.n}.`, `Quiero pasar a ${sig.n}`) },
     alto && { k:'mas', ico:'🔥', p:9, t:'Estás publicando a pleno', x:`Ya usaste ${alto.mes} de ${alto.limite} en “${alto.nombre}” este mes. Sumá un reel extra y no frenes el ritmo: con tu material o con grabación nuestra.`, precio:P('edicion'), cta:'Sumar un reel', s:['🎞','Reel adicional','Editamos un reel más con tu material o lo grabamos nosotros.',P('edicion')], pre:'Quiero sumar un reel extra este mes.' },
     sinWeb && { k:'web', ico:'🌐', p:8, t:'¿Te encuentran cuando te buscan en Google?', x:'Tu propia página web, con tu carta, tus reservas y tu WhatsApp a un toque. Te encuentran en Google y en ChatGPT las 24 horas.', precio:P('web-susc'), cta:'Quiero mi web', s:SV('Página web') },

@@ -1,4 +1,4 @@
-/* ORIGEN · catalogo.js · v1.1 · 2026-11-26 · FUENTE ÚNICA DE PRECIOS (planes.html y portal.html leen de acá).
+/* ORIGEN · catalogo.js · v1.2 · 2026-11-26 · tarifario coherente: sesión $50.000/h, reels, app, auditoría · v1.1 · 2026-11-26 · FUENTE ÚNICA DE PRECIOS (planes.html y portal.html leen de acá).
    Para cambiar un precio: editá solo el número `p` (o los de `o`) y subí este archivo.
    m: 'mes' = mensual · 'unico' = pago único · 'hora' = por hora · 'cotizar' = se cotiza (p: null)
    ds: true = "desde"  ·  o: opciones [nombre, precio]  ·  pub: la inversión publicitaria va aparte
@@ -45,9 +45,9 @@
       { id: 'menu', c: 'diseno', n: 'Menú, catálogo o presentación', d: 'Material comercial diseñado para vender.', m: 'unico', p: 200000, ds: true, inc: ['Menú desde $200.000', 'Catálogo o presentación desde $250.000'] },
       { id: 'packaging', c: 'diseno', n: 'Packaging', d: 'Diseño de envases y etiquetas.', m: 'unico', p: 250000, ds: true, inc: ['Diseño listo para imprimir'] },
       /* AUDIOVISUAL */
-      { id: 'sesion', c: 'audio', n: 'Sesión de fotos o video', d: 'Fotografía y video profesional en tu local o en nuestro set: productos, platos, instalaciones o equipo.', m: 'hora', p: 30000, min: 2, t: ['turismo'], inc: ['Mínimo 2 horas', 'Material para varias semanas'] },
+      { id: 'sesion', c: 'audio', n: 'Sesión de fotos o video', d: 'Fotografía y video profesional en tu local o en nuestro set: productos, platos, instalaciones o equipo.', m: 'hora', p: 50000, min: 2, t: ['turismo'], inc: ['Mínimo 2 horas', 'Material para varias semanas'] },
       { id: 'set', c: 'audio', n: 'Set de grabación', d: 'Alquilá nuestro set de Jangadero 233 y grabá vos.', m: 'hora', p: 30000, min: 1, inc: ['Fondo, sillones y luces', 'Micrófonos inalámbricos'] },
-      { id: 'reels', c: 'audio', n: 'Pack de reels', d: 'Reels grabados, editados y listos para publicar.', m: 'unico', o: [['4 reels', 250000], ['8 reels', 400000], ['12 reels', 550000]], inc: ['Guion, grabación y edición'] },
+      { id: 'reels', c: 'audio', n: 'Pack de reels', d: 'Reels grabados, editados y listos para publicar.', m: 'unico', o: [['4 reels', 350000], ['8 reels', 600000], ['12 reels', 800000]], inc: ['Guion, grabación y edición'] },
       { id: 'jornada', c: 'audio', n: 'Jornada de contenido', d: 'Un día de grabación para tener material de todo el mes.', m: 'unico', o: [['Jornada de contenido', 350000], ['Jornada completa', 550000]], inc: ['Fotos y videos', 'Equipo de producción'] },
       { id: 'evento', c: 'audio', n: 'Cobertura de evento', d: 'Fotos y video de tu evento, entregados para tus redes.', m: 'unico', p: 350000, ds: true, inc: ['Fotos y video', 'Entrega rápida'] },
       { id: 'video', c: 'audio', n: 'Video institucional o publicitario', d: 'Video profesional para presentar o promocionar tu negocio.', m: 'unico', p: 350000, ds: true, inc: ['Guion y producción', 'Institucional desde $400.000'] },
@@ -59,6 +59,7 @@
       { id: 'web-medida', c: 'web', n: 'Web a medida', d: 'Sitio a tu medida con pago único.', m: 'unico', o: [['Landing page', 400000], ['Web institucional', 650000], ['Web corporativa profesional', 900000], ['Web premium o de reservas', 1500000]], ds: true, t: ['turismo'], inc: ['Diseño personalizado', 'Optimizada para celular y SEO básico'] },
       { id: 'ecommerce', c: 'web', n: 'Tienda online', d: 'Vendé por internet con pagos y envíos integrados.', m: 'unico', o: [['E-commerce', 1200000], ['E-commerce avanzado', 2000000]], ds: true, inc: ['Productos, pagos y envíos', 'Integración con WhatsApp'] },
       { id: 'sistemas', c: 'web', n: 'Portal o sistema a medida', d: 'Portales privados, sistemas de gestión, turnos y reservas.', m: 'unico', o: [['Portal privado', 2000000], ['Sistema personalizado', 2500000]], ds: true, inc: ['Desarrollo a medida', 'Panel de administración'] },
+      { id: 'app', c: 'web', n: 'App móvil a medida', d: 'Aplicación para Android e iOS con panel de administración.', m: 'unico', o: [['App simple', 1500000], ['App con panel y funciones', 2500000]], ds: true, inc: ['Android e iOS', 'Panel de administración', 'Publicación en las tiendas'] },
       { id: 'rediseno', c: 'web', n: 'Rediseño web', d: 'Renovamos una web existente.', m: 'unico', p: 500000, ds: true, inc: ['Nuevo diseño', 'Contenido migrado'] },
       { id: 'mantenimiento', c: 'web', n: 'Mantenimiento web', d: 'Hosting, dominio, SSL, copias de seguridad y soporte.', m: 'mes', p: 80000, ds: true, inc: ['Hosting, dominio y SSL', 'Copias de seguridad y soporte'] },
       /* AUTOMATIZACIÓN E IA */
@@ -67,7 +68,7 @@
       { id: 'chatbot', c: 'auto', n: 'Chatbot', d: 'Atención automática en WhatsApp o en tu web.', m: 'unico', o: [['Chatbot', 400000], ['Chatbot con IA', 600000]], ds: true, inc: ['Respuestas a consultas frecuentes', 'Con IA: conversa y aprende de tu negocio'] },
       { id: 'dashboard', c: 'auto', n: 'Dashboard', d: 'Un tablero con tus números de ventas o marketing.', m: 'unico', p: 350000, ds: true, inc: ['Datos conectados', 'Gráficos claros'] },
       /* CONSULTORÍA */
-      { id: 'auditoria', c: 'consul', n: 'Auditoría de presencia digital', d: 'Revisamos tus redes, tu ficha de Google y tu web, y te decimos qué corregir primero.', m: 'unico', p: 60000, inc: ['Informe con prioridades'] },
+      { id: 'auditoria', c: 'consul', n: 'Auditoría de presencia digital', d: 'Revisamos tus redes, tu ficha de Google y tu web, y te decimos qué corregir primero.', m: 'unico', p: 100000, inc: ['Informe con prioridades'] },
       { id: 'estrategia', c: 'consul', n: 'Plan de marketing y estrategia', d: 'Estrategia de marca, contenido y posicionamiento para tu negocio.', m: 'cotizar', p: null, prop: true, inc: ['Análisis de competencia y mercado', 'Plan de acción'] },
       { id: 'direccion', c: 'consul', n: 'Consultoría comercial y dirección de marketing', d: 'Acompañamiento continuo para ordenar tu proceso comercial.', m: 'cotizar', p: null, prop: true, inc: ['Reuniones periódicas', 'Seguimiento de resultados'] },
       /* TURISMO */
