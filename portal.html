@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v7.6 · 2026-11-26 · app PWA desde $500.000 y precios de web a medida nuevos (catalogo.js v1.5) · v7.5 · 2026-11-26 · sin Club por ahora · v7.4 · 2026-11-26 · publicidad "Tu propia app" en las ideas del cliente + Club de clientes por negocio (puntos, regalo a la compra N, promos con aviso al celular) · v7.3 · 2026-11-26 · plan Arranque: meta semanal de 1 publicación + 1 historia, sin ofrecer producción; ORIGEN Full como "recomendado" · v7.2 · 2026-11-26 · Próximos 7 días se desliza día por día (Hoy, Mañana, miércoles…) · v7.1 · 2026-11-26 · inicio más corto, fichas de cliente alineadas, eliminar clientes, tareas asignadas por el equipo (con registro), cliente ve ORIGEN Full como recomendado · v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
+<!-- Portal ORIGEN — v7.7 · 2026-11-26 · presupuesto: los servicios se eligen de la lista del catálogo, sin escribir · v7.6 · 2026-11-26 · app PWA desde $500.000 y precios de web a medida nuevos (catalogo.js v1.5) · v7.5 · 2026-11-26 · sin Club por ahora · v7.4 · 2026-11-26 · publicidad "Tu propia app" en las ideas del cliente + Club de clientes por negocio (puntos, regalo a la compra N, promos con aviso al celular) · v7.3 · 2026-11-26 · plan Arranque: meta semanal de 1 publicación + 1 historia, sin ofrecer producción; ORIGEN Full como "recomendado" · v7.2 · 2026-11-26 · Próximos 7 días se desliza día por día (Hoy, Mañana, miércoles…) · v7.1 · 2026-11-26 · inicio más corto, fichas de cliente alineadas, eliminar clientes, tareas asignadas por el equipo (con registro), cliente ve ORIGEN Full como recomendado · v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -228,7 +228,7 @@ dialog::backdrop{background:rgba(0,0,0,.65);backdrop-filter:blur(3px)}
 }
 
 .fila-item{display:grid;grid-template-columns:1fr 72px 110px auto;gap:6px;margin-bottom:6px;align-items:center}
-@media(max-width:600px){.fila-item{grid-template-columns:1fr 58px 92px auto}}
+@media(max-width:600px){.fila-item{grid-template-columns:70px 1fr auto;padding-bottom:8px;border-bottom:1px solid var(--line,#2a2a2a)}.fila-item>:first-child{grid-column:1/-1}}
 .servs{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px}
 .servs button{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;text-align:left;background:var(--s2);border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--tx);cursor:pointer;font-weight:500}
 .servs button:hover{border-color:var(--gold)}.servs .si{font-size:1.4rem}.servs small{color:var(--mut);font-size:.8rem;font-weight:400}
@@ -1741,17 +1741,27 @@ function editarPresupuesto(p, preset){
   const estado = h('select',{name:'estado'}, Object.entries(PRE_EST).map(([k,[t]]) => h('option',{value:k}, t))); estado.value = b.estado || 'borrador';
   const totalEl = h('b',{}), filas = h('div',{});
   const calcular = () => { const sub = items.reduce((s,i) => s + (+i.cant || 0) * (+i.precio || 0), 0); const tot = Math.round(sub * (1 - Math.min(100, Math.max(0, +desc.value || 0)) / 100)); totalEl.textContent = pesos(tot); return tot; };
+  const catMap = new Map(), catOpc = (window.CATALOGO ? CATALOGO.cats : []).map(([cid, cn]) => {
+    const os = []; CATALOGO.items.filter(x => x.c === cid).forEach(x => {
+      const u = x.m === 'mes' ? ' · mensual' : x.m === 'hora' ? ' · por hora' : '';
+      if (x.id === 'planes') PLANES_WEB.forEach(pl => os.push(['Gestión de redes · ' + pl.n + u, pl.pr, 1]));
+      else if (x.o) x.o.forEach(([n, pr]) => os.push([x.n + ' · ' + n + u, pr, 1]));
+      else os.push([x.n + u, x.p || 0, x.min || 1]);
+    });
+    os.forEach(o => catMap.set(o[0], o)); return [cn, os];
+  }).filter(g => g[1].length);
   const pintarFilas = () => fill(filas, items.map((it, ix) => {
-    const d = h('input',{'aria-label':`Ítem ${ix+1}: descripción`,maxlength:'200',required:true,placeholder:'Descripción'}); d.value = it.desc || '';
+    const d = h('select',{'aria-label':`Ítem ${ix+1}: servicio`,required:true}, h('option',{value:''}, 'Elegí un servicio…'),
+      it.desc && !catOpc.some(g => g[1].some(o => o[0] === it.desc)) ? h('option',{value:it.desc}, it.desc) : null,
+      catOpc.map(([g, os]) => h('optgroup',{label:g}, os.map(([n]) => h('option',{value:n}, n))))); d.value = it.desc || '';
     const c = h('input',{type:'number','aria-label':`Ítem ${ix+1}: cantidad`,min:'1',step:'1',inputmode:'numeric'}); c.value = it.cant ?? 1;
     const pr = h('input',{type:'number','aria-label':`Ítem ${ix+1}: precio unitario`,min:'0',step:'1',inputmode:'numeric',placeholder:'$'}); pr.value = it.precio || '';
-    d.addEventListener('input', () => { it.desc = d.value; });
+    d.addEventListener('change', () => { it.desc = d.value; const o = catMap.get(d.value); if (o){ it.precio = o[1]; it.cant = Math.max(+it.cant || 1, o[2]); pr.value = it.precio || ''; c.value = it.cant; if (!tit.value) tit.value = d.value; } calcular(); });
     c.addEventListener('input', () => { it.cant = +c.value; calcular(); });
     pr.addEventListener('input', () => { it.precio = +pr.value; calcular(); });
     return h('div',{class:'fila-item'}, d, c, pr, h('button',{type:'button',class:'btn ghost sm','aria-label':`Quitar ítem ${ix+1}`,onclick:() => { items.splice(ix, 1); if (!items.length) items.push({ desc:'', cant:1, precio:0 }); pintarFilas(); calcular(); }}, '✕'));
   }));
   desc.addEventListener('input', calcular);
-  const chips = h('div',{class:'chips'}, SERVICIOS.map(([,n]) => h('button',{type:'button',onclick:() => { const v = items.find(i => !i.desc); if (v) v.desc = n; else items.push({ desc:n, cant:1, precio:0 }); if (!tit.value) tit.value = n; pintarFilas(); calcular(); }}, '+ ' + n)));
   pintarFilas(); calcular();
   const leer = () => ({ cliente_id:cli.value || null, prospecto:cli.value ? null : pros.value.trim() || null, titulo:tit.value.trim(),
     items:items.filter(i => i.desc?.trim()).map(i => ({ desc:i.desc.trim().slice(0,200), cant:Math.max(1, Math.round(+i.cant || 1)), precio:Math.max(0, Math.round(+i.precio || 0)) })),
@@ -1771,8 +1781,8 @@ function editarPresupuesto(p, preset){
   form.append(
     h('label',{class:'full'}, 'Para', cli), labPros,
     h('label',{class:'full'}, 'Título *', tit),
-    h('div',{class:'full'}, h('p',{class:'grupo',style:'margin:.2rem 0 .4rem'}, 'Ítems · descripción · cantidad · precio unitario'), filas,
-      h('button',{type:'button',class:'btn ol sm',style:'margin-top:6px',onclick:() => { items.push({ desc:'', cant:1, precio:0 }); pintarFilas(); }}, '+ Ítem'), chips),
+    h('div',{class:'full'}, h('p',{class:'grupo',style:'margin:.2rem 0 .4rem'}, 'Servicios · cantidad · precio unitario (elegí de la lista)'), filas,
+      h('button',{type:'button',class:'btn ol sm',style:'margin-top:6px',onclick:() => { items.push({ desc:'', cant:1, precio:0 }); pintarFilas(); }}, '+ Servicio')),
     h('label',{}, 'Descuento (%)', desc), h('label',{}, 'Válido hasta', val),
     h('label',{class:'full'}, 'Notas', notas),
     h('label',{}, 'Firma', firma), h('label',{}, 'Estado', estado),
