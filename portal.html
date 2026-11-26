@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
+<!-- Portal ORIGEN — v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -563,6 +563,62 @@ svg.chart{width:100%;height:auto;display:block}
 .plan-tag{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);min-height:1em}
 .plan-pn{font-size:1.1rem}.plan-pp{font-family:Anton,sans-serif;font-size:1.5rem;letter-spacing:.02em}
 .plan-c ul{margin:.2rem 0 .4rem;padding-left:1.1rem;font-size:.86rem;display:grid;gap:3px}
+
+/* ===== v7.0 · visual de app: widgets, anillos, fondo con brillo ===== */
+body{background:radial-gradient(900px 520px at 8% -8%,rgba(201,179,122,.17),transparent 62%),radial-gradient(760px 520px at 105% 18%,rgba(125,105,210,.11),transparent 60%),radial-gradient(600px 400px at 40% 110%,rgba(80,170,190,.07),transparent 60%),var(--bg);background-attachment:fixed}
+.card,.stat{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.09);border-radius:24px;box-shadow:0 18px 40px -28px #000,inset 0 1px 0 rgba(255,255,255,.05);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.card{padding:20px 22px}
+.card h2{font-size:1.05rem;letter-spacing:.01em}
+a.stat:hover,a.card:hover{border-color:rgba(201,179,122,.4)}
+.side{background:rgba(13,13,11,.78);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+#nav a{border-radius:14px}
+#nav a[aria-current=page]{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#15130f;font-weight:600;box-shadow:0 10px 24px -10px rgba(201,179,122,.65)}
+#nav a[aria-current=page] svg{color:#15130f}
+.top{align-items:center}
+#reloj{text-align:right;line-height:1.05;margin-right:14px}
+#reloj b{display:block;font-family:Anton,sans-serif;font-weight:400;font-size:2.5rem;letter-spacing:.03em;color:var(--tx)}
+#reloj span{display:block;color:var(--mut);font-size:.88rem}#reloj span::first-letter{text-transform:uppercase}
+.dash{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+.dash>*{margin:0;min-width:0}
+@media(min-width:760px) and (max-width:1099px){.dash{grid-template-columns:repeat(2,minmax(0,1fr))}.dash>.s5,.dash>.s12{grid-column:1/-1}}
+@media(min-width:1100px){.dash{grid-template-columns:repeat(12,minmax(0,1fr))}.dash>.s3{grid-column:span 3}.dash>.s4{grid-column:span 4}.dash>.s5{grid-column:span 5}.dash>.s6{grid-column:span 6}.dash>.s7{grid-column:span 7}.dash>.s12{grid-column:1/-1}}
+.kp{display:flex;align-items:center;gap:16px;color:var(--tx);text-decoration:none}
+.kp b{display:block;font-weight:600;font-size:1rem}
+.kp .kn{font-family:Anton,sans-serif;font-size:2.6rem;line-height:1;color:var(--c,var(--gold));letter-spacing:.02em;min-width:2ch}
+.ring{width:92px;height:92px;flex:0 0 auto}
+.ring .tr{stroke:rgba(255,255,255,.09)}
+.ring .pg{stroke:var(--c,var(--gold));stroke-linecap:round;filter:drop-shadow(0 0 5px var(--c,var(--gold)));transition:stroke-dasharray .8s ease}
+.ring text{fill:var(--tx);font:400 21px Anton,sans-serif;letter-spacing:.02em}
+.ring.gr{width:118px;height:118px}
+.hero-w .ey{margin:0 0 .6rem;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.hero-w .kp{margin-bottom:14px}.hero-w .kp div b{font-family:Anton,sans-serif;font-weight:400;font-size:1.5rem;letter-spacing:.02em}
+.hero-w .barra{height:12px;margin-top:2px}
+.vistas .kn{display:block;font-family:Anton,sans-serif;font-size:2.4rem;line-height:1.05;color:var(--tx)}
+.vistas .spark{height:64px;margin-top:10px}
+.mini{display:grid;grid-template-columns:repeat(7,1fr);gap:4px 2px;text-align:center;font-size:.85rem}
+.mini .dw{font-size:.68rem;color:var(--mut);letter-spacing:.06em}
+.mini .d{aspect-ratio:1;max-height:34px;display:grid;place-items:center;border-radius:50%;position:relative;color:var(--tx)}
+.mini .d.hoy{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#15130f;font-weight:700}
+.mini .d.hay::after{content:"";position:absolute;bottom:0;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--gold)}
+.mini .d.hoy.hay::after{background:#15130f}
+@media(max-width:899px){
+  #reloj{display:none}
+  .side{inset:auto 10px calc(10px + var(--safe)) 10px;border:1px solid rgba(255,255,255,.1);border-radius:28px;box-shadow:0 18px 40px -14px #000}
+  #nav a[aria-current=page]{background:transparent;box-shadow:none;color:var(--gold2)}
+  #nav a[aria-current=page] svg{color:var(--gold)}
+  .card{padding:18px}
+  .kp .kn{font-size:2.2rem}
+}
+.card.asis{border:1px solid rgba(201,179,122,.35);background:linear-gradient(135deg,rgba(201,179,122,.16),rgba(201,179,122,.04));padding:20px 22px;margin:0 0 16px}
+#subnav a[aria-current=page]{background:rgba(201,179,122,.15);color:var(--gold2);box-shadow:none;font-weight:600}
+a.card{text-decoration:none;color:var(--tx)}
+a.card h2{text-decoration:none}
+.vistas .mut{display:block;margin-top:.6rem}
+.dash .kp .ring:not(.gr){width:74px;height:74px}
+.dash .kp b{font-size:.95rem;line-height:1.25}
+.card h2.nw{flex-wrap:nowrap}
+@media(max-width:759px){.dash{grid-template-columns:repeat(2,minmax(0,1fr))}.dash>*{grid-column:1/-1}.dash>.k{grid-column:span 1;flex-direction:column;align-items:flex-start;gap:10px;padding:16px}}
+@media(prefers-reduced-motion:reduce){.ring .pg{transition:none}}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js" integrity="sha384-TcHRA3zBbn+Lexh5n+Oil4guNPOS3rjNDpGRAN46u/s/mB2IZ50ceC6TYDU2yvgK" crossorigin="anonymous" defer></script>
 </head>
@@ -611,7 +667,7 @@ svg.chart{width:100%;height:auto;display:block}
   <div class="content">
     <header class="top">
       <div style="min-width:0"><p class="kicker" id="kicker"></p><h1 id="titulo"></h1></div>
-      <div class="row" style="flex-wrap:nowrap;align-items:center"><div id="top-extra"></div><button id="campana" type="button" aria-label="Avisos" aria-haspopup="dialog" hidden></button><button id="cuenta" type="button" aria-label="Mi cuenta"></button></div>
+      <div class="row" style="flex-wrap:nowrap;align-items:center"><div id="reloj" aria-hidden="true"></div><div id="top-extra"></div><button id="campana" type="button" aria-label="Avisos" aria-haspopup="dialog" hidden></button><button id="cuenta" type="button" aria-label="Mi cuenta"></button></div>
     </header>
     <div id="banner" hidden></div>
     <main id="main" tabindex="-1"><div id="view"></div></main>
@@ -626,6 +682,7 @@ svg.chart{width:100%;height:auto;display:block}
 <div id="toast" role="status" aria-live="polite"></div>
 <div id="print" aria-hidden="true"></div>
 
+<script src="catalogo.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 'use strict';
@@ -843,6 +900,7 @@ function render(){
   (S.modo === 'equipo' ? VE : VC)[v](arg);
 }
 window.addEventListener('hashchange', () => window.scrollTo(0, 0));
+(() => { const r = $('reloj'), t = () => { const d = new Date(); r.replaceChildren(h('b',{}, d.toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit',hour12:false})), h('span',{}, d.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'}))); }; t(); setInterval(t, 30000); })();
 function titulo(t, k){ $('titulo').textContent = t; $('kicker').textContent = k || ''; document.title = `${t} · ORIGEN`; }
 async function verComoCliente(id, destino = 'inicio'){ await ocupado(null, async () => { S.cid = id; await cargarCliente(id); S.modo = 'cliente'; S.mes = new Date(); S.red = null; location.hash = '#/' + destino; render(); }); }
 function volverEquipo(){ S.modo = 'equipo'; location.hash = `#/clientes/${S.cid}`; render(); }
@@ -1266,6 +1324,27 @@ function vistaNumeros(){
 }
 
 /* ================= VISTAS DEL EQUIPO ================= */
+
+/* ---- v7.0 · componentes de widget ---- */
+function aro(pct, centro, color, etq, grande){
+  const r = 40, C = 2 * Math.PI * r, p = Math.max(0, Math.min(100, pct || 0));
+  return sv('svg',{viewBox:'0 0 100 100',class:'ring' + (grande ? ' gr' : ''),role:'img','aria-label':etq,style:`--c:${color}`},
+    sv('circle',{cx:50,cy:50,r,class:'tr',fill:'none','stroke-width':10}),
+    sv('circle',{cx:50,cy:50,r,class:'pg',fill:'none','stroke-width':10,'stroke-dasharray':`${C * p / 100} ${C}`,transform:'rotate(-90 50 50)'}),
+    sv('text',{x:50,y:57,'text-anchor':'middle'}, centro));
+}
+const col = (c, el) => el && (el.classList.add(c), el);
+const kpiRing = (pct, centro, color, titulo, sub, href) => h(href ? 'a' : 'div',{class:'card kp k',href:href || null}, aro(pct, centro, color, `${titulo}: ${sub}`), h('div',{}, h('b',{}, titulo), h('span',{class:'mut'}, sub)));
+const kpiNum = (n, etq, color, href) => h('a',{class:'card kp k',href,style:`--c:${color}`}, h('span',{class:'kn'}, n), h('span',{class:'mut'}, etq));
+function miniMes(conAlgo, titulo){
+  const t = new Date(), y = t.getFullYear(), m = t.getMonth(), off = (new Date(y, m, 1).getDay() + 6) % 7, dias = new Date(y, m + 1, 0).getDate(), hoy = hoyISO(), c = [], hay = [];
+  ['L','M','M','J','V','S','D'].forEach(d => c.push(h('span',{class:'dw'}, d)));
+  for (let i = 0; i < off; i++) c.push(h('span',{}));
+  for (let d = 1; d <= dias; d++){ const k = iso(new Date(y, m, d)); if (conAlgo.has(k)) hay.push(d); c.push(h('span',{class:'d' + (k === hoy ? ' hoy' : '') + (conAlgo.has(k) ? ' hay' : '')}, d)); }
+  return h('section',{class:'card','aria-labelledby':'h-mini'},
+    h('h2',{id:'h-mini',class:'nw',style:'text-transform:capitalize'}, titulo || MESES[m], h('a',{href:'#/calendario',class:'btn ol sm'}, 'Abrir')),
+    h('div',{class:'mini',role:'img','aria-label':`${MESES[m]}: hoy es ${t.getDate()}. ${hay.length ? 'Días con actividad: ' + hay.join(', ') : 'Sin actividad este mes'}`}, c));
+}
 VE.hoy = () => {
   const hr = new Date().getHours(), nom = (S.yo?.nombre || '').split(' ')[0];
   titulo(`${hr < 13 ? 'Buen día' : hr < 20 ? 'Buenas tardes' : 'Buenas noches'}${nom ? ', ' + nom : ''}`, fLarga(hoyISO()).replace(/^./, x => x.toUpperCase()));
@@ -1275,31 +1354,34 @@ VE.hoy = () => {
   const esperando = S.E.contenidos.filter(c => c.estado === 'revision' && c.aprobacion === 'pendiente');
   const pedidos = S.E.solicitudes.filter(s => s.estado === 'nueva');
   const aceptados = S.E.presupuestos.filter(p => p.estado === 'aceptado' && p.respondido_en && p.respondido_en >= masDias(-10));
+  const t0 = new Date(), y = t0.getFullYear(), m = t0.getMonth(), mm = String(m + 1).padStart(2, '0');
+  const deHoyTodas = S.E.tareas.filter(x => x.fecha_limite === hoy && esMia(x)), hechasHoy = deHoyTodas.filter(x => x.hecha).length;
+  const delMes = S.E.contenidos.filter(c => enMes(c.fecha, y, m)), pubMes = delMes.filter(c => c.estado === 'publicado').length;
+  const conAlgo = new Set(itemsAgenda(`${y}-${mm}-01`, `${y}-${mm}-31`, true).map(x => x.f));
   fill($('view'),
     bannerInstalar(),
     asistenteCard(),
     cardAlertas(),
-    h('div',{class:'stats'},
-      h('a',{class:'stat' + (venc.length ? ' alerta' : ''),href:'#/tareas'}, h('b',{}, venc.length), h('span',{}, 'tareas vencidas')),
-      h('a',{class:'stat oro',href:'#/tareas'}, h('b',{}, deHoy.length), h('span',{}, 'para hoy')),
-      h('a',{class:'stat',href:'#/clientes'}, h('b',{}, pedidos.length), h('span',{}, 'pedidos de clientes')),
-      h('a',{class:'stat',href:'#/calendario'}, h('b',{}, esperando.length), h('span',{}, 'esperando aprobación'))),
-    h('div',{class:'grid g32'},
-      h('div',{},
-        h('section',{class:'card','aria-labelledby':'h-hoy'},
-          h('h2',{id:'h-hoy'}, 'Para hoy', segMias()),
-          venc.length ? [h('p',{class:'grupo bad'}, 'Vencidas'), h('ul',{class:'tasks'}, venc.map(itemTarea))] : null,
-          deHoy.length ? [venc.length ? h('p',{class:'grupo'}, 'Hoy') : null, h('ul',{class:'tasks'}, deHoy.map(itemTarea))] : null,
-          !venc.length && !deHoy.length ? vacio('Nada pendiente para hoy. 🙌') : null,
-          h('p',{style:'margin:.8rem 0 0'}, h('a',{href:'#/tareas'}, 'Ver todas las tareas →'))),
-        (cambios.length || pedidos.length || aceptados.length) ? h('section',{class:'card','aria-labelledby':'h-at'},
-          h('h2',{id:'h-at'}, 'Necesita atención'),
-          aceptados.map(p => itemBtn({ cid:p.cliente_id, ico:'✓', t:`¡Aceptó el presupuesto! ${p.titulo}`, sub:pesos(p.total), abrir:() => editarPresupuesto(p) })),
-          pedidos.map(s => itemBtn({ cid:s.cliente_id, ico:s.servicio ? '★' : '✉', t:`${s.servicio || TIPOS_SOL[s.tipo]}: ${s.mensaje.slice(0,80)}`, sub:fCorta(s.creado_en), abrir:() => { location.hash = `#/clientes/${s.cliente_id}`; } })),
-          cambios.map(c => itemBtn({ cid:c.cliente_id, ico:'↺', t:`Pidió cambios: ${c.titulo || 'publicación'}`, sub:(c.comentario_cliente || '').slice(0,70), abrir:() => editar('contenido', c) }))) : null),
-      h('section',{class:'card','aria-labelledby':'h-sem'},
+    h('div',{class:'dash'},
+      col('s3', kpiRing(deHoyTodas.length ? hechasHoy / deHoyTodas.length * 100 : 100, deHoyTodas.length ? `${hechasHoy}/${deHoyTodas.length}` : '✓', '#C9B37A', 'Tareas de hoy', venc.length ? `${venc.length} vencidas` : 'todo al día', '#/tareas')),
+      col('s3', kpiRing(delMes.length ? pubMes / delMes.length * 100 : 0, `${pubMes}/${delMes.length}`, '#7FD6E8', `Publicado en ${MESES[m]}`, 'todos los clientes', '#/calendario')),
+      col('s3', kpiNum(pedidos.length, 'pedidos de clientes', '#E9B872', '#/clientes')),
+      col('s3', kpiNum(esperando.length, 'esperando aprobación', '#B79CFF', '#/calendario')),
+      col('s5', h('section',{class:'card','aria-labelledby':'h-hoy'},
+        h('h2',{id:'h-hoy'}, 'Para hoy', segMias()),
+        venc.length ? [h('p',{class:'grupo bad'}, 'Vencidas'), h('ul',{class:'tasks'}, venc.map(itemTarea))] : null,
+        deHoy.length ? [venc.length ? h('p',{class:'grupo'}, 'Hoy') : null, h('ul',{class:'tasks'}, deHoy.map(itemTarea))] : null,
+        !venc.length && !deHoy.length ? vacio('Nada pendiente para hoy. 🙌') : null,
+        h('p',{style:'margin:.8rem 0 0'}, h('a',{href:'#/tareas'}, 'Ver todas las tareas →')))),
+      col('s4', h('section',{class:'card','aria-labelledby':'h-sem'},
         h('h2',{id:'h-sem'}, 'Próximos 7 días', h('button',{type:'button',class:'btn ol sm',onclick:() => nuevoAlgo({ fecha:hoy })}, '+ Agregar')),
-        agendaAgrupada(itemsAgenda(hoy, masDias(7), false), 'Nada agendado esta semana.'))));
+        agendaAgrupada(itemsAgenda(hoy, masDias(7), false), 'Nada agendado esta semana.'))),
+      col('s3', miniMes(conAlgo)),
+      (cambios.length || pedidos.length || aceptados.length) ? col('s12', h('section',{class:'card','aria-labelledby':'h-at'},
+        h('h2',{id:'h-at'}, 'Necesita atención'),
+        aceptados.map(p => itemBtn({ cid:p.cliente_id, ico:'✓', t:`¡Aceptó el presupuesto! ${p.titulo}`, sub:pesos(p.total), abrir:() => editarPresupuesto(p) })),
+        pedidos.map(s => itemBtn({ cid:s.cliente_id, ico:s.servicio ? '★' : '✉', t:`${s.servicio || TIPOS_SOL[s.tipo]}: ${s.mensaje.slice(0,80)}`, sub:fCorta(s.creado_en), abrir:() => { location.hash = `#/clientes/${s.cliente_id}`; } })),
+        cambios.map(c => itemBtn({ cid:c.cliente_id, ico:'↺', t:`Pidió cambios: ${c.titulo || 'publicación'}`, sub:(c.comentario_cliente || '').slice(0,70), abrir:() => editar('contenido', c) })))) : null));
 };
 
 const movil = () => matchMedia('(max-width:760px)').matches;
@@ -1464,27 +1546,29 @@ VE.tareas = () => {
 };
 
 const PRE_EST = { borrador:['Borrador',''], enviado:['Enviado','oro'], aceptado:['Aceptado','ok'], rechazado:['Rechazado','bad'] };
+const P = (id, op) => window.CATALOGO && CATALOGO.por[id] ? CATALOGO.texto(id, op) : ''; // precios: catalogo.js (fuente única)
+const PLAN_PR = n => window.CATALOGO ? CATALOGO.planes[n] : 0;
 const SERVICIOS = [ // [ícono, nombre, descripción, precio de referencia (los de la página de ORIGEN)]
-  ['📸','Sesión de fotos','Producto, local, equipo o platos.','$30.000 la hora · mínimo 2 horas'],
-  ['🎬','Video y reels extra','Grabación y edición para redes.','Reel con grabación: $90.000'],
-  ['🌐','Página web','Web profesional que aparece en Google y en la IA.','Desde $30.000 por mes'],
-  ['🔎','Aparecer en Google y en la IA','Ficha de Google, SEO y optimización para ChatGPT.','Desde $40.000 por mes'],
+  ['📸','Sesión de fotos','Producto, local, equipo o platos.',P('sesion') + ' · mínimo 2 horas'],
+  ['🎬','Video y reels extra','Grabación y edición para redes.','Packs de reels: ' + P('reels')],
+  ['🌐','Página web','Web profesional que aparece en Google y en la IA.', P('web-susc')],
+  ['🔎','Aparecer en Google y en la IA','Ficha de Google, SEO y optimización para ChatGPT.', 'SEO local: ' + P('seo-local')],
   ['📺','Publicidad en ORIGEN TV','Tu marca en Café de Ideas, Heberdá y Esports.'],
-  ['📣','Publicidad paga','Campañas en Instagram, Facebook y Google.','Gestión desde $150.000 por mes · la inversión va aparte'],
-  ['🎨','Diseño y branding','Logo, menú, carteles, identidad.','Rebranding de redes: $50.000'],
+  ['📣','Publicidad paga','Campañas en Instagram, Facebook y Google.','Meta Ads: ' + P('meta') + ' · la inversión va aparte'],
+  ['🎨','Diseño y branding','Logo, menú, carteles, identidad.','Logo: ' + P('logo')],
   ['🎙','Entrevista en nuestro estudio','Contá tu historia en video y podcast.'],
   ['🏡','Gestión de alquileres','Airbnb y Booking con ORIGEN Turismo.'],
   ['🔐','Cámaras y tecnología','Seguridad, domótica y sistemas a medida.','Cámaras desde $30.000 por mes']];
 const SESIONES = [
-  ['📸','Sesión de fotos o video','Fotógrafo y camarógrafo profesionales en tu local o en nuestro set. Material de primera para usar durante meses.','$30.000 la hora · mínimo 2 horas'],
-  ['🎙','Set de grabación','Alquilá nuestro set de Jangadero 233 para grabar vos: fondo, sillones, luces y micrófonos inalámbricos.','$30.000 la hora'],
-  ['🎞','Reel con grabación','Vamos, grabamos, editamos y publicamos un reel.','$90.000 por reel'],
-  ['🎉','Cobertura de evento','Fotos y video de tu evento, hasta 3 horas.','$220.000']];
+  ['📸','Sesión de fotos o video','Fotógrafo y camarógrafo profesionales en tu local o en nuestro set. Material de primera para usar durante meses.', P('sesion') + ' · mínimo 2 horas'],
+  ['🎙','Set de grabación','Alquilá nuestro set de Jangadero 233 para grabar vos: fondo, sillones, luces y micrófonos inalámbricos.', P('set')],
+  ['🎞','Pack de reels','Grabamos, editamos y publicamos tus reels: packs de 4, 8 o 12.', P('reels')],
+  ['🎉','Cobertura de evento','Fotos y video de tu evento, entregados para tus redes.', P('evento')]];
 const PLANES_WEB = [ // los planes de redes de la página de ORIGEN
-  { n:'Arranque', pr:100000, d:'Publicamos lo que vos nos mandás.', suma:['Publicamos tus fotos, videos y textos','Programación y publicación en tus redes'] },
-  { n:'Esencial', pr:350000, d:'Producción propia todos los meses.', suma:['8 publicaciones diseñadas por nosotros','1 sesión de producción por mes','2 reels editados y 8 historias','Google Maps configurado','Informe mensual'] },
-  { n:'Crecimiento', pr:590000, d:'Más alcance y más presencia.', suma:['12 publicaciones y 12 historias','4 reels grabados y editados','1 jornada de grabación de 2 h','Gestión de comentarios y consultas','Calendario editorial e informe'] },
-  { n:'ORIGEN Full', pr:900000, d:'Tu equipo de marketing completo.', suma:['16 publicaciones y 8 reels grabados','2 jornadas de grabación + 1 cobertura de evento','Campañas en Meta Ads (hasta 2)','Google Maps, reseñas y comunidad','Estrategia y reunión mensual'] }];
+  { n:'Arranque', pr:PLAN_PR('arranque'), d:'Publicamos lo que vos nos mandás.', suma:['Publicamos tus fotos, videos y textos','Programación y publicación en tus redes'] },
+  { n:'Esencial', pr:PLAN_PR('esencial'), d:'Producción propia todos los meses.', suma:['8 publicaciones diseñadas por nosotros','1 sesión de producción por mes','2 reels editados y 8 historias','Google Maps configurado','Informe mensual'] },
+  { n:'Crecimiento', pr:PLAN_PR('crecimiento'), d:'Más alcance y más presencia.', suma:['12 publicaciones y 12 historias','4 reels grabados y editados','1 jornada de grabación de 2 h','Gestión de comentarios y consultas','Calendario editorial e informe'] },
+  { n:'ORIGEN Full', pr:PLAN_PR('full'), d:'Tu equipo de marketing completo.', suma:['16 publicaciones y 8 reels grabados','2 jornadas de grabación + 1 cobertura de evento','Campañas en Meta Ads (hasta 2)','Google Maps, reseñas y comunidad','Estrategia y reunión mensual'] }];
 const planIdx = t => /arranque|solo contenido/i.test(t || '') ? 0 : /esencial/i.test(t || '') ? 1 : /crecimiento/i.test(t || '') ? 2 : /full/i.test(t || '') ? 3 : -1;
 const telWA = n => { let d = String(n || '').replace(/\D/g,''); if (d.startsWith('0')) d = d.slice(1); if (d.length === 10) d = '549' + d; return d; };
 const primerNombre = c => (c?.raw?.contacto_nombre || '').split(' ')[0];
@@ -2289,29 +2373,38 @@ VC.inicio = () => {
     ...C.prod.map(p => ({ f:p.fecha, ico:'📷', t:'Sesión de producción', s:[hhmm(p.hora), p.ubicacion].filter(Boolean).join(' · ') })),
     ...C.ev.map(e => ({ f:e.fecha, ico:'◷', t:e.titulo || 'Reunión', s:hhmm(e.hora) }))]
     .filter(x => x.f >= hoy && x.f <= masDias(7)).sort((a,b) => a.f.localeCompare(b.f));
+  const pctPub = delMes.length ? pub / delMes.length * 100 : 0;
+  const dias14 = Array.from({length:14}, (_, i) => iso(new Date(Date.now() - (13 - i) * 864e5)));
+  const serieV = (C.posts || []).length ? dias14.map(d => C.posts.filter(p => p.estado === 'sent' && iso(new Date(p.fecha)) === d).reduce((a, p) => a + (p.vistas || 0), 0)) : [];
+  const conAlgo = new Set([...C.cont.map(c => c.fecha), ...C.prod.map(p => p.fecha), ...C.ev.map(e => e.fecha)].filter(Boolean));
   fill($('view'),
     bannerInstalar(),
-    h('section',{class:'card asis','aria-labelledby':'h-at'}, h('h2',{id:'h-at'}, 'Necesita tu atención', acciones.filter(a => !a.espera).length ? h('small',{}, acciones.filter(a => !a.espera).length) : null),
+    h('div',{class:'dash'},
+      col('s12',     h('section',{class:'card asis','aria-labelledby':'h-at'}, h('h2',{id:'h-at'}, 'Necesita tu atención', acciones.filter(a => !a.espera).length ? h('small',{}, acciones.filter(a => !a.espera).length) : null),
       acciones.length ? acciones.map(a => h('button',{type:'button',class:'item',style:`--c:${a.espera ? '#F08A80' : '#E9B872'}`,onclick:a.al},
         h('span',{class:'ico','aria-hidden':'true'}, a.ico), h('span',{class:'tx'}, a.t, h('small',{}, a.s)), h('span',{class:'btn sm'}, a.cta)))
-        : h('p',{style:'margin:0'}, '✓ Estás al día: no hay nada pendiente de tu parte.')),
-    h('div',{class:'stats'},
-      h('div',{class:'stat'}, h('b',{}, `${pub}/${delMes.length}`), h('span',{}, `publicaciones de ${MESES[m]}`)),
-      h('div',{class:'stat oro'}, h('b',{}, prox ? fCorta(prox.fecha) : '—'), h('span',{}, prox ? prox.titulo : 'sin producciones agendadas')),
-      h('a',{class:'stat',href:'#/metricas'}, h('b',{}, v30 != null ? fmtK('vistas', v30) : ultM ? num(ultM.visualizaciones) : '—'), h('span',{}, v30 != null ? 'visualizaciones en 30 días' : ultM ? `visualizaciones en ${MESES[ultM.mes-1]}` : 'métricas en camino'))),
-    cardSugerencia(),
-    h('div',{class:'grid g32'},
-      h('section',{class:'card','aria-labelledby':'h-tl'}, h('h2',{id:'h-tl'}, 'Lo que estamos haciendo'),
+        : h('p',{style:'margin:0'}, '✓ Estás al día: no hay nada pendiente de tu parte.'))),
+      col('s4', h('section',{class:'card hero-w','aria-labelledby':'h-hero'},
+        h('p',{class:'ey',id:'h-hero'}, f.plan || 'Plan ORIGEN'),
+        h('div',{class:'kp'}, aro(pctPub, `${Math.round(pctPub)}%`, '#C9B37A', `${pub} de ${delMes.length} publicaciones de ${MESES[m]}`, true),
+          h('div',{}, h('span',{class:'mut'}, `Publicaciones de ${MESES[m]}`), h('b',{}, `${pub} de ${delMes.length}`),
+            h('span',{class:'mut'}, prox ? `Próxima: ${prox.titulo}, ${fCorta(prox.fecha)}` : 'Sin producciones agendadas'))),
+        barra(pctPub, `Avance de ${MESES[m]}`))),
+      col('s4', h('a',{class:'card vistas',href:'#/metricas'}, h('h2',{}, 'Visualizaciones', h('small',{}, v30 != null ? 'últimos 30 días' : ultM ? MESES[ultM.mes - 1] : '')),
+        h('span',{class:'kn'}, v30 != null ? fmtK('vistas', v30) : ultM ? num(ultM.visualizaciones) : '—'),
+        spark(serieV, '#7FD6E8'), v30 == null && !ultM ? h('span',{class:'mut'}, 'métricas en camino') : null)),
+      col('s4', miniMes(conAlgo)),
+      col('s12', cardSugerencia()),
+      col('s6', h('section',{class:'card','aria-labelledby':'h-tl'}, h('h2',{id:'h-tl'}, 'Lo que estamos haciendo'),
         tl.length ? h('ul',{class:'tasks'}, tl.map(i => h('li',{class:'task'}, h('span',{'aria-hidden':'true',style:`width:10px;height:10px;border-radius:50%;margin-top:8px;flex:0 0 auto;background:${i.ok ? 'var(--ok)' : 'var(--gold)'}`}),
-          h('div',{}, h('span',{class:'tt'}, i.txt), h('span',{class:'mut',style:'font-size:.82rem'}, [fRel(String(i.f).slice(0,10)), i.sub].filter(Boolean).join(' · ')))))) : vacio('Pronto vas a ver acá cada avance.')),
-      h('div',{},
-        h('section',{class:'card','aria-labelledby':'h-sem'}, h('h2',{id:'h-sem'}, 'Esta semana'),
+          h('div',{}, h('span',{class:'tt'}, i.txt), h('span',{class:'mut',style:'font-size:.82rem'}, [fRel(String(i.f).slice(0,10)), i.sub].filter(Boolean).join(' · ')))))) : vacio('Pronto vas a ver acá cada avance.'))),
+      col('s6', h('section',{class:'card','aria-labelledby':'h-sem'}, h('h2',{id:'h-sem'}, 'Esta semana'),
           semana.length ? semana.map(x => h('div',{class:'item',style:'--c:var(--gold2);cursor:default'}, h('span',{class:'ico','aria-hidden':'true'}, x.ico),
-            h('span',{class:'tx'}, x.t, h('small',{}, [fRel(x.f), x.s].filter(Boolean).join(' · '))))) : vacio('No hay nada agendado para los próximos 7 días.')),
-        h('section',{class:'card'}, h('h2',{}, 'Tu plan', usoCupos(C).length ? h('small',{}, `uso de ${MESES[m]}`) : null), h('p',{style:'margin:0 0 .4rem'}, h('b',{}, f.plan || 'Plan ORIGEN'), f.pausado ? ' · en pausa' : ''), barrasCupos(C),
+            h('span',{class:'tx'}, x.t, h('small',{}, [fRel(x.f), x.s].filter(Boolean).join(' · '))))) : vacio('No hay nada agendado para los próximos 7 días.'))),
+      col('s6', h('section',{class:'card'}, h('h2',{}, 'Tu plan', usoCupos(C).length ? h('small',{}, `uso de ${MESES[m]}`) : null), h('p',{style:'margin:0 0 .4rem'}, h('b',{}, f.plan || 'Plan ORIGEN'), f.pausado ? ' · en pausa' : ''), barrasCupos(C),
           f.objetivo ? h('p',{class:'mut',style:'margin:.6rem 0'}, 'Objetivo: ', f.objetivo) : null,
-          h('a',{class:'btn ol sm',href:'#/plan',style:'margin-top:.6rem'}, 'Ver mi plan completo →')),
-        h('section',{class:'card'}, h('h2',{}, 'Objetivo del mes'), C.plan?.objetivos ? h('div',{class:'pre'}, C.plan.objetivos) : vacio('Lo definimos a principio de mes.'),
+          h('a',{class:'btn ol sm',href:'#/plan',style:'margin-top:.6rem'}, 'Ver mi plan completo →'))),
+      col('s6', h('section',{class:'card'}, h('h2',{}, 'Objetivo del mes'), C.plan?.objetivos ? h('div',{class:'pre'}, C.plan.objetivos) : vacio('Lo definimos a principio de mes.'),
           C.plan?.resultados ? h('p',{}, h('b',{}, 'Resultados: '), C.plan.resultados) : null))));
 };
 
@@ -2958,22 +3051,21 @@ function sugerencias(C){
   return [
     sig && { k:'plan', ico:'🚀', p:10, t:hook[i], x:`Con ${sig.n} sumás: ${sig.suma.slice(0, 3).join(', ').toLowerCase()}.`, precio:`${sig.n}: ${pesos(sig.pr)} por mes${dif > 0 ? ` (+${pesos(dif)})` : ''}`, cta:`Quiero pasar a ${sig.n}`,
       al:() => pedirServicio(['🚀', `Cambio de plan: ${sig.n}`, `${sig.d} ${sig.suma.join(' · ')}.`, `${pesos(sig.pr)} por mes`], `Quiero pasar al plan ${sig.n}.`, `Quiero pasar a ${sig.n}`) },
-    alto && { k:'mas', ico:'🔥', p:9, t:'Estás publicando a pleno', x:`Ya usaste ${alto.mes} de ${alto.limite} en “${alto.nombre}” este mes. Sumá un reel extra y no frenes el ritmo: con tu material o con grabación nuestra.`, precio:'Reel extra desde $45.000', cta:'Sumar un reel', s:['🎞','Reel adicional','Editamos un reel más con tu material ($45.000) o lo grabamos nosotros ($90.000).','Desde $45.000'], pre:'Quiero sumar un reel extra este mes.' },
-    sinWeb && { k:'web', ico:'🌐', p:8, t:'¿Te encuentran cuando te buscan en Google?', x:'Tu propia página web, con tu carta, tus reservas y tu WhatsApp a un toque. Te encuentran en Google y en ChatGPT las 24 horas.', precio:'Desde $30.000 por mes', cta:'Quiero mi web', s:SV('Página web') },
-    { k:'sesion', ico:'📸', p:7, t:'Renová tu contenido con una sesión profesional', x:'Fotos y video propios para tener material de primera para semanas. Elegís la fecha y vamos.', precio:'$30.000 la hora · mínimo 2 horas', cta:'Pedir una sesión', al:() => { location.hash = '#/pedir'; } },
-    !tiene(/meta|pauta|publicidad|ads/i) && ex('meta', 6, '📣', '¿Querés que te escriban más clientes?', 'Campañas en Instagram y Facebook (Meta Ads) pensadas para que te lleguen consultas por WhatsApp.', 'Gestión desde $150.000 por mes · la inversión va aparte', 'Quiero publicidad', 'Campañas en Meta Ads'),
-    conWeb && !tiene(/seo|posicion/i) && ex('seo', 6, '🔎', '¿Querés un mejor posicionamiento para tu página web?', 'Sumá posicionamiento y SEO: optimizamos tu web para Google y para que ChatGPT y otras IA te mencionen.', 'Desde $90.000 por mes', 'Quiero SEO', 'Posicionamiento web y SEO'),
-    !tiene(/google ads/i) && ex('gads', 5, '🎯', '¿Querés aparecer cuando buscan lo que vendés?', 'Campañas en Google Ads: te encuentran justo cuando buscan tu producto o servicio.', 'Gestión desde $250.000 por mes · la inversión va aparte', 'Quiero Google Ads', 'Google Ads'),
-    !tiene(/maps/i) && ex('maps', 5, '📍', '¿Te encuentran en el mapa cuando buscan cerca?', 'Ficha de Google Maps optimizada, fotos, novedades y horarios al día para que seas la opción más cercana.', '$40.000 por mes', 'Quiero aparecer en el mapa', 'Posicionamiento en Google Maps'),
-    !tiene(/reseñ|reputaci/i) && ex('resenas', 4, '⭐', '¿Querés más reseñas de cinco estrellas?', 'Te armamos el QR y el link para pedir reseñas, y respondemos las que lleguen en Google.', '$30.000 por mes', 'Quiero más reseñas', 'Reseñas y reputación'),
-    !tiene(/community|comunidad/i) && ex('community', 4, '💬', '¿Te falta tiempo para responder mensajes?', 'Respondemos comentarios y mensajes por vos, en el horario que acordemos.', '$40.000 por mes', 'Quiero community', 'Community management'),
+    alto && { k:'mas', ico:'🔥', p:9, t:'Estás publicando a pleno', x:`Ya usaste ${alto.mes} de ${alto.limite} en “${alto.nombre}” este mes. Sumá un reel extra y no frenes el ritmo: con tu material o con grabación nuestra.`, precio:P('edicion'), cta:'Sumar un reel', s:['🎞','Reel adicional','Editamos un reel más con tu material o lo grabamos nosotros.',P('edicion')], pre:'Quiero sumar un reel extra este mes.' },
+    sinWeb && { k:'web', ico:'🌐', p:8, t:'¿Te encuentran cuando te buscan en Google?', x:'Tu propia página web, con tu carta, tus reservas y tu WhatsApp a un toque. Te encuentran en Google y en ChatGPT las 24 horas.', precio:P('web-susc'), cta:'Quiero mi web', s:SV('Página web') },
+    { k:'sesion', ico:'📸', p:7, t:'Renová tu contenido con una sesión profesional', x:'Fotos y video propios para tener material de primera para semanas. Elegís la fecha y vamos.', precio:P('sesion') + ' · mínimo 2 horas', cta:'Pedir una sesión', al:() => { location.hash = '#/pedir'; } },
+    !tiene(/meta|pauta|publicidad|ads/i) && ex('meta', 6, '📣', '¿Querés que te escriban más clientes?', 'Campañas en Instagram y Facebook (Meta Ads) pensadas para que te lleguen consultas por WhatsApp.', P('meta') + ' · la inversión va aparte', 'Quiero publicidad', 'Campañas en Meta Ads'),
+    conWeb && !tiene(/seo|posicion/i) && ex('seo', 6, '🔎', '¿Querés un mejor posicionamiento para tu página web?', 'Sumá posicionamiento y SEO: optimizamos tu web para Google y para que ChatGPT y otras IA te mencionen.', P('seo-local'), 'Quiero SEO', 'Posicionamiento web y SEO'),
+    !tiene(/google ads/i) && ex('gads', 5, '🎯', '¿Querés aparecer cuando buscan lo que vendés?', 'Campañas en Google Ads: te encuentran justo cuando buscan tu producto o servicio.', P('google-ads') + ' · la inversión va aparte', 'Quiero Google Ads', 'Google Ads'),
+    !tiene(/maps|reseñ|reputaci/i) && ex('maps', 5, '📍', '¿Te encuentran en el mapa y te recomiendan?', 'Ficha de Google Maps optimizada, novedades y horarios al día, y QR para pedir reseñas que respondemos por vos.', P('gbp'), 'Quiero mi ficha de Google', 'Ficha de Google y reseñas'),
+    !tiene(/community|comunidad/i) && ex('community', 4, '💬', '¿Te falta tiempo para responder mensajes?', 'Respondemos comentarios y mensajes por vos, en el horario que acordemos.', P('community'), 'Quiero community', 'Community management'),
     !tiene(/podcast|entrevista/i) && { k:'podcast', ico:'🎙', p:3, t:'Contá tu historia en nuestro estudio', x:'Una entrevista en video y podcast que además se convierte en contenido para semanas.', cta:'Quiero una entrevista', s:SV('Entrevista en nuestro estudio') },
-    ex('red', 3, '➕', '¿Tu marca también tiene que estar en TikTok o Facebook?', 'Sumá una red social más a tu gestión: Facebook, TikTok, YouTube o LinkedIn.', '$100.000 por red, por mes', 'Quiero sumar una red', 'Red social adicional'),
-    !tiene(/chatbot|automatiz/i) && ex('bot', 3, '🤖', '¿Respondés lo mismo todo el día?', 'Respuestas automáticas y chatbot en WhatsApp e Instagram: atendés 24 horas sin esfuerzo.', '$35.000 por mes', 'Quiero automatizar', 'Automatizaciones y chatbot'),
+    ex('red', 3, '➕', '¿Tu marca también tiene que estar en TikTok o Facebook?', 'Sumá una red social más a tu gestión: Facebook, TikTok, YouTube o LinkedIn.', P('red-extra') + ' por red', 'Quiero sumar una red', 'Red social adicional'),
+    !tiene(/chatbot|automatiz/i) && ex('bot', 3, '🤖', '¿Respondés lo mismo todo el día?', 'Respuestas automáticas y chatbot en WhatsApp: atendés 24 horas sin esfuerzo.', P('chatbot'), 'Quiero automatizar', 'Chatbot de WhatsApp'),
     { k:'tv', ico:'📺', p:2, t:'Tu marca en ORIGEN TV', x:'Presencia en Café de Ideas, Heberdá y Esports: llegá a una audiencia local que ya nos mira.', cta:'Quiero salir en ORIGEN TV', s:SV('Publicidad en ORIGEN TV') },
-    ex('set', 3, '🎙', '¿Grabás tu propio contenido?', 'Usá nuestro set de Jangadero 233: fondo, luces y micrófonos inalámbricos listos para grabar videos, podcast o clases.', '$30.000 la hora', 'Reservar el set', 'Set de grabación'),
-    ex('rebrand', 2, '🎨', 'Una marca que se vea profesional', 'Rebranding de tus redes: foto, bio, destacados, paleta y plantillas para que todo transmita lo mismo.', '$50.000 (pago único)', 'Quiero renovar mi marca', 'Rebranding de redes'),
-    ex('audit', 2, '🧭', '¿No sabés por dónde empezar?', 'Revisamos tus redes, tu ficha de Google y tu web, y te entregamos un informe con qué corregir primero.', '$60.000 (pago único)', 'Quiero la auditoría', 'Auditoría de presencia digital')
+    ex('set', 3, '🎙', '¿Grabás tu propio contenido?', 'Usá nuestro set de Jangadero 233: fondo, luces y micrófonos inalámbricos listos para grabar videos, podcast o clases.', P('set'), 'Reservar el set', 'Set de grabación'),
+    ex('rebrand', 2, '🎨', 'Una marca que se vea profesional', 'Rebranding de tus redes: foto, bio, destacados, paleta y plantillas para que todo transmita lo mismo.', P('rebranding'), 'Quiero renovar mi marca', 'Rebranding de redes'),
+    ex('audit', 2, '🧭', '¿No sabés por dónde empezar?', 'Revisamos tus redes, tu ficha de Google y tu web, y te entregamos un informe con qué corregir primero.', P('auditoria'), 'Quiero la auditoría', 'Auditoría de presencia digital')
   ].filter(Boolean).sort((a, b) => b.p - a.p);
 }
 const irSug = x => x.al ? x.al() : pedirServicio(x.s, x.pre, x.cta);

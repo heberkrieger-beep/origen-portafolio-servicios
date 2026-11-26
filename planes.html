@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ORIGEN · planes.html · v3.13 · 2026-11-26 · set de grabación $30.000 la hora en contenido y como extra del plan · v3.12 · 2026-11-26 · se quitan las preguntas de Cámaras (Tech oculto), flechas y puntos solo si hacen falta, sesión de fotos o video $30.000 la hora (mínimo 2 h) · v3.11 · 2026-11-26 · plan Arranque $100.000 (publicamos lo que mandás) y Esencial con 1 sesión de producción por mes · v3.10 · 2026-11-19 · Google Tag Manager · v3.9 · 2026-11-19 · ORIGEN Tech oculto (en armado) · v3.8 · 2026-11-19 · web por suscripción: base $30.000 (Profesional $30.000, Recomendado $40.000, Tienda $55.000), extras sin cambios · v3.7 · 2026-11-19 · planes de redes Esencial $350.000 / Crecimiento $590.000 / Full $900.000, Solo Contenido $100.000, extras de posicionamiento · v3.6 · SEO: preguntas para Google · 2026-11-02 · revisión: preguntas sin texto cortado, menú con sectores, números legibles -->
+<!-- ORIGEN · planes.html · v3.14 · 2026-11-26 · catálogo completo con filtros y presupuesto (precios en catalogo.js), precios de extras y web actualizados · v3.13 · 2026-11-26 · set de grabación $30.000 la hora en contenido y como extra del plan · v3.12 · 2026-11-26 · se quitan las preguntas de Cámaras (Tech oculto), flechas y puntos solo si hacen falta, sesión de fotos o video $30.000 la hora (mínimo 2 h) · v3.11 · 2026-11-26 · plan Arranque $100.000 (publicamos lo que mandás) y Esencial con 1 sesión de producción por mes · v3.10 · 2026-11-19 · Google Tag Manager · v3.9 · 2026-11-19 · ORIGEN Tech oculto (en armado) · v3.8 · 2026-11-19 · web por suscripción: base $30.000 (Profesional $30.000, Recomendado $40.000, Tienda $55.000), extras sin cambios · v3.7 · 2026-11-19 · planes de redes Esencial $350.000 / Crecimiento $590.000 / Full $900.000, Solo Contenido $100.000, extras de posicionamiento · v3.6 · SEO: preguntas para Google · 2026-11-02 · revisión: preguntas sin texto cortado, menú con sectores, números legibles -->
 <html lang="es">
 <head>
 <!-- Google Tag Manager -->
@@ -353,6 +353,44 @@ select.df-in option{background:#1A1917;color:#F1ECE0}
 
 @media(max-width:600px){.pagos-grid{grid-template-columns:1fr}}
 
+
+/* v3.14 · catálogo */
+.cat-filtros{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 8px}
+.cat-chip{font:inherit;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 14px;border:1px solid var(--l);background:transparent;color:var(--p);cursor:pointer;transition:.2s}
+.cat-chip:hover{border-color:var(--d);color:var(--tx)}
+.cat-chip[aria-pressed=true]{background:var(--d);border-color:var(--d);color:var(--n)}
+.cat-chip:focus-visible,.cat-card button:focus-visible,.cat-card select:focus-visible,.cat-card input:focus-visible,.cat-card summary:focus-visible{outline:2px solid var(--d);outline-offset:2px}
+.cat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+.cat-card{border:1px solid var(--l);background:var(--cream);padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.cat-card.on{border-color:var(--d);box-shadow:0 0 0 1px var(--d) inset}
+.cat-top{display:flex;justify-content:space-between;gap:10px;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--p)}
+.cat-top b{font-weight:400;color:var(--dk)}
+.cat-card h4{font-family:'Jost';font-size:16px;font-weight:400;color:var(--tx)}
+.cat-card p{font-size:13px;color:var(--p);line-height:1.55;flex:1}
+.cat-pr{font-family:'Cormorant',serif;font-size:25px;color:var(--dk)}
+.cat-pr small{font-family:'Jost';font-size:11px;color:var(--p);letter-spacing:.5px}
+.cat-card select,.cat-card input[type=number]{font:inherit;font-size:13px;background:var(--b);color:var(--tx);border:1px solid var(--l);padding:9px 10px;width:100%;min-width:0}
+.cat-card label{font-size:11px;color:var(--p);display:block;margin-bottom:3px}
+.cat-card details{font-size:12.5px;color:var(--p)}
+.cat-card summary{cursor:pointer;padding:4px 0;color:var(--tx)}
+.cat-card ul{margin:6px 0 0 18px;line-height:1.55}
+.cat-btn{font:inherit;font-size:11.5px;letter-spacing:2px;text-transform:uppercase;padding:12px;border:1px solid var(--d);background:var(--d);color:var(--n);cursor:pointer;transition:.2s}
+.cat-btn:hover{background:var(--tx);border-color:var(--tx)}
+.cat-card.on .cat-btn{background:transparent;color:var(--tx);border-color:var(--l)}
+.cat-prop{font-size:10px;color:var(--p)}
+#summary-cat .s-grupo{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--dk);margin:16px 0 2px}
+#summary-cat .s-line button{font:inherit;background:none;border:0;color:var(--p);cursor:pointer;padding:0 4px;font-size:15px}
+#summary-cat .s-vacio{font-size:13px;color:var(--p);padding:6px 0 4px}
+#summary-cat textarea,#summary-cat input[type=number]{font:inherit;font-size:13px;width:100%;background:var(--b);color:var(--tx);border:1px solid var(--l);padding:9px 10px;margin-top:4px}
+#summary-cat .s-camp{margin-top:14px;font-size:12px;color:var(--p)}
+#summary-cat .s-cta[aria-disabled=true]{opacity:.45;pointer-events:none}
+.cat-bar{display:none}
+@media(max-width:900px){
+  .cat-grid{grid-template-columns:1fr}
+  .cat-bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--n);color:#fff;padding:12px 16px;justify-content:space-between;align-items:center;gap:12px;border-top:1px solid var(--d)}
+  .cat-bar.show{display:flex}
+  .cat-bar a{color:var(--n);background:var(--d);padding:10px 16px;text-decoration:none;font-size:12px;letter-spacing:1.5px;text-transform:uppercase}
+}
 .unit-panel{display:none}
 .unit-panel.active{display:block}
 
@@ -681,6 +719,14 @@ body{font-variant-numeric:lining-nums}
         <div class="pick-tags"><span>Fotografía</span><span>Video</span><span>Marca personal</span></div>
         <span class="pick-go">Ver servicios →</span>
       </div>
+      <div class="pick-card" data-go="catalogo">
+        <div class="pick-icon"><svg viewBox="0 0 48 48"><rect x="7" y="7" width="14" height="14" rx="1"/><rect x="27" y="7" width="14" height="14" rx="1"/><rect x="7" y="27" width="14" height="14" rx="1"/><path d="M27 34h14M34 27v14"/></svg></div>
+        <div class="pick-unit">Todos los servicios</div>
+        <h2>Catálogo <em>completo</em></h2>
+        <p>Publicidad, SEO, WhatsApp, diseño, video, web y automatización. Sumá lo que necesitás y armá tu presupuesto.</p>
+        <div class="pick-tags"><span>Publicidad</span><span>SEO</span><span>Web</span></div>
+        <span class="pick-go">Armar mi presupuesto →</span>
+      </div>
     </div>
     <div class="reel-controls">
       <button class="reel-arrow" data-reel-prev="grid-redes" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 6l-8 6 8 6"/></svg></button>
@@ -766,62 +812,59 @@ body{font-variant-numeric:lining-nums}
           <div class="extras-h">Sumá extras</div>
           <div class="extras-sub">Potenciá tu presencia con lo que tu marca necesite.</div>
 
-          <div class="extra" data-price="100000" data-qty="true">
+          <div class="extra" data-cat="red-extra" data-price="100000" data-qty="true">
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Red social adicional</h4><p>Sumá Facebook, TikTok, YouTube o LinkedIn a tu gestión.</p></div>
             <div class="extra-qty" style="display:none"><button class="qty-btn" data-dir="-1">−</button><span class="qty-val">1</span><button class="qty-btn" data-dir="1">+</button></div>
             <div class="extra-price">+$100.000<small>/mes c/u</small></div>
           </div>
-          <div class="extra" data-price="40000">
+          <div class="extra" data-cat="community" data-price="120000">
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Community management</h4><p>Respondemos comentarios y mensajes por vos, en horario acordado.</p></div>
-            <div class="extra-price">+$40.000<small>/mes</small></div>
+            <div class="extra-price">+$120.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="150000">
+          <div class="extra" data-cat="meta" data-price="250000">
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Campañas publicitarias (Meta Ads)</h4><p>Planificación, segmentación, monitoreo y optimización de hasta 2 campañas. La inversión en publicidad va aparte, directo a Meta.</p></div>
-            <div class="extra-price">+$150.000<small>/mes</small></div>
+            <div class="extra-price">+$250.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="250000">
+          <div class="extra" data-cat="google-ads" data-price="300000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Gestión de Google Ads</h4><p>Campañas en el buscador de Google para que te encuentren cuando te buscan. Desde $250.000; la inversión va aparte, directo a Google.</p></div>
-            <div class="extra-price">Desde +$250.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Gestión de Google Ads</h4><p>Campañas en el buscador de Google para que te encuentren cuando te buscan. La inversión va aparte, directo a Google.</p></div>
+            <div class="extra-price">+$300.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="40000">
+          <div class="extra" data-cat="gbp" data-price="120000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Posicionamiento local (Google Maps)</h4><p>Ficha optimizada, fotos, novedades y horarios al día, y seguimiento de cómo aparecés cuando te buscan en el mapa.</p></div>
-            <div class="extra-price">+$40.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Ficha de Google y reseñas</h4><p>Ficha optimizada, fotos, novedades y horarios al día, más el QR para pedir reseñas y la respuesta a las que lleguen.</p></div>
+            <div class="extra-price">+$120.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="90000">
+          <div class="extra" data-cat="seo-local" data-price="250000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Posicionamiento web y en IA (SEO + GEO)</h4><p>Optimizamos tu página para Google y para que ChatGPT, Gemini y otras IA te mencionen: datos del negocio, preguntas frecuentes y resumen para IA. Requiere tener página web.</p></div>
-            <div class="extra-price">+$90.000<small>/mes</small></div>
+            <div class="extra-body"><h4>SEO local y posicionamiento en IA</h4><p>Optimizamos tu página para Google y para que ChatGPT, Gemini y otras IA te mencionen: datos del negocio, preguntas frecuentes y resumen para IA. Requiere tener página web.</p></div>
+            <div class="extra-price">+$250.000<small>/mes</small></div>
           </div>
-          <div class="extra" data-price="30000">
+          
+          </div>
+          <div class="extra" data-cat="wa-auto" data-price="150000">
             <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Gestión de reseñas y reputación</h4><p>Te armamos el código QR y el link para pedir reseñas, y respondemos las que lleguen en Google.</p></div>
-            <div class="extra-price">+$30.000<small>/mes</small></div>
+            <div class="extra-body"><h4>Automatización básica de WhatsApp</h4><p>Mensajes de bienvenida, respuestas automáticas y flujos de atención en WhatsApp.</p></div>
+            <div class="extra-price">+$150.000<small>única vez</small></div>
           </div>
-          <div class="extra" data-price="35000">
-            <div class="extra-check">✓</div>
-            <div class="extra-body"><h4>Automatizaciones y respuestas</h4><p>Respuestas automáticas y chatbot en WhatsApp e Instagram.</p></div>
-            <div class="extra-price">+$35.000<small>/mes</small></div>
-          </div>
-          <div class="extra" data-price="60000" data-once="true">
+          <div class="extra" data-cat="auditoria" data-price="60000" data-once="true">
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Auditoría de presencia digital</h4><p>Revisamos tus redes, tu ficha de Google y tu web, y te entregamos un informe con qué corregir primero.</p></div>
             <div class="extra-price">+$60.000<small>única vez</small></div>
           </div>
-          <div class="extra" data-price="50000" data-once="true">
+          <div class="extra" data-cat="rebranding" data-price="120000" data-once="true">
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Rebranding de tus redes</h4><p>Rearmamos tu perfil: foto, bio, destacados, paleta y plantillas. Podés volver a pedirlo cada vez que tu marca lo necesite.</p></div>
-            <div class="extra-price">+$50.000<small>única vez</small></div>
+            <div class="extra-price">+$120.000<small>única vez</small></div>
           </div>
-          <div class="extra" data-price="45000" data-qty="true" data-once="true">
+          <div class="extra" data-cat="edicion" data-price="80000" data-qty="true" data-once="true">
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Reel adicional con material del cliente</h4><p>Editamos un reel más con las fotos y videos que nos pasás.</p></div>
             <div class="extra-qty" style="display:none"><button class="qty-btn" data-dir="-1">−</button><span class="qty-val">1</span><button class="qty-btn" data-dir="1">+</button></div>
-            <div class="extra-price">+$45.000<small>única vez c/u</small></div>
+            <div class="extra-price">+$80.000<small>única vez c/u</small></div>
           </div>
           <div class="extra" data-price="90000" data-qty="true" data-once="true">
             <div class="extra-check">✓</div>
@@ -829,23 +872,23 @@ body{font-variant-numeric:lining-nums}
             <div class="extra-qty" style="display:none"><button class="qty-btn" data-dir="-1">−</button><span class="qty-val">1</span><button class="qty-btn" data-dir="1">+</button></div>
             <div class="extra-price">+$90.000<small>única vez c/u</small></div>
           </div>
-          <div class="extra" data-price="60000" data-qty="true" data-once="true">
+          <div class="extra" data-cat="sesion" data-mult="2" data-price="60000" data-qty="true" data-once="true">
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Sesión de fotos o video (bloque de 2 h)</h4><p>$30.000 la hora, mínimo 2 horas. Cada bloque suma 2 horas de fotografía o video profesional, con material para varias semanas.</p></div>
             <div class="extra-qty" style="display:none"><button class="qty-btn" data-dir="-1">−</button><span class="qty-val">1</span><button class="qty-btn" data-dir="1">+</button></div>
             <div class="extra-price">+$60.000<small>por 2 h · única vez c/u</small></div>
           </div>
-          <div class="extra" data-price="30000" data-qty="true" data-once="true">
+          <div class="extra" data-cat="set" data-price="30000" data-qty="true" data-once="true">
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Set de grabación (por hora)</h4><p>Usá nuestro set de Jangadero 233 para grabar tu contenido: fondo, luces y micrófonos inalámbricos. $30.000 la hora; sumá las horas que necesites.</p></div>
             <div class="extra-qty" style="display:none"><button class="qty-btn" data-dir="-1">−</button><span class="qty-val">1</span><button class="qty-btn" data-dir="1">+</button></div>
             <div class="extra-price">+$30.000<small>por hora · única vez</small></div>
           </div>
-          <div class="extra" data-price="220000" data-qty="true" data-once="true">
+          <div class="extra" data-cat="evento" data-price="350000" data-qty="true" data-once="true">
             <div class="extra-check">✓</div>
             <div class="extra-body"><h4>Cobertura extra de evento (hasta 3 h)</h4><p>Cubrimos un evento tuyo más: fotos y video para tus redes.</p></div>
             <div class="extra-qty" style="display:none"><button class="qty-btn" data-dir="-1">−</button><span class="qty-val">1</span><button class="qty-btn" data-dir="1">+</button></div>
-            <div class="extra-price">+$220.000<small>única vez c/u</small></div>
+            <div class="extra-price">+$350.000<small>única vez c/u</small></div>
           </div>
           </div>
         </div>
@@ -872,6 +915,32 @@ body{font-variant-numeric:lining-nums}
       </div>
     </div>
 
+    <!-- CATÁLOGO -->
+    <div class="unit-panel" id="unit-catalogo" data-parent="subpick">
+     <div class="wrap">
+      <div class="config-grid">
+        <div>
+          <div class="unit-intro">
+            <div class="u-eyebrow">Catálogo completo · Mensual y pago único</div>
+            <h2>Armá tu <em>presupuesto</em>.</h2>
+            <p>Elegí lo que necesitás, sumalo y te lo mandamos por WhatsApp. La publicidad se paga aparte, directo a Meta o Google.</p>
+          </div>
+          <div class="cat-filtros" id="cat-filtros" role="group" aria-label="Filtrar servicios por categoría"></div>
+          <div class="cat-grid" id="cat-grid"></div>
+        </div>
+        <div class="summary" id="summary-cat">
+          <div class="summary-top"><div class="s-eyebrow">Tu presupuesto</div><h3>Servicios elegidos</h3></div>
+          <div class="summary-body" aria-live="polite">
+            <div id="cat-lines"></div>
+            <div id="cat-totales"></div>
+            <a href="#" class="s-cta" id="cat-cta" aria-disabled="true" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="cat-bar" id="cat-bar"><span id="cat-bar-t"></span><a href="#summary-cat">Ver presupuesto</a></div>
+
     <!-- WEB -->
     <div class="unit-panel" id="unit-web" data-parent="subpick">
       <div class="unit-intro">
@@ -890,7 +959,7 @@ body{font-variant-numeric:lining-nums}
         <div class="wc-card" data-web="full">
           <div class="wc-tag">Pago único</div>
           <h3>Web <em>completa</em></h3>
-          <div class="wc-price">$250K<small>a $600K</small></div>
+          <div class="wc-price">$400K<small>desde</small></div>
           <div class="wc-desc">Tu web a medida, es tuya para siempre. Ideal si querés una solución completa y ser dueño de tu sitio.</div>
         </div>
         <div class="wc-card" data-web="app">
@@ -907,7 +976,7 @@ body{font-variant-numeric:lining-nums}
             <div class="paquetes-slot" data-paquetes></div>
             <div class="base-card">
               <div class="b-tag">Plan elegido · incluido</div>
-              <h3>Web por suscripción · Profesional</h3>
+              <h3>Web por suscripción · Básica</h3>
               <div class="b-price"><span class="static">$30.000</span><input type="number" class="pro-input pro-base" min="0" step="500" value="30000"> <small>/ mes</small></div>
               <div class="b-inc">Incluye</div>
               <ul>
@@ -923,45 +992,42 @@ body{font-variant-numeric:lining-nums}
             <div class="extras-h">Sumá extras</div>
             <div class="extras-sub">Potenciá tu web con lo que tu negocio necesite.</div>
 
-            <div class="extra" data-price="5000">
+            <div class="extra" data-price="10000">
               <div class="extra-check">✓</div>
               <div class="extra-body"><h4>Dominio personalizado</h4><p>Tu propia dirección web (tunegocio.com).</p></div>
-              <div class="extra-price">+$5.000<small>/mes</small></div>
+              <div class="extra-price">+$10.000<small>/mes</small></div>
             </div>
-            <div class="extra" data-price="5000">
+            <div class="extra" data-price="10000">
               <div class="extra-check">✓</div>
               <div class="extra-body"><h4>Botón de WhatsApp integrado</h4><p>Que te escriban con un clic desde la web.</p></div>
-              <div class="extra-price">+$5.000<small>/mes</small></div>
+              <div class="extra-price">+$10.000<small>/mes</small></div>
             </div>
             <div class="extra" data-price="15000">
               <div class="extra-check">✓</div>
               <div class="extra-body"><h4>Tienda / catálogo online</h4><p>Mostrá tus productos con precios y fotos.</p></div>
               <div class="extra-price">+$15.000<small>/mes</small></div>
             </div>
-            <div class="extra" data-price="10000">
+            <div class="extra" data-price="20000">
               <div class="extra-check">✓</div>
               <div class="extra-body"><h4>Turnos y reservas online</h4><p>Que reserven o pidan turno desde el sitio.</p></div>
+              <div class="extra-price">+$20.000<small>/mes</small></div>
+            </div>
+            <div class="extra" data-price="15000">
+              <div class="extra-check">✓</div>
+              <div class="extra-body"><h4>Cobros online (Mercado Pago)</h4><p>Que tus clientes paguen o reserven directo desde tu web, con tarjeta o Mercado Pago.</p></div>
+              <div class="extra-price">+$15.000<small>/mes</small></div>
+            </div>
+            
+            </div>
+            <div class="extra" data-price="10000">
+              <div class="extra-check">✓</div>
+              <div class="extra-body"><h4>Google Maps y ficha de negocio</h4><p>Que aparezcas en el mapa y las búsquedas de Google.</p></div>
               <div class="extra-price">+$10.000<small>/mes</small></div>
             </div>
             <div class="extra" data-price="10000">
               <div class="extra-check">✓</div>
-              <div class="extra-body"><h4>Cobros online (Mercado Pago)</h4><p>Que tus clientes paguen o reserven directo desde tu web, con tarjeta o Mercado Pago.</p></div>
-              <div class="extra-price">+$10.000<small>/mes</small></div>
-            </div>
-            <div class="extra" data-price="5000">
-              <div class="extra-check">✓</div>
-              <div class="extra-body"><h4>Campañas publicitarias</h4><p>Cuota mensual de pauta en redes y Google. El presupuesto se destina a la publicidad.</p></div>
-              <div class="extra-price">+$5.000<small>/mes</small></div>
-            </div>
-            <div class="extra" data-price="5000">
-              <div class="extra-check">✓</div>
-              <div class="extra-body"><h4>Google Maps y ficha de negocio</h4><p>Que aparezcas en el mapa y las búsquedas de Google.</p></div>
-              <div class="extra-price">+$5.000<small>/mes</small></div>
-            </div>
-            <div class="extra" data-price="5000">
-              <div class="extra-check">✓</div>
               <div class="extra-body"><h4>Secciones adicionales</h4><p>Blog, galería, más páginas según lo que necesites.</p></div>
-              <div class="extra-price">+$5.000<small>/mes</small></div>
+              <div class="extra-price">+$10.000<small>/mes</small></div>
             </div>
             </div>
 
@@ -996,8 +1062,8 @@ body{font-variant-numeric:lining-nums}
         <div class="completa-card">
           <div class="cc-tag">Pago único · Es tuya para siempre</div>
           <h3>Web <em>completa</em></h3>
-          <div class="cc-price">$250.000 <small>a $600.000 según complejidad</small></div>
-          <p>Desarrollamos tu sitio web a medida, pensado para tu negocio. Vos sos dueño de la web, sin cuotas mensuales. El valor final depende de la cantidad de secciones y funciones que necesites.</p>
+          <div class="cc-price">Desde $400.000 <small>según tipo de web y funciones</small></div>
+          <p>Desarrollamos tu sitio web a medida, pensado para tu negocio. Vos sos dueño de la web, sin cuotas mensuales. Landing page desde $400.000, web institucional desde $650.000, corporativa desde $900.000 y premium o de reservas desde $1.500.000. El valor final depende de las secciones y funciones que necesites.</p>
           <ul>
             <li>Diseño 100% personalizado</li>
             <li>Sitio completo (varias secciones)</li>
@@ -1646,6 +1712,7 @@ body{font-variant-numeric:lining-nums}
   </div>
 </section>
 
+<script src="catalogo.js"></script>
 <script>
 (function(){
   var WA='https://wa.me/5493757656783?text=';
@@ -1664,6 +1731,12 @@ body{font-variant-numeric:lining-nums}
     }).catch(function(){ /* si falla el guardado, no interrumpe el contrato del cliente */ });
   }
   function money(n){return '$'+n.toLocaleString('es-AR');}
+  /* los extras con data-cat toman su precio de catalogo.js (fuente única) */
+  (function(){var K=window.CATALOGO; if(!K) return;
+    document.querySelectorAll('.extra[data-cat]').forEach(function(ex){
+      var x=K.por[ex.dataset.cat]; if(!x) return; var p=K.min(x)*(+ex.dataset.mult||1); if(p==null) return;
+      ex.dataset.price=p; var pe=ex.querySelector('.extra-price'); if(pe&&pe.firstChild) pe.firstChild.textContent=(pe.firstChild.textContent.indexOf('Desde')===0?'Desde ':'')+'+'+money(p);
+    });})();
 
   var reels=[];
   function initReel(gridId){
@@ -1718,13 +1791,14 @@ body{font-variant-numeric:lining-nums}
   // Deep-link desde el carrusel de servicios de index.html: planes.html?ir=redes|web|contenido|tech
   var irParam=new URLSearchParams(location.search).get('ir');
   if(irParam==='tech'){ show(subtech); steps.innerHTML=S1; }
-  else if(['redes','web','contenido'].indexOf(irParam)>-1){ openUnit(irParam); }
+  else if(['redes','web','contenido','catalogo'].indexOf(irParam)>-1){ openUnit(irParam); }
 
   function openUnit(u){
     show(config);
     document.querySelectorAll('.unit-panel').forEach(function(p){p.classList.remove('active')});
     document.getElementById('unit-'+u).classList.add('active');
     steps.innerHTML=S2;
+    ['demo','webs-reales'].forEach(function(id){var el=document.getElementById(id); if(el) el.style.display=(u==='web')?'':'none';});
   }
 
   document.querySelectorAll('[data-go]').forEach(function(card){
@@ -2005,37 +2079,164 @@ body{font-variant-numeric:lining-nums}
       'Gestión de comunidad en horario acordado',
       'Diagnóstico inicial y planificación estratégica',
       'Informe integral y reunión mensual de seguimiento'
-    ], included:['Campañas publicitarias (Meta Ads)','Community management','Posicionamiento local (Google Maps)','Gestión de reseñas y reputación','Auditoría de presencia digital']},
+    ], included:['Campañas publicitarias (Meta Ads)','Community management','Ficha de Google y reseñas','Auditoría de presencia digital']},
   ]);
   setupUnit('#web-susc','Web por suscripción',30000,'summary-web','/mes','web',3,[
-    {key:'profesional', name:'Profesional', price:30000, sel:true, includes:[
+    {key:'basica', name:'Básica', price:30000, sel:true, includes:[
       'Landing page de una página, ideal para profesionales independientes (abogados, contadores, consultorios, estudios)',
       'Formulario o datos de contacto',
       'Estilo a elección entre modelos',
       'Mantenimiento y actualizaciones',
       'Reporte mensual de visitas'
     ]},
-    {key:'recomendado', name:'Recomendado', price:40000, tag:'Lo más elegido', includes:[
-      'Ideal para restaurantes y comercios con atención al público',
+    {key:'profesional', name:'Profesional', price:50000, tag:'Lo más elegido', includes:[
+      'Sitio de varias secciones para comercios, restaurantes y empresas',
       'Botón de WhatsApp integrado',
       'Google Maps y ficha de negocio',
       'Página con dominio personalizado (sujeto a disponibilidad)',
       'Menú o listado de productos/servicios (hasta 15 ítems)',
-      'Estilo a elección entre modelos',
       'Mantenimiento y actualizaciones',
       'Reporte mensual de visitas'
     ], included:['Dominio personalizado','Botón de WhatsApp integrado','Google Maps y ficha de negocio']},
-    {key:'tienda', name:'Tienda Online', price:55000, includes:[
-      'Cobros online (Mercado Pago)',
-      'Tienda / catálogo online',
-      'Gestor de turnos y reservas online',
-      'Página con dominio personalizado (sujeto a disponibilidad)',
-      'Botón de WhatsApp integrado',
-      'Google Maps y ficha de negocio',
+    {key:'catalogo', name:'Con catálogo', price:65000, includes:[
+      'Todo lo del plan Profesional',
+      'Tienda / catálogo online con fotos y precios',
+      'Mantenimiento y actualizaciones',
       'Reporte mensual de visitas'
-    ], included:['Cobros online (Mercado Pago)','Tienda / catálogo online','Turnos y reservas online','Dominio personalizado','Botón de WhatsApp integrado','Google Maps y ficha de negocio']}
+    ], included:['Dominio personalizado','Botón de WhatsApp integrado','Google Maps y ficha de negocio','Tienda / catálogo online']},
+    {key:'reservas', name:'Con reservas', price:70000, includes:[
+      'Todo lo del plan Profesional',
+      'Turnos y reservas online',
+      'Mantenimiento y actualizaciones',
+      'Reporte mensual de visitas'
+    ], included:['Dominio personalizado','Botón de WhatsApp integrado','Google Maps y ficha de negocio','Turnos y reservas online']},
+    {key:'avanzada', name:'Avanzada · desde', price:100000, includes:[
+      'Todo lo del plan Profesional',
+      'Tienda / catálogo, turnos y reservas',
+      'Cobros online (Mercado Pago)',
+      'Funciones a medida: el valor final se confirma según lo que necesites',
+      'Mantenimiento y actualizaciones'
+    ], included:['Dominio personalizado','Botón de WhatsApp integrado','Google Maps y ficha de negocio','Tienda / catálogo online','Turnos y reservas online','Cobros online (Mercado Pago)']}
   ]);
   setupUnit('#unit-cam','Plan Cámaras',30000,'summary-cam','/mes','cam',6);
+
+  /* ═══ CATÁLOGO (lee catalogo.js: fuente única de precios) ═══ */
+  (function(){
+    var K=window.CATALOGO; if(!K) return;
+    var grid=document.getElementById('cat-grid'), fil=document.getElementById('cat-filtros'), lines=document.getElementById('cat-lines'),
+        tot=document.getElementById('cat-totales'), cta=document.getElementById('cat-cta'), bar=document.getElementById('cat-bar'), barT=document.getElementById('cat-bar-t');
+    var cart={}, filtro='todos', pub=0, obs='';
+    var MODO={mes:'Mensual',unico:'Pago único',hora:'Por hora',cotizar:'A cotizar'};
+    function e(t,a,kids){var n=document.createElement(t);for(var k in (a||{})){if(k==='text')n.textContent=a[k];else n.setAttribute(k,a[k]);}(kids||[]).forEach(function(c){n.appendChild(c);});return n;}
+    function precio(x,op){return op!=null&&x.o?x.o[op][1]:K.min(x);}
+    function enFiltro(x){return filtro==='todos'||x.c===filtro||(x.t||[]).indexOf(filtro)>-1;}
+    function cat(c){return K.cats.filter(function(a){return a[0]===c;})[0][1];}
+
+    var chips=[['todos','Todos']].concat(K.cats);
+    chips.forEach(function(c){
+      var b=e('button',{type:'button','class':'cat-chip','aria-pressed':c[0]===filtro?'true':'false',text:c[1]});
+      b.addEventListener('click',function(){filtro=c[0];[].forEach.call(fil.children,function(o,i){o.setAttribute('aria-pressed',chips[i][0]===filtro?'true':'false');});pintar();});
+      fil.appendChild(b);
+    });
+
+    function pintar(){
+      grid.textContent='';
+      K.items.filter(enFiltro).forEach(function(x){
+        var c=cart[x.id], op=c?c.op:0, el=e('article',{'class':'cat-card'+(c?' on':'')});
+        el.appendChild(e('div',{'class':'cat-top'},[e('span',{text:cat(x.c)}),e('b',{text:MODO[x.m]})]));
+        el.appendChild(e('h4',{text:x.n}));
+        el.appendChild(e('p',{text:x.d}));
+        var pr=e('div',{'class':'cat-pr'});
+        function txt(){var i=x.o?+(sel&&sel.value||0):null,v=precio(x,i);
+          pr.textContent=''; if(v==null){pr.textContent='A cotizar';return;}
+          pr.appendChild(document.createTextNode((x.ds?'Desde ':'')+money(v)+' '));
+          pr.appendChild(e('small',{text:{mes:'/ mes',unico:'· pago único',hora:'/ hora'}[x.m]||''}));}
+        var sel=null;
+        if(x.o){
+          var id='cat-o-'+x.id; el.appendChild(e('label',{'for':id,text:'Elegí una opción'}));
+          sel=e('select',{id:id},x.o.map(function(o,i){return e('option',{value:i,text:o[0]+' · '+(x.ds?'desde ':'')+money(o[1])});}));
+          sel.value=op; el.appendChild(sel);
+          sel.addEventListener('change',function(){if(cart[x.id]){cart[x.id].op=+sel.value;resumen();}txt();});
+        }
+        el.insertBefore(pr,sel?sel.previousSibling:null); if(!sel) el.appendChild(pr);
+        txt();
+        if(x.m==='hora'){
+          var qid='cat-q-'+x.id; el.appendChild(e('label',{'for':qid,text:'Horas (mínimo '+x.min+')'}));
+          var q=e('input',{type:'number',id:qid,min:x.min,max:24,step:1,value:c?c.qty:x.min,inputmode:'numeric'});
+          q.addEventListener('change',function(){var v=Math.max(x.min,Math.min(24,Math.round(+q.value)||x.min));q.value=v;if(cart[x.id]){cart[x.id].qty=v;resumen();}});
+          el.appendChild(q);
+        }
+        if(x.inc&&x.inc.length) el.appendChild(e('details',{},[e('summary',{text:'Qué incluye'}),e('ul',{},x.inc.map(function(t){return e('li',{text:t});}))]));
+        if(x.prop) el.appendChild(e('div',{'class':'cat-prop',text:'Propuesta: precio a definir según tu caso.'}));
+        var btn;
+        if(x.ir){ btn=e('button',{type:'button','class':'cat-btn',text:'Armar mi plan →'}); btn.addEventListener('click',function(){openUnit(x.ir);}); }
+        else {
+          btn=e('button',{type:'button','class':'cat-btn','aria-pressed':c?'true':'false',text:c?'Quitar del presupuesto':(x.m==='cotizar'?'Agregar a mi consulta':'Agregar al presupuesto')});
+          btn.addEventListener('click',function(){
+            if(cart[x.id]) delete cart[x.id];
+            else { var q=el.querySelector('input[type=number]'); cart[x.id]={op:sel?+sel.value:0,qty:q?+q.value:1}; }
+            pintar(); resumen();
+          });
+        }
+        el.appendChild(btn); grid.appendChild(el);
+      });
+    }
+
+    function resumen(){
+      var g={mes:[],unico:[],cotizar:[]}, tm=0, tu=0, desde=false, hayPub=false, msg=[];
+      Object.keys(cart).forEach(function(id){
+        var x=K.por[id], c=cart[id], p=precio(x,c.op), q=x.m==='hora'?c.qty:1, sub=p==null?null:p*q;
+        var nom=x.n+(x.o?' · '+x.o[c.op][0]:'')+(q>1?' × '+q+' h':'');
+        if(x.ds||(x.o&&x.ds)) desde=true; if(x.pub) hayPub=true;
+        var k=x.m==='mes'?'mes':x.m==='cotizar'?'cotizar':'unico';
+        g[k].push({id:id,nom:nom,sub:sub,ds:!!x.ds});
+        if(k==='mes') tm+=sub; else if(k==='unico') tu+=sub;
+      });
+      lines.textContent=''; tot.textContent='';
+      var n=Object.keys(cart).length;
+      if(!n) lines.appendChild(e('div',{'class':'s-vacio',text:'Todavía no sumaste servicios. Elegí del catálogo y aparecen acá.'}));
+      [['mes','Mensual'],['unico','Pago único'],['cotizar','A cotizar']].forEach(function(t){
+        if(!g[t[0]].length) return;
+        lines.appendChild(e('div',{'class':'s-grupo',text:t[1]}));
+        g[t[0]].forEach(function(r){
+          var b=e('button',{type:'button','aria-label':'Quitar '+r.nom,text:'✕'});
+          b.addEventListener('click',function(){delete cart[r.id];pintar();resumen();});
+          lines.appendChild(e('div',{'class':'s-line'},[e('span',{'class':'s-name',text:r.nom}),e('span',{text:r.sub==null?'—':(r.ds?'desde ':'')+money(r.sub)}),b]));
+        });
+      });
+      function total(l,v,per){tot.appendChild(e('div',{'class':'s-total'},[e('div',{'class':'t-l',text:l}),e('div',{'class':'t-v',text:money(v)},per?[e('small',{text:per})]:[])]));}
+      if(tm) total('Total mensual',tm,'/mes');
+      if(tu) total('Pago único',tu,'');
+      if(desde&&n) tot.appendChild(e('div',{'class':'s-note',text:'Los precios "desde" son el mínimo: el valor final se confirma al cotizar.'}));
+      if(hayPub){
+        tot.appendChild(e('div',{'class':'s-camp'},[e('label',{'for':'cat-pub',text:'Inversión publicitaria por mes (la pagás directo a Meta o Google, no está en nuestros honorarios)'}),
+          e('input',{type:'number',id:'cat-pub',min:0,step:10000,inputmode:'numeric',value:pub||'',placeholder:'Opcional'})]));
+        tot.querySelector('#cat-pub').addEventListener('input',function(ev){pub=Math.max(0,Math.round(+ev.target.value)||0);armar();});
+      } else pub=0;
+      if(n){
+        tot.appendChild(e('div',{'class':'s-camp'},[e('label',{'for':'cat-obs',text:'Observaciones (opcional)'}),e('textarea',{id:'cat-obs',rows:2,maxlength:300,text:obs})]));
+        tot.querySelector('#cat-obs').addEventListener('input',function(ev){obs=ev.target.value.slice(0,300);armar();});
+      }
+      function armar(){
+        var m=['Hola ORIGEN, quiero un presupuesto con estos servicios:'];
+        [['mes','MENSUAL'],['unico','PAGO ÚNICO'],['cotizar','A COTIZAR']].forEach(function(t){
+          if(!g[t[0]].length) return; m.push('','*'+t[1]+'*');
+          g[t[0]].forEach(function(r){m.push('- '+r.nom+(r.sub==null?'':' ('+(r.ds?'desde ':'')+money(r.sub)+')'));});
+        });
+        if(tm) m.push('','Total mensual: '+money(tm)); if(tu) m.push('Implementación: '+money(tu));
+        if(desde) m.push('(Incluye precios "desde")');
+        if(pub) m.push('','Inversión publicitaria estimada: '+money(pub)+' por mes (aparte, a Meta/Google)');
+        if(obs.trim()) m.push('','Observaciones: '+obs.trim());
+        cta.href=n?WA+encodeURIComponent(m.join('\n')):'#';
+        cta.setAttribute('aria-disabled',n?'false':'true');
+      }
+      armar();
+      bar.classList.toggle('show',n>0);
+      barT.textContent=n?(n+(n===1?' servicio':' servicios')+(tm?' · '+money(tm)+'/mes':'')+(tu?' · '+money(tu)+' único':'')):'';
+    }
+    window.addEventListener('pagehide',function(){});
+    pintar(); resumen();
+  })();
 
   /* ═══ CONTRATO ═══ */
   var CONTRATO=(function(){
