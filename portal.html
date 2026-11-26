@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v7.2 · 2026-11-26 · Próximos 7 días se desliza día por día (Hoy, Mañana, miércoles…) · v7.1 · 2026-11-26 · inicio más corto, fichas de cliente alineadas, eliminar clientes, tareas asignadas por el equipo (con registro), cliente ve ORIGEN Full como recomendado · v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
+<!-- Portal ORIGEN — v7.3 · 2026-11-26 · plan Arranque: meta semanal de 1 publicación + 1 historia, sin ofrecer producción; ORIGEN Full como "recomendado" · v7.2 · 2026-11-26 · Próximos 7 días se desliza día por día (Hoy, Mañana, miércoles…) · v7.1 · 2026-11-26 · inicio más corto, fichas de cliente alineadas, eliminar clientes, tareas asignadas por el equipo (con registro), cliente ve ORIGEN Full como recomendado · v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -2417,7 +2417,10 @@ VC.inicio = () => {
     ...C.prod.map(p => ({ f:p.fecha, ico:'📷', t:'Sesión de producción', s:[hhmm(p.hora), p.ubicacion].filter(Boolean).join(' · ') })),
     ...C.ev.map(e => ({ f:e.fecha, ico:'◷', t:e.titulo || 'Reunión', s:hhmm(e.hora) }))]
     .filter(x => x.f >= hoy && x.f <= masDias(7)).sort((a,b) => a.f.localeCompare(b.f));
-  const pctPub = delMes.length ? pub / delMes.length * 100 : 0;
+  const arr = planIdx(f.plan) === 0, dW = new Date(), off = (dW.getDay() + 6) % 7, lun = iso(new Date(y, m, dW.getDate() - off)), dom = iso(new Date(y, m, dW.getDate() - off + 6));
+  const sPub = C.cont.filter(c => c.estado === 'publicado' && c.fecha >= lun && c.fecha <= dom), sHis = sPub.filter(c => /histor|story/i.test(c.formato || '')).length, sPost = sPub.length - sHis;
+  const metaOk = Math.min(sPost, 1) + Math.min(sHis, 1), proxArr = C.ev.filter(x => x.fecha >= hoy).sort((a, b) => a.fecha.localeCompare(b.fecha))[0];
+  const pctPub = arr ? metaOk / 2 * 100 : delMes.length ? pub / delMes.length * 100 : 0;
   const dias14 = Array.from({length:14}, (_, i) => iso(new Date(Date.now() - (13 - i) * 864e5)));
   const serieV = (C.posts || []).length ? dias14.map(d => C.posts.filter(p => p.estado === 'sent' && iso(new Date(p.fecha)) === d).reduce((a, p) => a + (p.vistas || 0), 0)) : [];
   const conAlgo = new Set([...C.cont.map(c => c.fecha), ...C.prod.map(p => p.fecha), ...C.ev.map(e => e.fecha)].filter(Boolean));
@@ -2430,10 +2433,13 @@ VC.inicio = () => {
         : h('p',{style:'margin:0'}, '✓ Estás al día: no hay nada pendiente de tu parte.'))),
       col('s4', h('section',{class:'card hero-w','aria-labelledby':'h-hero'},
         h('p',{class:'ey',id:'h-hero'}, f.plan || 'Plan ORIGEN'),
-        h('div',{class:'kp'}, aro(pctPub, `${Math.round(pctPub)}%`, '#C9B37A', `${pub} de ${delMes.length} publicaciones de ${MESES[m]}`, true),
+        arr ? h('div',{class:'kp'}, aro(pctPub, `${metaOk}/2`, '#C9B37A', `Esta semana: ${Math.min(sPost, 1)} de 1 publicación y ${Math.min(sHis, 1)} de 1 historia`, true),
+          h('div',{}, h('span',{class:'mut'}, 'Meta de la semana'), h('b',{}, `${metaOk} de 2`),
+            h('span',{class:'mut'}, `Publicación ${Math.min(sPost, 1)}/1 · Historia ${Math.min(sHis, 1)}/1. `, proxArr ? `Próxima reunión: ${proxArr.titulo || 'Reunión'}, ${fCorta(proxArr.fecha)}` : 'Mandanos tu material y lo publicamos.')))
+        : h('div',{class:'kp'}, aro(pctPub, `${Math.round(pctPub)}%`, '#C9B37A', `${pub} de ${delMes.length} publicaciones de ${MESES[m]}`, true),
           h('div',{}, h('span',{class:'mut'}, `Publicaciones de ${MESES[m]}`), h('b',{}, `${pub} de ${delMes.length}`),
-            h('span',{class:'mut'}, prox ? `Próxima: ${prox.titulo}, ${fCorta(prox.fecha)}` : 'Sin producciones agendadas'))),
-        barra(pctPub, `Avance de ${MESES[m]}`))),
+            h('span',{class:'mut'}, prox ? `Próxima: ${prox.titulo}, ${fCorta(prox.fecha)}` : 'Nada agendado por ahora'))),
+        barra(pctPub, arr ? 'Avance de la semana' : `Avance de ${MESES[m]}`))),
       col('s4', h('a',{class:'card vistas',href:'#/metricas'}, h('h2',{}, 'Visualizaciones', h('small',{}, v30 != null ? 'últimos 30 días' : ultM ? MESES[ultM.mes - 1] : '')),
         h('span',{class:'kn'}, v30 != null ? fmtK('vistas', v30) : ultM ? num(ultM.visualizaciones) : '—'),
         spark(serieV, '#7FD6E8'), v30 == null && !ultM ? h('span',{class:'mut'}, 'métricas en camino') : null)),
@@ -3083,6 +3089,7 @@ VC.crecimiento = () => {
 /* ===== plan del cliente y sugerencias (lo que incluye y cómo mejorarlo) ===== */
 const SV = n => [...SESIONES, ...SERVICIOS].find(x => x[1] === n);
 function cardSesiones(){
+  if (planIdx(S.C?.ficha?.plan) === 0) return null; // Arranque: publicamos lo que el cliente manda, no ofrecemos producción
   return h('section',{class:'card asis','aria-labelledby':'h-ses'}, h('h2',{id:'h-ses'}, 'Pedí una sesión de fotos o video', h('small',{}, 'elegí, contanos y coordinamos la fecha')),
     h('div',{class:'servs'}, SESIONES.map(x => h('button',{type:'button',onclick:() => pedirServicio(x, null, 'Pedir esta sesión')}, h('span',{class:'si','aria-hidden':'true'}, x[0]), h('b',{}, x[1]), h('small',{}, x[2]), h('span',{class:'pr'}, x[3])))));
 }
@@ -3126,13 +3133,13 @@ function cardSugerencia(){
       h('button',{type:'button',class:'btn ghost sm',onclick:() => { sugOcultar(x.k); render(); }}, 'Ahora no')));
 }
 function compararPlanes(f){
-  const cur = planIdx(f.plan);
+  const cur = planIdx(f.plan), sigI = cur >= 0 && cur < 3 ? 3 : cur + 1;
   return h('section',{class:'card','aria-labelledby':'h-cp'}, h('h2',{id:'h-cp'}, 'Planes de redes', h('small',{}, 'precios por mes')),
-    h('div',{class:'planes-c'}, PLANES_WEB.map((x, i) => h('div',{class:'plan-c' + (i === cur ? ' act' : i === cur + 1 ? ' sig' : '')},
-      h('span',{class:'plan-tag'}, i === cur ? 'Tu plan' : i === cur + 1 ? 'El siguiente paso' : i === 3 ? 'El más completo' : '\u00a0'),
+    h('div',{class:'planes-c'}, PLANES_WEB.map((x, i) => h('div',{class:'plan-c' + (i === cur ? ' act' : i === sigI ? ' sig' : '')},
+      h('span',{class:'plan-tag'}, i === cur ? 'Tu plan' : i === sigI ? 'Recomendado para vos' : i === 3 ? 'El más completo' : '\u00a0'),
       h('b',{class:'plan-pn'}, x.n), h('span',{class:'plan-pp'}, pesos(x.pr)), h('small',{class:'mut'}, x.d),
       h('ul',{}, x.suma.map(t => h('li',{}, t))),
-      i > cur ? h('button',{type:'button',class:'btn sm' + (i === cur + 1 ? '' : ' ol'),onclick:() => pedirServicio(['🚀', `Cambio de plan: ${x.n}`, `${x.d} ${x.suma.join(' · ')}.`, `${pesos(x.pr)} por mes`], `Quiero pasar al plan ${x.n}.`, `Quiero pasar a ${x.n}`)}, `Quiero ${x.n}`) : null))),
+      i > cur ? h('button',{type:'button',class:'btn sm' + (i === sigI ? '' : ' ol'),onclick:() => pedirServicio(['🚀', `Cambio de plan: ${x.n}`, `${x.d} ${x.suma.join(' · ')}.`, `${pesos(x.pr)} por mes`], `Quiero pasar al plan ${x.n}.`, `Quiero pasar a ${x.n}`)}, `Quiero ${x.n}`) : null))),
     h('p',{class:'mut',style:'font-size:.8rem;margin:.8rem 0 0'}, 'Cada plan incluye lo del anterior. La inversión en publicidad va aparte. Podés sumar extras a cualquier plan.'));
 }
 VC.plan = () => {
