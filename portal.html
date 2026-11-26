@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Portal ORIGEN — v7.9 · 2026-11-26 · «Crear flyer o post con IA» (Gemini + ADN de marca) en la ficha del cliente · v7.8 · 2026-11-26 · botón «Editar / eliminar» visible arriba de la ficha del cliente · v7.7 · 2026-11-26 · presupuesto: los servicios se eligen de la lista del catálogo, sin escribir · v7.6 · 2026-11-26 · app PWA desde $500.000 y precios de web a medida nuevos (catalogo.js v1.5) · v7.5 · 2026-11-26 · sin Club por ahora · v7.4 · 2026-11-26 · publicidad "Tu propia app" en las ideas del cliente + Club de clientes por negocio (puntos, regalo a la compra N, promos con aviso al celular) · v7.3 · 2026-11-26 · plan Arranque: meta semanal de 1 publicación + 1 historia, sin ofrecer producción; ORIGEN Full como "recomendado" · v7.2 · 2026-11-26 · Próximos 7 días se desliza día por día (Hoy, Mañana, miércoles…) · v7.1 · 2026-11-26 · inicio más corto, fichas de cliente alineadas, eliminar clientes, tareas asignadas por el equipo (con registro), cliente ve ORIGEN Full como recomendado · v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
+<!-- Portal ORIGEN — v7.10 · 2026-11-26 · flyer con IA: pedido libre arriba, ideas rápidas y «pedir un cambio» sobre la misma imagen · v7.9 · 2026-11-26 · «Crear flyer o post con IA» (Gemini + ADN de marca) en la ficha del cliente · v7.8 · 2026-11-26 · botón «Editar / eliminar» visible arriba de la ficha del cliente · v7.7 · 2026-11-26 · presupuesto: los servicios se eligen de la lista del catálogo, sin escribir · v7.6 · 2026-11-26 · app PWA desde $500.000 y precios de web a medida nuevos (catalogo.js v1.5) · v7.5 · 2026-11-26 · sin Club por ahora · v7.4 · 2026-11-26 · publicidad "Tu propia app" en las ideas del cliente + Club de clientes por negocio (puntos, regalo a la compra N, promos con aviso al celular) · v7.3 · 2026-11-26 · plan Arranque: meta semanal de 1 publicación + 1 historia, sin ofrecer producción; ORIGEN Full como "recomendado" · v7.2 · 2026-11-26 · Próximos 7 días se desliza día por día (Hoy, Mañana, miércoles…) · v7.1 · 2026-11-26 · inicio más corto, fichas de cliente alineadas, eliminar clientes, tareas asignadas por el equipo (con registro), cliente ve ORIGEN Full como recomendado · v7.0 · 2026-11-26 · visual de app: widgets redondeados, anillos de progreso, reloj, calendario chico, menú dorado, inicio de equipo y de cliente rehechos · v6.6 · 2026-11-26 · precios leídos de catalogo.js (fuente única); Meta $250.000, Google Ads $300.000, SEO, ficha de Google y reseñas unidos, packs de reels · v6.5 · 2026-11-26 · set de grabación $30.000 la hora para pedir desde el portal · v6.4 · 2026-11-26 · sesión de fotos o video $30.000 la hora (mín. 2 h); publicidad variada: Meta Ads, Google Ads, SEO, Maps, reseñas, community, etc. · v6.3 · 2026-11-26 · publicidad de planes (escalera Arranque→Full con precios), sesiones de foto y video con precio y sugerencias marketineras · v6.2 · 2026-11-26 · el submenú queda justo debajo de su sección (Agenda › Calendario/Tareas) y el plan "Arranque" $100.000 · v6.1 · 2026-11-25 · portal reordenado: equipo en 4 secciones, ficha de cliente en pestañas, Mi plan y sugerencias -->
 <html lang="es-AR">
 <head>
 <meta charset="utf-8">
@@ -2226,23 +2226,52 @@ async function crearAcceso(id, usuario, btn, compartir = false){
   });
 }
 
-// Estudio de imágenes: arma flyers y posts con Gemini usando el ADN de marca (la función 'imagenes' arma el prompt en el servidor)
+// Estudio de imágenes: arma flyers y posts con IA usando el ADN de marca (la función 'imagenes' arma el prompt en el servidor)
 function boxFlyer(id, c, adn){
   const op = a => a.map(([v, t]) => h('option',{value:v}, t));
+  const IDEAS = ['Fondo oscuro y elegante','Producto grande al centro','Foto cálida y natural','Mucho espacio para el texto','Estilo moderno y limpio'];
+  const escena = h('textarea',{name:'escena',maxlength:'600',required:true,style:'min-height:90px',placeholder:'Contame con tus palabras qué querés ver. Ej.: dos copas de trago con hielo sobre la barra, luz cálida de noche, que se sienta premium'});
   const f = h('form',{class:'form',novalidate:true},
-    h('label',{}, 'Tipo de pieza', h('select',{name:'pieza'}, op([['promo','Flyer de promoción u oferta'],['post','Post de Instagram'],['historia','Historia de Instagram'],['afiche','Afiche o cartel impreso'],['menu','Menú o lista de precios'],['evento','Invitación o evento'],['saludo','Saludo por fecha especial']]))),
-    h('label',{}, 'Formato', h('select',{name:'formato'}, op([['4:5','Vertical 4:5 (post)'],['1:1','Cuadrado 1:1'],['9:16','Historia 9:16'],['3:4','Afiche vertical 3:4'],['16:9','Horizontal 16:9']]))),
-    h('label',{class:'full'}, 'Título principal *', h('input',{name:'titular',maxlength:'120',required:true,placeholder:'Ej.: 2x1 en tragos todos los viernes'})),
+    h('label',{class:'full'}, 'Qué querés ver en la imagen *', escena,
+      h('span',{class:'chips',style:'margin-top:6px'}, IDEAS.map(t => h('button',{type:'button',onclick:() => { escena.value = (escena.value.trim() ? escena.value.trim().replace(/[.,]?$/, ', ') : '') + t.toLowerCase(); escena.focus(); }}, '+ ' + t)))),
+    h('label',{class:'full'}, 'Título principal * (el texto grande del flyer)', h('input',{name:'titular',maxlength:'120',required:true,placeholder:'Ej.: 2x1 en tragos todos los viernes'})),
     h('label',{class:'full'}, 'Texto de apoyo (precio, fecha, horario, condiciones)', h('textarea',{name:'detalle',maxlength:'600',style:'min-height:60px',placeholder:'Ej.: De 20 a 23 h · Hasta agotar stock'})),
     h('label',{class:'full'}, 'Datos de contacto a incluir', h('input',{name:'contacto',maxlength:'200',value:c.raw?.whatsapp ? `WhatsApp ${c.raw.whatsapp}` : '',placeholder:'WhatsApp, dirección, @usuario'})),
-    h('label',{class:'full'}, 'Qué querés que se vea *', h('textarea',{name:'escena',maxlength:'600',required:true,style:'min-height:70px',placeholder:'Ej.: dos copas de trago con hielo sobre la barra, luz cálida de noche'})),
+    h('label',{}, 'Tipo de pieza', h('select',{name:'pieza'}, op([['promo','Flyer de promoción u oferta'],['post','Post de Instagram'],['historia','Historia de Instagram'],['afiche','Afiche o cartel impreso'],['menu','Menú o lista de precios'],['evento','Invitación o evento'],['saludo','Saludo por fecha especial']]))),
+    h('label',{}, 'Formato', h('select',{name:'formato'}, op([['4:5','Vertical (post)'],['1:1','Cuadrado'],['9:16','Historia'],['3:4','Afiche vertical'],['16:9','Horizontal']]))),
     h('label',{}, 'Estilo', h('select',{name:'estilo'}, op([['marca','Según el ADN de la marca'],['elegante','Elegante y minimalista'],['vibrante','Vibrante y con energía'],['foto','Fotográfico'],['ilustrado','Ilustrado']]))),
     h('label',{}, 'Colores (opcional)', h('input',{name:'colores',maxlength:'120',placeholder:'Ej.: negro y dorado'})),
-    h('label',{class:'full'}, 'Logo o fotos de referencia (hasta 3, opcional)', h('input',{type:'file',name:'refs',accept:'image/png,image/jpeg,image/webp',multiple:true})),
+    h('label',{class:'full'}, 'Tu foto o logo (opcional, hasta 3): la IA los usa como base', h('input',{type:'file',name:'refs',accept:'image/png,image/jpeg,image/webp',multiple:true})),
     h('div',{class:'form-acc full'}, h('button',{class:'btn',type:'submit'}, '✦ Generar imagen')));
-  const out = h('div',{class:'full','aria-live':'polite'});
-  f.append(out);
+  const out = h('div',{class:'full','aria-live':'polite'}); f.append(out);
   const b64 = file => new Promise((ok, no) => { const r = new FileReader(); r.onload = () => ok(String(r.result).split(',')[1]); r.onerror = no; r.readAsDataURL(file); });
+  const vers = []; // versiones generadas en esta sesión (cada cambio cuesta una imagen: se puede volver atrás)
+  const llamar = async body => {
+    const { data, error } = await sb.functions.invoke('imagenes', { body });
+    if (error){ let m = 'El generador todavía no está activado.'; try { m = (await error.context.json()).error || m; } catch {} throw new Error(m); }
+    return data;
+  };
+  const mostrar = () => {
+    const v = vers[vers.length - 1], src = `data:${v.tipo};base64,${v.imagen}`;
+    const cambio = h('textarea',{maxlength:'600',style:'min-height:70px','aria-label':'Qué querés cambiar de esta imagen',placeholder:'Ej.: hacé el título más grande · cambiá el fondo a negro · sacá el texto de abajo · más luz'});
+    const AJ = ['Título más grande','Fondo más oscuro','Más luminoso','Más elegante','Menos elementos'];
+    const aplicar = async btn => {
+      const t = cambio.value.trim(); if (!t) { cambio.setAttribute('aria-invalid','true'); cambio.focus(); return; }
+      cambio.removeAttribute('aria-invalid');
+      await ocupado(btn, async () => {
+        try { const d = await llamar({ cliente_id:id, modo:'cambio', cambio:t, base:v.imagen, pieza:f.pieza.value, formato:f.formato.value }); vers.push(d); mostrar(); }
+        catch(er){ toast(er.message, true); }
+      });
+    };
+    fill(out, h('img',{src, alt:`Imagen generada: ${f.titular.value}`, style:'max-width:100%;max-height:70vh;border-radius:10px;display:block;margin-bottom:8px'}),
+      h('div',{class:'row',style:'gap:6px;margin-bottom:10px'},
+        h('a',{class:'btn ol sm',href:src,download:`${limpio(c.nombre + '-' + f.titular.value)}.png`}, 'Descargar'),
+        vers.length > 1 ? h('button',{type:'button',class:'btn ghost sm',onclick:() => { vers.pop(); mostrar(); }}, '↩ Volver a la versión anterior') : null),
+      h('label',{class:'full'}, '¿Querés cambiar algo? Pedíselo a la IA', cambio,
+        h('span',{class:'chips',style:'margin-top:6px'}, AJ.map(t => h('button',{type:'button',onclick:() => { cambio.value = t; cambio.focus(); }}, t)))),
+      h('button',{type:'button',class:'btn sm',style:'margin-top:8px',onclick:e => aplicar(e.currentTarget)}, '✦ Aplicar el cambio'),
+      h('p',{class:'mut',style:'margin-top:6px'}, 'Cada cambio genera una imagen nueva (tiene costo). Revisá los textos antes de publicar: la IA puede equivocarse en una letra.'));
+  };
   f.addEventListener('submit', async e => {
     e.preventDefault(); if (!validar(f)) return;
     const files = [...f.refs.files].slice(0, 3);
@@ -2251,12 +2280,8 @@ function boxFlyer(id, c, adn){
     await ocupado(e.submitter, async () => {
       const body = { cliente_id:id, refs:await Promise.all(files.map(async x => ({ tipo:x.type, b64:await b64(x) }))) };
       for (const k of ['pieza','formato','titular','detalle','contacto','escena','estilo','colores']) body[k] = f[k].value.trim();
-      const { data, error } = await sb.functions.invoke('imagenes', { body });
-      if (error){ let m = 'El generador todavía no está activado.'; try { m = (await error.context.json()).error || m; } catch {} fill(out, h('p',{class:'pre'}, m)); return; }
-      const src = `data:${data.tipo};base64,${data.imagen}`;
-      fill(out, h('img',{src, alt:`Imagen generada: ${body.titular}`, style:'max-width:100%;max-height:70vh;border-radius:10px;display:block;margin-bottom:8px'}),
-        h('a',{class:'btn ol sm',href:src,download:`${limpio(c.nombre + '-' + body.titular)}.${data.tipo === 'image/jpeg' ? 'jpg' : 'png'}`}, 'Descargar'),
-        h('p',{class:'mut',style:'margin-top:6px'}, 'Revisá los textos antes de publicar: la IA puede equivocarse en una letra. Si algo no te cierra, ajustá el pedido y generá de nuevo.'));
+      try { vers.length = 0; vers.push(await llamar(body)); mostrar(); }
+      catch(er){ fill(out, h('p',{class:'pre'}, er.message)); }
     });
   });
   return h('details',{class:'box'}, h('summary',{}, h('span',{}, 'Crear flyer o post con IA'), pill(adn ? 'usa el ADN' : 'sin ADN', adn ? 'ok' : 'warn')),
